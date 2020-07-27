@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -26,7 +27,7 @@ import mx.com.sw.exceptions.GeneralException;
 
 public abstract class ResponseHandler<T> {
     public abstract T HandleException(Throwable ex);
-    public T PostHTTPJson(String url, String path, HashMap<String, String> headers, String jsonBody, Class<T> contentClass){
+    public T PostHTTPJson(String url, String path, HashMap<String, String> headers, String jsonBody, RequestConfig configHTTP, Class<T> contentClass){
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try{
             client.start();
@@ -35,6 +36,9 @@ public abstract class ResponseHandler<T> {
                 for(Map.Entry<String, String> entry : headers.entrySet()){
                     request.addHeader(new BasicHeader(entry.getKey(), entry.getValue()));
                 }
+            }
+            if(configHTTP != null){
+                request.setConfig(configHTTP);
             }
             if(jsonBody != null){
                 StringEntity sEntity = new StringEntity(jsonBody);
@@ -68,7 +72,7 @@ public abstract class ResponseHandler<T> {
         }
     }
 
-    public T PostHTTPMultipart(String url, String path, HashMap<String, String> headers, String body, Class<T> contentClass){
+    public T PostHTTPMultipart(String url, String path, HashMap<String, String> headers, String body, RequestConfig configHTTP, Class<T> contentClass){
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try{
             client.start();
@@ -77,6 +81,9 @@ public abstract class ResponseHandler<T> {
                 for(Map.Entry<String, String> entry : headers.entrySet()){
                     request.addHeader(new BasicHeader(entry.getKey(), entry.getValue()));
                 }
+            }
+            if(configHTTP != null){
+                request.setConfig(configHTTP);
             }
             if(body != null){
                 MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -113,7 +120,7 @@ public abstract class ResponseHandler<T> {
         }
     }
 
-    public T GetHTTP(String url, String path, HashMap<String, String> headers, Class<T> contentClass){
+    public T GetHTTP(String url, String path, HashMap<String, String> headers, RequestConfig configHTTP, Class<T> contentClass){
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try{
             client.start();
@@ -122,6 +129,9 @@ public abstract class ResponseHandler<T> {
                 for(Map.Entry<String, String> entry : headers.entrySet()){
                     request.addHeader(new BasicHeader(entry.getKey(), entry.getValue()));
                 }
+            }
+            if(configHTTP != null){
+                request.setConfig(configHTTP);
             }
             Future<HttpResponse> future = client.execute(request, null);
             HttpResponse response = future.get(5, TimeUnit.MINUTES);

@@ -1,21 +1,24 @@
 package mx.com.sw.helpers;
 
 import org.apache.http.HttpHost;
-import org.apache.http.client.config.RequestConfig.Builder;
+import org.apache.http.client.config.RequestConfig;
 
 import mx.com.sw.exceptions.GeneralException;
 
 public class GeneralHelpers {
-    public static void setProxy(Builder build, String host, int port) throws GeneralException {
+    public static RequestConfig setProxyAndTimeOut(String host, int port) throws GeneralException {
+		RequestConfig.Builder options = RequestConfig.custom();
 		if(!stringEmptyOrNull(host)){
 			try {
 				HttpHost proxy = new HttpHost(host, port);
-				build.setProxy(proxy);
+				options.setProxy(proxy);
 			} catch (Exception e) {
 				throw new GeneralException(400, e.getMessage());
 			}
 		}
-    }
+		options.setSocketTimeout(420000).setConnectTimeout(120000).setConnectionRequestTimeout(300000);
+		return options.build();
+	}
     public static boolean stringEmptyOrNull(String st) {
 	    return st == null || st.trim().isEmpty();
     }

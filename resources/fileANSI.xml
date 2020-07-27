@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante LugarExpedicion="35079" Moneda="MXN" TipoCambio="1" certificado="" descuento="587.87" fecha="2017-02-08T15:27:25" folio="37" formaDePago="Pago en una sola exhibici�n" metodoDePago="NA" noCertificado="" sello="" serie="G" subTotal="3500.00" tipoDeComprobante="egreso" total="2912.13" version="3.2" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
+	<cfdi:Emisor nombre="C.V." rfc="GPI1106108S8">
+		<cfdi:RegimenFiscal Regimen="601"/>
+	</cfdi:Emisor>
+	<cfdi:Receptor nombre="" rfc="GALA630720712"/>
+	<cfdi:Conceptos>
+		<cfdi:Concepto cantidad="1" descripcion="Pago de n�mina" importe="3500.00" unidad="ACT" valorUnitario="3500.00"/>
+	</cfdi:Conceptos>
+	<cfdi:Impuestos/>
+	<cfdi:Complemento>
+		<nomina12:Nomina FechaFinalPago="2016-12-04" FechaInicialPago="2016-11-28" FechaPago="2016-12-02" NumDiasPagados="7" TipoNomina="O" TotalDeducciones="587.87" TotalOtrosPagos="0.00" TotalPercepciones="3500.00" Version="1.2" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
+			<nomina12:Emisor RegistroPatronal="B2832472107"/>
+			<nomina12:Receptor Antig�edad="P0W" ClaveEntFed="DUR" Curp="GALA630720HCLBPN02" FechaInicioRelLaboral="2016-12-01" NumEmpleado="170131122036552" NumSeguridadSocial="89846315730" PeriodicidadPago="02" RiesgoPuesto="1" SalarioBaseCotApor="522.6" SalarioDiarioIntegrado="500" TipoContrato="01" TipoRegimen="02"/>
+			<nomina12:Percepciones TotalExento="0.00" TotalGravado="3500.00" TotalSueldos="3500.00">
+				<nomina12:Percepcion Clave="001" Concepto="Sueldos, Salarios Rayas y Jornales" ImporteExento="0.00" ImporteGravado="3500.00" TipoPercepcion="001"/>
+			</nomina12:Percepciones>
+			<nomina12:Deducciones TotalImpuestosRetenidos="492.24" TotalOtrasDeducciones="95.63">
+				<nomina12:Deduccion Clave="002" Concepto="ISR" Importe="492.24" TipoDeduccion="002"/>
+				<nomina12:Deduccion Clave="001" Concepto="Seguridad social" Importe="95.63" TipoDeduccion="001"/>
+			</nomina12:Deducciones>
+		</nomina12:Nomina>
+	</cfdi:Complemento>
+</cfdi:Comprobante>
