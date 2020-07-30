@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import mx.com.sw.helpers.BuildSettings;
+import mx.com.sw.services.cancelation.responses.CancelationResponse;
 
 public class CancelationTest {
     private BuildSettings settings;

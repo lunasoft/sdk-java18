@@ -1,9 +1,14 @@
 package mx.com.sw.services.cancelation;
 
+import java.util.HashMap;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import mx.com.sw.services.Services;
+import mx.com.sw.services.cancelation.requests.CancelationRequestCSD;
+import mx.com.sw.services.cancelation.requests.CancelationRequestPFX;
+import mx.com.sw.services.cancelation.responses.CancelationResponse;
 
 public abstract class CancelationService extends Services {
 
@@ -36,5 +41,11 @@ public abstract class CancelationService extends Services {
         objectRequest.uuid = uuid;
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
+    }
+    protected HashMap<String, String> GetHeaders(){
+        this.setupRequest();
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Authorization", "bearer " + this.getToken());
+        return headers;
     }
 }

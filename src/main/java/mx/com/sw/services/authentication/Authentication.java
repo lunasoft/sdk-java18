@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.apache.http.client.config.RequestConfig;
 
 import mx.com.sw.helpers.GeneralHelpers;
+import mx.com.sw.services.authentication.responses.AuthenticationResponse;
+import mx.com.sw.services.authentication.responses.AuthenticationResponseHandler;
 
 public class Authentication extends AuthenticationService {
     private AuthenticationResponseHandler handler;
@@ -14,14 +16,14 @@ public class Authentication extends AuthenticationService {
     }
 
     @Override
-    public AuthenticationResponse getToken() {
+    public AuthenticationResponse authenticate() {
         try {
-            new AuthenticationValidation(GetUrl(), GetUser(), GetPassword(), GetToken());
+            new AuthenticationValidation(getUrl(), getUser(), getPassword(), getToken());
             HashMap<String, String> headers = new HashMap<String, String>();
-            headers.put("user", GetUser());
-            headers.put("password", GetPassword());
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(GetProxy(), GetProxyPort());
-            return handler.GetHTTP(GetUrl(), "security/authenticate", headers, config, AuthenticationResponse.class);
+            headers.put("user", getUser());
+            headers.put("password", getPassword());
+            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+            return handler.GetHTTP(getUrl(), "security/authenticate", headers, config, AuthenticationResponse.class);
         } catch (Exception e) {
             return handler.HandleException(e);
         }

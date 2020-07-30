@@ -1,4 +1,4 @@
-package mx.com.sw.services.cancelation;
+package mx.com.sw.services.cancelation.requests;
 
 public class CancelationRequestCSD {
     public String uuid;

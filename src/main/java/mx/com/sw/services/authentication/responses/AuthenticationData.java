@@ -1,4 +1,4 @@
-package mx.com.sw.services.authentication;
+package mx.com.sw.services.authentication.responses;
 
 public class AuthenticationData {
     public String token;

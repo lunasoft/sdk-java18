@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.apache.http.client.config.RequestConfig;
 
 import mx.com.sw.helpers.GeneralHelpers;
+import mx.com.sw.services.cancelation.responses.CancelationResponse;
+import mx.com.sw.services.cancelation.responses.CancelationResponseHandler;
 
 public class Cancelation extends CancelationService {
     private CancelationResponseHandler handler;
@@ -20,22 +22,15 @@ public class Cancelation extends CancelationService {
         handler = new CancelationResponseHandler();
     }
 
-    private HashMap<String, String> GetHeaders(){
-        this.setupRequest();
-        HashMap<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", "bearer " + this.GetToken());
-        return headers;
-    }
-
     @Override
     CancelationResponse Cancelar(String cer, String key, String rfc, String password, String uuid) {
         try {
-            new CancelationValidation(GetUrl(), GetUser(), GetPassword(), GetToken()).ValidateRequestCSD(cer, key, password, uuid);
+            new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).ValidateRequestCSD(cer, key, password, uuid);
             HashMap<String, String> headers = GetHeaders();
             headers.put("Content-Type", "application/json");
             String jsonBody = this.RequestCancelar(cer, key, rfc, password, uuid);
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(GetProxy(), GetProxyPort());
-            return handler.PostHTTPJson(GetUrl(), "cfdi33/cancel/csd", headers, jsonBody, config, CancelationResponse.class);
+            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+            return handler.PostHTTPJson(getUrl(), "cfdi33/cancel/csd", headers, jsonBody, config, CancelationResponse.class);
         } catch (Exception e) {
             return handler.HandleException(e);
         }
@@ -44,12 +39,12 @@ public class Cancelation extends CancelationService {
     @Override
     CancelationResponse Cancelar(String pfx, String rfc, String password, String uuid) {
         try {
-            new CancelationValidation(GetUrl(), GetUser(), GetPassword(), GetToken()).ValidateRequestPFX(pfx, password, uuid);
+            new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).ValidateRequestPFX(pfx, password, uuid);
             HashMap<String, String> headers = GetHeaders();
             headers.put("Content-Type", "application/json");
             String jsonBody = this.RequestCancelar(pfx, rfc, password, uuid);
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(GetProxy(), GetProxyPort());
-            return handler.PostHTTPJson(GetUrl(), "cfdi33/cancel/pfx", headers, jsonBody, config, CancelationResponse.class);
+            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+            return handler.PostHTTPJson(getUrl(), "cfdi33/cancel/pfx", headers, jsonBody, config, CancelationResponse.class);
         } catch (Exception e) {
             return handler.HandleException(e);
         }
@@ -59,11 +54,11 @@ public class Cancelation extends CancelationService {
     CancelationResponse Cancelar(String rfc, String uuid) {
         try {
             String path = String.format("cfdi33/cancel/%s/%s", rfc, uuid);
-            new CancelationValidation(GetUrl(), GetUser(), GetPassword(), GetToken()).ValidateRequestUUID(rfc, uuid);
+            new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).ValidateRequestUUID(rfc, uuid);
             HashMap<String, String> headers = GetHeaders();
             headers.put("Content-Type", "application/json");
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(GetProxy(), GetProxyPort());
-            return handler.PostHTTPJson(GetUrl(), path, headers, null, config, CancelationResponse.class);
+            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+            return handler.PostHTTPJson(getUrl(), path, headers, null, config, CancelationResponse.class);
         } catch (Exception e) {
             return handler.HandleException(e);
         }
@@ -72,13 +67,13 @@ public class Cancelation extends CancelationService {
     @Override
     CancelationResponse Cancelar(String xmlCancelation) {
         try {
-            new CancelationValidation(GetUrl(), GetUser(), GetPassword(), GetToken()).ValidateRequestXML(xmlCancelation);
+            new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).ValidateRequestXML(xmlCancelation);
             HashMap<String, String> headers = GetHeaders();
             String boundary = UUID.randomUUID().toString();
             xmlCancelation = String.format("--%s\r\nContent-Disposition: form-data; name=xml; filename=xml\r\nContent-Type: application/xml\r\n\r\n%s\r\n--%s--", boundary, xmlCancelation, boundary);
             headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(GetProxy(), GetProxyPort());
-            return handler.PostHTTPMultipart(GetUrl(), "cfdi33/cancel/xml", headers, xmlCancelation, config, CancelationResponse.class);
+            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+            return handler.PostHTTPMultipart(getUrl(), "cfdi33/cancel/xml", headers, xmlCancelation, config, CancelationResponse.class);
         } catch (Exception e) {
             return handler.HandleException(e);
         }

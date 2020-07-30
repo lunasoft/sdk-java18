@@ -1,13 +1,49 @@
 package mx.com.sw.helpers;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.TimeZone;
+import java.util.UUID;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import mx.com.sw.services.sign.Sign;
 
 import java.util.Base64;
+import java.util.Date;
 
 public class BuildSettings {
+    private String simpleXml;
+    private Templates cfdiXSLT;
+    public BuildSettings() {
+        try {
+            simpleXml = new String(Files.readAllBytes(Paths.get("resources/file.xml")), "UTF-8");
+            cfdiXSLT = loadXslt("resources/XSLT/cadenaoriginal_3_3.xslt");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String Url = "http://services.test.sw.com.mx";
     public String UrlSWServices = "https://api.test.sw.com.mx";
     public String User = "demo";
@@ -41,12 +77,70 @@ public class BuildSettings {
         }
     }
 
-    private String loadResourceAsString(String path){
+    private String loadResourceAsString(String path) {
         try {
             byte[] binaryData = Files.readAllBytes(Paths.get(path));
-        return new String(binaryData, "UTF-8");
+            return new String(binaryData, "UTF-8");
         } catch (IOException e) {
             return "";
         }
+    }
+
+    private Templates loadXslt(String path) {
+        TransformerFactory factory = TransformerFactory.newInstance();
+        StreamSource xslt = new StreamSource(new File(path));
+        try {
+            return factory.newTemplates(xslt);
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String changeDateAndSign(String xml) {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        date.setTimeZone(TimeZone.getTimeZone("America/Mexico_City"));
+        String datetime;
+        datetime = date.format(new Date());
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        DocumentBuilder builder;
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer;
+        try
+        {  
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString().replace("-","");
+            builder = factory.newDocumentBuilder();
+            Document doc = builder.parse( new InputSource( new StringReader( xml ) ) );
+            doc.getDocumentElement().setAttribute("Fecha",datetime);
+            doc.getDocumentElement().setAttribute("Folio",randomUUIDString+"sdk-java");
+            Sign sign = new Sign();
+            String cadena = sign.getCadenaOriginal(doc, cfdiXSLT);
+            String sello = sign.getSign(cadena, Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/CSD_EKU9003173C9.key")),"12345678a");
+            doc.getDocumentElement().setAttribute("Sello",sello);
+            transformer = tf.newTransformer();
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            String output = writer.getBuffer().toString();
+            return output;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getCFDI(){
+        return changeDateAndSign(simpleXml);
+    }
+    public String getCFDIB64(){
+        String cfdi = changeDateAndSign(simpleXml);
+        try {
+            return Base64.getEncoder().encodeToString(cfdi.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

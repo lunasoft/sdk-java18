@@ -1,4 +1,4 @@
-package mx.com.sw.services.cancelation;
+package mx.com.sw.services.cancelation.responses;
 
 import mx.com.sw.helpers.ResponseHelper;
 import mx.com.sw.services.ResponseHandler;

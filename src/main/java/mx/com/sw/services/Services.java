@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.authentication.Authentication;
-import mx.com.sw.services.authentication.AuthenticationResponse;
+import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 
 public class Services {
     private String token;
@@ -16,25 +16,25 @@ public class Services {
     private int proxyPort;
     private Instant expirationDate;
     
-    protected String GetToken(){
+    protected String getToken(){
         return this.token;
     }
-    protected String GetUrl(){
+    protected String getUrl(){
         return this.url;
     }
-    protected String GetUser(){
+    protected String getUser(){
         return this.user;
     }
-    protected String GetPassword(){
+    protected String getPassword(){
         return this.password;
     }
-    protected String GetProxy(){
+    protected String getProxy(){
         return this.proxy;
     }
-    protected int GetProxyPort(){
+    protected int getProxyPort(){
         return this.proxyPort;
     }
-    protected Instant GetExpirationDate(){
+    protected Instant getExpirationDate(){
         return this.expirationDate;
     }
 
@@ -57,7 +57,7 @@ public class Services {
     protected Services setupRequest(){
         if(GeneralHelpers.stringEmptyOrNull(token) || Instant.now().isAfter(expirationDate)){
             Authentication auth = new Authentication(url, user, password, proxy, proxyPort);
-            AuthenticationResponse response = auth.getToken();
+            AuthenticationResponse response = auth.authenticate();
             if(response.status.equalsIgnoreCase("success")){
                 this.token = response.data.token;
                 this.expirationDate = Instant.ofEpochSecond(response.data.expires_in);
