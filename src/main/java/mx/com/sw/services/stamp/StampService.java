@@ -41,7 +41,7 @@ public abstract class StampService extends Services {
             headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
             xml = this.getMultipartBody(xml, boundary);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            String path = String.format("cfdi33/%s/%s/%s", operation, version, format);
+            String path = String.format(formatPath, operation, version, format);
             return handler.PostHTTPMultipart(getUrl(), path, headers, xml, config, classType);
         } catch (Exception ex) {
             return handler.HandleException(ex);
