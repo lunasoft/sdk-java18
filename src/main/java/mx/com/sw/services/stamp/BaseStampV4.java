@@ -1,11 +1,5 @@
 package mx.com.sw.services.stamp;
 
-import java.util.HashMap;
-import java.util.UUID;
-
-import org.apache.http.client.config.RequestConfig;
-
-import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.stamp.responses.StampResponseHandlerV1;
 import mx.com.sw.services.stamp.responses.StampResponseHandlerV2;
 import mx.com.sw.services.stamp.responses.StampResponseHandlerV3;

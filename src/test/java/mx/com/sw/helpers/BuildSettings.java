@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -22,6 +23,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import com.google.gson.Gson;
+
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -32,10 +35,13 @@ import java.util.Date;
 
 public class BuildSettings {
     private String simpleXml;
+    private String jsonCfdi;
     private Templates cfdiXSLT;
+
     public BuildSettings() {
         try {
             simpleXml = new String(Files.readAllBytes(Paths.get("resources/file.xml")), "UTF-8");
+            jsonCfdi = new String(Files.readAllBytes(Paths.get("resources/cfdi.json")), "UTF-8");
             cfdiXSLT = loadXslt("resources/XSLT/cadenaoriginal_3_3.xslt");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -50,6 +56,7 @@ public class BuildSettings {
     public String Password = "123456789";
     public String CerPassword = "12345678a";
     public String Token = "T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRiMTFPRlV3a2kyOWI5WUZHWk85ODJtU0M2UlJEUkFTVXhYTDNKZVdhOXIySE1tUVlFdm1jN3kvRStBQlpLRi9NeWJrd0R3clhpYWJrVUMwV0Mwd3FhUXdpUFF5NW5PN3J5cklMb0FETHlxVFRtRW16UW5ZVjAwUjdCa2g0Yk1iTExCeXJkVDRhMGMxOUZ1YWlIUWRRVC8yalFTNUczZXdvWlF0cSt2UW0waFZKY2gyaW5jeElydXN3clNPUDNvU1J2dm9weHBTSlZYNU9aaGsvalpQMUxrUndzK0dHS2dpTittY1JmR3o2M3NqNkh4MW9KVXMvUHhZYzVLQS9UK2E1SVhEZFJKYWx4ZmlEWDFuSXlqc2ZRYXlUQk1ldlZkU2tEdU10NFVMdHZKUURLblBxakw0SDl5bUxabDFLNmNPbEp6b3Jtd2Q1V2htRHlTdDZ6eTFRdUNnYnVvK2tuVUdhMmwrVWRCZi9rQkU9.7k2gVCGSZKLzJK5Ky3Nr5tKxvGSJhL13Q8W-YhT0uIo";
+    public String Email = "unexestingemail@yopmail.com";
 
     public String Cer = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.cer");
     public String Key = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.key");
@@ -97,30 +104,32 @@ public class BuildSettings {
         return null;
     }
 
-    private String changeDateAndSign(String xml, boolean signed) {
+    private String getDateCFDI(){
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         date.setTimeZone(TimeZone.getTimeZone("America/Mexico_City"));
-        String datetime;
-        datetime = date.format(new Date());
+        return date.format(new Date());
+    }
 
+    private String changeDateAndSign(String xml, boolean signed) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
         DocumentBuilder builder;
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer;
-        try
-        {  
+        try {
             UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString().replace("-","");
+            String randomUUIDString = uuid.toString().replace("-", "");
             builder = factory.newDocumentBuilder();
-            Document doc = builder.parse( new InputSource( new StringReader( xml ) ) );
-            doc.getDocumentElement().setAttribute("Fecha",datetime);
-            doc.getDocumentElement().setAttribute("Folio",randomUUIDString+"sdk-java");
-            if(signed){
+            Document doc = builder.parse(new InputSource(new StringReader(xml)));
+            doc.getDocumentElement().setAttribute("Fecha", getDateCFDI());
+            doc.getDocumentElement().setAttribute("Folio", randomUUIDString + "sdk-java");
+            if (signed) {
                 Sign sign = new Sign();
                 String cadena = sign.getCadenaOriginal(doc, cfdiXSLT);
-                String sello = sign.getSign(cadena, Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/CSD_EKU9003173C9.key")),"12345678a");
-                doc.getDocumentElement().setAttribute("Sello",sello);
+                String sello = sign.getSign(cadena,
+                        Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/CSD_EKU9003173C9.key")),
+                        "12345678a");
+                doc.getDocumentElement().setAttribute("Sello", sello);
             }
             transformer = tf.newTransformer();
             StringWriter writer = new StringWriter();
@@ -133,10 +142,11 @@ public class BuildSettings {
         }
     }
 
-    public String getCFDI(boolean signed){
+    public String getCFDI(boolean signed) {
         return changeDateAndSign(simpleXml, signed);
     }
-    public String getCFDIB64(boolean signed){
+
+    public String getCFDIB64(boolean signed) {
         String cfdi = changeDateAndSign(simpleXml, signed);
         try {
             return Base64.getEncoder().encodeToString(cfdi.getBytes("UTF-8"));
@@ -144,5 +154,17 @@ public class BuildSettings {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public String getJsonCFDI(){
+        Gson gson = new Gson();
+        Map<String, Object> data = gson.fromJson(jsonCfdi, Map.class);
+        if(data != null){
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString().replace("-", "");
+            data.put("Folio", randomUUIDString + "sdk-java");
+            data.put("Fecha", getDateCFDI());
+        }
+        return gson.toJson(data);
     }
 }
