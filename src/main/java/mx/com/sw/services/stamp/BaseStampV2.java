@@ -17,75 +17,37 @@ import mx.com.sw.services.stamp.responses.StampResponseV4;
 
 public abstract class BaseStampV2 extends StampService {
     private String operation;
+    private String formatPath;
+
     protected BaseStampV2(String url, String user, String password, String operation, String proxy, int proxyPort) {
         super(url, user, password, proxy, proxyPort);
         this.operation = operation;
+        this.formatPath = "cfdi33/v2/%s/%s/%s";
     }
+
     protected BaseStampV2(String url, String token, String operation, String proxy, int proxyPort) {
         super(url, token, proxy, proxyPort);
         this.operation = operation;
+        this.formatPath = "cfdi33/v2/%s/%s/%s";
     }
+
     public StampResponseV1 TimbrarV1(String xml, boolean isBase64){
         StampResponseHandlerV1 handler = new StampResponseHandlerV1();
-        try {
-            String format = isBase64 ? "b64" : "";
-            String boundary = UUID.randomUUID().toString();
-            HashMap<String, String> headers = this.getHeaders();
-            headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
-            xml = this.getMultipartBody(xml, boundary);
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            String path = String.format("cfdi33/v2/%s/%s/%s", operation, "v1", format);
-            return handler.PostHTTPMultipart(getUrl(), path, headers, xml, config, StampResponseV1.class);
-        } catch (Exception ex) {
-            return handler.HandleException(ex);
-        }
+        return super.Timbrar(xml, isBase64, formatPath, operation, "v1", handler, StampResponseV1.class);
     }
 
     public StampResponseV2 TimbrarV2(String xml, boolean isBase64){
         StampResponseHandlerV2 handler = new StampResponseHandlerV2();
-        try {
-            String format = isBase64 ? "b64" : "";
-            String boundary = UUID.randomUUID().toString();
-            HashMap<String, String> headers = this.getHeaders();
-            headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
-            xml = this.getMultipartBody(xml, boundary);
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            String path = String.format("cfdi33/v2/%s/%s/%s", operation, "v2", format);
-            return handler.PostHTTPMultipart(getUrl(), path, headers, xml, config, StampResponseV2.class);
-        } catch (Exception ex) {
-            return handler.HandleException(ex);
-        }
+        return super.Timbrar(xml, isBase64, formatPath, operation, "v2", handler, StampResponseV2.class);
     }
 
     public StampResponseV3 TimbrarV3(String xml, boolean isBase64){
         StampResponseHandlerV3 handler = new StampResponseHandlerV3();
-        try {
-            String format = isBase64 ? "b64" : "";
-            String boundary = UUID.randomUUID().toString();
-            HashMap<String, String> headers = this.getHeaders();
-            headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
-            xml = this.getMultipartBody(xml, boundary);
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            String path = String.format("cfdi33/v2/%s/%s/%s", operation, "v3", format);
-            return handler.PostHTTPMultipart(getUrl(), path, headers, xml, config, StampResponseV3.class);
-        } catch (Exception ex) {
-            return handler.HandleException(ex);
-        }
+        return super.Timbrar(xml, isBase64, formatPath, operation, "v3", handler, StampResponseV3.class);
     }
 
     public StampResponseV4 TimbrarV4(String xml, boolean isBase64){
         StampResponseHandlerV4 handler = new StampResponseHandlerV4();
-        try {
-            String format = isBase64 ? "b64" : "";
-            String boundary = UUID.randomUUID().toString();
-            HashMap<String, String> headers = this.getHeaders();
-            headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
-            xml = this.getMultipartBody(xml, boundary);
-            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            String path = String.format("cfdi33/v2/%s/%s/%s", operation, "v4", format);
-            return handler.PostHTTPMultipart(getUrl(), path, headers, xml, config, StampResponseV4.class);
-        } catch (Exception ex) {
-            return handler.HandleException(ex);
-        }
+        return super.Timbrar(xml, isBase64, formatPath, operation, "v4", handler, StampResponseV4.class);
     }
 }
