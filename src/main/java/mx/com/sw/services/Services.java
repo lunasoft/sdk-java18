@@ -42,7 +42,7 @@ public class Services {
     {
         this.url = GeneralHelpers.noralizeUrl(url);
         this.token = token;
-        this.expirationDate = Instant.now().plus(2, ChronoUnit.DECADES);
+        this.expirationDate = Instant.now().plus(7300, ChronoUnit.DAYS);
         this.proxy = proxy;
         this.proxyPort = proxyPort;
     }

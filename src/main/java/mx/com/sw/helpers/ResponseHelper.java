@@ -70,7 +70,7 @@ public class ResponseHelper {
         };
     }
 
-    private static String getStackError(Throwable ex){
+    public static String getStackError(Throwable ex){
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         ex.printStackTrace(printWriter);

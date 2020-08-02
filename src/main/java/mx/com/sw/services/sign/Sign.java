@@ -4,7 +4,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.security.Signature;
 
-import javax.xml.bind.DatatypeConverter;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -16,6 +15,9 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.ssl.PKCS8Key;
 import org.w3c.dom.Document;
 
+import mx.com.sw.helpers.GeneralHelpers;
+import mx.com.sw.helpers.ResponseHelper;
+
 public class Sign {
 
     public String getSign(String cadena, byte[] privateKey, String passwordPrivateKey){
@@ -25,11 +27,10 @@ public class Sign {
             Signature signature = Signature.getInstance("SHA256withRSA");
             signature.initSign(pk);
             signature.update(cadena.getBytes("UTF-8"));
-            return new String(DatatypeConverter.printBase64Binary(signature.sign()));
+            return GeneralHelpers.encodeBase64(signature.sign());
         }catch (Exception e){
-            e.printStackTrace();
+            return ResponseHelper.getStackError(e);
         }
-        return null;
     }
     
     public String getCadenaOriginal(String xml, Templates xslt) {
@@ -42,11 +43,10 @@ public class Sign {
             StringBuffer sb = outWriter.getBuffer();
             return sb.toString();
         } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
+            return ResponseHelper.getStackError(e);
         } catch (TransformerException e) {
-            e.printStackTrace();
+            return ResponseHelper.getStackError(e);
         }
-        return null;
     }
     public String getCadenaOriginal(Document xml, Templates xslt) {
         try {
@@ -58,10 +58,9 @@ public class Sign {
             StringBuffer sb = outWriter.getBuffer();
             return sb.toString();
         } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
+            return ResponseHelper.getStackError(e);
         } catch (TransformerException e) {
-            e.printStackTrace();
+            return ResponseHelper.getStackError(e);
         }
-        return null;
     }
 }

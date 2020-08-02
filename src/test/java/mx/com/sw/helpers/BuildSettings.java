@@ -97,7 +97,7 @@ public class BuildSettings {
         return null;
     }
 
-    private String changeDateAndSign(String xml) {
+    private String changeDateAndSign(String xml, boolean signed) {
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         date.setTimeZone(TimeZone.getTimeZone("America/Mexico_City"));
         String datetime;
@@ -116,10 +116,12 @@ public class BuildSettings {
             Document doc = builder.parse( new InputSource( new StringReader( xml ) ) );
             doc.getDocumentElement().setAttribute("Fecha",datetime);
             doc.getDocumentElement().setAttribute("Folio",randomUUIDString+"sdk-java");
-            Sign sign = new Sign();
-            String cadena = sign.getCadenaOriginal(doc, cfdiXSLT);
-            String sello = sign.getSign(cadena, Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/CSD_EKU9003173C9.key")),"12345678a");
-            doc.getDocumentElement().setAttribute("Sello",sello);
+            if(signed){
+                Sign sign = new Sign();
+                String cadena = sign.getCadenaOriginal(doc, cfdiXSLT);
+                String sello = sign.getSign(cadena, Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/CSD_EKU9003173C9.key")),"12345678a");
+                doc.getDocumentElement().setAttribute("Sello",sello);
+            }
             transformer = tf.newTransformer();
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(doc), new StreamResult(writer));
@@ -131,11 +133,11 @@ public class BuildSettings {
         }
     }
 
-    public String getCFDI(){
-        return changeDateAndSign(simpleXml);
+    public String getCFDI(boolean signed){
+        return changeDateAndSign(simpleXml, signed);
     }
-    public String getCFDIB64(){
-        String cfdi = changeDateAndSign(simpleXml);
+    public String getCFDIB64(boolean signed){
+        String cfdi = changeDateAndSign(simpleXml, signed);
         try {
             return Base64.getEncoder().encodeToString(cfdi.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
