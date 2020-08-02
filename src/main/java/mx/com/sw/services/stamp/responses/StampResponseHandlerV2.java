@@ -6,7 +6,7 @@ import mx.com.sw.services.ResponseHandler;
 public class StampResponseHandlerV2 extends ResponseHandler<StampResponseV2> {
 
     @Override
-    public StampResponseV2 HandleException(Throwable ex) {
+    public StampResponseV2 handleException(Throwable ex) {
         return ResponseHelper.toStampResponseV2(ex);
     }
     

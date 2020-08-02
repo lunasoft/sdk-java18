@@ -19,7 +19,7 @@ public class IssueJsonTest {
     public void testStampV1(){
         IssueJson stamp = new IssueJson(settings.Url, settings.User, settings.Password, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV1 response = stamp.TimbrarV1(json);
+        StampResponseV1 response = stamp.timbrarV1(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -31,7 +31,7 @@ public class IssueJsonTest {
     public void testStampV2(){
         IssueJson stamp = new IssueJson(settings.Url, settings.User, settings.Password, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV2 response = stamp.TimbrarV2(json);
+        StampResponseV2 response = stamp.timbrarV2(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -43,7 +43,7 @@ public class IssueJsonTest {
     public void testStampV3(){
         IssueJson stamp = new IssueJson(settings.Url, settings.User, settings.Password, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV3 response = stamp.TimbrarV3(json);
+        StampResponseV3 response = stamp.timbrarV3(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -55,7 +55,7 @@ public class IssueJsonTest {
     public void testStampV4(){
         IssueJson stamp = new IssueJson(settings.Url, settings.User, settings.Password, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV4 response = stamp.TimbrarV4(json);
+        StampResponseV4 response = stamp.timbrarV4(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -66,7 +66,7 @@ public class IssueJsonTest {
     public void testStampV1Token(){
         IssueJson stamp = new IssueJson(settings.Url, settings.Token, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV1 response = stamp.TimbrarV1(json);
+        StampResponseV1 response = stamp.timbrarV1(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -78,7 +78,7 @@ public class IssueJsonTest {
     public void testStampV2Token(){
         IssueJson stamp = new IssueJson(settings.Url, settings.Token, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV2 response = stamp.TimbrarV2(json);
+        StampResponseV2 response = stamp.timbrarV2(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -90,7 +90,7 @@ public class IssueJsonTest {
     public void testStampV3Token(){
         IssueJson stamp = new IssueJson(settings.Url, settings.Token, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV3 response = stamp.TimbrarV3(json);
+        StampResponseV3 response = stamp.timbrarV3(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -102,7 +102,7 @@ public class IssueJsonTest {
     public void testStampV4Token(){
         IssueJson stamp = new IssueJson(settings.Url, settings.Token, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV4 response = stamp.TimbrarV4(json);
+        StampResponseV4 response = stamp.timbrarV4(json);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -114,7 +114,7 @@ public class IssueJsonTest {
     public void testV4StampV1(){
         IssueJsonV4 stamp = new IssueJsonV4(settings.Url, settings.User, settings.Password, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV1 response = stamp.TimbrarV1(json, settings.Email);
+        StampResponseV1 response = stamp.timbrarV1(json, settings.Email);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -126,7 +126,7 @@ public class IssueJsonTest {
     public void testV4StampV2(){
         IssueJsonV4 stamp = new IssueJsonV4(settings.Url, settings.User, settings.Password, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV2 response = stamp.TimbrarV2(json, settings.Email);
+        StampResponseV2 response = stamp.timbrarV2(json, settings.Email);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -138,7 +138,7 @@ public class IssueJsonTest {
     public void testV4StampV3(){
         IssueJsonV4 stamp = new IssueJsonV4(settings.Url, settings.Token, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV3 response = stamp.TimbrarV3(json, settings.Email);
+        StampResponseV3 response = stamp.timbrarV3(json, settings.Email);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
@@ -150,7 +150,7 @@ public class IssueJsonTest {
     public void testV4StampV4(){
         IssueJsonV4 stamp = new IssueJsonV4(settings.Url, settings.Token, null, 0);
         String json = settings.getJsonCFDI();
-        StampResponseV4 response = stamp.TimbrarV4(json, settings.Email);
+        StampResponseV4 response = stamp.timbrarV4(json, settings.Email);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.data);
         Assertions.assertNotNull(response.status);
