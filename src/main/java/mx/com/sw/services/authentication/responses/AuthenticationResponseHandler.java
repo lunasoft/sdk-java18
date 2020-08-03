@@ -5,7 +5,7 @@ import mx.com.sw.services.ResponseHandler;
 
 /**
 * <h1>AuthenticationResponseHandler</h1>
-* Clase para handler de exceptions en el servicio de authentication
+* Clase para handler de exceptions en el servicio de authentication.
 * @author  Juan Gamez
 * @version 0.0.0.1
 * @since   2020-08-01

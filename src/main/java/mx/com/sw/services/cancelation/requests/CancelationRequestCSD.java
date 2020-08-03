@@ -7,24 +7,60 @@ package mx.com.sw.services.cancelation.requests;
  * @since 2020-08-01
  */
 public class CancelationRequestCSD {
+    private String uuid;
+    private String password;
+    private String rfc;
+    private String b64Cer;
+    private String b64Key;
+
     /**
-     * UUID del CFDI a cancelar.
+     * Constructor de la clase.
+     * @param uuid
+     * @param password
+     * @param rfc
+     * @param b64Cer
+     * @param b64Key
      */
-    public String uuid;
+    public CancelationRequestCSD(String uuid, String password, String rfc, String b64Cer, String b64Key) {
+        this.uuid = uuid;
+        this.password = password;
+        this.rfc = rfc;
+        this.b64Cer = b64Cer;
+        this.b64Key = b64Key;
+    }
+
     /**
-     * Password del archivo key.
+     * Obtiene uuid.
      */
-    public String password;
+    public String getUUID() {
+        return this.uuid;
+    }
+
     /**
-     * RFC del emisor del CFDI.
+     * Obtiene password.
      */
-    public String rfc;
+    public String getPassword() {
+        return this.password;
+    }
+
     /**
-     * String Base64 del archivo CSD.
+     * Obtiene RFC.
      */
-    public String b64Cer;
+    public String getRFC() {
+        return this.rfc;
+    }
+
     /**
-     * String Base64 del archivo KEY.
+     * Obtiene Certificado.
      */
-    public String b64Key;
+    public String getB64Csd() {
+        return this.b64Cer;
+    }
+
+    /**
+     * Obtiene llave privada.
+     */
+    public String getB64Key() {
+        return this.b64Key;
+    }
 }

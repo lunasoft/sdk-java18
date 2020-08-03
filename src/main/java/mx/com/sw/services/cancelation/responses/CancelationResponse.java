@@ -9,8 +9,24 @@ import mx.com.sw.entities.IResponse;
  * @since 2020-08-01
  */
 public class CancelationResponse extends IResponse {
+    private CancelationData data;
+
     /**
-     * Datos de la cancelación cuando está fue "success".
+     * Constructor de la clase.
+     * @param status
+     * @param message
+     * @param messageDetail
+     * @param data
      */
-    public CancelationData data;
+    public CancelationResponse(String status, String message, String messageDetail, CancelationData data) {
+        super(status, message, messageDetail);
+        this.data = data;
+    }
+
+    /**
+     * Obtiene los datos de la cancelación cuando está fue "success".
+     */
+    public CancelationData getData() {
+        return this.data;
+    }
 }

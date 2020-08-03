@@ -7,20 +7,50 @@ package mx.com.sw.services.cancelation.requests;
  * @since 2020-08-01
  */
 public class CancelationRequestPFX {
+    private String uuid;
+    private String password;
+    private String rfc;
+    private String b64Pfx;
+
     /**
-     * UUID del CFDI a cancelar.
+     * Constructor de la clase.
+     * @param uuid
+     * @param password
+     * @param rfc
+     * @param b64Pfx
      */
-    public String uuid;
+    public CancelationRequestPFX(String uuid, String password, String rfc, String b64Pfx) {
+        this.uuid = uuid;
+        this.password = password;
+        this.rfc = rfc;
+        this.b64Pfx = b64Pfx;
+    }
+
     /**
-     * Password del archivo PFX.
+     * Obtiene UUID.
      */
-    public String password;
+    public String getUUID() {
+        return this.uuid;
+    }
+
     /**
-     * RFC del emisor del CFDI.
+     * Obtiene password.
      */
-    public String rfc;
+    public String getPassword() {
+        return this.password;
+    }
+
     /**
-     * String Base64 del archivo PFX.
+     * Obtiene RFC.
      */
-    public String b64Pfx;
+    public String getRFC() {
+        return this.rfc;
+    }
+
+    /**
+     * Obtiene PFX.
+     */
+    public String getB64Pfx() {
+        return this.b64Pfx;
+    }
 }

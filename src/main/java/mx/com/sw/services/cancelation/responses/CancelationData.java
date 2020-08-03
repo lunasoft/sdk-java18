@@ -9,14 +9,23 @@ import java.util.Map;
  * @since 2020-08-01
  */
 public class CancelationData {
+    private String acuse;
+    private Map<String, String> uuid;
+
     /**
-     * Acuse de cancelación.
+     * Obtiene el acuse de cancelación.
+     * @return String
      */
-    public String acuse;
+    public String getAcuse() {
+        return this.acuse;
+    }
+
     /**
-     * Llave valor de los UUID y su estatus de cancelación.
+     * Obtiene llave valor de los UUID y su estatus de cancelación.
      * 201 - Cancelado con éxito.
      * 202 - Previamente cancelado.
      */
-    public Map<String, String> uuid;
+    public Map<String, String> getUUID() {
+        return this.uuid;
+    }
 }

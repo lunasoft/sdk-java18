@@ -92,11 +92,7 @@ public abstract class CancelationService extends Services {
      * @return String json
      */
     protected String requestCancelar(String pfx, String rfc, String password, String uuid) {
-        CancelationRequestPFX objectRequest = new CancelationRequestPFX();
-        objectRequest.b64Pfx = pfx;
-        objectRequest.password = password;
-        objectRequest.rfc = rfc;
-        objectRequest.uuid = uuid;
+        CancelationRequestPFX objectRequest = new CancelationRequestPFX(uuid, password, rfc, pfx);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
     }
@@ -111,12 +107,7 @@ public abstract class CancelationService extends Services {
      * @return String json
      */
     protected String requestCancelar(String csd, String key, String rfc, String password, String uuid) {
-        CancelationRequestCSD objectRequest = new CancelationRequestCSD();
-        objectRequest.b64Cer = csd;
-        objectRequest.b64Key = key;
-        objectRequest.password = password;
-        objectRequest.rfc = rfc;
-        objectRequest.uuid = uuid;
+        CancelationRequestCSD objectRequest = new CancelationRequestCSD(uuid, password, rfc, csd, key);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
     }

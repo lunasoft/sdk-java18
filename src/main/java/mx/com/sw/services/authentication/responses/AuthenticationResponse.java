@@ -1,32 +1,35 @@
 package mx.com.sw.services.authentication.responses;
 
 import mx.com.sw.entities.IResponse;
+
 /**
 * <h1>AuthenticationResponse</h1>
 * Clase que contiene información acerca de la authentication.
 * <p>
-* <b>Note:</b> Se recomienda revisar el campo "status" para saber si el campo "data" contiene datos o en su lugar mirar los mensajes de error,
-* los cuales están contenidos en los campos "message" y "messageDetail"
-* Ejemplo
-* Authentication auth = new Authentication("http://services.test.sw.com.mx", "demo", "123456789", null, 0);
-* AuthenticationResponse res = auth.authenticate();
-* if(res.status.equalsIgnoreCase("success")){
-*    System.out.println(res.data.token);
-*    System.out.println(res.data.expires_in);
-* }
-* else{
-*   System.out.println("Error al tratar de obtener token");
-*   System.out.println(res.message);
-*   System.out.println(res.messageDetail);
-* }
-*
+* <b>Nota:</b> Se recomienda revisar el campo "getStatus()" para saber si el campo "getData()" contiene datos o en su
+* lugar mirar los mensajes de error, los cuales están contenidos en los campos "getMessage()" y "getMessageDetail()".
 * @author  Juan Gamez
 * @version 0.0.0.1
 * @since   2020-08-01
 */
 public class AuthenticationResponse extends IResponse {
+    private AuthenticationData data;
+
+    /**
+     * Constructor de la clase.
+     * @param status
+     * @param message
+     * @param messageDetail
+     * @param data
+     */
+    public AuthenticationResponse(String status, String message, String messageDetail, AuthenticationData data) {
+        super(status, message, messageDetail);
+    }
+
     /**
      * Datos de la authentication cuando está es "success".
      */
-    public AuthenticationData data;
+    public AuthenticationData getData() {
+        return this.data;
+    }
 }

@@ -19,7 +19,11 @@ import mx.com.sw.services.stamp.responses.StampResponseV4;
 * @since   2020-08-01
 */
 public final class ResponseHelper {
+    private static final String STATUS_ERROR = "error";
 
+    /**
+    * Constructor de la clase.
+    */
     private ResponseHelper() {
 
     }
@@ -30,11 +34,7 @@ public final class ResponseHelper {
     * @return CancelationResponse.
     */
     public static CancelationResponse toCancellationResponse(Throwable ex) {
-        CancelationResponse response = new CancelationResponse();
-        response.message = ex.getMessage();
-        response.messageDetail = getStackError(ex);
-        response.status = "error";
-        return response;
+        return new CancelationResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
@@ -43,11 +43,7 @@ public final class ResponseHelper {
     * @return AuthenticationResponse.
     */
     public static AuthenticationResponse toAuthenticationResponse(Throwable ex) {
-        AuthenticationResponse response = new AuthenticationResponse();
-        response.message = ex.getMessage();
-        response.messageDetail = getStackError(ex);
-        response.status = "error";
-        return response;
+        return new AuthenticationResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
@@ -56,11 +52,7 @@ public final class ResponseHelper {
     * @return StampResponseV1.
     */
     public static StampResponseV1 toStampResponseV1(Throwable ex) {
-        StampResponseV1 response = new StampResponseV1();
-        response.message = ex.getMessage();
-        response.messageDetail = getStackError(ex);
-        response.status = "error";
-        return response;
+        return new StampResponseV1(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
@@ -69,11 +61,7 @@ public final class ResponseHelper {
     * @return StampResponseV2.
     */
     public static StampResponseV2 toStampResponseV2(Throwable ex) {
-        StampResponseV2 response = new StampResponseV2();
-        response.message = ex.getMessage();
-        response.messageDetail = getStackError(ex);
-        response.status = "error";
-        return response;
+        return new StampResponseV2(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
@@ -82,11 +70,7 @@ public final class ResponseHelper {
     * @return StampResponseV3.
     */
     public static StampResponseV3 toStampResponseV3(Throwable ex) {
-        StampResponseV3 response = new StampResponseV3();
-        response.message = ex.getMessage();
-        response.messageDetail = getStackError(ex);
-        response.status = "error";
-        return response;
+        return new StampResponseV3(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
@@ -95,11 +79,7 @@ public final class ResponseHelper {
     * @return StampResponseV4.
     */
     public static StampResponseV4 toStampResponseV4(Throwable ex) {
-        StampResponseV4 response = new StampResponseV4();
-        response.message = ex.getMessage();
-        response.messageDetail = getStackError(ex);
-        response.status = "error";
-        return response;
+        return new StampResponseV4(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**

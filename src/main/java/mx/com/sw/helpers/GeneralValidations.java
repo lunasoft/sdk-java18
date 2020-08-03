@@ -61,7 +61,7 @@ public class GeneralValidations {
      * @throws ServicesException
      */
     private void validateToken(String tokenValidate) throws ServicesException {
-        String[] validToken = tokenValidate.split(".");
+        String[] validToken = tokenValidate.split("\\.");
         if (validToken.length != TOKEN_PARTS) {
             throw new ServicesException("Token Mal Formado");
         }
