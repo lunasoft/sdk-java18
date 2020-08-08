@@ -1,0 +1,16 @@
+mx.com.sw.entities
+mx.com.sw.exceptions
+mx.com.sw.helpers
+mx.com.sw.services
+mx.com.sw.services.acceptreject
+mx.com.sw.services.acceptreject.requests
+mx.com.sw.services.acceptreject.responses
+mx.com.sw.services.authentication
+mx.com.sw.services.authentication.responses
+mx.com.sw.services.cancelation
+mx.com.sw.services.cancelation.requests
+mx.com.sw.services.cancelation.responses
+mx.com.sw.services.issue
+mx.com.sw.services.sign
+mx.com.sw.services.stamp
+mx.com.sw.services.stamp.responses
