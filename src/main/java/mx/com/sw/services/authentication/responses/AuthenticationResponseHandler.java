@@ -4,7 +4,7 @@ import mx.com.sw.helpers.ResponseHelper;
 import mx.com.sw.services.ResponseHandler;
 
 /**
-* <h1>AuthenticationResponseHandler</h1>
+* AuthenticationResponseHandler
 * Clase para handler de exceptions en el servicio de authentication.
 * @author  Juan Gamez
 * @version 0.0.0.1
@@ -14,7 +14,7 @@ public class AuthenticationResponseHandler extends ResponseHandler<Authenticatio
 
     /**
      * Handler de exceptions.
-     * @param ex
+     * @param ex exception.
      * @return AuthenticationResponse
      * @see AuthenticationResponse
      */

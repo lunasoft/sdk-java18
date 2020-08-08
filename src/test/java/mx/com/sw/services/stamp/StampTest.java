@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
-* <h1>StampTest</h1>
+* StampTest
 * Clase para UT del servicio de timbrado.
 * @author  Juan Gamez
 * @version 0.0.0.1

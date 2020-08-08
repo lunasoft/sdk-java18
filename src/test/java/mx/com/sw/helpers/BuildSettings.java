@@ -32,7 +32,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
-* <h1>BuildSettings</h1>
+* BuildSettings
 * Clase auxiliar de UT con datos comunes.
 * @author  Juan Gamez
 * @version 0.0.0.1

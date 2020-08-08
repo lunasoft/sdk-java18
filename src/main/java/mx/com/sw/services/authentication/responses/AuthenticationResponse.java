@@ -3,7 +3,7 @@ package mx.com.sw.services.authentication.responses;
 import mx.com.sw.entities.IResponse;
 
 /**
-* <h1>AuthenticationResponse</h1>
+* AuthenticationResponse
 * Clase que contiene información acerca de la authentication.
 * <p>
 * <b>Nota:</b> Se recomienda revisar el campo "getStatus()" para saber si el campo "getData()" contiene datos o en su
@@ -17,10 +17,10 @@ public class AuthenticationResponse extends IResponse {
 
     /**
      * Constructor de la clase.
-     * @param status
-     * @param message
-     * @param messageDetail
-     * @param data
+     * @param status status del call.
+     * @param message mensaje de API.
+     * @param messageDetail detalle de mensaje de API.
+     * @param data objeto con datos de respuesta.
      */
     public AuthenticationResponse(String status, String message, String messageDetail, AuthenticationData data) {
         super(status, message, messageDetail);
@@ -28,6 +28,7 @@ public class AuthenticationResponse extends IResponse {
 
     /**
      * Datos de la authentication cuando está es "success".
+     * @return AuthenticationData
      */
     public AuthenticationData getData() {
         return this.data;

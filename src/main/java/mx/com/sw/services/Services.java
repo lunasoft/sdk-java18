@@ -7,7 +7,7 @@ import mx.com.sw.services.authentication.Authentication;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 
 /**
-* <h1>Services</h1>
+* Services
 * Clase que mantiene lógica de propiedades inicializadoras de servicios.
 * Con el método de setupRequest() automáticamente se renueva el token cada que es necesario.
 * Se recomienza hacer uso de setupRequest() antes de getToken()
@@ -30,7 +30,7 @@ public class Services {
     /**
     * Constructor de la clase.
     * @param url url base de la API
-    * @param token
+    * @param token token de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     */
@@ -46,7 +46,7 @@ public class Services {
     * Constructor de la clase.
     * @param url url base de la API
     * @param user correo o usuario de SW
-    * @param password
+    * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     */

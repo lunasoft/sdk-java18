@@ -10,7 +10,7 @@ import mx.com.sw.services.cancelation.requests.CancelationRequestPFX;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 
 /**
- * <h1>CancelationService</h1> Servicio para implementación de cancelación.
+ * CancelationService Servicio para implementación de cancelación.
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-01
@@ -18,77 +18,42 @@ import mx.com.sw.services.cancelation.responses.CancelationResponse;
 public abstract class CancelationService extends Services {
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param user
-     * @param password
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     protected CancelationService(String url, String user, String password, String proxy, int proxyPort) {
         super(url, user, password, proxy, proxyPort);
     }
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param token
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param token token infinito de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     protected CancelationService(String url, String token, String proxy, int proxyPort) {
         super(url, token, proxy, proxyPort);
     }
 
-    /**
-     * Método de cancelación enviando datos de CSD.
-     * @param cer
-     * @param key
-     * @param rfc
-     * @param password
-     * @param uuid
-     * @return CancelationResponse
-     * @see CancelationResponse
-     */
     abstract CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid);
 
-    /**
-     * Método de cancelación enviando datos de PFX.
-     * @param pfx
-     * @param rfc
-     * @param password
-     * @param uuid
-     * @return CancelationResponse
-     * @see CancelationResponse
-     */
     abstract CancelationResponse cancelar(String pfx, String rfc, String password, String uuid);
 
-    /**
-     * Método de cancelación enviando RFC emisor y UUID.
-     * <p>
-     * <b>Nota:</b> Es necesario tener configurado un Certificado
-     * para el RFC emisor en su cuenta de SW.
-     * @param rfc
-     * @param uuid
-     * @return CancelationResponse
-     * @see CancelationResponse
-     */
     abstract CancelationResponse cancelar(String rfc, String uuid);
 
-    /**
-     * Método de cancelación enviando un XML de cancelación sellado.
-     * <b>Nota:</b> El XML de cancelación no es igual a un CFDI.
-     * @param xmlCancelation
-     * @return CancelationResponse
-     */
     abstract CancelationResponse cancelar(String xmlCancelation);
 
     /**
      * Construye el json del request a partir de los datos.
-     * @param pfx
-     * @param rfc
-     * @param password
-     * @param uuid
+     * @param pfx String base64 del pfx.
+     * @param rfc rfc emisor.
+     * @param password password del pfx.
+     * @param uuid uuid factura.
      * @return String json
      */
     protected String requestCancelar(String pfx, String rfc, String password, String uuid) {
@@ -99,11 +64,11 @@ public abstract class CancelationService extends Services {
 
     /**
      * Construye el json del request a partir de los datos.
-     * @param csd
-     * @param key
-     * @param rfc
-     * @param password
-     * @param uuid
+     * @param csd String base64 del certificado.
+     * @param key String base64 de llave privada.
+     * @param rfc rfc emisor.
+     * @param password password de llave privada.
+     * @param uuid uuid factura.
      * @return String json
      */
     protected String requestCancelar(String csd, String key, String rfc, String password, String uuid) {
@@ -114,7 +79,7 @@ public abstract class CancelationService extends Services {
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.
-     * @return Map<String, String>
+     * @return Map String, String
      */
     protected Map<String, String> getHeaders() {
         this.setupRequest();

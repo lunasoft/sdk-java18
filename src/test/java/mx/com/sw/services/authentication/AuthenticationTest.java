@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
-* <h1>AuthenticationTest</h1>
+* AuthenticationTest
 * Clase para UT del servicio de Authentication.
 * @author  Juan Gamez
 * @version 0.0.0.1

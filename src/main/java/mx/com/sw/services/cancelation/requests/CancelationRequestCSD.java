@@ -1,7 +1,7 @@
 package mx.com.sw.services.cancelation.requests;
 
 /**
- * <h1>CancelationRequestCSD</h1> Clase estructura para request mediante CSD.
+ * CancelationRequestCSD Clase estructura para request mediante CSD.
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-01
@@ -15,11 +15,11 @@ public class CancelationRequestCSD {
 
     /**
      * Constructor de la clase.
-     * @param uuid
-     * @param password
-     * @param rfc
-     * @param b64Cer
-     * @param b64Key
+     * @param uuid uuid factura.
+     * @param password password llave privada.
+     * @param rfc rfc emisor.
+     * @param b64Cer String base64 de certificado.
+     * @param b64Key String base64 de llave privada.
      */
     public CancelationRequestCSD(String uuid, String password, String rfc, String b64Cer, String b64Key) {
         this.uuid = uuid;
@@ -31,6 +31,7 @@ public class CancelationRequestCSD {
 
     /**
      * Obtiene uuid.
+     * @return String
      */
     public String getUUID() {
         return this.uuid;
@@ -38,6 +39,7 @@ public class CancelationRequestCSD {
 
     /**
      * Obtiene password.
+     * @return String
      */
     public String getPassword() {
         return this.password;
@@ -45,6 +47,7 @@ public class CancelationRequestCSD {
 
     /**
      * Obtiene RFC.
+     * @return String
      */
     public String getRFC() {
         return this.rfc;
@@ -52,6 +55,7 @@ public class CancelationRequestCSD {
 
     /**
      * Obtiene Certificado.
+     * @return String
      */
     public String getB64Csd() {
         return this.b64Cer;
@@ -59,6 +63,7 @@ public class CancelationRequestCSD {
 
     /**
      * Obtiene llave privada.
+     * @return String
      */
     public String getB64Key() {
         return this.b64Key;

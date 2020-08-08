@@ -3,7 +3,7 @@ package mx.com.sw.services.issue;
 import mx.com.sw.services.stamp.BaseStampV4;
 
 /**
- * <h1>IssueV4</h1> Está clase se utiliza para uso de servicios
+ * IssueV4 Está clase se utiliza para uso de servicios
  * issue, los cuales se envia un CFDI (sin sellar) en formato XML.
  * Es necesario contar con certificados vigentes configurados en su cuenta
  * de SW, de esta manera se realiza el sellado del documento generado.
@@ -20,24 +20,24 @@ import mx.com.sw.services.stamp.BaseStampV4;
 public class IssueV4 extends BaseStampV4 {
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param token
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param token token infinito de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     public IssueV4(String url, String token, String proxy, int proxyPort) {
         super(url, token, "issue", proxy, proxyPort);
     }
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param user
-     * @param password
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     public IssueV4(String url, String user, String password, String proxy, int proxyPort) {
         super(url, user, password, "issue", proxy, proxyPort);
     }

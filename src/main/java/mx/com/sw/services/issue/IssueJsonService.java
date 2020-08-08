@@ -8,7 +8,7 @@ import mx.com.sw.services.Services;
 import org.apache.http.client.config.RequestConfig;
 
 /**
- * <h1>IssueJsonService</h1> Servicio base para
+ * IssueJsonService Servicio base para
  * servicios issue JSON.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -17,31 +17,31 @@ import org.apache.http.client.config.RequestConfig;
 public class IssueJsonService extends Services {
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param user
-     * @param password
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     protected IssueJsonService(String url, String user, String password, String proxy, int proxyPort) {
         super(url, user, password, proxy, proxyPort);
     }
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param token
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param token token infinito de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     protected IssueJsonService(String url, String token, String proxy, int proxyPort) {
         super(url, token, proxy, proxyPort);
     }
 
     /**
      * Obtiene los headers necesarios para el timbrado.
-     * @return HashMap<String, String>
+     * @return HashMap String, String
      */
     protected Map<String, String> getHeaders() {
         super.setupRequest();
@@ -54,13 +54,14 @@ public class IssueJsonService extends Services {
     /**
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la configuracion recibida.
-     * @param json
-     * @param headers
-     * @param formatPath
-     * @param operation
-     * @param version
-     * @param handler
-     * @param classType
+     * @param json String json.
+     * @param headers headers llave valor.
+     * @param formatPath String a parsear.
+     * @param operation operacion a realizar.
+     * @param version String version.
+     * @param handler object handler.
+     * @param classType response class.
+     * @param <T> type class.
      * @return T
      */
     protected <T> T timbrar(String json, Map<String, String> headers, String formatPath, String operation,

@@ -1,7 +1,7 @@
 package mx.com.sw.services.cancelation.requests;
 
 /**
- * <h1>CancelationRequestPFX</h1> Clase estructura para request mediante PFX.
+ * CancelationRequestPFX Clase estructura para request mediante PFX.
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-01
@@ -14,10 +14,10 @@ public class CancelationRequestPFX {
 
     /**
      * Constructor de la clase.
-     * @param uuid
-     * @param password
-     * @param rfc
-     * @param b64Pfx
+     * @param uuid uuid de factura.
+     * @param password password de pfx.
+     * @param rfc rfc emisor.
+     * @param b64Pfx String base64 de pfx.
      */
     public CancelationRequestPFX(String uuid, String password, String rfc, String b64Pfx) {
         this.uuid = uuid;
@@ -28,6 +28,7 @@ public class CancelationRequestPFX {
 
     /**
      * Obtiene UUID.
+     * @return String
      */
     public String getUUID() {
         return this.uuid;
@@ -35,6 +36,7 @@ public class CancelationRequestPFX {
 
     /**
      * Obtiene password.
+     * @return String
      */
     public String getPassword() {
         return this.password;
@@ -42,6 +44,7 @@ public class CancelationRequestPFX {
 
     /**
      * Obtiene RFC.
+     * @return String
      */
     public String getRFC() {
         return this.rfc;
@@ -49,6 +52,7 @@ public class CancelationRequestPFX {
 
     /**
      * Obtiene PFX.
+     * @return String
      */
     public String getB64Pfx() {
         return this.b64Pfx;

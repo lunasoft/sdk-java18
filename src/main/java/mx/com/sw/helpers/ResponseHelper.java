@@ -10,7 +10,7 @@ import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
 
 /**
-* <h1>ResponseHelper</h1>
+* ResponseHelper
 * Está clase funciona como un handler de exceptions donde se toma un exception
 * y se construye una respuesta de acuerdo al servicio con detalles del error.
 *

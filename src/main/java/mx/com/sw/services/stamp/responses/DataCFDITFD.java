@@ -1,7 +1,7 @@
 package mx.com.sw.services.stamp.responses;
 
 /**
-* <h1>DataCFDITFD</h1>
+* DataCFDITFD
 * Clase que contiene información acerca del timbrado.
 * <p>
 * <b>Nota:</b> Este campo puede ser null cuando ha surgido un error.
@@ -14,7 +14,8 @@ public class DataCFDITFD extends DataTFD {
 
     /**
      * Constructor de la clase.
-     * @param cfdi
+     * @param cfdi String cfdi.
+     * @param tfd String tfd.
      */
     public DataCFDITFD(String tfd, String cfdi) {
         super(tfd);
@@ -23,6 +24,7 @@ public class DataCFDITFD extends DataTFD {
 
     /**
      * Obtiene el XML del cfdi timbrado.
+     * @return String
      */
     public String getCFDI() {
         return this.cfdi;

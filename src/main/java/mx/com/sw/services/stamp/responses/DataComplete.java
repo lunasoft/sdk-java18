@@ -1,7 +1,7 @@
 package mx.com.sw.services.stamp.responses;
 
 /**
-* <h1>DataComplete</h1>
+* DataComplete
 * Clase que contiene información acerca del timbrado.
 * <p>
 * <b>Nota:</b> Este campo puede ser null cuando ha surgido un error.
@@ -22,6 +22,7 @@ public class DataComplete {
 
     /**
      * Obtiene el XML del CFDI ya timbrado.
+     * @return String
      */
     public String getCFDI() {
         return this.cfdi;
@@ -29,6 +30,7 @@ public class DataComplete {
 
     /**
      * Obtiene la cadena original SAT del CFDI timbrado.
+     * @return String
      */
     public String getCadenaOriginalSAT() {
         return this.cadenaOriginalSAT;
@@ -36,6 +38,7 @@ public class DataComplete {
 
     /**
      * Obtiene el número de certificado del PAC que timbró.
+     * @return String
      */
     public String getNoCertificadoSAT() {
         return this.noCertificadoSAT;
@@ -43,6 +46,7 @@ public class DataComplete {
 
     /**
      * Obtiene el número del certificado del emisor del CFDI.
+     * @return String
      */
     public String getNoCertificadoCFDI() {
         return this.noCertificadoCFDI;
@@ -50,6 +54,7 @@ public class DataComplete {
 
     /**
      * Obtiene el UUID del CFDI timbrado.
+     * @return String
      */
     public String getUUID() {
         return this.uuid;
@@ -57,6 +62,7 @@ public class DataComplete {
 
     /**
      * Obtiene el UUID del CFDI timbrado.
+     * @return String
      */
     public String getSelloSAT() {
         return this.selloSAT;
@@ -64,6 +70,7 @@ public class DataComplete {
 
     /**
      * Obtiene el Sello del CFDI timbrado.
+     * @return String
      */
     public String getSelloCFDI() {
         return this.selloCFDI;
@@ -71,6 +78,7 @@ public class DataComplete {
 
     /**
      * Obtiene la fecha de timbrado del CFDI.
+     * @return String
      */
     public String getFechaTimbrado() {
         return this.fechaTimbrado;
@@ -78,6 +86,7 @@ public class DataComplete {
 
     /**
      * Obtiene la imagen PNG del QR en formato base64.
+     * @return String
      */
     public String getQrCode() {
         return this.qrCode;
@@ -85,6 +94,7 @@ public class DataComplete {
 
     /**
      * Configura el valor CFDI.
+     * @param cfdiValue string cfdi.
      */
     protected void setCFDI(String cfdiValue) {
         this.cfdi = cfdiValue;
@@ -92,6 +102,7 @@ public class DataComplete {
 
     /**
      * Configura el valor cadena original SAT del CFDI timbrado.
+     * @param cadenaOriginalSATValue string cadenaOriginalSATValue.
      */
     protected void setCadenaOriginalSAT(String cadenaOriginalSATValue) {
         this.cadenaOriginalSAT = cadenaOriginalSATValue;
@@ -99,6 +110,7 @@ public class DataComplete {
 
     /**
      * Configura el número de certificado del PAC que timbró.
+     * @param noCertificadoSATValue string noCertificadoSATValue.
      */
     protected void setNoCertificadoSAT(String noCertificadoSATValue) {
         this.noCertificadoSAT = noCertificadoSATValue;
@@ -106,6 +118,7 @@ public class DataComplete {
 
     /**
      * Configura el número del certificado del emisor del CFDI.
+     * @param noCertificadoCFDIValue string noCertificadoCFDIValue.
      */
     protected void setNoCertificadoCFDI(String noCertificadoCFDIValue) {
         this.noCertificadoCFDI = noCertificadoCFDIValue;
@@ -113,6 +126,7 @@ public class DataComplete {
 
     /**
      * Configura el UUID del CFDI timbrado.
+     * @param uuidValue string uuidValue.
      */
     protected void setUUID(String uuidValue) {
         this.uuid = uuidValue;
@@ -120,6 +134,7 @@ public class DataComplete {
 
     /**
      * Configura el UUID del CFDI timbrado.
+     * @param selloSATValue string selloSATValue.
      */
     protected void setSelloSAT(String selloSATValue) {
         this.selloSAT = selloSATValue;
@@ -127,6 +142,7 @@ public class DataComplete {
 
     /**
      * Configura el Sello del CFDI timbrado.
+     * @param selloCFDIValue string selloCFDIValue.
      */
     protected void setSelloCFDI(String selloCFDIValue) {
         this.selloCFDI = selloCFDIValue;
@@ -134,6 +150,7 @@ public class DataComplete {
 
     /**
      * Configura la fecha de timbrado del CFDI.
+     * @param fechaTimbradoValue string fechaTimbradoValue.
      */
     protected void setFechaTimbrado(String fechaTimbradoValue) {
         this.fechaTimbrado = fechaTimbradoValue;
@@ -141,6 +158,7 @@ public class DataComplete {
 
     /**
      * Configura la imagen PNG del QR en formato base64.
+     * @param qrCodeValue string qrCodeValue.
      */
     protected void setQrCode(String qrCodeValue) {
         this.qrCode = qrCodeValue;

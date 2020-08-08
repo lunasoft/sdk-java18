@@ -6,7 +6,7 @@ import mx.com.sw.helpers.GeneralValidations;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * <h1>CancelationValidation</h1> Clase para validaciones en el
+ * CancelationValidation Clase para validaciones en el
  * servicio de cancelacion.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -15,12 +15,12 @@ import org.apache.commons.codec.binary.Base64;
 public class CancelationValidation extends GeneralValidations {
 
     /**
-     * Constructor de clase.
-     * @param url
-     * @param user
-     * @param password
-     * @param token
-     * @throws ServicesException
+     * Constructor de la clase.
+     * @param url url de la API Rest.
+     * @param user usuario de SW.
+     * @param password password de SW.
+     * @param token token de SW.
+     * @throws ServicesException exception en caso de error.
      */
     public CancelationValidation(String url, String user, String password, String token) throws ServicesException {
         super(url, user, password, token);
@@ -28,11 +28,11 @@ public class CancelationValidation extends GeneralValidations {
 
     /**
      * Validación para cancelacion mediante CSD.
-     * @param csd
-     * @param key
-     * @param password
-     * @param uuid
-     * @throws ServicesException
+     * @param csd String base64 del certificado.
+     * @param key String base64 de llave privada.
+     * @param password password de llave privada.
+     * @param uuid uuid factura.
+     * @throws ServicesException exception en caso de error.
      */
     public void validateRequestCSD(String csd, String key, String password, String uuid) throws ServicesException {
         validateString(uuid, "Faltan especificar el UUID a Cancelar", false, null);
@@ -43,10 +43,10 @@ public class CancelationValidation extends GeneralValidations {
 
     /**
      * Validación para cancelacion mediante PFX.
-     * @param pfx
-     * @param password
-     * @param uuid
-     * @throws ServicesException
+     * @param pfx String base64 del pfx.
+     * @param password password del pfx.
+     * @param uuid uuid factura.
+     * @throws ServicesException exception en caso de error.
      */
     public void validateRequestPFX(String pfx, String password, String uuid) throws ServicesException {
         validateString(uuid, "Faltan especificar el UUID a Cancelar", false, null);
@@ -56,9 +56,9 @@ public class CancelationValidation extends GeneralValidations {
 
     /**
      * Validación para cancelacion mediante RFC y UUID.
-     * @param rfc
-     * @param uuid
-     * @throws ServicesException
+     * @param rfc rfc emisor.
+     * @param uuid uuid factura.
+     * @throws ServicesException exception en caso de error.
      */
     public void validateRequestUUID(String rfc, String uuid) throws ServicesException {
         validateString(uuid, "Faltan especificar el UUID a Cancelar", false, null);
@@ -67,8 +67,8 @@ public class CancelationValidation extends GeneralValidations {
 
     /**
      * Validación para cancelacion mediante XML.
-     * @param xml
-     * @throws ServicesException
+     * @param xml String xml.
+     * @throws ServicesException exception en caso de error.
      */
     public void validateRequestXML(String xml) throws ServicesException {
         validateString(xml, "Faltan especificar el XML de cancelacion", false, null);
@@ -76,9 +76,9 @@ public class CancelationValidation extends GeneralValidations {
 
     /**
      * Validación String Base64.
-     * @param key
-     * @param value
-     * @throws ServicesException
+     * @param key llave.
+     * @param value valor.
+     * @throws ServicesException exception en caso de error.
      */
     private void validateIsBase64(String key, String value) throws ServicesException {
         if (!Base64.isBase64(value)) {
@@ -88,11 +88,11 @@ public class CancelationValidation extends GeneralValidations {
 
     /**
      * Validación para un String.
-     * @param value
-     * @param errorDescription
-     * @param b64
-     * @param parameterName
-     * @throws ServicesException
+     * @param value valor.
+     * @param errorDescription mensaje de error.
+     * @param b64 es base64?
+     * @param parameterName nombre paramétro.
+     * @throws ServicesException exception en caso de error.
      */
     private void validateString(String value, String errorDescription, boolean b64, String parameterName)
             throws ServicesException {

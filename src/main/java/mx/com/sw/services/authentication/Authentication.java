@@ -9,7 +9,7 @@ import mx.com.sw.services.authentication.responses.AuthenticationResponseHandler
 import org.apache.http.client.config.RequestConfig;
 
 /**
-* <h1>Servicio de Authentication</h1>
+* Servicio de Authentication
 * Clase que permite obtener un token de SW sapien® mediante el uso de un usuario y contraseña con una duración de 2 hrs.
 * <p>
 * Los demás servicios hacen uso interno de esta clase cuando se inician mediante usuario y contraseña.
@@ -40,7 +40,7 @@ public class Authentication extends AuthenticationService {
     * Constructor de la clase.
     * @param url url base de la API
     * @param user correo o usuario de SW
-    * @param password
+    * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     */

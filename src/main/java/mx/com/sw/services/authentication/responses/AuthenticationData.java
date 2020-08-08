@@ -3,7 +3,7 @@ package mx.com.sw.services.authentication.responses;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * <h1>AuthenticationData</h1> Clase que contiene información acerca de la
+ * AuthenticationData Clase que contiene información acerca de la
  * authentication cuando la misma ha tenido un status de "success".
  * <p>
  * En el campo "token" está un String de estilo JsonWebToken con el cual se hace
@@ -21,8 +21,8 @@ public class AuthenticationData {
 
     /**
      * Constructor de la clase.
-     * @param token
-     * @param expiresIn
+     * @param token token de SW.
+     * @param expiresIn timestamp seconds since Epoch.
      */
     public AuthenticationData(String token, long expiresIn) {
         this.token = token;
@@ -31,6 +31,7 @@ public class AuthenticationData {
 
     /**
      * Obtiene JsonWebToken para uso de los servicios.
+     * @return String
      */
     public String getToken() {
         return this.token;
@@ -38,6 +39,7 @@ public class AuthenticationData {
 
     /**
      * Obtiene EpochTime de vencimiento.
+     * @return long
      */
     public long getExpiresIn() {
         return this.expiresIn;

@@ -11,7 +11,7 @@ import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
 
 /**
- * <h1>BaseStampIssueJson</h1> Está clase se utiliza como base para los
+ * BaseStampIssueJson Está clase se utiliza como base para los
  * servicios issue JSON.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -22,13 +22,13 @@ public class BaseStampIssueJson extends IssueJsonService {
     private String operation;
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param token
-     * @param operation
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param token token infinito de SW.
+    * @param operation operacion a realizar.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     protected BaseStampIssueJson(String url, String token, String operation, String proxy, int proxyPort) {
         super(url, token, proxy, proxyPort);
         this.formatPath = "v3/cfdi33/%s/%s";
@@ -36,17 +36,17 @@ public class BaseStampIssueJson extends IssueJsonService {
     }
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param usuario
-     * @param password
-     * @param operation
-     * @param proxy
-     * @param proxyPort
-     */
-    protected BaseStampIssueJson(String url, String usuario, String password, String operation, String proxy,
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param operation operacion a realizar.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
+    protected BaseStampIssueJson(String url, String user, String password, String operation, String proxy,
             int proxyPort) {
-        super(url, usuario, password, proxy, proxyPort);
+        super(url, user, password, proxy, proxyPort);
         this.formatPath = "v3/cfdi33/%s/%s";
         this.operation = operation;
     }
@@ -54,7 +54,7 @@ public class BaseStampIssueJson extends IssueJsonService {
     /**
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 1 de timbrado.
-     * @param json
+     * @param json String json.
      * @return StampResponseV1
      * @see StampResponseV1
      */
@@ -67,7 +67,7 @@ public class BaseStampIssueJson extends IssueJsonService {
     /**
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 2 de timbrado.
-     * @param json
+     * @param json String json.
      * @return StampResponseV2
      * @see StampResponseV2
      */
@@ -80,7 +80,7 @@ public class BaseStampIssueJson extends IssueJsonService {
     /**
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 3 de timbrado.
-     * @param json
+     * @param json String json.
      * @return StampResponseV3
      * @see StampResponseV3
      */
@@ -93,7 +93,7 @@ public class BaseStampIssueJson extends IssueJsonService {
     /**
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 4 de timbrado.
-     * @param json
+     * @param json String json.
      * @return StampResponseV4
      * @see StampResponseV4
      */

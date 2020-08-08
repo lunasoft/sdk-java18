@@ -6,7 +6,7 @@ import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 
 /**
- * <h1>GeneralHelpers</h1> Está clase contiene múltiples funciones de utilidad
+ * GeneralHelpers Está clase contiene múltiples funciones de utilidad
  * que se utilizan a través de la librería.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -25,8 +25,8 @@ public final class GeneralHelpers {
 
     /**
      * Este método configura el proxy y timeout de las peticiones.
-     * @param host
-     * @param port
+     * @param host 127.0.0.1 ó servicio.host.domain.com
+     * @param port puerto ejemplo → 8888
      * @return RequestConfig
      */
     public static RequestConfig setProxyAndTimeOut(String host, int port) {
@@ -42,7 +42,7 @@ public final class GeneralHelpers {
 
     /**
      * Este método verifica si un String es nulo o está vacío.
-     * @param st
+     * @param st string value
      * @return true o false
      */
     public static boolean stringEmptyOrNull(String st) {
@@ -51,7 +51,7 @@ public final class GeneralHelpers {
 
     /**
      * Este método normaliza una URL.
-     * @param url
+     * @param url url value
      * @return url normalizada
      */
     public static String noralizeUrl(String url) {
@@ -60,7 +60,7 @@ public final class GeneralHelpers {
 
     /**
      * Este método decodea un string base.
-     * @param base64
+     * @param base64 string base64.
      * @return string decodificado
      */
     public static String decodeBase64(String base64) {
@@ -74,7 +74,7 @@ public final class GeneralHelpers {
 
     /**
      * Este método encodea bytes a string base64.
-     * @param bytes
+     * @param bytes bytes value.
      * @return string codificado
      */
     public static String encodeBase64(byte[] bytes) {

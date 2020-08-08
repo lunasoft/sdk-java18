@@ -4,7 +4,7 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralValidations;
 
 /**
- * <h1>AuthenticationValidation</h1> Clase para validaciones en el
+ * AuthenticationValidation Clase para validaciones en el
  * servicio de authentication.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -13,12 +13,12 @@ import mx.com.sw.helpers.GeneralValidations;
 public class AuthenticationValidation extends GeneralValidations {
 
     /**
-     * Constructor de clase.
-     * @param url
-     * @param user
-     * @param password
-     * @param token
-     * @throws ServicesException
+     * Constructor de la clase.
+     * @param url url de la API Rest.
+     * @param user usuario de SW.
+     * @param password password de SW.
+     * @param token token de SW.
+     * @throws ServicesException exception en caso de error.
      */
     public AuthenticationValidation(String url, String user, String password, String token) throws ServicesException {
         super(url, user, password, token);

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
-* <h1>CancelationTest</h1>
+* CancelationTest
 * Clase para UT del servicio de Cancelation.
 * @author  Juan Gamez
 * @version 0.0.0.1

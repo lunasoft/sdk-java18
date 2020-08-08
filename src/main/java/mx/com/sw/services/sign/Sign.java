@@ -21,7 +21,7 @@ import org.apache.commons.ssl.PKCS8Key;
 import org.w3c.dom.Document;
 
 /**
- * <h1>Sign</h1> Está clase permite realizar sellado y transformacion de CFDI.
+ * Sign Está clase permite realizar sellado y transformacion de CFDI.
  * Para ello solicita los recursos necesarios.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -32,9 +32,10 @@ public class Sign {
     /**
      * Este método calcula el sello digital del CFDI utilizando la cadena original,
      * llave privada y la contraseña de la misma.
-     * @param cadena
-     * @param privateKey
-     * @param passwordPrivateKey
+     * @param cadena cadena original.
+     * @param privateKey llave privada en bytes.
+     * @param passwordPrivateKey password de llave privada.
+     * @return String
      */
     public String getSign(String cadena, byte[] privateKey, String passwordPrivateKey) {
         try {
@@ -60,8 +61,9 @@ public class Sign {
     /**
      * Este método obtiene la cadena original de un XML,
      * es necesario el CFDI y el template del archivo XSLT.
-     * @param xml
-     * @param xslt
+     * @param xml string xml.
+     * @param xslt Template xslt.
+     * @return String
      */
     public String getCadenaOriginal(String xml, Templates xslt) {
         try {
@@ -82,8 +84,9 @@ public class Sign {
     /**
      * Este método obtiene la cadena original de un XML,
      * es necesario el CFDI y el template del archivo XSLT.
-     * @param xml
-     * @param xslt
+     * @param xml Document xml.
+     * @param xslt Templates xslt.
+     * @return String
      */
     public String getCadenaOriginal(Document xml, Templates xslt) {
         try {

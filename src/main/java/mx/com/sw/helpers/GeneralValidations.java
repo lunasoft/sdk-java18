@@ -3,7 +3,7 @@ package mx.com.sw.helpers;
 import mx.com.sw.exceptions.ServicesException;
 
 /**
- * <h1>GeneralValidations</h1> Está clase permite realizar validaciones de la
+ * GeneralValidations Está clase permite realizar validaciones de la
  * configuracion con la cual se instancio una clase.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -20,9 +20,9 @@ public class GeneralValidations {
      * Constructor de la clase.
      * @param url      url base de la API
      * @param user     correo o usuario de SW
-     * @param password
-     * @param token
-     * @throws ServicesException
+     * @param password password de SW.
+     * @param token    token de SW.
+     * @throws ServicesException Exception en caso de paramétros incorrectos.
      */
     public GeneralValidations(String url, String user, String password, String token) throws ServicesException {
         this.url = url;
@@ -34,7 +34,7 @@ public class GeneralValidations {
 
     /**
      * Este método valida los parámetros enviados.
-     * @throws ServicesException
+     * @throws ServicesException Exception en caso de paramétros incorrectos.
      */
     public void validateHeaderParameters() throws ServicesException {
         if (GeneralHelpers.stringEmptyOrNull(url) || "/".equalsIgnoreCase(url)) {

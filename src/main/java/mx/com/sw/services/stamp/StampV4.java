@@ -1,7 +1,9 @@
 package mx.com.sw.services.stamp;
 
+import mx.com.sw.services.issue.Issue;
+
 /**
- * <h1>Servicio de Timbrado</h1> Está clase permite realizar el timbrado de un
+ * Servicio de Timbrado Está clase permite realizar el timbrado de un
  * <b>XML sellado</b>. <b>Nota:</b> No es necesario generar una nueva instancia
  * de está clase para cada documento.
  * <p>
@@ -30,7 +32,7 @@ public class StampV4 extends BaseStampV4 {
     * Constructor de la clase.
     * @param url url base de la API
     * @param user correo o usuario de SW
-    * @param password
+    * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     */

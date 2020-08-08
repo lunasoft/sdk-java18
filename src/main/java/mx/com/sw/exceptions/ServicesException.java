@@ -1,7 +1,7 @@
 package mx.com.sw.exceptions;
 
 /**
- * <h1>ServicesException</h1> Está exception ocurre cuando son validaciones
+ * ServicesException Está exception ocurre cuando son validaciones
  * simples.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -13,7 +13,7 @@ public class ServicesException extends Exception {
 
     /**
      * Constructor de la clase.
-     * @param errorMessage
+     * @param errorMessage mensaje de error.
      */
     public ServicesException(String errorMessage) {
         super(errorMessage);
@@ -22,8 +22,8 @@ public class ServicesException extends Exception {
 
     /**
      * Constructor de la clase.
-     * @param errorMessage
-     * @param exception
+     * @param errorMessage mensaje de error.
+     * @param exception exception arrojada.
      */
     public ServicesException(String errorMessage, Throwable exception) {
         super(errorMessage, exception);
@@ -40,7 +40,7 @@ public class ServicesException extends Exception {
 
     /**
      * Este método configura el mensaje de error.
-     * @param errorMessage
+     * @param errorMessage mensajde e error.
      */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;

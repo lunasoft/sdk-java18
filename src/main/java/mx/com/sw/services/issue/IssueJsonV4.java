@@ -1,7 +1,7 @@
 package mx.com.sw.services.issue;
 
 /**
- * <h1>IssueJsonV4</h1> Está clase se utiliza para uso de servicios
+ * IssueJsonV4 Está clase se utiliza para uso de servicios
  * issue JSON, los cuales se envia una representación de CFDI (sin sellar)
  * en formato JSON.
  * Es necesario contar con certificados vigentes configurados en su cuenta

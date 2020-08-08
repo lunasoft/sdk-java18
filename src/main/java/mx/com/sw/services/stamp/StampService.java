@@ -9,7 +9,7 @@ import mx.com.sw.services.Services;
 import org.apache.http.client.config.RequestConfig;
 
 /**
- * <h1>StampService</h1> Servicio de timbrado genérico para XML.
+ * StampService Servicio de timbrado genérico para XML.
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-01
@@ -17,32 +17,32 @@ import org.apache.http.client.config.RequestConfig;
 public abstract class StampService extends Services {
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param token
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param token token infinito de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     protected StampService(String url, String token, String proxy, int proxyPort) {
         super(url, token, proxy, proxyPort);
     }
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param usuario
-     * @param password
-     * @param proxy
-     * @param proxyPort
-     */
-    protected StampService(String url, String usuario, String password, String proxy, int proxyPort) {
-        super(url, usuario, password, proxy, proxyPort);
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
+    protected StampService(String url, String user, String password, String proxy, int proxyPort) {
+        super(url, user, password, proxy, proxyPort);
     }
 
     /**
      * Obtiene el cuerpo de la solicitud.
-     * @param xmlString
-     * @param boundary
+     * @param xmlString xml cfdi.
+     * @param boundary random string.
      * @return String
      */
     protected String getMultipartBody(String xmlString, String boundary) {
@@ -54,7 +54,7 @@ public abstract class StampService extends Services {
 
     /**
      * Obtiene los headers minímos para su funcionamiento.
-     * @return Map<String, String>
+     * @return Map String, String
      */
     protected Map<String, String> getHeaders() {
         super.setupRequest();
@@ -66,11 +66,11 @@ public abstract class StampService extends Services {
     /**
      * Realiza el timbrado de un documento dada la configuracion.
      * @param <T> generic response type
-     * @param xml
-     * @param path
-     * @param headers
-     * @param handler
-     * @param classType
+     * @param xml String xml.
+     * @param path String path.
+     * @param headers Key value con headers.
+     * @param handler Object handler.
+     * @param classType Class response.
      * @return T
      */
     protected <T> T timbrar(String xml, String path, Map<String, String> headers,

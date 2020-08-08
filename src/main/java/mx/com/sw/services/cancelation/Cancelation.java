@@ -9,7 +9,7 @@ import mx.com.sw.services.cancelation.responses.CancelationResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 
 /**
- * <h1>Cancelation</h1> Servicio para servicios de cancelación.
+ * Cancelation Servicio para servicios de cancelación.
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-01
@@ -18,25 +18,25 @@ public class Cancelation extends CancelationService {
     private CancelationResponseHandler handler;
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param user
-     * @param password
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     public Cancelation(String url, String user, String password, String proxy, int proxyPort) {
         super(url, user, password, proxy, proxyPort);
         handler = new CancelationResponseHandler();
     }
 
     /**
-     * Constructor de la clase.
-     * @param url
-     * @param token
-     * @param proxy
-     * @param proxyPort
-     */
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param token token infinito de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
     public Cancelation(String url, String token, String proxy, int proxyPort) {
         super(url, token, proxy, proxyPort);
         handler = new CancelationResponseHandler();
@@ -44,11 +44,11 @@ public class Cancelation extends CancelationService {
 
     /**
      * Método de cancelación enviando datos de CSD.
-     * @param cer
-     * @param key
-     * @param rfc
-     * @param password
-     * @param uuid
+     * @param cer String base64 del certificado.
+     * @param key String base64 de llave privada.
+     * @param rfc rfc emisor.
+     * @param password password de llave privada.
+     * @param uuid uuid factura.
      * @return CancelationResponse
      * @see CancelationResponse
      */
@@ -70,10 +70,10 @@ public class Cancelation extends CancelationService {
 
     /**
      * Método de cancelación enviando datos de PFX.
-     * @param pfx
-     * @param rfc
-     * @param password
-     * @param uuid
+     * @param pfx String base64 del pfx.
+     * @param rfc rfc emisor.
+     * @param password password del pfx.
+     * @param uuid uuid factura.
      * @return CancelationResponse
      * @see CancelationResponse
      */
@@ -98,8 +98,8 @@ public class Cancelation extends CancelationService {
      * <p>
      * <b>Nota:</b> Es necesario tener configurado un Certificado
      * para el RFC emisor en su cuenta de SW.
-     * @param rfc
-     * @param uuid
+     * @param rfc rfc emisor.
+     * @param uuid uuid factura.
      * @return CancelationResponse
      * @see CancelationResponse
      */
@@ -120,7 +120,7 @@ public class Cancelation extends CancelationService {
     /**
      * Método de cancelación enviando un XML de cancelación sellado.
      * <b>Nota:</b> El XML de cancelación no es igual a un CFDI.
-     * @param xmlCancelation
+     * @param xmlCancelation String xml.
      * @return CancelationResponse
      */
     @Override

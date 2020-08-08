@@ -1,7 +1,7 @@
 package mx.com.sw.exceptions;
 
 /**
- * <h1>GeneralException</h1> Está exception ocurre se encuentra algún problema
+ * GeneralException Está exception ocurre se encuentra algún problema
  * en la comunicación con los servicios.
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -14,8 +14,8 @@ public class GeneralException extends Exception {
 
     /**
      * Constructor de la clase.
-     * @param httpStatusCode
-     * @param errorMSG
+     * @param httpStatusCode http status code.
+     * @param errorMSG mensaje de error.
      */
     public GeneralException(int httpStatusCode, String errorMSG) {
         super(httpStatusCode + " ----> " + errorMSG);
@@ -33,7 +33,7 @@ public class GeneralException extends Exception {
 
     /**
      * Configura el httpStatusCode.
-     * @param httpStatusCode
+     * @param httpStatusCode http status code.
      */
     public void setHttpStatusCode(int httpStatusCode) {
         this.httpStatusCode = httpStatusCode;
@@ -49,7 +49,7 @@ public class GeneralException extends Exception {
 
     /**
      * Configura el mensaje de error.
-     * @param errorMSG
+     * @param errorMSG mensaje de error.
      */
     public void setErrorMessage(String errorMSG) {
         errorMessage = errorMSG;

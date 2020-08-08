@@ -2,6 +2,7 @@ package mx.com.sw.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import mx.com.sw.entities.IResponse;
 import mx.com.sw.exceptions.GeneralException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,7 +27,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
 /**
- * <h1>ResponseHandler</h1> Clase mediante la cual se hacen las peticiones y
+ * ResponseHandler Clase mediante la cual se hacen las peticiones y
  * des-serializaciones de respuestas.
  * @param <T> IResponse subclasses
  * @author Juan Gamez
@@ -40,12 +42,12 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP POST con la configuracion enviada.
-     * @param url
-     * @param path
-     * @param headers
-     * @param jsonBody
-     * @param configHTTP
-     * @param contentClass
+     * @param url String url o host.
+     * @param path String path
+     * @param headers Map String String con headers.
+     * @param jsonBody String body
+     * @param configHTTP RequestConfig objeto de configuración.
+     * @param contentClass Clase de respuesta esperada.
      * @return T
      */
     public T postHTTPJson(String url, String path, Map<String, String> headers, String jsonBody,
@@ -97,6 +99,8 @@ public abstract class ResponseHandler<T> {
             return handleException(e);
         } catch (TimeoutException e) {
             return handleException(e);
+        } catch (JsonSyntaxException e) {
+            return handleException(e);
         } finally {
             try {
                 client.close();
@@ -108,12 +112,12 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP POST (modo Multipart form data) con la configuracion enviada.
-     * @param url
-     * @param path
-     * @param headers
-     * @param body
-     * @param configHTTP
-     * @param contentClass
+     * @param url String url o host.
+     * @param path String path.
+     * @param headers Map String String con headers.
+     * @param body String formato Multipart con body a enviar.
+     * @param configHTTP RequestConfig objeto de configuración.
+     * @param contentClass Clase esperada de respuesta.
      * @return T
      */
     public T postHTTPMultipart(String url, String path, Map<String, String> headers, String body,
@@ -170,6 +174,8 @@ public abstract class ResponseHandler<T> {
             return handleException(e);
         } catch (TimeoutException e) {
             return handleException(e);
+        } catch (JsonSyntaxException e) {
+            return handleException(e);
         } finally {
             try {
                 client.close();
@@ -181,11 +187,11 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP GET con la configuracion enviada.
-     * @param url
-     * @param path
-     * @param headers
-     * @param configHTTP
-     * @param contentClass
+     * @param url String url o host.
+     * @param path String path.
+     * @param headers Map String String con headers.
+     * @param configHTTP RequestConfig objeto de configuración.
+     * @param contentClass Clase esperada de respuesta.
      * @return T
      */
     public T getHTTP(String url, String path, Map<String, String> headers, RequestConfig configHTTP,
@@ -235,6 +241,8 @@ public abstract class ResponseHandler<T> {
             return handleException(e);
         } catch (TimeoutException e) {
             return handleException(e);
+        } catch (JsonSyntaxException e) {
+            return handleException(e);
         } finally {
             try {
                 client.close();
@@ -246,11 +254,12 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza una deserializacion de un JSON al tipo de clase T.
-     * @param json
-     * @param contentClass
+     * @param json String json.
+     * @param contentClass Clase esperada de respuesta.
      * @return T
+     * @throws JsonSyntaxException en caso de error.
      */
-    public T deserialize(String json, Class<T> contentClass) throws IOException {
+    public T deserialize(String json, Class<T> contentClass) throws JsonSyntaxException {
         Gson gson = new GsonBuilder().create();
         return gson.fromJson(json, contentClass);
     }

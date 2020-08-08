@@ -1,7 +1,7 @@
 package mx.com.sw.services.stamp.responses;
 
 /**
-* <h1>DataTFD</h1>
+* DataTFD
 * Clase que contiene información acerca del timbrado.
 * <p>
 * <b>Nota:</b> Este campo puede ser null cuando ha surgido un error.
@@ -14,7 +14,7 @@ public class DataTFD {
 
     /**
      * Constructor de la clase.
-     * @param tfd
+     * @param tfd String tfd.
      */
     public DataTFD(String tfd) {
         this.tfd = tfd;
@@ -22,6 +22,7 @@ public class DataTFD {
 
     /**
      * Obtiene el Timbre Fiscal Digital del CFDI enviado a timbrar.
+     * @return String
      */
     public String getTFD() {
         return this.tfd;

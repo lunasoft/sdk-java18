@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
-* <h1>IssueJsonTest</h1>
+* IssueJsonTest
 * Clase para UT del servicio de timbrado Issue Json.
 * @author  Juan Gamez
 * @version 0.0.0.1

@@ -3,7 +3,7 @@ package mx.com.sw.services.stamp.responses;
 import mx.com.sw.entities.IResponse;
 
 /**
-* <h1>StampResponseV3</h1>
+* StampResponseV3
 * Clase que contiene información acerca del timbrado con datos versión 3.
 * <p>
 * <b>Nota:</b> Se recomienda revisar el campo "getStatus()" para saber si el campo "getData()" contiene datos o en
@@ -17,10 +17,10 @@ public class StampResponseV3 extends IResponse {
 
     /**
      * Constructor de la clase.
-     * @param status
-     * @param message
-     * @param messageDetail
-     * @param data
+     * @param status status de llamada a API.
+     * @param message mensaje devuelto por API.
+     * @param messageDetail detalles mensaje de la API.
+     * @param data objeto con los datos de respuesta.
      */
     public StampResponseV3(String status, String message, String messageDetail, DataCFDI data) {
         super(status, message, messageDetail);
@@ -31,6 +31,7 @@ public class StampResponseV3 extends IResponse {
      * Obtiene los datos del cfdi timbrado.
      * <b>Nota:</b> Este valor puede ser null cuando
      * termino con status "error" la petición.
+     * @return DataCFDI
      */
     public DataCFDI getData() {
         return this.data;

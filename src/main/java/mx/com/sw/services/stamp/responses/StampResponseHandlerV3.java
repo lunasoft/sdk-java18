@@ -4,7 +4,7 @@ import mx.com.sw.helpers.ResponseHelper;
 import mx.com.sw.services.ResponseHandler;
 
 /**
- * <h1>StampResponseHandlerV3</h1> Handler para servicio de TimbradoV3.
+ * StampResponseHandlerV3 Handler para servicio de TimbradoV3.
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-01
@@ -13,7 +13,7 @@ public class StampResponseHandlerV3 extends ResponseHandler<StampResponseV3> {
 
     /**
      * Método para hacer handle de un exception.
-     * @param ex
+     * @param ex exception.
      * @return StampResponseV3
      */
     @Override
