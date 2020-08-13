@@ -64,7 +64,7 @@ public abstract class ResponseHandler<T> {
                 request.setConfig(configHTTP);
             }
             if (jsonBody != null) {
-                StringEntity sEntity = new StringEntity(jsonBody);
+                StringEntity sEntity = new StringEntity(jsonBody, "UTF-8");
                 request.setEntity(sEntity);
             }
             Future<HttpResponse> future = client.execute(request, null);
