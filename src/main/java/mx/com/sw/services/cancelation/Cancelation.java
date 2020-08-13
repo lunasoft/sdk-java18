@@ -53,7 +53,7 @@ public class Cancelation extends CancelationService {
      * @see CancelationResponse
      */
     @Override
-    CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid) {
+    public CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid) {
         try {
             new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestCSD(cer, key,
                     password, uuid);
@@ -78,7 +78,7 @@ public class Cancelation extends CancelationService {
      * @see CancelationResponse
      */
     @Override
-    CancelationResponse cancelar(String pfx, String rfc, String password, String uuid) {
+    public CancelationResponse cancelar(String pfx, String rfc, String password, String uuid) {
         try {
             new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestPFX(pfx, password,
                     uuid);
@@ -104,7 +104,7 @@ public class Cancelation extends CancelationService {
      * @see CancelationResponse
      */
     @Override
-    CancelationResponse cancelar(String rfc, String uuid) {
+    public CancelationResponse cancelar(String rfc, String uuid) {
         try {
             String path = String.format("cfdi33/cancel/%s/%s", rfc, uuid);
             new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestUUID(rfc, uuid);
@@ -124,7 +124,7 @@ public class Cancelation extends CancelationService {
      * @return CancelationResponse
      */
     @Override
-    CancelationResponse cancelar(String xmlCancelation) {
+    public CancelationResponse cancelar(String xmlCancelation) {
         try {
             new CancelationValidation(getUrl(), getUser(), getPassword(), getToken())
                     .validateRequestXML(xmlCancelation);
