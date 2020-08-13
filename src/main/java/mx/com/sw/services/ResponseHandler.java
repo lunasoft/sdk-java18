@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -136,9 +135,8 @@ public abstract class ResponseHandler<T> {
             }
             if (body != null) {
                 MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-                builder.setCharset(Charset.forName("UTF-8"));
                 builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-                builder.addTextBody("xml", body, ContentType.DEFAULT_BINARY);
+                builder.addTextBody("xml", body, ContentType.TEXT_PLAIN.withCharset("UTF-8"));
                 request.setEntity(builder.build());
             }
             Future<HttpResponse> future = client.execute(request, null);
