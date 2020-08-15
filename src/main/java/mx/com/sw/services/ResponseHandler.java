@@ -11,10 +11,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import mx.com.sw.entities.IResponse;
 import mx.com.sw.exceptions.GeneralException;
+import mx.com.sw.exceptions.ServicesException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -100,6 +102,8 @@ public abstract class ResponseHandler<T> {
             return handleException(e);
         } catch (JsonSyntaxException e) {
             return handleException(e);
+        } catch (ServicesException e) {
+            return handleException(e);
         } finally {
             try {
                 client.close();
@@ -174,6 +178,8 @@ public abstract class ResponseHandler<T> {
             return handleException(e);
         } catch (JsonSyntaxException e) {
             return handleException(e);
+        } catch (ServicesException e) {
+            return handleException(e);
         } finally {
             try {
                 client.close();
@@ -197,7 +203,7 @@ public abstract class ResponseHandler<T> {
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try {
             client.start();
-            HttpPost request = new HttpPost(url + path);
+            HttpGet request = new HttpGet(url + path);
             if (headers != null) {
                 for (Map.Entry<String, String> entry : headers.entrySet()) {
                     request.addHeader(new BasicHeader(entry.getKey(), entry.getValue()));
@@ -241,6 +247,8 @@ public abstract class ResponseHandler<T> {
             return handleException(e);
         } catch (JsonSyntaxException e) {
             return handleException(e);
+        } catch (ServicesException e) {
+            return handleException(e);
         } finally {
             try {
                 client.close();
@@ -252,12 +260,16 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza una deserializacion de un JSON al tipo de clase T.
-     * @param json String json.
+     * @param json         String json.
      * @param contentClass Clase esperada de respuesta.
      * @return T
      * @throws JsonSyntaxException en caso de error.
+     * @throws ServicesException en caso de json vacío (Errores 404 o similar).
      */
-    public T deserialize(String json, Class<T> contentClass) throws JsonSyntaxException {
+    public T deserialize(String json, Class<T> contentClass) throws JsonSyntaxException, ServicesException {
+        if (json == null || json.isEmpty()) {
+            throw new ServicesException("No se obtuvo respuesta para el request hecho.");
+        }
         Gson gson = new GsonBuilder().create();
         return gson.fromJson(json, contentClass);
     }

@@ -62,7 +62,8 @@ public class Authentication extends AuthenticationService {
             headers.put("user", getUser());
             headers.put("password", getPassword());
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.getHTTP(getUrl(), "security/authenticate", headers, config, AuthenticationResponse.class);
+            return handler.postHTTPJson(getUrl(), "security/authenticate", headers, null, config,
+                AuthenticationResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }

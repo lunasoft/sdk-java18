@@ -2,6 +2,7 @@ package mx.com.sw.helpers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import mx.com.sw.services.stamp.responses.StampResponseV1;
@@ -80,6 +81,15 @@ public final class ResponseHelper {
     */
     public static StampResponseV4 toStampResponseV4(Throwable ex) {
         return new StampResponseV4(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo AccountBalanceResponse.
+    * @param ex Throwable a ser tratado
+    * @return AccountBalanceResponse.
+    */
+    public static AccountBalanceResponse toAccountBalanceResponse(Throwable ex) {
+        return new AccountBalanceResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
