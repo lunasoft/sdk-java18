@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * AccountInfoTest Clase para UT del servicio de AccountInfo.
  * @author Juan Gamez
  * @version 0.0.0.1
- * @since 2020-08-14
+ * @since 2020-08-17
  */
 public class AccountInfoTest {
     private final BuildSettings settings;

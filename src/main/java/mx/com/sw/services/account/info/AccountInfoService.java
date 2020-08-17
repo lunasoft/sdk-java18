@@ -9,7 +9,7 @@ import mx.com.sw.services.account.info.responses.AccountInfoResponse;
  * AccountInfoService - Servicio para implementación de consulta de información.
  * @author Juan Gamez
  * @version 0.0.0.1
- * @since 2020-08-14
+ * @since 2020-08-17
  */
 public abstract class AccountInfoService extends Services {
     /**

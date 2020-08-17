@@ -12,7 +12,7 @@ import org.apache.http.client.config.RequestConfig;
  * <p>
  * Ejemplo de uso:
  * <pre>
- * AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", "demo", "123456789", null, 0);
+ * AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", "token SW", null, 0);
  * AccountInfoResponse res = account.getInfo();
  * if("success".equalsIgnoreCase(res.getStatus()){
  *    System.out.println(res.getData().getStamps());
