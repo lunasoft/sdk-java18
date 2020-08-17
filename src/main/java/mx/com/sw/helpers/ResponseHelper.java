@@ -3,6 +3,7 @@ package mx.com.sw.helpers;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import mx.com.sw.services.stamp.responses.StampResponseV1;
@@ -32,7 +33,7 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo CancelationResponse.
     * @param ex Throwable a ser tratado
-    * @return CancelationResponse.
+    * @return {@link CancelationResponse}
     */
     public static CancelationResponse toCancellationResponse(Throwable ex) {
         return new CancelationResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
@@ -41,7 +42,7 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo AuthenticationResponse.
     * @param ex Throwable a ser tratado
-    * @return AuthenticationResponse.
+    * @return {@link AuthenticationResponse}
     */
     public static AuthenticationResponse toAuthenticationResponse(Throwable ex) {
         return new AuthenticationResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
@@ -50,7 +51,7 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo StampResponseV1.
     * @param ex Throwable a ser tratado
-    * @return StampResponseV1.
+    * @return {@link StampResponseV1}
     */
     public static StampResponseV1 toStampResponseV1(Throwable ex) {
         return new StampResponseV1(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
@@ -59,7 +60,7 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo StampResponseV2.
     * @param ex Throwable a ser tratado
-    * @return StampResponseV2.
+    * @return {@link StampResponseV2}
     */
     public static StampResponseV2 toStampResponseV2(Throwable ex) {
         return new StampResponseV2(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
@@ -68,7 +69,7 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo StampResponseV3.
     * @param ex Throwable a ser tratado
-    * @return StampResponseV3.
+    * @return {@link StampResponseV3}
     */
     public static StampResponseV3 toStampResponseV3(Throwable ex) {
         return new StampResponseV3(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
@@ -77,7 +78,7 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo StampResponseV4.
     * @param ex Throwable a ser tratado
-    * @return StampResponseV4.
+    * @return {@link StampResponseV4}
     */
     public static StampResponseV4 toStampResponseV4(Throwable ex) {
         return new StampResponseV4(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
@@ -86,10 +87,19 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo AccountBalanceResponse.
     * @param ex Throwable a ser tratado
-    * @return AccountBalanceResponse.
+    * @return {@link AccountBalanceResponse}
     */
     public static AccountBalanceResponse toAccountBalanceResponse(Throwable ex) {
         return new AccountBalanceResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo AccountInfoResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link AccountInfoResponse}
+    */
+    public static AccountInfoResponse toAccountInfoResponse(Throwable ex) {
+        return new AccountInfoResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
