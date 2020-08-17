@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/ComercioExterior11 http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd" xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11" Version="3.3" Serie="RogueOne" Folio="HNFK231" Fecha="2017-07-25T18:05:45" Sello="" FormaPago="01" NoCertificado="" Certificado="" SubTotal="23529.47" Moneda="MXN" TipoCambio="1" Total="23932.67" TipoDeComprobante="I" MetodoPago="PUE" LugarExpedicion="06300" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="CINDEMEX SA DE CV" RegimenFiscal="601" />
+  <cfdi:Receptor Rfc="AAA010101AAA" Nombre="SW SMARTERWEB" UsoCFDI="G03" />
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="50211503" NoIdentificacion="131494-1055" Cantidad="117.64" ClaveUnidad="H87" Unidad="07" Descripcion="Cigarros" ValorUnitario="200.00" Importe="23529.47">
+      <cfdi:Impuestos>
+        <cfdi:Traslados>
+          <cfdi:Traslado Base="200.00" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="32.00" />
+          <cfdi:Traslado Base="232.00" Impuesto="003" TipoFactor="Tasa" TasaOCuota="1.600000" Importe="371.20" />
+        </cfdi:Traslados>
+      </cfdi:Impuestos>
+    </cfdi:Concepto>
+  </cfdi:Conceptos>
+  <cfdi:Impuestos TotalImpuestosTrasladados="403.20">
+    <cfdi:Traslados>
+      <cfdi:Traslado Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="32.00" />
+      <cfdi:Traslado Impuesto="003" TipoFactor="Tasa" TasaOCuota="1.600000" Importe="371.20" />
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+  <cfdi:Complemento>
+    <cce11:ComercioExterior xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11" Version="1.1" TipoOperacion="2" ClaveDePedimento="A1" CertificadoOrigen="0" Incoterm="FOB" Subdivision="0" TipoCambioUSD="15.6446" TotalUSD="1504.00">
+      <cce11:Emisor>
+        <cce11:Domicilio Calle="CALLE DEL PAPEL" Colonia="0214" Localidad="01" Municipio="014" Estado="QUE" Pais="MEX" CodigoPostal="76199" />
+      </cce11:Emisor>
+      <cce11:Receptor>
+        <cce11:Domicilio Calle="CALLE DEL PAPEL" Colonia="0214" Localidad="01" Municipio="014" Estado="QUE" Pais="MEX" CodigoPostal="76199" />
+      </cce11:Receptor>
+      <cce11:Mercancias>
+        <cce11:Mercancia NoIdentificacion="131494-1055" FraccionArancelaria="01051199" CantidadAduana="117.64" UnidadAduana="07" ValorUnitarioAduana="12.78" ValorDolares="1504.00" />
+      </cce11:Mercancias>
+    </cce11:ComercioExterior>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante Certificado="" Descuento="49.65" Fecha="2019-12-12T23:56:20" Folio="63711834980719627724" FormaPago="99" LugarExpedicion="45609" MetodoPago="PUE" Moneda="MXN" NoCertificado="" Sello="" Serie="N" SubTotal="2086.94" TipoDeComprobante="N" Total="2037.29" Version="3.3" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
+	<cfdi:Emisor Nombre="EMISOR" RegimenFiscal="601" Rfc="EKU9003173C9"/>
+	<cfdi:Receptor Nombre="RECEPTOR" Rfc="AAAA010101AAA" UsoCFDI="P01"/>
+	<cfdi:Conceptos>
+		<cfdi:Concepto Cantidad="1" ClaveProdServ="84111505" ClaveUnidad="ACT" Descripcion="Pago de nómina" Descuento="49.65" Importe="2086.94" ValorUnitario="2086.94"/>
+	</cfdi:Conceptos>
+	<cfdi:Complemento>
+		<nomina12:Nomina FechaFinalPago="2019-08-31" FechaInicialPago="2019-08-16" FechaPago="2019-08-27" NumDiasPagados="16" TipoNomina="O" TotalDeducciones="49.65" TotalOtrosPagos="86.94" TotalPercepciones="2000.00" Version="1.2" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
+			<nomina12:Emisor RegistroPatronal="1234587656">
+				<nomina12:EntidadSNCF OrigenRecurso="IP"/>
+			</nomina12:Emisor>
+			<nomina12:Receptor Antigüedad="P28W" ClaveEntFed="JAL" Curp="XEXX010101HNEXXXA4" FechaInicioRelLaboral="2019-02-14" NumEmpleado="190909125959A74" NumSeguridadSocial="12345678901" PeriodicidadPago="04" RiesgoPuesto="1" SalarioBaseCotApor="125" SalarioDiarioIntegrado="130.65" Sindicalizado="No" TipoContrato="01" TipoJornada="01" TipoRegimen="02"/>
+			<nomina12:Percepciones TotalExento="0.00" TotalGravado="2000.00" TotalSueldos="2000.00">
+				<nomina12:Percepcion Clave="001" Concepto="Sueldos, Salarios  Rayas y Jornales" ImporteExento="0.00" ImporteGravado="2000.00" TipoPercepcion="001"/>
+			</nomina12:Percepciones>
+			<nomina12:Deducciones TotalOtrasDeducciones="49.65">
+				<nomina12:Deduccion Clave="001" Concepto="Seguridad social" Importe="49.65" TipoDeduccion="001"/>
+			</nomina12:Deducciones>
+			<nomina12:OtrosPagos>
+				<nomina12:OtroPago Clave="002" Concepto="Subsidio para el empleo (efectivamente entregado al trabajador)" Importe="86.94" TipoOtroPago="002">
+					<nomina12:SubsidioAlEmpleo SubsidioCausado="188.7"/>
+				</nomina12:OtroPago>
+			</nomina12:OtrosPagos>
+		</nomina12:Nomina>
+	</cfdi:Complemento>
+</cfdi:Comprobante>
