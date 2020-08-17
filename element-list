@@ -5,6 +5,10 @@ mx.com.sw.services
 mx.com.sw.services.acceptreject
 mx.com.sw.services.acceptreject.requests
 mx.com.sw.services.acceptreject.responses
+mx.com.sw.services.account.balance
+mx.com.sw.services.account.balance.responses
+mx.com.sw.services.account.info
+mx.com.sw.services.account.info.responses
 mx.com.sw.services.authentication
 mx.com.sw.services.authentication.responses
 mx.com.sw.services.cancelation
