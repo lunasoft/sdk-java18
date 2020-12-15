@@ -58,6 +58,7 @@ public class BuildSettings {
     private String relationsXML;
     private String templateId;
     private Map<String, String> observaciones;
+    private String xmlTimbrado;
 
     /**
     * Constructor de la clase.
@@ -82,8 +83,10 @@ public class BuildSettings {
             acuse = loadResourceAsString("resources/XmlCancelacion.xml");
             relationsXML = loadResourceAsString("resources/RelationsXML.xml");
             templateId = "cfdi33";
+            templateId = "payment";
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
+            xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -91,6 +94,8 @@ public class BuildSettings {
         }
     }
 
+
+    
     /**
     * Regresa el valor descrito.
     */
@@ -341,5 +346,13 @@ public class BuildSettings {
             data.put("Fecha", getDateCFDI());
         }
         return gson.toJson(data);
+    }
+
+    public String getXmlTimbrado() {
+        return xmlTimbrado;
+    }
+
+    public void setXmlTimbrado(String xmlTimbrado) {
+        this.xmlTimbrado = xmlTimbrado;
     }
 }

@@ -26,6 +26,7 @@ public class Services {
     private String proxy;
     private int proxyPort;
     private Instant expirationDate;
+    private String urlapi;
 
     /**
     * Constructor de la clase.
@@ -52,6 +53,24 @@ public class Services {
     */
     protected Services(String url, String user, String password, String proxy, int proxyPort) {
         this.url = GeneralHelpers.noralizeUrl(url);
+        this.user = user;
+        this.password = password;
+        this.proxy = proxy;
+        this.proxyPort = proxyPort;
+    }
+
+    /**
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param urlapi url base de la API servicios
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    */
+    protected Services(String url, String urlapi, String user, String password, String proxy, int proxyPort) {
+        this.url = GeneralHelpers.noralizeUrl(url);
+        this.urlapi = GeneralHelpers.noralizeUrl(urlapi);
         this.user = user;
         this.password = password;
         this.proxy = proxy;
@@ -115,6 +134,17 @@ public class Services {
     }
 
     /**
+    * Método para obtener la url del api servicios
+    * @return String
+    */
+    protected String getUrlapi() {
+        return urlapi;
+    }
+
+    protected void setUrlapi(String urlapi) {
+        this.urlapi = urlapi;
+    }
+    /**
     * Método para verificar y renovar el token.
     * @return String
     */
@@ -129,4 +159,8 @@ public class Services {
         }
         return this;
     }
+
+  
+
+    
 }
