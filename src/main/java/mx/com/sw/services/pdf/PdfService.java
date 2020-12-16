@@ -1,11 +1,9 @@
 package mx.com.sw.services.pdf;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import java.util.HashMap;
+import java.util.Map;
 import mx.com.sw.services.Services;
 import mx.com.sw.services.pdf.requests.PdfRequest;
 import mx.com.sw.services.pdf.responses.PdfResponse;
@@ -13,13 +11,12 @@ import mx.com.sw.services.pdf.responses.PdfResponseHandler;
 
 /**
  * PdfService servicio de generacion PDF.
- * 
- * @author Manuel Castillo  
+ * @author Manuel Castillo
  * @version 0.0.0.1
  * @since 2020-12-15
  */
 public abstract class PdfService extends Services {
-    
+
     /**
     * Constructor de la clase.
     * @param url url base de la API
@@ -30,7 +27,7 @@ public abstract class PdfService extends Services {
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     */
     protected PdfService(String url, String urlapi, String user, String password, String proxy, int proxyPort) {
-      super(url, urlapi, user, password, proxy, proxyPort);
+        super(url, urlapi, user, password, proxy, proxyPort);
     }
 
     /**
@@ -72,24 +69,23 @@ public abstract class PdfService extends Services {
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
      * @param logo String logo de emisor en b64.
-     * @param extras Map<String, String> con los parametros extras a mostrar en PDF.
+     * @param extras Map String String con los parametros extras a mostrar en PDF.
      * @param handler PdfResponseHandler Object handler.
      * @return String con formato json para la solicitud al ws
      */
-    protected String requestPDF(String templateid, String xmlcontent, String logo,  
+    protected String requestPDF(String templateid, String xmlcontent, String logo,
         Map<String, String> extras, PdfResponseHandler handler) {
-          //byte[] utf8JsonString = xmlcontent.getBytes("UTF8");
-          PdfRequest objectRequest = new PdfRequest(xmlcontent, templateid);
-          if(logo!=null)
+        PdfRequest objectRequest = new PdfRequest(xmlcontent, templateid);
+        if (logo != null) {
             objectRequest.setLogo(logo);
-          if(extras!=null && extras.size()>0)
+        }
+        if (extras != null && extras.size() > 0) {
             objectRequest.setExtras(extras);
-          //Gson gson = new GsonBuilder().create();
-          Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-          return gson.toJson(objectRequest);
+        }
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        return gson.toJson(objectRequest);
     }
 
-    
     abstract PdfResponse getPdf(String templateid, String xmlcontent);
 
     abstract PdfResponse getPdf(String templateid, String xmlcontent, String logo);
@@ -97,6 +93,5 @@ public abstract class PdfService extends Services {
     abstract PdfResponse getPdf(String templateid, String xmlcontent, Map<String, String> extras);
 
     abstract PdfResponse getPdf(String templateid, String xmlcontent, String logo, Map<String, String> extras);
-  
 
 }

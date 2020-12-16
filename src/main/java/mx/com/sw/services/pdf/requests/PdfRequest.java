@@ -3,11 +3,9 @@ package mx.com.sw.services.pdf.requests;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * PdfRequest Clase estructura para request PDF.
- * 
- * @author Manuel Castillo  
+ * @author Manuel Castillo
  * @version 0.0.0.1
  * @since 2020-12-14
  */
@@ -17,31 +15,31 @@ public class PdfRequest {
     private String templateId;
     private Map<String, String> extras = new HashMap<String, String>();
 
-    /***
-     * Constructor default
-     * @param xmlcontent XML correspondiente cfdi
+    /**
+     * Constructor default.
+     * @param xmlContent XML correspondiente cfdi
      * @param templateId id del template a implementar
-     **/
+     */
     public PdfRequest(String xmlContent, String templateId) {
         this.xmlContent = xmlContent;
         this.templateId = templateId;
     }
 
-    /***
-     * Constructor default
-     * @param xmlcontent XML correspondiente cfdi
+    /**
+     * Constructor default.
+     * @param xmlContent XML correspondiente cfdi
      * @param logo String en b64 con el logo deseado
      * @param templateId id del template a implementar
-     **/
+     */
     public PdfRequest(String xmlContent, String logo, String templateId) {
         this.xmlContent = xmlContent;
         this.logo = logo;
         this.templateId = templateId;
     }
 
-    /***
-     * Constructor default
-     * @param xmlcontent XML correspondiente cfdi
+    /**
+     * Constructor default.
+     * @param xmlContent XML correspondiente cfdi
      * @param templateId id del template a implementar
      * @param extras Objeto Map con los atributos y valores extra deseados en el PDF
      **/
@@ -51,9 +49,9 @@ public class PdfRequest {
         this.extras = extras;
     }
 
-    /***
-     * Constructor default
-     * @param xmlcontent XML correspondiente cfdi
+    /**
+     * Constructor default.
+     * @param xmlContent XML correspondiente cfdi
      * @param logo String en b64 con el logo deseado
      * @param templateId id del template a implementar
      * @param extras Objeto Map con los atributos y valores extra deseados en el PDF
@@ -66,7 +64,7 @@ public class PdfRequest {
     }
 
     /**
-     * Obtiene el xml a procesar
+     * Obtiene el xml a procesar.
      * @return String
      */
     public String getXmlContent() {
@@ -78,7 +76,7 @@ public class PdfRequest {
     }
 
     /**
-     * Obtiene el logo en b64
+     * Obtiene el logo en b64.
      * @return String
      */
     public String getLogo() {
@@ -90,7 +88,7 @@ public class PdfRequest {
     }
 
     /**
-     * Obtiene el template del cual se generara PDF
+     * Obtiene el template del cual se generara PDF.
      * @return String
      */
     public String getTemplateId() {
@@ -102,7 +100,7 @@ public class PdfRequest {
     }
 
     /**
-     * Obtiene extras parametros anexos al PDF
+     * Obtiene extras parametros anexos al PDF.
      * @return String
      */
     public Map<String, String> getExtras() {
@@ -112,7 +110,4 @@ public class PdfRequest {
     public void setExtras(Map<String, String> extras) {
         this.extras = extras;
     }
- 
-  
-    
 }

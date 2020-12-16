@@ -3,10 +3,9 @@ package mx.com.sw.services.pdf.responses;
 import mx.com.sw.helpers.ResponseHelper;
 import mx.com.sw.services.ResponseHandler;
 
-
 /**
  * PdfResponseHandler handler para servicio de generacion PDF.
- * @author Manuel Castillo  
+ * @author Manuel Castillo
  * @version 0.0.0.1
  * @since 2020-12-15
  */
@@ -21,5 +20,4 @@ public class PdfResponseHandler extends ResponseHandler<PdfResponse> {
     public PdfResponse handleException(Throwable ex) {
         return ResponseHelper.toPdfResponse(ex);
     }
-    
 }

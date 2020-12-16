@@ -94,8 +94,6 @@ public class BuildSettings {
         }
     }
 
-
-    
     /**
     * Regresa el valor descrito.
     */

@@ -134,7 +134,7 @@ public class Services {
     }
 
     /**
-    * Método para obtener la url del api servicios
+    * Método para obtener la url del api servicios.
     * @return String
     */
     protected String getUrlapi() {
@@ -144,6 +144,7 @@ public class Services {
     protected void setUrlapi(String urlapi) {
         this.urlapi = urlapi;
     }
+
     /**
     * Método para verificar y renovar el token.
     * @return String
@@ -159,8 +160,4 @@ public class Services {
         }
         return this;
     }
-
-  
-
-    
 }

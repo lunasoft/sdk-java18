@@ -4,11 +4,11 @@ import mx.com.sw.entities.IResponse;
 
 /**
  * PdfResponse Clase con la informacion PDF retornado.
- * @author Manuel Castillo  
+ * @author Manuel Castillo
  * @version 0.0.0.1
  * @since 2020-12-14
  */
-public class PdfResponse extends IResponse{
+public class PdfResponse extends IResponse {
 
     private PdfData data;
 
@@ -23,7 +23,7 @@ public class PdfResponse extends IResponse{
         super(status, message, messageDetail);
         this.data = data;
     }
-    
+
     /**
      * Obtiene los datos del documento impreso cuando está fue "success".
      * @return PdfData

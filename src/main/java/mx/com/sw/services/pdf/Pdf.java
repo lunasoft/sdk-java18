@@ -1,18 +1,15 @@
 package mx.com.sw.services.pdf;
 
 import java.util.Map;
-
-import org.apache.http.client.config.RequestConfig;
-
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.pdf.responses.PdfResponse;
 import mx.com.sw.services.pdf.responses.PdfResponseHandler;
+import org.apache.http.client.config.RequestConfig;
 
 /**
  * Pdf Clase para consumir servicio de generacion PDF.
- * 
- * @author Manuel Castillo  
+ * @author Manuel Castillo
  * @version 0.0.0.1
  * @since 2020-12-15
  */
@@ -33,8 +30,7 @@ public class Pdf extends PdfService {
         handler = new PdfResponseHandler();
     }
 
-
-    /**
+    /*
     * Constructor de la clase.
     * @param url url base de la API
     * @param user correo o usuario de SW
@@ -60,7 +56,7 @@ public class Pdf extends PdfService {
     }
 
     /**
-     * Solicita formato impreso, parametros minimos
+     * Solicita formato impreso, parametros minimos.
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
      * @return PdfResponse
@@ -72,7 +68,7 @@ public class Pdf extends PdfService {
     }
 
     /**
-     * Solicita formato impreso, parametros minimos + logo
+     * Solicita formato impreso, parametros minimos + logo.
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
      * @return PdfResponse
@@ -84,7 +80,7 @@ public class Pdf extends PdfService {
     }
 
     /**
-     * Solicita formato impreso, parametros minimos + datos extra
+     * Solicita formato impreso, parametros minimos + datos extra.
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
      * @return PdfResponse
@@ -96,24 +92,26 @@ public class Pdf extends PdfService {
     }
 
     /**
-     * Solicita formato impreso, todos los parametros posibles
+     * Solicita formato impreso, todos los parametros posibles.
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
      * @param logo String logo de emisor en b64.
-     * @param extras Map<String, String> con los parametros extras a mostrar en PDF.
+     * @param extras Map String String con los parametros extras a mostrar en PDF.
      * @return PdfResponse
      * @see PdfResponse
      */
     @Override
     public PdfResponse getPdf(String templateid, String xmlcontent, String logo, Map<String, String> extras) {
         try {
-            new PdfValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestPdf(templateid, xmlcontent, logo);
+            new PdfValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestPdf(templateid,
+                xmlcontent, logo);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             String jsonBody = this.requestPDF(templateid, xmlcontent, logo, extras, handler);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            String urlService = (getUrlapi() == null|| getUrlapi().isEmpty())?getUrl():getUrlapi();
-            return handler.postHTTPJson(urlService, "pdf/v1/api/GeneratePdf", headers, jsonBody, config, PdfResponse.class);
+            String urlService = (getUrlapi() == null || getUrlapi().isEmpty()) ? getUrl() : getUrlapi();
+            return handler.postHTTPJson(urlService, "pdf/v1/api/GeneratePdf", headers, jsonBody, config,
+                PdfResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }

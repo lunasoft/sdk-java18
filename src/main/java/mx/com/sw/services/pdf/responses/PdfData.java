@@ -1,9 +1,8 @@
 package mx.com.sw.services.pdf.responses;
 
-
 /**
  * PdfData Clase con la informacion PDF retornado.
- * @author Manuel Castillo  
+ * @author Manuel Castillo
  * @version 0.0.0.1
  * @since 2020-12-14
  */
@@ -20,8 +19,8 @@ public class PdfData {
     private String total;
 
     /**
-     * Retorna el PDF en b64
-     * @return String 
+     * Retorna el PDF en b64.
+     * @return String
     */
     public String getContentB64() {
         return contentB64;
@@ -32,8 +31,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna el tamaño del documento impreso
-     * @return String 
+     * Retorna el tamaño del documento impreso.
+     * @return String
     */
     public String getContentSizeBytes() {
         return contentSizeBytes;
@@ -44,8 +43,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna el UUID del CFDI
-     * @return String 
+     * Retorna el UUID del CFDI.
+     * @return String
     */
     public String getUuid() {
         return uuid;
@@ -56,8 +55,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna la serie del CFDI
-     * @return String 
+     * Retorna la serie del CFDI.
+     * @return String
     */
     public String getSerie() {
         return serie;
@@ -68,8 +67,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna el folio del CFDI
-     * @return String 
+     * Retorna el folio del CFDI.
+     * @return String
     */
     public String getFolio() {
         return folio;
@@ -80,8 +79,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna la fecha de timbre del CFDI
-     * @return String 
+     * Retorna la fecha de timbre del CFDI.
+     * @return String
     */
     public String getStampDate() {
         return stampDate;
@@ -92,8 +91,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna la fecha de generacion del CFDI
-     * @return String 
+     * Retorna la fecha de generacion del CFDI.
+     * @return String
     */
     public String getIssuedDate() {
         return issuedDate;
@@ -104,8 +103,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna el RFC de emisor del CFDI
-     * @return String 
+     * Retorna el RFC de emisor del CFDI.
+     * @return String
     */
     public String getRfcIssuer() {
         return rfcIssuer;
@@ -116,8 +115,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna el RFC de receptor del CFDI
-     * @return String 
+     * Retorna el RFC de receptor del CFDI.
+     * @return String
     */
     public String getRfcReceptor() {
         return rfcReceptor;
@@ -128,8 +127,8 @@ public class PdfData {
     }
 
     /**
-     * Retorna el total del CFDI
-     * @return String 
+     * Retorna el total del CFDI.
+     * @return String
     */
     public String getTotal() {
         return total;
@@ -137,5 +136,5 @@ public class PdfData {
 
     public void setTotal(String total) {
         this.total = total;
-    }      
+    }
 }
