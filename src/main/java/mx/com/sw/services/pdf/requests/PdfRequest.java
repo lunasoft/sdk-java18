@@ -18,6 +18,14 @@ public class PdfRequest {
     /**
      * Constructor default.
      * @param xmlContent XML correspondiente cfdi
+     */
+    public PdfRequest(String xmlContent) {
+        this.xmlContent = xmlContent;
+    }
+
+    /**
+     * Constructor default.
+     * @param xmlContent XML correspondiente cfdi
      * @param templateId id del template a implementar
      */
     public PdfRequest(String xmlContent, String templateId) {

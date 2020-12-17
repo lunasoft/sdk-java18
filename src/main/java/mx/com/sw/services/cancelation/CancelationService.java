@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.HashMap;
 import java.util.Map;
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
 import mx.com.sw.services.cancelation.requests.CancelationRequestCSD;
 import mx.com.sw.services.cancelation.requests.CancelationRequestPFX;
@@ -24,8 +25,10 @@ public abstract class CancelationService extends Services {
     * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    protected CancelationService(String url, String user, String password, String proxy, int proxyPort) {
+    protected CancelationService(String url, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
     }
 
@@ -35,8 +38,9 @@ public abstract class CancelationService extends Services {
     * @param token token infinito de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    protected CancelationService(String url, String token, String proxy, int proxyPort) {
+    protected CancelationService(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
     }
 
@@ -80,8 +84,9 @@ public abstract class CancelationService extends Services {
     /**
      * Obtiene los headers necesarios para el consumo del servicio.
      * @return Map String, String
+     * @throws ServicesException exception en caso de error.
      */
-    protected Map<String, String> getHeaders() {
+    protected Map<String, String> getHeaders() throws ServicesException {
         this.setupRequest();
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", "bearer " + this.getToken());

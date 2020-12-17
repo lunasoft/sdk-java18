@@ -1,5 +1,6 @@
 package mx.com.sw.services.account.balance;
 
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import org.junit.jupiter.api.Assertions;
@@ -26,13 +27,17 @@ public class AccountBalanceTest {
     */
     @Test
     public void testGetBalance() {
-        AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUserSW(),
-            settings.getPasswordSW(), null, 0);
-        AccountBalanceResponse res = account.getBalance();
-        Assertions.assertNotNull(res);
-        Assertions.assertTrue("success".equals(res.getStatus()));
-        Assertions.assertNotNull(res.getData());
-        Assertions.assertNotNull(res.getData().getSaldoTimbres() > 0);
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUserSW(),
+                settings.getPasswordSW(), null, 0);
+            AccountBalanceResponse res = account.getBalance();
+            Assertions.assertNotNull(res);
+            Assertions.assertTrue("success".equals(res.getStatus()));
+            Assertions.assertNotNull(res.getData());
+            Assertions.assertNotNull(res.getData().getSaldoTimbres() > 0);
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -40,12 +45,16 @@ public class AccountBalanceTest {
     */
     @Test
     public void testGetBalanceToken() {
-        AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getTokenSW(), null, 0);
-        AccountBalanceResponse res = account.getBalance();
-        Assertions.assertNotNull(res);
-        Assertions.assertTrue("success".equals(res.getStatus()));
-        Assertions.assertNotNull(res.getData());
-        Assertions.assertNotNull(res.getData().getSaldoTimbres() > 0);
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getTokenSW(), null, 0);
+            AccountBalanceResponse res = account.getBalance();
+            Assertions.assertNotNull(res);
+            Assertions.assertTrue("success".equals(res.getStatus()));
+            Assertions.assertNotNull(res.getData());
+            Assertions.assertNotNull(res.getData().getSaldoTimbres() > 0);
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -53,10 +62,14 @@ public class AccountBalanceTest {
     */
     @Test
     public void testGetBalanceBadToken() {
-        AccountBalance account = new AccountBalance(settings.getUrlSW(), "empty.token.sw", null, 0);
-        AccountBalanceResponse res = account.getBalance();
-        Assertions.assertNotNull(res);
-        Assertions.assertNotNull(res.getMessage());
-        Assertions.assertFalse("success".equals(res.getStatus()));
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlSW(), "empty.token.sw", null, 0);
+            AccountBalanceResponse res = account.getBalance();
+            Assertions.assertNotNull(res);
+            Assertions.assertNotNull(res.getMessage());
+            Assertions.assertFalse("success".equals(res.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 }

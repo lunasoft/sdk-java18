@@ -1,6 +1,7 @@
 package mx.com.sw.services.issue;
 
 import java.util.Map;
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.stamp.responses.StampResponseHandlerV1;
 import mx.com.sw.services.stamp.responses.StampResponseHandlerV2;
 import mx.com.sw.services.stamp.responses.StampResponseHandlerV3;
@@ -28,8 +29,10 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
     * @param operation operacion a realizar.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    protected BaseStampIssueJsonV4(String url, String token, String operation, String proxy, int proxyPort) {
+    protected BaseStampIssueJsonV4(String url, String token, String operation, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
         this.formatPath = "v4/cfdi33/%s/%s";
         this.operation = operation;
@@ -43,9 +46,10 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
     * @param operation operacion a realizar.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
     protected BaseStampIssueJsonV4(String url, String user, String password, String operation, String proxy,
-            int proxyPort) {
+            int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
         this.formatPath = "v4/cfdi33/%s/%s";
         this.operation = operation;
@@ -57,8 +61,9 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * @param email String email.
      * @return StampResponseV1
      * @see StampResponseV1
+     * @throws ServicesException exception en caso de error.
      */
-    protected Map<String, String> getHeaders(String email) {
+    protected Map<String, String> getHeaders(String email) throws ServicesException {
         Map<String, String> headers = this.getHeaders();
         headers.put("email", email);
         return headers;
@@ -71,8 +76,9 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * @param email String email receptor.
      * @return StampResponseV1
      * @see StampResponseV1
+     * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV1 timbrarV1(String json, String email) {
+    public StampResponseV1 timbrarV1(String json, String email) throws ServicesException {
         StampResponseHandlerV1 handler = new StampResponseHandlerV1();
         Map<String, String> headers = this.getHeaders(email);
         return super.timbrar(json, headers, formatPath, operation, "v1", handler, StampResponseV1.class);
@@ -85,8 +91,9 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * @param email String email receptor.
      * @return StampResponseV2
      * @see StampResponseV2
+     * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV2 timbrarV2(String json, String email) {
+    public StampResponseV2 timbrarV2(String json, String email) throws ServicesException {
         StampResponseHandlerV2 handler = new StampResponseHandlerV2();
         Map<String, String> headers = this.getHeaders(email);
         return super.timbrar(json, headers, formatPath, operation, "v2", handler, StampResponseV2.class);
@@ -99,8 +106,9 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * @param email String email receptor.
      * @return StampResponseV3
      * @see StampResponseV3
+     * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV3 timbrarV3(String json, String email) {
+    public StampResponseV3 timbrarV3(String json, String email) throws ServicesException {
         StampResponseHandlerV3 handler = new StampResponseHandlerV3();
         Map<String, String> headers = this.getHeaders(email);
         return super.timbrar(json, headers, formatPath, operation, "v3", handler, StampResponseV3.class);
@@ -113,8 +121,9 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * @param email String email receptor.
      * @return StampResponseV4
      * @see StampResponseV4
+     * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV4 timbrarV4(String json, String email) {
+    public StampResponseV4 timbrarV4(String json, String email) throws ServicesException {
         StampResponseHandlerV4 handler = new StampResponseHandlerV4();
         Map<String, String> headers = this.getHeaders(email);
         return super.timbrar(json, headers, formatPath, operation, "v4", handler, StampResponseV4.class);

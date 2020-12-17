@@ -24,8 +24,10 @@ public class Pdf extends PdfService {
     * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    public Pdf(String url, String urlapi, String user, String password, String proxy, int proxyPort) {
+    public Pdf(String url, String urlapi, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, urlapi, user, password, proxy, proxyPort);
         handler = new PdfResponseHandler();
     }
@@ -33,30 +35,29 @@ public class Pdf extends PdfService {
     /*
     * Constructor de la clase.
     * @param url url base de la API
-    * @param user correo o usuario de SW
-    * @param password password de SW.
-    * @param proxy ip o dominio de proxy (null si no se utiliza)
-    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
-    */
-    public Pdf(String url, String user, String password, String proxy, int proxyPort) {
-        super(url, user, password, proxy, proxyPort);
-        handler = new PdfResponseHandler();
-    }
-
-    /**
-    * Constructor de la clase.
-    * @param url url base de la API
     * @param token token infinito de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    public Pdf(String url, String token, String proxy, int proxyPort) {
+    public Pdf(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
         handler = new PdfResponseHandler();
     }
 
     /**
-     * Solicita formato impreso, parametros minimos.
+     * Solicita formato impreso.
+     * @param xmlcontent String CFDI formato XML.
+     * @return PdfResponse
+     * @see PdfResponse
+     */
+    @Override
+    public PdfResponse getPdf(String xmlcontent) {
+        return getPdf(null, xmlcontent, null, null);
+    }
+
+    /**
+     * Solicita formato impreso, con CFDI + templateid.
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
      * @return PdfResponse
@@ -68,9 +69,22 @@ public class Pdf extends PdfService {
     }
 
     /**
-     * Solicita formato impreso, parametros minimos + logo.
+     * Solicita formato impreso, con CFDI + datos extra.
+     * @param xmlcontent String CFDI formato XML.
+     * @param extras Map String String con los parametros extras a mostrar en PDF.
+     * @return PdfResponse
+     * @see PdfResponse
+     */
+    @Override
+    public PdfResponse getPdf(String xmlcontent, Map<String, String> extras) {
+        return getPdf(null, xmlcontent, null, extras);
+    }
+
+    /**
+     * Solicita formato impreso, con CFDI + templateid + logo.
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
+     * @param logo String logo de emisor en b64.
      * @return PdfResponse
      * @see PdfResponse
      */
@@ -80,9 +94,10 @@ public class Pdf extends PdfService {
     }
 
     /**
-     * Solicita formato impreso, parametros minimos + datos extra.
+     * Solicita formato impreso, con CFDI + templateid + datos extra.
      * @param templateid String id del template de PDF.
      * @param xmlcontent String CFDI formato XML.
+     * @param extras Map String String con los parametros extras a mostrar en PDF.
      * @return PdfResponse
      * @see PdfResponse
      */
@@ -103,13 +118,12 @@ public class Pdf extends PdfService {
     @Override
     public PdfResponse getPdf(String templateid, String xmlcontent, String logo, Map<String, String> extras) {
         try {
-            new PdfValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestPdf(templateid,
-                xmlcontent, logo);
+            new PdfValidation().validateRequestPdf(xmlcontent, logo);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             String jsonBody = this.requestPDF(templateid, xmlcontent, logo, extras, handler);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            String urlService = (getUrlapi() == null || getUrlapi().isEmpty()) ? getUrl() : getUrlapi();
+            String urlService = GeneralHelpers.stringEmptyOrNull(getUrlapi()) ? getUrl() : getUrlapi();
             return handler.postHTTPJson(urlService, "pdf/v1/api/GeneratePdf", headers, jsonBody, config,
                 PdfResponse.class);
         } catch (ServicesException e) {

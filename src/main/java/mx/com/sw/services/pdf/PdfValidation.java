@@ -2,7 +2,6 @@ package mx.com.sw.services.pdf;
 
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
-import mx.com.sw.helpers.GeneralValidations;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -11,19 +10,7 @@ import org.apache.commons.codec.binary.Base64;
  * @version 0.0.0.1
  * @since 2020-12-15
  */
-public class PdfValidation extends GeneralValidations {
-
-    /**
-     * Constructor de la clase.
-     * @param url url de la API Rest.
-     * @param user usuario de SW.
-     * @param password password de SW.
-     * @param token token de SW.
-     * @throws ServicesException exception en caso de error.
-     */
-    public PdfValidation(String url, String user, String password, String token) throws ServicesException {
-        super(url, user, password, token);
-    }
+public class PdfValidation {
 
     /**
      * Validación String Base64.
@@ -57,13 +44,11 @@ public class PdfValidation extends GeneralValidations {
 
     /**
      * Validación para generar pdf.
-     * @param templateid templateid para generar PDF.
      * @param xmlcontent cfdi para extraccion de datos para formar PDF.
      * @param logo string en b64
      * @throws ServicesException exception en caso de error.
      */
-    public void validateRequestPdf(String templateid, String xmlcontent, String logo) throws ServicesException {
-        validateString(templateid, "Falta especificar el templateid", false, null);
+    public void validateRequestPdf(String xmlcontent, String logo) throws ServicesException {
         validateString(xmlcontent, "Falta especificar el xml a procesar", false, null);
         if (logo != null) {
             validateString(logo, "--", true, "logo");
