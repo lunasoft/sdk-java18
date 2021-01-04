@@ -2,7 +2,9 @@ package mx.com.sw.services;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
+import mx.com.sw.helpers.GeneralValidations;
 import mx.com.sw.services.authentication.Authentication;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 
@@ -17,7 +19,7 @@ import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 * @version 0.0.0.1
 * @since   2020-08-01
 */
-public class Services {
+public class Services extends GeneralValidations {
     private static final long INFINITE_TOKEN_DURATION = 7300;
     private String token;
     private String url;
@@ -26,6 +28,7 @@ public class Services {
     private String proxy;
     private int proxyPort;
     private Instant expirationDate;
+    private String urlapi;
 
     /**
     * Constructor de la clase.
@@ -33,8 +36,10 @@ public class Services {
     * @param token token de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    protected Services(String url, String token, String proxy, int proxyPort) {
+    protected Services(String url, String token, String proxy, int proxyPort) throws ServicesException {
+        super(url, null, null, token);
         this.url = GeneralHelpers.noralizeUrl(url);
         this.token = token;
         this.expirationDate = Instant.now().plus(INFINITE_TOKEN_DURATION, ChronoUnit.DAYS);
@@ -49,9 +54,32 @@ public class Services {
     * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    protected Services(String url, String user, String password, String proxy, int proxyPort) {
+    protected Services(String url, String user, String password, String proxy, int proxyPort) throws ServicesException {
+        super(url, user, password, null);
         this.url = GeneralHelpers.noralizeUrl(url);
+        this.user = user;
+        this.password = password;
+        this.proxy = proxy;
+        this.proxyPort = proxyPort;
+    }
+
+    /**
+    * Constructor de la clase.
+    * @param url url base de la API
+    * @param urlapi url base de la API servicios
+    * @param user correo o usuario de SW
+    * @param password password de SW.
+    * @param proxy ip o dominio de proxy (null si no se utiliza)
+    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
+    */
+    protected Services(String url, String urlapi, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
+        super(url, user, password, null);
+        this.url = GeneralHelpers.noralizeUrl(url);
+        this.urlapi = GeneralHelpers.noralizeUrl(urlapi);
         this.user = user;
         this.password = password;
         this.proxy = proxy;
@@ -115,16 +143,31 @@ public class Services {
     }
 
     /**
-    * Método para verificar y renovar el token.
+    * Método para obtener la url del api servicios.
     * @return String
     */
-    protected Services setupRequest() {
+    protected String getUrlapi() {
+        return urlapi;
+    }
+
+    protected void setUrlapi(String urlapi) {
+        this.urlapi = urlapi;
+    }
+
+    /**
+    * Método para verificar y renovar el token.
+    * @throws ServicesException exception en caso de error.
+    * @return String
+    */
+    protected Services setupRequest() throws ServicesException {
         if (GeneralHelpers.stringEmptyOrNull(token) || Instant.now().isAfter(expirationDate)) {
             Authentication auth = new Authentication(url, user, password, proxy, proxyPort);
             AuthenticationResponse response = auth.authenticate();
             if (response.getStatus().equalsIgnoreCase("success")) {
                 this.token = response.getData().getToken();
                 this.expirationDate = Instant.ofEpochSecond(response.getData().getExpiresIn());
+            } else {
+                throw new ServicesException(response.getMessage());
             }
         }
         return this;

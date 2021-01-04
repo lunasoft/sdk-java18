@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
 import mx.com.sw.services.acceptreject.requests.AcceptRejectItem;
 import mx.com.sw.services.acceptreject.requests.AcceptRejectRequestCSD;
@@ -27,8 +28,10 @@ public abstract class AcceptRejectService extends Services {
      * @param password password de SW.
      * @param proxy url o host a usar de proxy (null en caso de no usar).
      * @param proxyPort puerto a usar de proxy (cualquier valor en caso de no usar).
+     * @throws ServicesException exception en caso de error.
      */
-    protected AcceptRejectService(String url, String user, String password, String proxy, int proxyPort) {
+    protected AcceptRejectService(String url, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
     }
 
@@ -38,8 +41,9 @@ public abstract class AcceptRejectService extends Services {
      * @param token token infinito de SW.
      * @param proxy url o host a usar de proxy (null en caso de no usar).
      * @param proxyPort puerto a usar de proxy (cualquier valor en caso de no usar).
+     * @throws ServicesException exception en caso de error.
      */
-    protected AcceptRejectService(String url, String token, String proxy, int proxyPort) {
+    protected AcceptRejectService(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
     }
 
@@ -55,9 +59,10 @@ public abstract class AcceptRejectService extends Services {
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.
+     * @throws ServicesException exception en caso de error.
      * @return Map String, String
      */
-    protected Map<String, String> getHeaders() {
+    protected Map<String, String> getHeaders() throws ServicesException {
         this.setupRequest();
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", "bearer " + this.getToken());

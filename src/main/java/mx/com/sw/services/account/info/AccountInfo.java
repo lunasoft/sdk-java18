@@ -1,6 +1,7 @@
 package mx.com.sw.services.account.info;
 
 import java.util.Map;
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponseHandler;
@@ -45,8 +46,10 @@ public class AccountInfo extends AccountInfoService {
      * @param password  password de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+     * @throws ServicesException exception en caso de error.
      */
-    private AccountInfo(String url, String user, String password, String proxy, int proxyPort) {
+    private AccountInfo(String url, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
     }
@@ -57,14 +60,18 @@ public class AccountInfo extends AccountInfoService {
      * @param token     token infinito de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+     * @throws ServicesException exception en caso de error.
      */
-    public AccountInfo(String url, String token, String proxy, int proxyPort) {
+    public AccountInfo(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
     }
 
+    /**
+     * @throws ServicesException exception en caso de error.
+     */
     @Override
-    public AccountInfoResponse getInfo() {
+    public AccountInfoResponse getInfo() throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         return handler.getHTTP(getUrl(), "management/api/users/info", headers, config, AccountInfoResponse.class);

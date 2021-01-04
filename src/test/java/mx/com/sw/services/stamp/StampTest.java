@@ -1,5 +1,6 @@
 package mx.com.sw.services.stamp;
 
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
@@ -30,14 +31,18 @@ public class StampTest {
     */
     @Test
     public void testStampV1() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDI(true);
-        StampResponseV1 response = stamp.timbrarV1(xml, false);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getTFD());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            StampResponseV1 response = stamp.timbrarV1(xml, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getTFD());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -45,14 +50,18 @@ public class StampTest {
     */
     @Test
     public void testStampV2() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDI(true);
-        StampResponseV2 response = stamp.timbrarV2(xml, false);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getCFDI());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            StampResponseV2 response = stamp.timbrarV2(xml, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -60,14 +69,18 @@ public class StampTest {
     */
     @Test
     public void testStampV3() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDI(true);
-        StampResponseV3 response = stamp.timbrarV3(xml, false);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getCFDI());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            StampResponseV3 response = stamp.timbrarV3(xml, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -75,14 +88,18 @@ public class StampTest {
     */
     @Test
     public void testStampV4() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDI(true);
-        StampResponseV4 response = stamp.timbrarV4(xml, false);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getCFDI());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            StampResponseV4 response = stamp.timbrarV4(xml, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -90,14 +107,18 @@ public class StampTest {
     */
     @Test
     public void testStampV1B64() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDIB64(true);
-        StampResponseV1 response = stamp.timbrarV1(xml, true);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getTFD());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDIB64(true);
+            StampResponseV1 response = stamp.timbrarV1(xml, true);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getTFD());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -105,14 +126,18 @@ public class StampTest {
     */
     @Test
     public void testStampV2B64() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDIB64(true);
-        StampResponseV2 response = stamp.timbrarV2(xml, true);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getCFDI());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDIB64(true);
+            StampResponseV2 response = stamp.timbrarV2(xml, true);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -120,14 +145,18 @@ public class StampTest {
     */
     @Test
     public void testStampV3B64() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDIB64(true);
-        StampResponseV3 response = stamp.timbrarV3(xml, true);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getCFDI());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDIB64(true);
+            StampResponseV3 response = stamp.timbrarV3(xml, true);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 
     /**
@@ -135,13 +164,17 @@ public class StampTest {
     */
     @Test
     public void testStampV4B64() {
-        Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-        String xml = settings.getCFDIB64(true);
-        StampResponseV4 response = stamp.timbrarV4(xml, true);
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getData());
-        Assertions.assertNotNull(response.getStatus());
-        Assertions.assertNotNull(response.getData().getCFDI());
-        Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDIB64(true);
+            StampResponseV4 response = stamp.timbrarV4(xml, true);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
     }
 }

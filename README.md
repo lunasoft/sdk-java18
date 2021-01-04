@@ -29,3 +29,6 @@ Descargas el modulo mediante Maven:
 
 ## API Doc (Documentación)
 Documentación disponible a través de GitHub Pages en el siguiente enlace: [sdk-java18](https://lunasoft.github.io/sdk-java18/)
+
+## Release features Version 0.0.0.2
+Se agrega servicio de generación de pdf.
