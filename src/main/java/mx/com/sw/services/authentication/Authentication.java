@@ -43,8 +43,10 @@ public class Authentication extends AuthenticationService {
     * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    public Authentication(String url, String user, String password, String proxy, int proxyPort) {
+    public Authentication(String url, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
         handler = new AuthenticationResponseHandler();
     }

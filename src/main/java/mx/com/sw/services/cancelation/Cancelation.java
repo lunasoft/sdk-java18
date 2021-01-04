@@ -24,8 +24,10 @@ public class Cancelation extends CancelationService {
     * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    public Cancelation(String url, String user, String password, String proxy, int proxyPort) {
+    public Cancelation(String url, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
         handler = new CancelationResponseHandler();
     }
@@ -36,8 +38,9 @@ public class Cancelation extends CancelationService {
     * @param token token infinito de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    public Cancelation(String url, String token, String proxy, int proxyPort) {
+    public Cancelation(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
         handler = new CancelationResponseHandler();
     }

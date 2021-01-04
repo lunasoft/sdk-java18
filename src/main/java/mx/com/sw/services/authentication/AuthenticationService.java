@@ -1,5 +1,6 @@
 package mx.com.sw.services.authentication;
 
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 
@@ -19,8 +20,10 @@ public abstract class AuthenticationService extends Services {
      * @param password password de SW.
      * @param proxy url o host a usar de proxy (null en caso de no usar).
      * @param proxyPort puerto a usar de proxy (cualquier valor en caso de no usar).
+     * @throws ServicesException exception en caso de error.
      */
-    public AuthenticationService(String url, String user, String password, String proxy, int proxyPort) {
+    public AuthenticationService(String url, String user, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
     }
 

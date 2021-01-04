@@ -6,6 +6,7 @@ import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
+import mx.com.sw.services.pdf.responses.PdfResponse;
 import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
@@ -112,5 +113,14 @@ public final class ResponseHelper {
         PrintWriter printWriter = new PrintWriter(stringWriter);
         ex.printStackTrace(printWriter);
         return stringWriter.toString();
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo PdfResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link PdfResponse}
+    */
+    public static PdfResponse toPdfResponse(Throwable ex) {
+        return new PdfResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 }

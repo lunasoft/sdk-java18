@@ -1,5 +1,7 @@
 package mx.com.sw.services.issue;
 
+import mx.com.sw.exceptions.ServicesException;
+
 /**
  * IssueJson Está clase se utiliza para uso de servicios
  * issue JSON, los cuales se envia una representación de CFDI (sin sellar)
@@ -17,8 +19,9 @@ public class IssueJson extends BaseStampIssueJson {
      * @param token     token de SW
      * @param proxy    IP o Host de proxy (null si no se usa)
      * @param proxyPort    número de puerto del servidor proxy (0 si no se usa)
+     * @throws ServicesException exception en caso de error.
      */
-    public IssueJson(String url, String token, String proxy, int proxyPort) {
+    public IssueJson(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, "issue/json", proxy, proxyPort);
     }
 
@@ -29,8 +32,10 @@ public class IssueJson extends BaseStampIssueJson {
      * @param password     password de la cuenta
      * @param proxy    IP o Host de proxy (null si no se usa)
      * @param proxyPort    número de puerto del servidor proxy (0 si no se usa)
+     * @throws ServicesException exception en caso de error.
      */
-    public IssueJson(String url, String usuario, String password, String proxy, int proxyPort) {
+    public IssueJson(String url, String usuario, String password, String proxy,
+        int proxyPort) throws ServicesException {
         super(url, usuario, password, "issue/json", proxy, proxyPort);
     }
 }

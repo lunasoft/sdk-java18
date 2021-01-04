@@ -1,5 +1,6 @@
 package mx.com.sw.services.stamp;
 
+import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.issue.IssueV2;
 
 /**
@@ -41,8 +42,9 @@ public class StampV2 extends BaseStampV2 {
     * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    public StampV2(String url, String user, String password, String proxy, int proxyPort) {
+    public StampV2(String url, String user, String password, String proxy, int proxyPort) throws ServicesException {
         super(url, user, password, "stamp", proxy, proxyPort);
     }
 
@@ -52,8 +54,9 @@ public class StampV2 extends BaseStampV2 {
     * @param token token infinito
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
+    * @throws ServicesException exception en caso de error.
     */
-    public StampV2(String url, String token, String proxy, int proxyPort) {
+    public StampV2(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, "stamp", proxy, proxyPort);
     }
 }
