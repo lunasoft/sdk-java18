@@ -40,6 +40,7 @@ import org.xml.sax.SAXException;
 */
 public class BuildSettings {
     private String simpleXml;
+    private String bigXml;
     private String jsonCfdi;
     private Templates cfdiXSLT;
     private String urlSW;
@@ -66,12 +67,14 @@ public class BuildSettings {
     public BuildSettings() {
         try {
             simpleXml = new String(Files.readAllBytes(Paths.get("resources/file.xml")), "UTF-8");
+            bigXml = new String(Files.readAllBytes(Paths.get("resources/big.xml")), "UTF-8");
             jsonCfdi = new String(Files.readAllBytes(Paths.get("resources/cfdi.json")), "UTF-8");
             cfdiXSLT = loadXslt("resources/XSLT/cadenaoriginal_3_3.xslt");
             urlSW = "http://services.test.sw.com.mx";
             urlSWServices = "https://api.test.sw.com.mx";
-            userSW = "demo";
-            passwordSW = "123456789";
+            //Estas credenciales solo estaran activadas para las UT
+            userSW = "userforut@ut.com";
+            passwordSW = "swpassut";
             cerPassword = "12345678a";
             tokenSW = loadResourceAsString("resources/demoToken.txt");
             email = "unexestingemail@yopmail.com";
@@ -314,6 +317,15 @@ public class BuildSettings {
     public String getCFDI(boolean signed) {
         return changeDateAndSign(simpleXml, signed);
     }
+    
+    /**
+     * Genera un CFDI único y lo sella en caso de indicarse.
+     * @param signed
+     * @return String
+     */
+     public String getCFDIBig(boolean signed) {
+         return changeDateAndSign(bigXml, signed);
+     }
 
     /**
     * Genera un CFDI único y lo sella en caso de indicarse.
