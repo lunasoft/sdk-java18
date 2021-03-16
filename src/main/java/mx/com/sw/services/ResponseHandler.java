@@ -132,7 +132,6 @@ public abstract class ResponseHandler<T> {
                 request.setEntity(builder.build());
             }
             CloseableHttpResponse response = client.execute(request);
-            //HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
             if (response.getStatusLine() != null
                 && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 HttpEntity responseEntity = response.getEntity();
