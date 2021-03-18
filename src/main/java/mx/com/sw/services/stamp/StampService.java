@@ -2,7 +2,6 @@ package mx.com.sw.services.stamp;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.ResponseHandler;
@@ -44,19 +43,6 @@ public abstract class StampService extends Services {
     }
 
     /**
-     * Obtiene el cuerpo de la solicitud.
-     * @param xmlString xml cfdi.
-     * @param boundary random string.
-     * @return String
-     */
-    protected String getMultipartBody(String xmlString, String boundary) {
-        return String.format(
-                "--%s\r\nContent-Disposition: form-data; name=xml; "
-                + "filename=xml\r\nContent-Type: application/xml\r\n\r\n%s\r\n--%s--",
-                boundary, xmlString, boundary);
-    }
-
-    /**
      * Obtiene los headers minímos para su funcionamiento.
      * @return Map String, String
      * @throws ServicesException exception en caso de error.
@@ -80,10 +66,7 @@ public abstract class StampService extends Services {
      */
     protected <T> T timbrar(String xml, String path, Map<String, String> headers,
         ResponseHandler<T> handler, Class<T> classType) {
-        String boundary = UUID.randomUUID().toString();
-        headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
-        String xmlBody = this.getMultipartBody(xml, boundary);
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        return handler.postHTTPMultipart(getUrl(), path, headers, xmlBody, config, classType);
+        return handler.postHTTPMultipart(getUrl(), path, headers, xml, config, classType);
     }
 }
