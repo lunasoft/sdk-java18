@@ -3,7 +3,9 @@ package mx.com.sw.services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -18,14 +20,14 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
-import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
+import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
+import org.apache.http.impl.nio.client.HttpAsyncClients;
 
 /**
  * ResponseHandler Clase mediante la cual se hacen las peticiones y
@@ -53,9 +55,9 @@ public abstract class ResponseHandler<T> {
      */
     public T postHTTPJson(String url, String path, Map<String, String> headers, String jsonBody,
             RequestConfig configHTTP, Class<T> contentClass) {
-        CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
+    	CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try {
-            client.start();
+        	client.start();
             HttpPost request = new HttpPost(url + path);
             if (headers != null) {
                 for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -70,7 +72,7 @@ public abstract class ResponseHandler<T> {
                 request.setEntity(sEntity);
             }
             Future<HttpResponse> future = client.execute(request, null);
-            HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
+            HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);          
             if (response.getStatusLine() != null
                     && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 HttpEntity responseEntity = response.getEntity();
@@ -91,14 +93,14 @@ public abstract class ResponseHandler<T> {
         } catch (IllegalArgumentException e) {
             return handleException(e);
         } catch (GeneralException e) {
-            return handleException(e);
-        } catch (IOException e) {
-            return handleException(e);
+            return handleException(e); 
         } catch (InterruptedException e) {
             return handleException(e);
         } catch (ExecutionException e) {
             return handleException(e);
         } catch (TimeoutException e) {
+            return handleException(e);
+        } catch (IOException e) {
             return handleException(e);
         } catch (JsonSyntaxException e) {
             return handleException(e);
@@ -125,9 +127,9 @@ public abstract class ResponseHandler<T> {
      */
     public T postHTTPMultipart(String url, String path, Map<String, String> headers, String body,
             RequestConfig configHTTP, Class<T> contentClass) {
-        CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
+    	CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try {
-            client.start();
+        	client.start();
             HttpPost request = new HttpPost(url + path);
             if (headers != null) {
                 for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -139,9 +141,10 @@ public abstract class ResponseHandler<T> {
             }
             if (body != null) {
                 MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-                builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-                builder.addTextBody("xml", body, ContentType.TEXT_PLAIN.withCharset("UTF-8"));
-                request.setEntity(builder.build());
+                InputStream source = new ByteArrayInputStream(body.getBytes("UTF8"));
+                builder.addBinaryBody("xml", source, ContentType.create("text/xml"), "name");
+                BufferedHttpEntity entity = new BufferedHttpEntity(builder.build());
+                request.setEntity(entity);
             }
             Future<HttpResponse> future = client.execute(request, null);
             HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
@@ -166,15 +169,15 @@ public abstract class ResponseHandler<T> {
             }
         } catch (IllegalArgumentException e) {
             return handleException(e);
-        } catch (GeneralException e) {
-            return handleException(e);
-        } catch (IOException e) {
-            return handleException(e);
         } catch (InterruptedException e) {
             return handleException(e);
         } catch (ExecutionException e) {
             return handleException(e);
         } catch (TimeoutException e) {
+            return handleException(e);
+        } catch (GeneralException e) {
+            return handleException(e);
+        } catch (IOException e) {
             return handleException(e);
         } catch (JsonSyntaxException e) {
             return handleException(e);
@@ -200,9 +203,9 @@ public abstract class ResponseHandler<T> {
      */
     public T getHTTP(String url, String path, Map<String, String> headers, RequestConfig configHTTP,
             Class<T> contentClass) {
-        CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
+    	CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try {
-            client.start();
+            client.start();            
             HttpGet request = new HttpGet(url + path);
             if (headers != null) {
                 for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -237,13 +240,13 @@ public abstract class ResponseHandler<T> {
             return handleException(e);
         } catch (GeneralException e) {
             return handleException(e);
-        } catch (IOException e) {
-            return handleException(e);
         } catch (InterruptedException e) {
             return handleException(e);
         } catch (ExecutionException e) {
             return handleException(e);
         } catch (TimeoutException e) {
+            return handleException(e);
+        } catch (IOException e) {
             return handleException(e);
         } catch (JsonSyntaxException e) {
             return handleException(e);

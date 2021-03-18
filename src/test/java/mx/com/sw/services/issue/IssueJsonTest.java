@@ -258,4 +258,24 @@ public class IssueJsonTest {
             Assertions.assertNotNull(ex);
         }
     }
+    
+    /**
+     * Método de UT timbrado versión 3 bigFile
+     */
+    @Test
+    public void testStampBigFileV3() {
+        try {
+            IssueJson stamp = new IssueJson(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
+                null, 0);
+            String json = settings.getJsonCFDIBig();
+            StampResponseV3 response = stamp.timbrarV3(json);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
 }
