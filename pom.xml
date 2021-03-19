@@ -108,7 +108,6 @@
       <artifactId>org.apache.servicemix.bundles.not-yet-commons-ssl</artifactId>
       <version>0.3.11_1</version>
     </dependency>
-
   </dependencies>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>

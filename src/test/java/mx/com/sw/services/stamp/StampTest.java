@@ -177,24 +177,23 @@ public class StampTest {
             Assertions.assertNotNull(ex);
         }
     }
-    
-    /**
-     * Método de UT timbrado versión 3 bigFile.
-     */
-     @Test
-     public void testStampBigFileV3() {
-         try {
-             Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-             String xml = settings.getCFDIBig(true);
-             StampResponseV3 response = stamp.timbrarV3(xml, false);
-             Assertions.assertNotNull(response);
-             Assertions.assertNotNull(response.getData());
-             Assertions.assertNotNull(response.getStatus());
-             Assertions.assertNotNull(response.getData().getCFDI());
-             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
-         } catch (ServicesException ex) {
-             Assertions.assertNotNull(ex);
-         } 
-     }
 
+    /**
+    * Método de UT timbrado versión 3 bigFile.
+    */
+    @Test
+    public void testStampBigFileV3() {
+        try {
+            Stamp stamp = new Stamp(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDIBig(true);
+            StampResponseV3 response = stamp.timbrarV3(xml, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
 }
