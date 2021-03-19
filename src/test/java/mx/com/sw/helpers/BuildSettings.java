@@ -319,15 +319,15 @@ public class BuildSettings {
     public String getCFDI(boolean signed) {
         return changeDateAndSign(simpleXml, signed);
     }
-    
+
     /**
-     * Genera un CFDI único y lo sella en caso de indicarse.
-     * @param signed
-     * @return String
-     */
-     public String getCFDIBig(boolean signed) {
-         return changeDateAndSign(bigXml, signed);
-     }
+    * Genera un CFDI único y lo sella en caso de indicarse.
+    * @param signed
+    * @return String
+    */
+    public String getCFDIBig(boolean signed) {
+        return changeDateAndSign(bigXml, signed);
+    }
 
     /**
     * Genera un CFDI único y lo sella en caso de indicarse.
@@ -361,20 +361,21 @@ public class BuildSettings {
     }
 
     /**
-     * Genera un CFDI único en formato JSON.
-     * @return String
-     */
-     public String getJsonCFDIBig() {
-         Gson gson = new Gson();
-         Map<String, Object> data = gson.fromJson(jsonCfdiBig, Map.class);
-         if (data != null) {
-             UUID uuid = UUID.randomUUID();
-             String randomUUIDString = uuid.toString().replace("-", "");
-             data.put("Folio", randomUUIDString + "sdk-java");
-             data.put("Fecha", getDateCFDI());
-         }
-         return gson.toJson(data);
-     }
+    * Genera un CFDI único en formato JSON.
+    * @return String
+    */
+    public String getJsonCFDIBig() {
+        Gson gson = new Gson();
+        Map<String, Object> data = gson.fromJson(jsonCfdiBig, Map.class);
+        if (data != null) {
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString().replace("-", "");
+            data.put("Folio", randomUUIDString + "sdk-java");
+            data.put("Fecha", getDateCFDI());
+        }
+        return gson.toJson(data);
+    }
+
     public String getXmlTimbrado() {
         return xmlTimbrado;
     }

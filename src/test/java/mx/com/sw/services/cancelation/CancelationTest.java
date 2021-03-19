@@ -4,6 +4,7 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -26,6 +27,7 @@ public class CancelationTest {
     /**
     * Método de UT con datos de CSD.
     */
+    @Disabled
     @Test
     public void testCancellationCSD() {
         try {
@@ -48,6 +50,7 @@ public class CancelationTest {
     /**
     * Método de UT con datos de PFX.
     */
+    @Disabled
     @Test
     public void testCancellationPFX() {
         try {
@@ -70,6 +73,7 @@ public class CancelationTest {
     /**
     * Método de UT con XML.
     */
+    @Disabled
     @Test
     public void testCancellationXML() {
         try {
@@ -89,6 +93,7 @@ public class CancelationTest {
     /**
     * Método de UT con datos de RFC y UUID.
     */
+    @Disabled
     @Test
     public void testCancellationUUID() {
         try {
