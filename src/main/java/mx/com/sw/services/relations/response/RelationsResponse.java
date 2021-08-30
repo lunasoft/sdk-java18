@@ -1,16 +1,16 @@
-package mx.com.sw.services.acceptreject.responses;
+package mx.com.sw.services.relations.response;
 
 import mx.com.sw.entities.IResponse;
 
 /**
- * AcceptRejectResponse Clase con la informacion de la
- * aceptación/rechazo.
- * @author Juan Gamez
- * @version 0.0.0.1
- * @since 2020-08-01
+ * RelacionadasResponse Clase con la informacion de la
+ * Relacionadas.
+ * @author Dan Iñiguez
+ * @version 0.0.1.0
+ * @since 2021-08-24
  */
-public class AcceptRejectResponse extends IResponse {
-    private AcceptRejectData data;
+public class RelationsResponse extends IResponse {
+    private RelationsData data;
     private String codStatus;
 
     /**
@@ -20,16 +20,16 @@ public class AcceptRejectResponse extends IResponse {
      * @param messageDetail detalles mensaje de la API.
      * @param data objeto con los datos de respuesta.
      */
-    public AcceptRejectResponse(String status, String message, String messageDetail, AcceptRejectData data) {
+    public RelationsResponse(String status, String message, String messageDetail, RelationsData data) {
         super(status, message, messageDetail);
         // TODO Auto-generated constructor stub
     }
 
     /**
      * Obtiene los datos de solicitud en caso de status "success".
-     * @return AcceptRejectData
+     * @return RelationsData
      */
-    public AcceptRejectData getData() {
+    public RelationsData getData() {
         return this.data;
     }
 
@@ -37,7 +37,7 @@ public class AcceptRejectResponse extends IResponse {
      * Configura los datos de respuesta.
      * @param data objeto con datos.
      */
-    public void setData(AcceptRejectData data) {
+    public void setData(RelationsData data) {
         this.data = data;
     }
 
