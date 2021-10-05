@@ -11,9 +11,9 @@ public enum EnumAcceptReject {
     /**
      * Aceptacion de la petición de cancelacion.
      */
-    aceptacion,
+    Aceptacion,
     /**
      * Rechazo de la petición de cancelacion.
      */
-    rechazo
+    Rechazo
 }

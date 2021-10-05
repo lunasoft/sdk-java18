@@ -1,25 +1,22 @@
-package mx.com.sw.services.acceptreject;
+package mx.com.sw.services.relations;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
-import mx.com.sw.services.acceptreject.requests.AcceptRejectItem;
-import mx.com.sw.services.acceptreject.requests.AcceptRejectRequestCSD;
-import mx.com.sw.services.acceptreject.requests.AcceptRejectRequestPFX;
-import mx.com.sw.services.acceptreject.requests.EnumAcceptReject;
-import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
+import mx.com.sw.services.relations.requests.RelationsRequestCSD;
+import mx.com.sw.services.relations.requests.RelationsRequestPFX;
+import mx.com.sw.services.relations.response.RelationsResponse;
 
 /**
- * AcceptRejectService Servicio para implementación de aceptación/rechazo.
- * @author Juan Gamez
- * @version 0.0.0.1
- * @since 2020-08-01
+ * RelationsService Servicio para implementación de facturas relacionadas.
+ * @author Dan Iñiguez
+ * @version 0.0.1.0
+ * @since 2021-08-24
  */
-public abstract class AcceptRejectService extends Services {
+public abstract class RelationsService extends Services {
 
     /**
      * Constructor de la clase.
@@ -30,7 +27,7 @@ public abstract class AcceptRejectService extends Services {
      * @param proxyPort puerto a usar de proxy (cualquier valor en caso de no usar).
      * @throws ServicesException exception en caso de error.
      */
-    protected AcceptRejectService(String url, String user, String password, String proxy,
+    protected RelationsService(String url, String user, String password, String proxy,
         int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
     }
@@ -43,19 +40,19 @@ public abstract class AcceptRejectService extends Services {
      * @param proxyPort puerto a usar de proxy (cualquier valor en caso de no usar).
      * @throws ServicesException exception en caso de error.
      */
-    protected AcceptRejectService(String url, String token, String proxy, int proxyPort) throws ServicesException {
+    protected RelationsService(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
     }
 
-    abstract AcceptRejectResponse setAction(String cer, String key, String rfc, String password,
-        List<AcceptRejectItem> uuids);
+    abstract RelationsResponse getRelations(String cer, String key, String rfc, String password,
+        String uuid);
 
-    abstract AcceptRejectResponse setAction(String xmlCancelation);
+    abstract RelationsResponse getRelations(String xmlCancelation);
 
-    abstract AcceptRejectResponse setAction(String pfx, String rfc, String password,
-        List<AcceptRejectItem> uuids);
+    abstract RelationsResponse getRelations(String pfx, String rfc, String password,
+            String uuid);
 
-    abstract AcceptRejectResponse setAction(String rfc, String uuid, EnumAcceptReject action);
+    abstract RelationsResponse getRelations(String rfc, String uuid);
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.
@@ -74,11 +71,11 @@ public abstract class AcceptRejectService extends Services {
      * @param pfx pfx base64.
      * @param rfc rfc emisor.
      * @param password passwor pfx.
-     * @param uuids lista uuids a tratar.
+     * @param uuid lista uuids a tratar.
      * @return String json
      */
-    protected String requestAcceptReject(String pfx, String rfc, String password, List<AcceptRejectItem> uuids) {
-        AcceptRejectRequestPFX objectRequest = new AcceptRejectRequestPFX(uuids, password, rfc, pfx);
+    protected String requestRelations(String pfx, String rfc, String password, String uuid) {
+        RelationsRequestPFX objectRequest = new RelationsRequestPFX(uuid, password, rfc, pfx);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
     }
@@ -89,12 +86,11 @@ public abstract class AcceptRejectService extends Services {
      * @param key llave privada del emisor.
      * @param rfc rfc emisor.
      * @param password password de la llave privada.
-     * @param uuids lista de uuid a tratar.
+     * @param uuid lista de uuid a tratar.
      * @return String json
      */
-    protected String requestAcceptReject(String csd, String key, String rfc, String password,
-        List<AcceptRejectItem> uuids) {
-        AcceptRejectRequestCSD objectRequest = new AcceptRejectRequestCSD(uuids, password, rfc, csd, key);
+    protected String requestRelations(String csd, String key, String rfc, String password, String uuid) {
+        RelationsRequestCSD objectRequest = new RelationsRequestCSD(uuid, password, rfc, csd, key);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
     }
