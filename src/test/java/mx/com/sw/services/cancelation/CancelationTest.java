@@ -36,8 +36,9 @@ public class CancelationTest {
             String keyBase64 = settings.getKey();
             String password = settings.getPasswordCSD();
             String rfc = settings.getRFC();
-            String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid);
+            String uuid = "33f2b332-6c9a-48bd-9651-364ba5495e9b";
+            CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid, "01",
+                "842fc69b-f660-4581-8e21-32a3d882a8df");
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
@@ -60,7 +61,7 @@ public class CancelationTest {
             String password = settings.getPasswordCSD();
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid);
+            CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
@@ -101,7 +102,7 @@ public class CancelationTest {
                 settings.getPasswordSW(), null, 0);
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationResponse response = cancelation.cancelar(rfc, uuid);
+            CancelationResponse response = cancelation.cancelar(rfc, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
