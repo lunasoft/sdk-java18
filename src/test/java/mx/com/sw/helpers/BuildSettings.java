@@ -58,6 +58,7 @@ public class BuildSettings {
     private String noCertificado;
     private String acuse;
     private String relationsXML;
+    private String acceptRejectXML;
     private String templateId;
     private Map<String, String> observaciones;
     private String xmlTimbrado;
@@ -87,6 +88,7 @@ public class BuildSettings {
             noCertificado = "30001000000400002434";
             acuse = loadResourceAsString("resources/XmlCancelacion.xml");
             relationsXML = loadResourceAsString("resources/RelationsXML.xml");
+            acceptRejectXML = loadResourceAsString("resources/AcceptReject.xml");
             templateId = "cfdi33";
             templateId = "payment";
             observaciones = new HashMap<String, String>();
@@ -195,6 +197,13 @@ public class BuildSettings {
     */
     public String getXmlRelations() {
         return this.relationsXML;
+    }
+
+    /**
+    * Regresa el valor descrito.
+    */
+    public String getXMLAcceptReject() {
+        return this.acceptRejectXML;
     }
 
     /**

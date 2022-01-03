@@ -2,11 +2,14 @@ package mx.com.sw.helpers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import mx.com.sw.services.pdf.responses.PdfResponse;
+import mx.com.sw.services.pendings.response.PendingsResponse;
+import mx.com.sw.services.relations.response.RelationsResponse;
 import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
@@ -95,6 +98,15 @@ public final class ResponseHelper {
     }
 
     /**
+     * Este método obtiene una respuesta de tipo PendingsResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link PendingsResponse}
+     */
+    public static PendingsResponse toPendingsResponse(Throwable ex) {
+        return new PendingsResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
     * Este método obtiene una respuesta de tipo AccountInfoResponse.
     * @param ex Throwable a ser tratado
     * @return {@link AccountInfoResponse}
@@ -122,5 +134,23 @@ public final class ResponseHelper {
     */
     public static PdfResponse toPdfResponse(Throwable ex) {
         return new PdfResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo AcceptRejectResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link AcceptRejectResponse}
+    */
+    public static AcceptRejectResponse toAcceptRejectResponse(Throwable ex) {
+        return new AcceptRejectResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+     * Este método obtiene una respuesta de tipo RelationsResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link RelationsResponse}
+     */
+    public static RelationsResponse toRelationsResponse(Throwable ex) {
+        return new RelationsResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 }
