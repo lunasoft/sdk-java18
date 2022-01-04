@@ -7,7 +7,6 @@ import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -30,7 +29,6 @@ public class IssueJsonTest {
     /**
      * Método de UT timbrado versión 1 (con usuario y password).
      */
-    @Disabled
     @Test
     public void testStampV1() {
         try {
@@ -51,7 +49,6 @@ public class IssueJsonTest {
     /**
      * Método de UT timbrado versión 2 (con usuario y password).
      */
-    @Disabled
     @Test
     public void testStampV2() {
         try {
@@ -72,7 +69,6 @@ public class IssueJsonTest {
     /**
      * Método de UT timbrado versión 3 (con usuario y password).
      */
-    @Disabled
     @Test
     public void testStampV3() {
         try {
@@ -93,7 +89,6 @@ public class IssueJsonTest {
     /**
      * Método de UT timbrado versión 4 (con usuario y password).
      */
-    @Disabled
     @Test
     public void testStampV4() {
         try {
@@ -114,8 +109,6 @@ public class IssueJsonTest {
     /**
      * Método de UT timbrado versión 1 (con token).
      */
-    @Disabled
-    @Test
     public void testStampV1Token() {
         try {
             IssueJson stamp = new IssueJson(settings.getUrlSW(), settings.getTokenSW(), null, 0);
