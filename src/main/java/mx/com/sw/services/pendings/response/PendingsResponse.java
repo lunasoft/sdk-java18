@@ -1,16 +1,16 @@
-package mx.com.sw.services.acceptreject.responses;
+package mx.com.sw.services.pendings.response;
 
 import mx.com.sw.entities.IResponse;
 
 /**
- * AcceptRejectResponse Clase con la informacion de la
- * aceptación/rechazo.
- * @author Juan Gamez
- * @version 0.0.0.1
- * @since 2020-08-01
+ * Pendings Clase con la informacion de la
+ * facturas pedientes.
+ * @author Dan Iñiguez
+ * @version 0.0.1.0
+ * @since 2021-08-24
  */
-public class AcceptRejectResponse extends IResponse {
-    private AcceptRejectData data;
+public class PendingsResponse extends IResponse {
+    private PendingsData data;
     private String codStatus;
 
     /**
@@ -20,16 +20,16 @@ public class AcceptRejectResponse extends IResponse {
      * @param messageDetail detalles mensaje de la API.
      * @param data objeto con los datos de respuesta.
      */
-    public AcceptRejectResponse(String status, String message, String messageDetail, AcceptRejectData data) {
+    public PendingsResponse(String status, String message, String messageDetail, PendingsData data) {
         super(status, message, messageDetail);
         // TODO Auto-generated constructor stub
     }
 
     /**
      * Obtiene los datos de solicitud en caso de status "success".
-     * @return AcceptRejectData
+     * @return RelationsData
      */
-    public AcceptRejectData getData() {
+    public PendingsData getData() {
         return this.data;
     }
 
@@ -37,7 +37,7 @@ public class AcceptRejectResponse extends IResponse {
      * Configura los datos de respuesta.
      * @param data objeto con datos.
      */
-    public void setData(AcceptRejectData data) {
+    public void setData(PendingsData data) {
         this.data = data;
     }
 
