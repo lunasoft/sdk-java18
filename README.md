@@ -23,7 +23,7 @@ Descargas el modulo mediante Maven:
 <dependency>
   <groupId>mx.com.sw</groupId>
   <artifactId>sdk-java18</artifactId>
-  <version>0.0.0.1</version>
+  <version>0.0.1.0</version>
 </dependency>
 ```
 
