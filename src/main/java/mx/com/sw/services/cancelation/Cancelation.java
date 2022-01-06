@@ -52,17 +52,20 @@ public class Cancelation extends CancelationService {
      * @param rfc rfc emisor.
      * @param password password de llave privada.
      * @param uuid uuid factura.
+     * @param motivo motivo de cancelacion.
+     * @param folioSustitucion uuid factura que sustituye.
      * @return CancelationResponse
      * @see CancelationResponse
      */
     @Override
-    public CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid) {
+    public CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid,
+        String motivo, String folioSustitucion) {
         try {
             new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestCSD(cer, key,
                     password, uuid);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
-            String jsonBody = this.requestCancelar(cer, key, rfc, password, uuid);
+            String jsonBody = this.requestCancelar(cer, key, rfc, password, uuid, motivo, folioSustitucion);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
             return handler.postHTTPJson(getUrl(), "cfdi33/cancel/csd", headers, jsonBody, config,
                     CancelationResponse.class);
@@ -77,17 +80,20 @@ public class Cancelation extends CancelationService {
      * @param rfc rfc emisor.
      * @param password password del pfx.
      * @param uuid uuid factura.
+     * @param motivo motivo de cancelacion.
+     * @param folioSustitucion uuid factura que sustituye.
      * @return CancelationResponse
      * @see CancelationResponse
      */
     @Override
-    public CancelationResponse cancelar(String pfx, String rfc, String password, String uuid) {
+    public CancelationResponse cancelar(String pfx, String rfc, String password, String uuid,
+        String motivo, String folioSustitucion) {
         try {
             new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestPFX(pfx, password,
                     uuid);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
-            String jsonBody = this.requestCancelar(pfx, rfc, password, uuid);
+            String jsonBody = this.requestCancelar(pfx, rfc, password, uuid, motivo, folioSustitucion);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
             return handler.postHTTPJson(getUrl(), "cfdi33/cancel/pfx", headers, jsonBody, config,
                     CancelationResponse.class);
@@ -103,13 +109,17 @@ public class Cancelation extends CancelationService {
      * para el RFC emisor en su cuenta de SW.
      * @param rfc rfc emisor.
      * @param uuid uuid factura.
+     * @param motivo motivo de cancelacion.
+     * @param folioSustitucion uuid factura que sustituye.
      * @return CancelationResponse
      * @see CancelationResponse
      */
     @Override
-    public CancelationResponse cancelar(String rfc, String uuid) {
+    public CancelationResponse cancelar(String rfc, String uuid, String motivo,
+        String folioSustitucion) {
         try {
-            String path = String.format("cfdi33/cancel/%s/%s", rfc, uuid);
+            String setFolioSustitucion = folioSustitucion == null ? "" : folioSustitucion;
+            String path = String.format("cfdi33/cancel/%s/%s/%s/%s", rfc, uuid, motivo, setFolioSustitucion);
             new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestUUID(rfc, uuid);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
