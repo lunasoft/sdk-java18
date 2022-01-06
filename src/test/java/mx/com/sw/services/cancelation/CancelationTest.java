@@ -4,7 +4,6 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -27,7 +26,6 @@ public class CancelationTest {
     /**
     * Método de UT con datos de CSD.
     */
-    @Disabled
     @Test
     public void testCancellationCSD() {
         try {
@@ -37,7 +35,7 @@ public class CancelationTest {
             String password = settings.getPasswordCSD();
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid);
+            CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
@@ -50,7 +48,6 @@ public class CancelationTest {
     /**
     * Método de UT con datos de PFX.
     */
-    @Disabled
     @Test
     public void testCancellationPFX() {
         try {
@@ -60,7 +57,7 @@ public class CancelationTest {
             String password = settings.getPasswordCSD();
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid);
+            CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
@@ -73,7 +70,6 @@ public class CancelationTest {
     /**
     * Método de UT con XML.
     */
-    @Disabled
     @Test
     public void testCancellationXML() {
         try {
@@ -93,7 +89,6 @@ public class CancelationTest {
     /**
     * Método de UT con datos de RFC y UUID.
     */
-    @Disabled
     @Test
     public void testCancellationUUID() {
         try {
@@ -101,7 +96,7 @@ public class CancelationTest {
                 settings.getPasswordSW(), null, 0);
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationResponse response = cancelation.cancelar(rfc, uuid);
+            CancelationResponse response = cancelation.cancelar(rfc, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
