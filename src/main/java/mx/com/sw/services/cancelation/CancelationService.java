@@ -44,11 +44,13 @@ public abstract class CancelationService extends Services {
         super(url, token, proxy, proxyPort);
     }
 
-    abstract CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid);
+    abstract CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid,
+        String motivo, String folioSustitucion);
 
-    abstract CancelationResponse cancelar(String pfx, String rfc, String password, String uuid);
+    abstract CancelationResponse cancelar(String pfx, String rfc, String password, String uuid, String motivo,
+        String folioSustitucion);
 
-    abstract CancelationResponse cancelar(String rfc, String uuid);
+    abstract CancelationResponse cancelar(String rfc, String uuid, String motivo, String folioSustitucion);
 
     abstract CancelationResponse cancelar(String xmlCancelation);
 
@@ -58,10 +60,14 @@ public abstract class CancelationService extends Services {
      * @param rfc rfc emisor.
      * @param password password del pfx.
      * @param uuid uuid factura.
+     * @param motivo motivo de cancelacion.
+     * @param folioSustitucion uuid factura que sustituye.
      * @return String json
      */
-    protected String requestCancelar(String pfx, String rfc, String password, String uuid) {
-        CancelationRequestPFX objectRequest = new CancelationRequestPFX(uuid, password, rfc, pfx);
+    protected String requestCancelar(String pfx, String rfc, String password, String uuid, String motivo,
+        String folioSustitucion) {
+        CancelationRequestPFX objectRequest = new CancelationRequestPFX(uuid, password, rfc, pfx, motivo,
+            folioSustitucion);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
     }
@@ -73,10 +79,14 @@ public abstract class CancelationService extends Services {
      * @param rfc rfc emisor.
      * @param password password de llave privada.
      * @param uuid uuid factura.
+     * @param motivo motivo de cancelacion.
+     * @param folioSustitucion uuid factura que sustituye.
      * @return String json
      */
-    protected String requestCancelar(String csd, String key, String rfc, String password, String uuid) {
-        CancelationRequestCSD objectRequest = new CancelationRequestCSD(uuid, password, rfc, csd, key);
+    protected String requestCancelar(String csd, String key, String rfc, String password, String uuid,
+        String motivo, String folioSustitucion) {
+        CancelationRequestCSD objectRequest = new CancelationRequestCSD(uuid, password, rfc, csd, key, motivo,
+            folioSustitucion);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
     }
