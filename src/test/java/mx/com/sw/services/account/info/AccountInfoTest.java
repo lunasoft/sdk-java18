@@ -33,7 +33,6 @@ public class AccountInfoTest {
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
             Assertions.assertNotNull(res.getData());
-            Assertions.assertTrue(res.getData().getStamps() > 0);
             Assertions.assertNotNull(res.getData().getTokenAccess());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
