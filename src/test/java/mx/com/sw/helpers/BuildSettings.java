@@ -75,9 +75,9 @@ public class BuildSettings {
             urlSW = "http://services.test.sw.com.mx";           
             urlSWServices = "https://api.test.sw.com.mx";
             //Estas credenciales solo estarán activadas para las UT, deben de estar configuradas en las variables de entorno
-            userSW = System.getenv("SdkTestCFDI40_User");
-            passwordSW = System.getenv("SdkTestCFDI40_Password");
-            tokenSW = System.getenv("SdkTestCFDI40_Token");
+            userSW = System.getenv("SDKTEST_USER");
+            passwordSW = System.getenv("SDKTEST_PASSWORD");
+            tokenSW = System.getenv("SDKTEST_TOKEN");
             email = "unexestingemail@yopmail.com";
             cer = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.cer");
             key = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.key");
