@@ -34,4 +34,4 @@ Documentación disponible a través de GitHub Pages en el siguiente enlace: [sdk
 Se agrega servicio de generación de pdf.
 
 ## Release features Version 0.0.1.4
-Se agregan pruebas unitarias de diferentes escenarios de timbrado CFDI 4.0 implementando los métodos de timbrado disponibles en sdk-java18
+Se agregan pruebas unitarias de diferentes escenarios de timbrado CFDI 4.0 implementando los métodos de timbrado disponibles en sdk-java18.
