@@ -37,7 +37,7 @@ public class IssueV1 extends BaseStamp{
     @Override
     public StampResponseV1 StampResponseV1(String fileName, String stampVersion, boolean signed,
             boolean isBase64) throws ServicesException {
-                return issue.timbrarV1(settings.getCFDI(fileName, true, "4.0", isBase64), isBase64);
+                return issue.timbrarV1(settings.getCFDI(fileName, false, "4.0", isBase64), isBase64);
     }
 
     /**
@@ -46,7 +46,7 @@ public class IssueV1 extends BaseStamp{
     @Override
     public StampResponseV2 StampResponseV2(String fileName, String stampVersion, boolean signed,
             boolean isBase64) throws ServicesException {
-                return issue.timbrarV2(settings.getCFDI(fileName, true, "4.0", isBase64), isBase64);
+                return issue.timbrarV2(settings.getCFDI(fileName, false, "4.0", isBase64), isBase64);
     }
 
     /**
@@ -55,7 +55,7 @@ public class IssueV1 extends BaseStamp{
     @Override
     public StampResponseV3 StampResponseV3(String fileName, String stampVersion, boolean signed,
             boolean isBase64) throws ServicesException {
-                return issue.timbrarV3(settings.getCFDI(fileName, true, "4.0", isBase64), isBase64);
+                return issue.timbrarV3(settings.getCFDI(fileName, false, "4.0", isBase64), isBase64);
     }
 
     /**
@@ -64,6 +64,6 @@ public class IssueV1 extends BaseStamp{
     @Override
     public StampResponseV4 StampResponseV4(String fileName, String stampVersion, boolean signed,
             boolean isBase64) throws ServicesException {
-                return issue.timbrarV4(settings.getCFDI(fileName, true, "4.0", isBase64), isBase64);
+                return issue.timbrarV4(settings.getCFDI(fileName, false, "4.0", isBase64), isBase64);
     }    
 }
