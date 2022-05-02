@@ -33,7 +33,7 @@ public class Donatarias11Test {
             Assertions.assertNotNull(response.getData().getTFD());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
+            Assertions.fail(ex.getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class Donatarias11Test {
             Assertions.assertNotNull(response.getData().getTFD());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
+            Assertions.fail(ex.getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ public class Donatarias11Test {
             Assertions.assertNotNull(response.getData().getCFDI());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
+            Assertions.fail(ex.getMessage());
         }
     }
     
@@ -84,7 +84,7 @@ public class Donatarias11Test {
             Assertions.assertNotNull(response.getData().getCFDI());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
+            Assertions.fail(ex.getMessage());
         }
     }
     
@@ -101,7 +101,7 @@ public class Donatarias11Test {
             Assertions.assertNotNull(response.getData().getCFDI());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
+            Assertions.fail(ex.getMessage());
         }
     }
     
@@ -118,7 +118,7 @@ public class Donatarias11Test {
             Assertions.assertNotNull(response.getData().getCFDI());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
+            Assertions.fail(ex.getMessage());
         }
     }
 }
