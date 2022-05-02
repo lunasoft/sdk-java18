@@ -1,7 +1,6 @@
 package mx.com.sw.helpers;
 
 import com.google.gson.Gson;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
@@ -76,9 +75,9 @@ public class BuildSettings {
             urlSW = "http://services.test.sw.com.mx";           
             urlSWServices = "https://api.test.sw.com.mx";
             //Estas credenciales solo estarán activadas para las UT, deben de estar configuradas en las variables de entorno
-            userSW = System.getenv().get("SdkTestCFDI40_User");
-            passwordSW = System.getenv().get("SdkTestCFDI40_Password");
-            tokenSW = System.getenv().get("SdkTestCFDI40_Token");
+            userSW = System.getenv("SdkTestCFDI40_User");
+            passwordSW = System.getenv("SdkTestCFDI40_Password");
+            tokenSW = System.getenv("SdkTestCFDI40_Token");
             email = "unexestingemail@yopmail.com";
             cer = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.cer");
             key = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.key");
