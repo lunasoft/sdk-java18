@@ -29,15 +29,14 @@ import mx.com.sw.services.sign.Sign;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 import sw.CadenaOriginalCfdi;
 
 /**
 * BuildSettings
 * Clase auxiliar de UT con datos comunes.
-* @author  Juan Gamez
-* @version 0.0.0.1
-* @since   2020-08-01
+* @author  Eduardo Mares
+* @version 0.0.0.2
+* @since   2022-05-03
 */
 public class BuildSettings {
     private String simpleXml;
@@ -72,9 +71,10 @@ public class BuildSettings {
             bigXml = new String(Files.readAllBytes(Paths.get("resources/big.xml")), "UTF-8");
             jsonCfdi = new String(Files.readAllBytes(Paths.get("resources/cfdi.json")), "UTF-8");
             jsonCfdiBig = new String(Files.readAllBytes(Paths.get("resources/big.json")), "UTF-8");
-            urlSW = "http://services.test.sw.com.mx";           
+            urlSW = "http://services.test.sw.com.mx";
             urlSWServices = "https://api.test.sw.com.mx";
-            //Estas credenciales solo estarán activadas para las UT, deben de estar configuradas en las variables de entorno
+            //Estas credenciales solo estarán activadas para las UT,
+            //deben de estar configuradas en las variables de entorno.
             userSW = System.getenv("SDKTEST_USER");
             passwordSW = System.getenv("SDKTEST_PASSWORD");
             tokenSW = System.getenv("SDKTEST_TOKEN");
@@ -278,7 +278,7 @@ public class BuildSettings {
             doc.getDocumentElement().setAttribute("Folio", randomUUIDString + "sdk-java");
             if (signed) {
                 Sign sign = new Sign();
-                String cadena = GenerateCadena(doc, version);
+                String cadena = getGenerateCadena(doc, version);
                 String sello = sign.getSign(cadena,
                         Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/CSD_EKU9003173C9.key")),
                         "12345678a");
@@ -299,8 +299,6 @@ public class BuildSettings {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -310,16 +308,7 @@ public class BuildSettings {
     * @param signed
     * @return String
     */
-    public String getCFDI(boolean signed) {
-        return changeDateAndSign(simpleXml, signed, "3.3");
-    }
-
-    /**
-    * Genera un CFDI único y lo sella en caso de indicarse.
-    * @param signed
-    * @return String
-    */
-    public String getCFDIBig(boolean signed){
+    public String getCFDIBig(boolean signed) {
         return changeDateAndSign(bigXml, signed, "3.3");
     }
 
@@ -339,6 +328,15 @@ public class BuildSettings {
     }
 
     /**
+    * Genera un CFDI único y lo sella en caso de indicarse.
+    * @param signed
+    * @return String
+    */
+    public String getCFDI(boolean signed) {
+        return changeDateAndSign(simpleXml, signed, "3.3");
+    }
+
+    /**
     * Genera un CFDI especifico y lo sella en caso de indicarse.
     * @param fileName
     * @param signed
@@ -346,18 +344,18 @@ public class BuildSettings {
     * @param isBase64
     * @return String
     */
-    public String getCFDI(String fileName, boolean signed, String version, boolean isBase64){
-        
+    public String getCFDI(String fileName, boolean signed, String version, boolean isBase64) {
+
         String xml = "";
         try {
             xml = new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8");
         }  catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         String cfdi = changeDateAndSign(xml, signed, version);
 
-        if(isBase64){
+        if (isBase64) {
             try {
                 cfdi = Base64.getEncoder().encodeToString(cfdi.getBytes("UTF-8"));
             } catch (UnsupportedEncodingException e) {
@@ -367,7 +365,7 @@ public class BuildSettings {
 
         return cfdi;
     }
-    
+
     /**
     * Genera un CFDI especifico.
     * @param fileName
@@ -375,7 +373,7 @@ public class BuildSettings {
     * @return String
     */
     public String getJsonCFDI(String fileName, boolean isBase64) {
-        
+
         Gson gson = new Gson();
         String xml = "";
         try {
@@ -383,7 +381,7 @@ public class BuildSettings {
         }  catch (IOException e) {
             e.printStackTrace();
         }
-                
+
         Map<String, Object> data = gson.fromJson(xml, Map.class);
         if (data != null) {
             UUID uuid = UUID.randomUUID();
@@ -391,8 +389,8 @@ public class BuildSettings {
             data.put("Folio", randomUUIDString + "sdk-java");
             data.put("Fecha", getDateCFDI());
         }
-        
-        if(isBase64){
+
+        if (isBase64) {
             try {
                 return Base64.getEncoder().encodeToString(gson.toJson(data).getBytes("UTF-8"));
             } catch (UnsupportedEncodingException e) {
@@ -442,17 +440,27 @@ public class BuildSettings {
     public void setXmlTimbrado(String xmlTimbrado) {
         this.xmlTimbrado = xmlTimbrado;
     }
-    
-    private String GenerateCadena(Document xml, String version) throws TransformerConfigurationException, TransformerException, URISyntaxException {
-        
+
+    private String getGenerateCadena(Document xml, String version) {
+
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = null;
-        transformer = transformerFactory.newTransformer();
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        StreamResult result = new StreamResult(bout);
-        DOMSource source = new DOMSource(xml);
-        transformer.transform(source, result);
+        try {
+            transformer = transformerFactory.newTransformer();
+            ByteArrayOutputStream bout = new ByteArrayOutputStream();
+            StreamResult result = new StreamResult(bout);
+            DOMSource source = new DOMSource(xml);
+            transformer.transform(source, result);
 
-        return CadenaOriginalCfdi.getCadenaOriginal(bout.toByteArray(), version);
+            return CadenaOriginalCfdi.getCadenaOriginal(bout.toByteArray(), version);
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
