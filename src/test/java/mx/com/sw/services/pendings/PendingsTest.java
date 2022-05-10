@@ -45,6 +45,7 @@ public class PendingsTest {
     /**
     * Método de UT sin peticiones.
     */
+    @Disabled("It is likely that the RFC has pending requests at the time of running the test")
     @Test
     public void testPendings_Token_success_EmptyUUIDs() {
         try {
