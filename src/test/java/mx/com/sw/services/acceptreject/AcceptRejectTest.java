@@ -62,7 +62,6 @@ public class AcceptRejectTest {
             Assertions.assertNotNull(res);
             Assertions.assertTrue("error".equals(res.getStatus()));
             Assertions.assertTrue("CACFDI33 - Error no controlado".equals(res.getMessage()));
-            Assertions.assertTrue("1101 - ".equals(res.getMessageDetail()));
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }

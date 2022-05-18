@@ -1,7 +1,7 @@
 # sdk-java18
 [![SW sapien](https://dka575ofm4ao0.cloudfront.net/pages-transactional_logos/retina/68712/SW_smarter-Servicios_web.png)](http://sw.com.mx/)
 
-Librería para el timbrado de documentos CFDI 3.3 a través de los servicios de SW sapien®.
+Librería para el timbrado de documentos CFDI 3.3 y CFDI 4.0 a través de los servicios de SW sapien®.
 
 ## Requirementos
 Java 1.8 o superior
@@ -32,3 +32,6 @@ Documentación disponible a través de GitHub Pages en el siguiente enlace: [sdk
 
 ## Release features Version 0.0.0.2
 Se agrega servicio de generación de pdf.
+
+## Release features Version 0.0.1.4
+Se agregan pruebas unitarias de diferentes escenarios de timbrado CFDI 4.0 implementando los métodos de timbrado disponibles en sdk-java18. 

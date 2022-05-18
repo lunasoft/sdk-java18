@@ -172,7 +172,7 @@ public class PdfTest {
                 settings.getPasswordSW(), null, 0);
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
-            Assertions.assertTrue("Falta Capturar Usuario".equalsIgnoreCase(ex.getMessage()));
+            Assertions.assertTrue("Falta Capturar Usuario".equalsIgnoreCase(ex.getMessage()), ex.getMessage());
         }
     }
 
