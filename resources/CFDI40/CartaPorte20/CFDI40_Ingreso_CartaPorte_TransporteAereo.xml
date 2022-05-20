@@ -43,8 +43,7 @@
       </cartaporte20:Mercancias>
       <cartaporte20:FiguraTransporte>
         <cartaporte20:TiposFigura NombreFigura="NombreFigura" RFCFigura="URE180429TM6" TipoFigura="02">
-          <cartaporte20:PartesTransporte ParteTransporte="PT02">
-          </cartaporte20:PartesTransporte>
+          <cartaporte20:PartesTransporte ParteTransporte="PT02"/>
           <cartaporte20:Domicilio Calle="calle" CodigoPostal="98057" Colonia="0002" Estado="ZAC" Localidad="03" Municipio="056" NumeroExterior="211" Pais="MEX" Referencia="casa blanca"/>
         </cartaporte20:TiposFigura>
       </cartaporte20:FiguraTransporte>

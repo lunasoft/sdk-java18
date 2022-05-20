@@ -60,8 +60,7 @@
       </cartaporte20:Mercancias>
       <cartaporte20:FiguraTransporte>
         <cartaporte20:TiposFigura NombreFigura="NombreFigura" RFCFigura="URE180429TM6" TipoFigura="03">
-          <cartaporte20:PartesTransporte ParteTransporte="PT02">
-          </cartaporte20:PartesTransporte>
+          <cartaporte20:PartesTransporte ParteTransporte="PT02"/>
           <cartaporte20:Domicilio Calle="Calle" CodigoPostal="CodigoPostal" Colonia="Colonia" Estado="AL" Localidad="Localidad" Municipio="Municipio" NumeroExterior="NumeroExterior" NumeroInterior="NumeroInterior" Pais="USA" Referencia="Referencia"/>
         </cartaporte20:TiposFigura>
       </cartaporte20:FiguraTransporte>
