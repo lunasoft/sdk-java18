@@ -21,10 +21,10 @@
       <cartaporte20:Mercancias CargoPorTasacion="1" NumTotalMercancias="1" PesoBrutoTotal="1" PesoNetoTotal="1" UnidadPeso="A44">
         <cartaporte20:Mercancia BienesTransp="01010101" Cantidad="1" ClaveSTCC="123456" ClaveUnidad="A1" DescripEmbalaje="DescripEmbalaje" Descripcion="Descripcion" Dimensiones="18/62/31cm" MaterialPeligroso="No" Moneda="MXN" PesoEnKg="1" UUIDComercioExt="59AB274B-6CBC-4176-9BD7-BB67B28D3EA4" Unidad="Unidad" ValorMercancia="1">
         </cartaporte20:Mercancia>
-        <cartaporte20:TransporteAereo CodigoTransportista="CA001" LugarContrato="LugarContrato" MatriculaAeronave="61E5-WZ" NombreAseg="NombreAseg" NombreEmbarcador="Embarcador" NumPermisoSCT="Demo" NumPolizaSeguro="NumPolizaSeguro" NumeroGuia="acUbYlBVTmlzx" PermSCT="TPAF01" RFCEmbarcador="MELR721216EA1"/>
+        <cartaporte20:TransporteAereo CodigoTransportista="CA001" LugarContrato="LugarContrato" MatriculaAeronave="61E5-WZ" NombreAseg="NombreAseg" NombreEmbarcador="Embarcador" NumPermisoSCT="Demo" NumPolizaSeguro="NumPolizaSeguro" NumeroGuia="acUbYlBVTmlzx" PermSCT="TPAF01" RFCEmbarcador="IIA040805DZ4"/>
       </cartaporte20:Mercancias>
       <cartaporte20:FiguraTransporte>
-        <cartaporte20:TiposFigura NombreFigura="NombreFigura" RFCFigura="MELR721216EA1" TipoFigura="01" NumLicencia="123456">
+        <cartaporte20:TiposFigura NombreFigura="NombreFigura" RFCFigura="XOJI740919U48" TipoFigura="01" NumLicencia="123456">
           <cartaporte20:Domicilio Calle="Calle" CodigoPostal="45601" Estado="JAL" NumeroExterior="NumeroExterior" NumeroInterior="NumeroInterior" Pais="MEX" Referencia="Referencia"/>
         </cartaporte20:TiposFigura>
       </cartaporte20:FiguraTransporte>

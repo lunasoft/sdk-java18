@@ -17,7 +17,7 @@
                         Referencia="casa blanca" Municipio="004" Estado="COA" Pais="MEX" CodigoPostal="25350" />
                 </cartaporte20:Ubicacion>
                 <cartaporte20:Ubicacion IDUbicacion="DE202020" TipoUbicacion="Destino"
-                    RFCRemitenteDestinatario="AAA010101AAA" FechaHoraSalidaLlegada="2021-11-01T01:00:00"
+                    RFCRemitenteDestinatario="XOJI740919U48" FechaHoraSalidaLlegada="2021-11-01T01:00:00"
                     DistanciaRecorrida="1">
                     <cartaporte20:Domicilio Calle="calle" NumeroExterior="214" Colonia="0347" Localidad="23"
                         Referencia="casa blanca" Municipio="004" Estado="COA" Pais="MEX" CodigoPostal="25350" />
@@ -38,7 +38,7 @@
                 </cartaporte20:Autotransporte>
             </cartaporte20:Mercancias>
             <cartaporte20:FiguraTransporte>
-                <cartaporte20:TiposFigura TipoFigura="01" RFCFigura="VAAM130719H60" NumLicencia="a234567890">
+                <cartaporte20:TiposFigura TipoFigura="01" RFCFigura="XAMA620210DQ5" NumLicencia="a234567890">
                 </cartaporte20:TiposFigura>
             </cartaporte20:FiguraTransporte>
         </cartaporte20:CartaPorte>
