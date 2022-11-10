@@ -24,9 +24,9 @@ public class StorageResponse extends IResponse {
      * 
      * @return {@link StorageData}
      */
-    public StorageData getXml() {
+    public StorageData getData() {
         return this.data;
     }
-    
 
+   
 }
