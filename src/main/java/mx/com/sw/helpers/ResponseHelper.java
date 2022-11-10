@@ -14,7 +14,7 @@ import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
-
+import mx.com.sw.services.storage.StorageResponse;
 /**
 * ResponseHelper
 * Está clase funciona como un handler de exceptions donde se toma un exception
@@ -152,5 +152,14 @@ public final class ResponseHelper {
      */
     public static RelationsResponse toRelationsResponse(Throwable ex) {
         return new RelationsResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+     * Este método obtiene una respuesta de tipo StorageResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link StorageResponse}
+     */
+    public static StorageResponse toStorageResponse(Throwable ex) {
+        return new StorageResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 }
