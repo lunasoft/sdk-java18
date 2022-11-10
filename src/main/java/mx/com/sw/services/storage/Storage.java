@@ -8,7 +8,6 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 
 public class Storage extends StorageService {
-    String uuid;
     StorageResponseHandler handler;
 
     /**
@@ -19,7 +18,6 @@ public class Storage extends StorageService {
      * @param password  password de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
-     * @param uuid      uuid del xml a recuperar
      * @throws ServicesException exception en caso de error.
      */
 
@@ -36,7 +34,6 @@ public class Storage extends StorageService {
      * @param token     token infinito de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
-     * @param uuid      uuid del xml a recuperar
      * @throws ServicesException exception en caso de error.
      */
     public Storage(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
@@ -44,10 +41,19 @@ public class Storage extends StorageService {
         handler = new StorageResponseHandler();
     }
 
+    /*Metodo que recibe el UUID para la peticion de la información
+     */
+
     public StorageResponse getXml(UUID uuid) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        return handler.getHTTP(getUrl(), "datawarehouse/v1/live/" + uuid, headers, config, StorageResponse.class);
+        StorageResponse response = handler.getHTTP(getUrlapi().isEmpty() ? getUrl() : getUrlapi(),
+                "datawarehouse/v1/live/" + uuid, headers, config,
+                StorageResponse.class);
+        if (response.getData() == null || response.getData().getRecords().size() <= 0) {
+            response.setStatus("error");
+        }
+        return response;
     }
 
 }
