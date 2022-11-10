@@ -6,6 +6,8 @@ import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
+
+import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.Test;
 * @version 0.0.0.1
 * @since   2022-04-28
 */
+@Ignore
 public class ComercioExterior11Test {
 
     private StampService stampService = new StampService(false);
@@ -26,7 +29,7 @@ public class ComercioExterior11Test {
     * servicio de timbrado versión 1 de la librería sdk-java18 mediante usuario y contraseña con
     * respuesta versión 1.
     */
-    @Test
+    @Ignore
     public void testStampV1ComercioExteriorResponseV1() {
         try {
             StampResponseV1 response = stampService.stampResponseV1(
@@ -47,7 +50,7 @@ public class ComercioExterior11Test {
     * monedas mediante el servicio de timbrado versión 2 de la librería sdk-java18 mediante usuario
     * y contraseña con respuesta versión 2.
     */
-    @Test
+    @Ignore
     public void testStampV2ComercioExteriorDiferentesMonedasResponseV2() {
         try {
             StampResponseV2 response = stampService.stampResponseV2(
@@ -67,7 +70,7 @@ public class ComercioExterior11Test {
     * servicio de timbrado versión 4 de la librería sdk-java18 mediante usuario y contraseña con
     * respuesta versión 3 en base64.
     */
-    @Test
+    @Ignore
     public void testStampV4ComercioExteriorResponseV3B64() {
         try {
             StampResponseV3 response = stampService.stampResponseV3(
@@ -87,7 +90,7 @@ public class ComercioExterior11Test {
     * mediante el servicio de timbrado versión 1 sin sellar (Issue) de la librería sdk-java18 mediante usuario
     * y contraseña con respuesta versión 4.
     */
-    @Test
+    @Ignore
     public void testIssueV1ComercioExteriorDiferentesMonedasResponseV4() {
         try {
             StampResponseV4 response = stampService.stampResponseV4(
@@ -108,7 +111,7 @@ public class ComercioExterior11Test {
     * de timbrado versión 2 sin sellar (Issue) de la librería sdk-java18 mediante usuario y contraseña con
     * respuesta versión 3 en base64.
     */
-    @Test
+    @Ignore
     public void testIssueV2ComercioExteriorResponseV3() {
         try {
             StampResponseV3 response = stampService.stampResponseV3(
@@ -129,7 +132,7 @@ public class ComercioExterior11Test {
     * mediante el servicio de timbrado versión 4 sin sellar (Issue) de la librería sdk-java18 mediante usuario
     * y contraseña con respuesta versión 4.
     */
-    @Test
+    @Ignore
     public void testIssueV4ComercioExteriorDiferentesMonedasResponseV4() {
         try {
             StampResponseV4 response = stampService.stampResponseV4(
@@ -149,7 +152,7 @@ public class ComercioExterior11Test {
     * Timbrado de CFDI versión 4.0 de tipo ingreso con complemento comercio exterior mediante el servicio de
     * timbrado versión 1 (Json) de la librería sdk-java18 mediante usuario y contraseña con respuesta versión 3.
     */
-    @Test
+    @Ignore
     public void testIssueJsonV1ComercioExteriorResponseV3() {
         try {
             StampResponseV3 response = stampService.stampResponseV3(
@@ -170,7 +173,7 @@ public class ComercioExterior11Test {
     * el servicio de timbrado versión 4 (Json) de la librería sdk-java18 mediante usuario y contraseña con
     * respuesta versión 4.
     */
-    @Test
+    @Ignore
     public void testIssueJsonV4ComercioExteriorDiferentesMonedasResponseV4() {
         try {
             StampResponseV4 response = stampService.stampResponseV4(
