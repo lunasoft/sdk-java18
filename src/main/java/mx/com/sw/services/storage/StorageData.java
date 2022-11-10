@@ -1,86 +1,67 @@
 package mx.com.sw.services.storage;
 
-import java.util.Date;
 import java.util.List;
+/*Estructura de los datos que se enviaran en el Storage response */
 
 public class StorageData {
-    public Data data;
+    private List<Records> records;
 
-    public Data getData() {
-        return this.data;
-    }
-
-    public class Data {
-
-        public MetaData metaData;
-        public List<Records> records;
-        public String status;
-
-        public MetaData getMetaData() {
-            return this.metaData;
-        }
-
-        public List getRecords() {
-            return this.records;
-        }
-
-        public String getStatus() {
-            return this.status;
-        }
+    public List<Records> getRecords() {
+        return this.records;
     }
 
     public class Records {
-        public String codigoCancelacion;
-        public String statusSAT;
-        public String urlPDF;
-        public String urlAckCfdi;
-        public String urlAckCancellation;
-        public boolean hasAddenda;
-        public String addenda;
-        public String urlAddenda;
-        public Date fechaGeneracionPdf;
-        public String idDealer;
-        public String idUser;
-        public String version;
-        public String serie;
-        public String folio;
-        public Date fecha;
-        public String numeroCertificado;
-        public Double subTotal;
-        public Double descuento;
-        public Double total;
-        public String moneda;
-        public Double tipoCambio;
-        public String tipoDeComprobante;
-        public String metodoPago;
-        public String formaPago;
-        public String condicionesPago;
-        public String luegarExpedicion;
-        public String emisorRfc;
-        public String emisorNombre;
-        public String regimenFiscal;
-        public String receptorRfc;
-        public String receptorNombre;
-        public String residenciaFiscal;
-        public String numRegIdTrib;
-        public String usoCFDI;
-        public Double totalImpuestosTraslados;
-        public Double totalImpuestosRetencion;
-        public Double trasladosIVA;
-        public Double trasladosIEPS;
-        public Double retencionesISR;
-        public Double retencionesIVA;
-        public Double retencionesIEPS;
-        public Double totalImpuestosLocalesTraslados;
-        public Double totalImpuestosLocalesRetencion;
-        public String complementos;
-        public String uuid;
-        public Date fechaTimbrado;
-        public String rfcProvCertif;
-        public String selloCFD;
-        public String urlXml;
-        public String yearMonth;
-        public boolean status;
+        private String codigoCancelacion;
+        private String statusSAT;
+        private String urlPDF;
+        private String urlAckCfdi;
+        private String urlAckCancellation;
+        private boolean hasAddenda;
+        private String addenda;
+        private String urlAddenda;
+        private String fechaGeneracionPdf;
+        private String idDealer;
+        private String idUser;
+        private String version;
+        private String serie;
+        private String folio;
+        private String fecha;
+        private String numeroCertificado;
+        private Double subTotal;
+        private Double descuento;
+        private Double total;
+        private String moneda;
+        private Double tipoCambio;
+        private String tipoDeComprobante;
+        private String metodoPago;
+        private String formaPago;
+        private String condicionesPago;
+        private String luegarExpedicion;
+        private String emisorRfc;
+        private String emisorNombre;
+        private String regimenFiscal;
+        private String receptorRfc;
+        private String receptorNombre;
+        private String residenciaFiscal;
+        private String numRegIdTrib;
+        private String usoCFDI;
+        private Double totalImpuestosTraslados;
+        private Double totalImpuestosRetencion;
+        private Double trasladosIVA;
+        private Double trasladosIEPS;
+        private Double retencionesISR;
+        private Double retencionesIVA;
+        private Double retencionesIEPS;
+        private Double totalImpuestosLocalesTraslados;
+        private Double totalImpuestosLocalesRetencion;
+        private String complementos;
+        private String uuid;
+        private String fechaTimbrado;
+        private String rfcProvCertif;
+        private String selloCFD;
+        private String urlXml;
+        private String yearMonth;
+        private boolean status;
 
         public String getCodigoCancelacion() {
             return this.codigoCancelacion;
@@ -114,7 +95,7 @@ public class StorageData {
             return this.urlAddenda;
         }
 
-        public Date getFechaGeneracionPdf() {
+        public String getFechaGeneracionPdf() {
             return this.fechaGeneracionPdf;
         }
 
@@ -138,7 +119,7 @@ public class StorageData {
             return this.folio;
         }
 
-        public Date getFecha() {
+        public String getFecha() {
             return this.fecha;
         }
 
@@ -262,7 +243,7 @@ public class StorageData {
             return this.uuid;
         }
 
-        public Date getFechaTimbrado() {
+        public String getFechaTimbrado() {
             return this.fechaTimbrado;
         }
 
@@ -284,45 +265,6 @@ public class StorageData {
 
         public boolean isStatus() {
             return this.status;
-        }
-
-    }
-
-    public class MetaData {
-
-        public String page;
-        public String perPage;
-        public String pageCount;
-        public String totalCount;
-        public Links links;
-
-        public String getPage() {
-            return this.page;
-        }
-
-        public String getPerPage() {
-            return this.perPage;
-        }
-
-        public String getPageCount() {
-            return this.pageCount;
-        }
-
-        public String getTotalCount() {
-            return this.totalCount;
-        }
-
-        public Links getLinks() {
-            return this.links;
-        }
-    }
-
-    public class Links {
-
-        public String current;
-
-        public String getCurrent() {
-            return this.current;
         }
     }
 
