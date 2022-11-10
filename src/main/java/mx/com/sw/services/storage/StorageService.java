@@ -17,7 +17,7 @@ public abstract class StorageService extends Services {
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
      * @throws ServicesException exception en caso de error.
      */
-    protected StorageService(String urlApi, String url, String user, String password, String proxy,
+    protected StorageService(String url, String urlApi, String user, String password, String proxy,
             int proxyPort) throws ServicesException {
         super(url, urlApi, user, password, proxy, proxyPort);
     }
