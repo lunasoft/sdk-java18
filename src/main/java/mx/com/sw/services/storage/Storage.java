@@ -47,7 +47,7 @@ public class Storage extends StorageService {
     public StorageResponse getXml(UUID uuid) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        StorageResponse response = handler.getHTTP(getUrlapi().equals(null) ? getUrl() : getUrlapi(),
+        StorageResponse response = handler.getHTTP(getUrlapi()==null ? getUrl() : getUrlapi(),
                 "datawarehouse/v1/live/" + uuid, headers, config,
                 StorageResponse.class);
         if (response.getData() == null || response.getData().getRecords().size() <= 0) {
