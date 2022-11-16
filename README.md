@@ -35,3 +35,6 @@ Se agrega servicio de generación de pdf.
 
 ## Release features Version 0.0.1.4
 Se agregan pruebas unitarias de diferentes escenarios de timbrado CFDI 4.0 implementando los métodos de timbrado disponibles en sdk-java18. 
+
+## Release features Version 0.0.2.1
+Se agrega el Servicio de Storage, asi como Pruebas Unitarias de escenarios de success y error.

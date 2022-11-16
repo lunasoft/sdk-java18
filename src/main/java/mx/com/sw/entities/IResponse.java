@@ -35,6 +35,10 @@ public abstract class IResponse {
         return this.status;
     }
 
+    public void setStatus(String value) {
+        this.status = value;
+    }
+
     /**
      * Obtiene el mensaje de error obtenido.
      * <b>Nota:</b> Este valor generalmente solo existe cunado la solicitud
