@@ -57,7 +57,7 @@ public class AcceptRejectTest {
     public void testAcceptRejectUUID_Token_error() {
         try {
             AcceptReject acceptReject = new AcceptReject(settings.getUrlSW(), settings.getTokenSW(), null, 0);
-            AcceptRejectResponse res = acceptReject.setAction("XIA190128J61",
+            AcceptRejectResponse res = acceptReject.setAction("XIA190128J01",
                 "a98d4c19-8b05-4ab0-b231-8e4684a6e6c6", EnumAcceptReject.Aceptacion);
             Assertions.assertNotNull(res);
             Assertions.assertTrue("error".equals(res.getStatus()));
