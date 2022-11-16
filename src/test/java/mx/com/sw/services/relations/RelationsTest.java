@@ -4,6 +4,7 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.relations.response.RelationsResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
  * @version 0.0.1.0
  * @since 2021-08-24
  */
+@Disabled
 public class RelationsTest {
     private final BuildSettings settings;
 
