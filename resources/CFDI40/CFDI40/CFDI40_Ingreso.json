@@ -15,12 +15,8 @@
   "TipoDeComprobante": "I",
   "Exportacion": "01",
   "LugarExpedicion": "45610",
-<<<<<<< HEAD
 	"FormaPago": "01",
 	"MetodoPago": "PUE",
-=======
-  "FormaPago": "99",
->>>>>>> origin/develop
   "Emisor": {
     "Rfc": "EKU9003173C9",
     "Nombre": "ESCUELA KEMPER URGATE",

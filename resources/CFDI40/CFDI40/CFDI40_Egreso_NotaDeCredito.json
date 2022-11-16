@@ -15,12 +15,8 @@
   "TipoDeComprobante": "E",
   "Exportacion": "01",
   "LugarExpedicion": "45610",
-<<<<<<< HEAD
 	"FormaPago": "01",
 	"MetodoPago": "PUE",
-=======
-  "FormaPago": "99",
->>>>>>> origin/develop
   "CfdiRelacionados": [
     {
       "TipoRelacion": "01",
