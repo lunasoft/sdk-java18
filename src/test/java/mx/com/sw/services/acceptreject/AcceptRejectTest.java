@@ -126,6 +126,7 @@ public class AcceptRejectTest {
     /**
     * Método de UT XML con token.
     */
+    @Disabled("Disabled por intermitencia del SAT")
     @Test
     public void testAcceptRejectXML_Token_success() {
         try {
