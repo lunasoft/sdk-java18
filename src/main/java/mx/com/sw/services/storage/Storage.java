@@ -13,7 +13,8 @@ public class Storage extends StorageService {
     /**
      * Constructor de la clase.
      * 
-     * @param url       url base de la API
+     * @param urlApi       url base de la API
+     * @param url url base
      * @param user      correo o usuario de SW
      * @param password  password de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
@@ -30,7 +31,7 @@ public class Storage extends StorageService {
     /**
      * Constructor de la clase.
      * 
-     * @param url       url base de la API
+     * @param urlApi       url base de la API
      * @param token     token infinito de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
@@ -41,7 +42,11 @@ public class Storage extends StorageService {
         handler = new StorageResponseHandler();
     }
 
-    /*Metodo que recibe el UUID para la peticion de la información
+    /**
+     * Servicio para recuperar un XML previamente timbrado.
+     * @param uuid UUID del comprobante.
+     * @return StorageResponse
+     * @throws ServicesException
      */
 
     public StorageResponse getXml(UUID uuid) throws ServicesException {
