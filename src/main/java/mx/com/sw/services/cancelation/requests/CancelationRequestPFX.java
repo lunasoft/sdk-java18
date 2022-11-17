@@ -75,6 +75,7 @@ public class CancelationRequestPFX {
 
     /**
      * Obtiene folioSustitucion.
+     * @return String
      */
     public String folioSustitucion() {
         return this.folioSustitucion;
