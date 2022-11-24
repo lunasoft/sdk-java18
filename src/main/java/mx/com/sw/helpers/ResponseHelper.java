@@ -10,6 +10,7 @@ import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import mx.com.sw.services.pdf.responses.PdfResponse;
 import mx.com.sw.services.pendings.response.PendingsResponse;
 import mx.com.sw.services.relations.response.RelationsResponse;
+import mx.com.sw.services.resend.response.ResendResponse;
 import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
@@ -161,5 +162,13 @@ public final class ResponseHelper {
      */
     public static StorageResponse toStorageResponse(Throwable ex) {
         return new StorageResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+    /**
+     * Este método obtiene una respuesta de tipo ResendResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link ResendResponse}
+     */
+     public static ResendResponse toResendResponse(Throwable ex) {
+        return new ResendResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 }

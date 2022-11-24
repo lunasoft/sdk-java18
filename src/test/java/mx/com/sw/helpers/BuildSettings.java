@@ -10,9 +10,11 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -61,6 +63,8 @@ public class BuildSettings {
     private String templateId;
     private Map<String, String> observaciones;
     private String xmlTimbrado;
+    private String uuid;
+    private List<String> correo;
 
     /**
     * Constructor de la clase.
@@ -93,6 +97,8 @@ public class BuildSettings {
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
+            uuid = "1f108f07-bf85-4bcf-a905-2a4b91669c53";
+            correo = Arrays.asList("correo@test.com.mx");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -218,6 +224,19 @@ public class BuildSettings {
     public Map<String, String> getObservaciones() {
         return this.observaciones;
     }
+    /**
+    * Regresa el valor descrito.
+    */
+    public String getUuuid(){
+        return this.uuid;
+    }
+    /**
+    * Regresa el valor descrito.
+    */
+    public List<String> getCorreo(){
+        return this.correo;
+    }
+
 
     /**
     * Carga un recurso de archivo a base64 String.
