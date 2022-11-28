@@ -1,6 +1,7 @@
 package mx.com.sw.services.resend;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,10 +9,8 @@ import mx.com.sw.exceptions.ServicesException;
 
 public class ResendValidation {
 
-    public ResendValidation(String uuid, List<String> correos) throws ServicesException {
+    public ResendValidation(List<String> correos) throws ServicesException {
         validateEmail(correos);
-        validateUuuid(uuid);
-
     }
 
     /**
@@ -39,28 +38,4 @@ public class ResendValidation {
         }
 
     }
-
-    /**
-     * Valida la lista de correos.
-     * 
-     * @param uuid uuid del comprobante.
-     * @throws ServicesException exception en caso de error.
-     */
-    public void validateUuuid(String uuid) throws ServicesException {
-        if (uuid == null) {
-            throw new ServicesException("El uuid se encuentra vacío.");
-
-        } else {
-            Pattern pattern = Pattern
-                    .compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
-            Matcher matcher = pattern.matcher(uuid);
-            if (matcher.matches() == false) {
-                throw new ServicesException(
-                        "El uuid no es válido.");
-            }
-
-        }
-
-    }
-
 }

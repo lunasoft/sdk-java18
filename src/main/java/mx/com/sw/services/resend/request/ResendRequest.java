@@ -1,9 +1,10 @@
 package mx.com.sw.services.resend.request;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ResendRequest {
-    private String uuid;
+    private UUID uuid;
     private String to;
 
     /**
@@ -12,7 +13,7 @@ public class ResendRequest {
      * @param uuid    uuid del comprobante.
      * @param correos lista de correos.
      */
-    public ResendRequest(String uuid, List<String> correos) {
+    public ResendRequest(UUID uuid, List<String> correos) {
         this.uuid = uuid;
         this.to = String.join(",", correos);
     }

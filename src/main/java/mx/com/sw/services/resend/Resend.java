@@ -2,6 +2,8 @@ package mx.com.sw.services.resend;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.resend.response.ResendResponse;
@@ -50,9 +52,9 @@ public class Resend extends ResendService {
      * @return ResendResponse.
      * @throws ServicesException
      */
-    public ResendResponse ResendEmail(String uuid, List<String> correo) throws ServicesException {
+    public ResendResponse ResendEmail(UUID uuid, List<String> correo) throws ServicesException {
         try {
-            new ResendValidation(uuid,correo);
+            new ResendValidation(correo);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             String jsonBody = this.requestResend(uuid, correo);

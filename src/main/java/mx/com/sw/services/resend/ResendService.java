@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import mx.com.sw.services.Services;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.resend.request.ResendRequest;
@@ -59,7 +61,7 @@ public abstract class ResendService extends Services {
      * @param correos lista de correos.
      * @return Gson, gson
      */
-    protected String requestResend(String uuid, List<String> correos) {
+    protected String requestResend(UUID uuid, List<String> correos) {
         ResendRequest request = new ResendRequest(uuid, correos);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(request);

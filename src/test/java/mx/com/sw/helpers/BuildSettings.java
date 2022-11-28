@@ -63,7 +63,7 @@ public class BuildSettings {
     private String templateId;
     private Map<String, String> observaciones;
     private String xmlTimbrado;
-    private String uuid;
+    private UUID uuid;
     private List<String> correo;
 
     /**
@@ -97,7 +97,7 @@ public class BuildSettings {
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
-            uuid = "1f108f07-bf85-4bcf-a905-2a4b91669c53";
+            uuid = UUID.fromString("d5c9b40e-d0d7-4ce9-8229-377541a252ba");
             correo = Arrays.asList("correo@test.com.mx");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -227,7 +227,7 @@ public class BuildSettings {
     /**
     * Regresa el valor descrito.
     */
-    public String getUuuid(){
+    public UUID getUuid(){
         return this.uuid;
     }
     /**

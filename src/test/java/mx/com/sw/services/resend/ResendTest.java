@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 
@@ -24,7 +25,8 @@ public class ResendTest {
     public void testResendTokenSuccess() {
         try {
             Resend resend = new Resend(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            ResendResponse response = resend.ResendEmail(settings.getUuuid(), settings.getCorreo());
+            System.out.println(settings.getTokenSW());
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreo());
             Assertions.assertNotNull(response);
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue("email sent ok".equalsIgnoreCase(response.getData()));
@@ -40,7 +42,7 @@ public class ResendTest {
         try {
             Resend resend = new Resend(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),
                     settings.getPasswordSW(), null, 0);
-            ResendResponse response = resend.ResendEmail(settings.getUuuid(), settings.getCorreo());
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreo());
             Assertions.assertNotNull(response);
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue("email sent ok".equalsIgnoreCase(response.getData()));
@@ -55,7 +57,7 @@ public class ResendTest {
     public void testResendInvalidToken() {
         try {
             Resend resend = new Resend(settings.getUrlServicesSW(), "invalid token", null, 0);
-            ResendResponse response = resend.ResendEmail(settings.getUuuid(), settings.getCorreo());
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreo());
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue("AU4101 - El token proporcionado viene vacio.".equalsIgnoreCase(response.getMessage())
@@ -68,7 +70,7 @@ public class ResendTest {
     public void testResendNullToken() {
         try {
             Resend resend = new Resend(settings.getUrlServicesSW(), null, null, 0);
-            ResendResponse response = resend.ResendEmail(settings.getUuuid(), settings.getCorreo());
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreo());
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue("AU4101 - El token proporcionado viene vacio.".equalsIgnoreCase(response.getMessage()));
@@ -82,7 +84,7 @@ public class ResendTest {
         try {
             Resend resend = new Resend(settings.getUrlSW(), settings.getUrlServicesSW(), "invalid user",
                     "invalid password", null, 0);
-            ResendResponse response = resend.ResendEmail(settings.getUuuid(), settings.getCorreo());
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreo());
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions
@@ -101,20 +103,7 @@ public class ResendTest {
             ResendResponse response = resend.ResendEmail(null, settings.getCorreo());
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
-            Assertions.assertTrue("El uuid se encuentra vacío.".equalsIgnoreCase(response.getMessage()));
-            Assertions.assertNotNull(response.getMessageDetail());
-        } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
-        }
-    }
-    @Test
-    public void testResendInvalidUuid() {
-        try {
-            Resend resend = new Resend(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            ResendResponse response = resend.ResendEmail("invalid-uuid-4ce9-8229-377541a252ba", settings.getCorreo());
-            Assertions.assertNull(response.getData());
-            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
-            Assertions.assertTrue("El uuid no es válido.".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue("Can not process the message, we need uuid and to parametters".equalsIgnoreCase(response.getMessage()));
             Assertions.assertNotNull(response.getMessageDetail());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
@@ -124,7 +113,7 @@ public class ResendTest {
     public void testResendNullEmail() {
         try {
             Resend resend = new Resend(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            ResendResponse response = resend.ResendEmail(settings.getUuuid(), null);
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), null);
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue("El listado de correos está vacío o contiene más de 5 correos.".equalsIgnoreCase(response.getMessage()));
@@ -138,7 +127,7 @@ public class ResendTest {
         try {
             List<String> email = Arrays.asList("invalid email");
             Resend resend = new Resend(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            ResendResponse response = resend.ResendEmail(settings.getUuuid(), email);
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), email);
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue("El listado de correos no contiene un formato válido o alguno de los correos es inválido.".equalsIgnoreCase(response.getMessage()));
