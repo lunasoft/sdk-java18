@@ -65,6 +65,7 @@ public class BuildSettings {
     private String xmlTimbrado;
     private UUID uuid;
     private List<String> correo;
+    private List<String> correos;
 
     /**
     * Constructor de la clase.
@@ -99,6 +100,7 @@ public class BuildSettings {
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
             uuid = UUID.fromString("d5c9b40e-d0d7-4ce9-8229-377541a252ba");
             correo = Arrays.asList("correo@test.com.mx");
+            correos =Arrays.asList("correo@test.com.mx","correo@test2.com.mx","correo@test3.com.mx","correo@test4.com.mx","correo@test5.com.mx","correo@tes6t.com.mx");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -236,6 +238,13 @@ public class BuildSettings {
     public List<String> getCorreo(){
         return this.correo;
     }
+    /**
+    * Regresa el valor descrito.
+    */
+    public List<String> getCorreos(){
+        return this.correos;
+    }
+
 
 
     /**

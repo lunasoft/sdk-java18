@@ -32,6 +32,8 @@ public class ResendValidation {
                                 "El listado de correos no contiene un formato válido o alguno de los correos es inválido.");
                     }
                 }
+            }else {
+                throw new ServicesException("El listado de correos está vacío o contiene más de 5 correos.");
             }
         } else {
             throw new ServicesException("El listado de correos está vacío o contiene más de 5 correos.");

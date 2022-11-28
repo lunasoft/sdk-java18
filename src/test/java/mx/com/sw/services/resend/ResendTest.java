@@ -123,6 +123,19 @@ public class ResendTest {
         }
     }
     @Test
+    public void testResendSixEmail() {
+        try {
+            Resend resend = new Resend(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreos());
+            Assertions.assertNull(response.getData());
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("El listado de correos está vacío o contiene más de 5 correos.".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertNotNull(response.getMessageDetail());
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+    @Test
     public void testResendInvalidEmail() {
         try {
             List<String> email = Arrays.asList("invalid email");
