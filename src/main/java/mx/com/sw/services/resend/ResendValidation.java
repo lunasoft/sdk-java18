@@ -23,7 +23,6 @@ public class ResendValidation {
         if (correos != null) {
             if (correos.size() > 0 && correos.size() <= 5) {
                 for (int i = 0; i <= correos.size() - 1; i++) {
-                    System.out.println(correos.size());
                     Pattern pattern = Pattern
                             .compile("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$");
                     Matcher matcher = pattern.matcher(correos.get(i));

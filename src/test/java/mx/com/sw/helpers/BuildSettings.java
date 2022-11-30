@@ -98,7 +98,7 @@ public class BuildSettings {
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
-            uuid = UUID.fromString("d5c9b40e-d0d7-4ce9-8229-377541a252ba");
+            uuid = UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f");
             correo = Arrays.asList("correo@test.com.mx");
             correos =Arrays.asList("correo@test.com.mx","correo@test2.com.mx","correo@test3.com.mx","correo@test4.com.mx","correo@test5.com.mx","correo@tes6t.com.mx");
         } catch (UnsupportedEncodingException e) {
