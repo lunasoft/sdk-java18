@@ -25,7 +25,6 @@ public class ResendTest {
     public void testResendTokenSuccess() {
         try {
             Resend resend = new Resend(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            System.out.println(settings.getTokenSW());
             ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreo());
             Assertions.assertNotNull(response);
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
