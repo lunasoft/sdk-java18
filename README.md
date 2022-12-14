@@ -195,12 +195,12 @@ public class App {
             Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
-            String csdBase64 = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
+            String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
             
             //Obtenemos LLave y lo convertimos a Base 64
-            String keyBase64 = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
+            String key = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
 
-            CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, "EKU9003173C9", "12345678a", "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC", "02", null);
+            CancelationResponse response = cancelation.cancelar(cer, key, "EKU9003173C9", "12345678a", "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC", "02", null);
 
             if (response.getStatus().equalsIgnoreCase("success"))
                 {
@@ -245,12 +245,12 @@ public class App {
             Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
-            String csdBase64 = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
+            String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
             
             //Obtenemos LLave y lo convertimos a Base 64
-            String keyBase64 = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
+            String key = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
 
-            CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, "EKU9003173C9", "12345678a", "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC", "02", "01724196-ac5a-4735-b621-e3b42bcbb459");
+            CancelationResponse response = cancelation.cancelar(cer, key, "EKU9003173C9", "12345678a", "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC", "02", "01724196-ac5a-4735-b621-e3b42bcbb459");
 
             if (response.getStatus().equalsIgnoreCase("success"))
                 {
@@ -310,10 +310,10 @@ public class App {
             "password", null, 0);
 
             //Convertimos el PFX a base 64
-            String pfxBase64 = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("PFX_EKU9003173C9.pfx")));
+            String pfx = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("PFX_EKU9003173C9.pfx")));
             
             //Realizamos la petición de cancelación al servicio.
-            CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
+            CancelationResponse response = cancelation.cancelar(pfx, rfc, password, uuid, "02", null);
 
             if (response.getStatus().equalsIgnoreCase("success"))
                 {
@@ -365,10 +365,10 @@ public class App {
             "password", null, 0);
 
             //Convertimos el PFX a base 64
-            String pfxBase64 = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("PFX_EKU9003173C9.pfx")));
+            String pfx = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("PFX_EKU9003173C9.pfx")));
             
             //Realizamos la petición de cancelación al servicio.
-            CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "01", folioSustitucion);
+            CancelationResponse response = cancelation.cancelar(pfx, rfc, password, uuid, "01", folioSustitucion);
 
             if (response.getStatus().equalsIgnoreCase("success"))
                 {
@@ -458,7 +458,6 @@ public class App {
             "password", null, 0);
             //Obtenemos el XML de cancelacion
             String xmlCancelation = new String(Files.readAllBytes(Paths.get("cancelacion.xml")), "UTF-8");
-
             CancelationResponse response = cancelation.cancelar(xmlCancelation);
 
             if (response.getStatus().equalsIgnoreCase("success"))
@@ -771,6 +770,577 @@ public class App {
             //Para obtener el estatus
             System.out.println(response.getStatus());
         } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+# CFDI Relacionados #
+A través de estos siguientes métodos obtendremos un listado de los UUID que se encuentren relacionados a una factura.
+## Relacionados por CSD ##
+Este método recibe el **certificado** en base64, **llave** en base64, **RFC**, **password** del certificado, y el **UUID** de la factura.
+**Ejemplo de consumo de la librería para la consulta**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.relations.Relations;
+import mx.com.sw.services.relations.response.RelationsResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Relations
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
+            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            //Obtenemos Certificado y lo convertimos a Base 64 
+            String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
+            //Obtenemos LLave y lo convertimos a Base 64
+            String key = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
+            //Datos
+            String password = "12345678a";
+            String rfc = "EKU9003173C9";
+            RelationsResponse res = relations.getRelations(cer, key, rfc, password,"106d7664-6a1d-4ec6-9c09-2aa27532ec59");
+            //Para obtener el status de la consulta
+            System.out.println(res.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(res.getCodStatus());
+            //Para obtener el uuid consultado
+            System.out.println(res.getData().getUUIDConsultado());
+	        //Para obtener el resultado de la consulta
+            System.out.println(res.getData().getResultado());
+	        //Para obtener los uuid padres
+            System.out.println(res.getData().getUUIDsRelacionadosPadres());
+	        //Para obtener los uuid hijo
+            System.out.println(res.getData().getUUIDsRelacionadosHijos());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+## Relacionados por PFX ##
+Este método recibe el **PFX** en base64, **password** del certificado, **RFC**, y el **UUID** de la factura.
+**Ejemplo de consumo de la librería para la consulta**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.relations.Relations;
+import mx.com.sw.services.relations.response.RelationsResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Relations
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
+            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            //Convertimos el PFX a base 64
+            String pfx = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("PFX_EKU9003173C9.pfx")));
+            //Datos
+            String password = "12345678a";
+            String rfc = "EKU9003173C9";
+            
+            RelationsResponse res = relations.getRelations(pfx, rfc, password,"106d7664-6a1d-4ec6-9c09-2aa27532ec59");
+            //Para obtener el status de la consulta
+            System.out.println(res.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(res.getCodStatus());
+            //Para obtener el uuid consultado
+            System.out.println(res.getData().getUUIDConsultado());
+	        //Para obtener el resultado de la consulta
+            System.out.println(res.getData().getResultado());
+	        //Para obtener los uuid padres
+            System.out.println(res.getData().getUUIDsRelacionadosPadres());
+	        //Para obtener los uuid hijo
+            System.out.println(res.getData().getUUIDsRelacionadosHijos());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+## Relacionados por XML ##
+Este método recibe el **XML** de relacionados.
+**Ejemplo de XML**
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<PeticionConsultaRelacionados xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uuid="51BADE4D-8285-4597-A092-7DB1D50E5EFD" RfcReceptor="LAN7008173R5" RfcPacEnviaSolicitud="DAL050601L35" 
+    xmlns="http://cancelacfd.sat.gob.mx">
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>yYGkb9DCJgiGl2O4vCf5B3gXTTI=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>VBBjMXJgS/oCb4iTazKrPmhWSICGT5wbeTf8G4tW2UuqnKBLS1NWD7Uf37kAX8+GBB04So7YlTcEw3I/X2JkHDadSxCiZ940YksNIVddmCqllJL6giMHVQJoXcTH8WQ9pO/4TbREQZ8/jxPqIvxCXrOn963PKFrZFB8eo5RQxLUa12WMi5RWgh8dSUwQxS2W3dm1XXP8bqXPOjy7GtZc3ObeTLMcXo/YoLyEAobVCnP+igOEXLxKEN2HZPzHGtA2g/5ONxuhu3UTxix9D/5ItjXdH9nk7VL0A58Xgw3qv6Q0vjmlxyu7RO0E2O3D2tLejfExt3WvsjZ8xvEKXSFp+A==</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509IssuerSerial>
+                    <X509IssuerName>OID.1.2.840.113549.1.9.2=Responsable: ACDMA, OID.2.5.4.45=SAT970701NN3, L=Coyoacán, S=Distrito Federal, C=MX, PostalCode=06300, STREET="Av. Hidalgo 77, Col. Guerrero", E=asisnet@pruebas.sat.gob.mx, OU=Administración de Seguridad de la Información, O=Servicio de Administración Tributaria, CN=A.C. 2 de pruebas(4096)</X509IssuerName>
+                    <X509SerialNumber>3230303031303030303030333030303232383135</X509SerialNumber>
+                </X509IssuerSerial>
+                <X509Certificate>MIIFxTCCA62gAwIBAgIUMjAwMDEwMDAwMDAzMDAwMjI4MTUwDQYJKoZIhvcNAQELBQAwggFmMSAwHgYDVQQDDBdBLkMuIDIgZGUgcHJ1ZWJhcyg0MDk2KTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxITAfBgkqhkiG9w0BCQIMElJlc3BvbnNhYmxlOiBBQ0RNQTAeFw0xNjEwMjUyMTUyMTFaFw0yMDEwMjUyMTUyMTFaMIGxMRowGAYDVQQDExFDSU5ERU1FWCBTQSBERSBDVjEaMBgGA1UEKRMRQ0lOREVNRVggU0EgREUgQ1YxGjAYBgNVBAoTEUNJTkRFTUVYIFNBIERFIENWMSUwIwYDVQQtExxMQU43MDA4MTczUjUgLyBGVUFCNzcwMTE3QlhBMR4wHAYDVQQFExUgLyBGVUFCNzcwMTE3TURGUk5OMDkxFDASBgNVBAsUC1BydWViYV9DRkRJMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgvvCiCFDFVaYX7xdVRhp/38ULWto/LKDSZy1yrXKpaqFXqERJWF78YHKf3N5GBoXgzwFPuDX+5kvY5wtYNxx/Owu2shNZqFFh6EKsysQMeP5rz6kE1gFYenaPEUP9zj+h0bL3xR5aqoTsqGF24mKBLoiaK44pXBzGzgsxZishVJVM6XbzNJVonEUNbI25DhgWAd86f2aU3BmOH2K1RZx41dtTT56UsszJls4tPFODr/caWuZEuUvLp1M3nj7Dyu88mhD2f+1fA/g7kzcU/1tcpFXF/rIy93APvkU72jwvkrnprzs+SnG81+/F16ahuGsb2EZ88dKHwqxEkwzhMyTbQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAJ/xkL8I+fpilZP+9aO8n93+20XxVomLJjeSL+Ng2ErL2GgatpLuN5JknFBkZAhxVIgMaTS23zzk1RLtRaYvH83lBH5E+M+kEjFGp14Fne1iV2Pm3vL4jeLmzHgY1Kf5HmeVrrp4PU7WQg16VpyHaJ/eonPNiEBUjcyQ1iFfkzJmnSJvDGtfQK2TiEolDJApYv0OWdm4is9Bsfi9j6lI9/T6MNZ+/LM2L/t72Vau4r7m94JDEzaO3A0wHAtQ97fjBfBiO5M8AEISAV7eZidIl3iaJJHkQbBYiiW2gikreUZKPUX0HmlnIqqQcBJhWKRu6Nqk6aZBTETLLpGrvF9OArV1JSsbdw/ZH+P88RAt5em5/gjwwtFlNHyiKG5w+UFpaZOK3gZP0su0sa6dlPeQ9EL4JlFkGqQCgSQ+NOsXqaOavgoP5VLykLwuGnwIUnuhBTVeDbzpgrg9LuF5dYp/zs+Y9ScJqe5VMAagLSYTShNtN8luV7LvxF9pgWwZdcM7lUwqJmUddCiZqdngg3vzTactMToG16gZA4CWnMgbU4E+r541+FNMpgAZNvs2CiW/eApfaaQojsZEAHDsDv4L5n3M1CC7fYjE/d61aSng1LaO6T1mh+dEfPvLzp7zyzz+UgWMhi5Cs4pcXx1eic5r7uxPoBwcCTt3YI1jKVVnV7/w=</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</PeticionConsultaRelacionados>
+```
+
+
+**Ejemplo de consumo de la librería para la consulta**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.relations.Relations;
+import mx.com.sw.services.relations.response.RelationsResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Relations
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
+            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("relacionado.xml")), "UTF-8");
+            
+            RelationsResponse res = relations.getRelations(xml);
+            //Para obtener el status de la consulta
+            System.out.println(res.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(res.getCodStatus());
+            //Para obtener el uuid consultado
+            System.out.println(res.getData().getUUIDConsultado());
+	        //Para obtener el resultado de la consulta
+            System.out.println(res.getData().getResultado());
+	        //Para obtener los uuid padres
+            System.out.println(res.getData().getUUIDsRelacionadosPadres());
+	        //Para obtener los uuid hijo
+            System.out.println(res.getData().getUUIDsRelacionadosHijos());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+## Relacionados por UUID ##
+Este método recibe el **RFC** y el **UUID** de la factura.
+***NOTA:*** El usuario deberá tener sus certificados en el administrador de timbres para la utilización de este método.
+**Ejemplo de consumo de la librería para la consulta**
+```java
+import mx.com.sw.services.relations.Relations;
+import mx.com.sw.services.relations.response.RelationsResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Relations
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
+            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            RelationsResponse res = relations.getRelations("EKU9003173C9","106D7664-6A1D-4EC6-9C09-2AA27532EC59");
+            
+            //Para obtener el status de la consulta
+            System.out.println(res.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(res.getCodStatus());
+            //Para obtener el uuid consultado
+            System.out.println(res.getData().getUUIDConsultado());
+	        //Para obtener el resultado de la consulta
+            System.out.println(res.getData().getResultado());
+	        //Para obtener los uuid padres
+            System.out.println(res.getData().getUUIDsRelacionadosPadres());
+	        //Para obtener los uuid hijo
+            System.out.println(res.getData().getUUIDsRelacionadosHijos());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+# Consulta solicitudes pendientes Aceptar / Rechazar #
+A través de este método obtendremos una lista de los UUID que tenemos pendientes por aceptar o rechazar.
+Este método recibe el **RFC** del cual obtendremos la lista.
+
+**Ejemplo de consumo de la librería para la consulta**
+```java
+import mx.com.sw.services.pendings.Pendings;
+import mx.com.sw.services.pendings.response.PendingsResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Pending
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
+            Pendings pendings = new Pendings("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            PendingsResponse response = pendings.getPendings("EKU9003173C9");
+            //Para obtener el status de la consulta
+            System.out.println(response.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(response.getCodStatus());
+            //Para obtener la lista de uuid's
+            System.out.println(response.getData().getUUIDs());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+# Aceptar / Rechazar #
+A través de estos siguientes métodos aceptaremos o rechazaremos los UUID.
+
+## Aceptar / Rechazar por CSD ##
+Este método recibe el **certificado** en base64, **llave** en base64, **RFC**, **password** del certificado, y los **UUID** con su respectiva acción.
+**Ejemplo de consumo de la librería para la utilización**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import mx.com.sw.services.acceptreject.AcceptReject;
+import mx.com.sw.services.acceptreject.requests.AcceptRejectItem;
+import mx.com.sw.services.acceptreject.requests.EnumAcceptReject;
+import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AcceptReject
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            //Datos
+            List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
+                add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
+                add(new AcceptRejectItem("6930A5C7-7225-4322-A013-4F2278763AC2", EnumAcceptReject.Aceptacion));
+            }};
+            String password = "12345678a";
+            String rfc = "XIA190128J61";
+            //Obtenemos Certificado y lo convertimos a Base 64 
+            String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
+            //Obtenemos LLave y lo convertimos a Base 64
+            String key = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
+            AcceptRejectResponse response = acceptReject.setAction(cer, key, rfc, password, list);
+            //Para obtener el status de la consulta
+            System.out.println(response.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(response.getCodStatus());
+            //Para obtener una lista con los folios
+            System.out.println(response.getData().getFolios()));
+	        //Para obtener el acuse
+            System.out.println(response.getData().getAcuse());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+## Aceptar / Rechazar por PFX ##
+Este método recibe el **PFX** en base64, **password** del certificado, **RFC**, y los **UUID** de las facturas con su respectiva acción a realizar.
+**Ejemplo de consumo de la librería para la utilización**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import mx.com.sw.services.acceptreject.AcceptReject;
+import mx.com.sw.services.acceptreject.requests.AcceptRejectItem;
+import mx.com.sw.services.acceptreject.requests.EnumAcceptReject;
+import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AcceptReject
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            //Datos
+            List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
+                add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
+                add(new AcceptRejectItem("6930A5C7-7225-4322-A013-4F2278763AC2", EnumAcceptReject.Aceptacion));
+            }};
+            String password = "12345678a";
+            String rfc = "XIA190128J61";
+            //Convertimos el PFX a base 64
+            String pfx = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("PFX_EKU9003173C9.pfx")));
+            AcceptRejectResponse response = acceptReject.setAction(pfx, rfc, password, list);
+            //Para obtener el status de la consulta
+            System.out.println(response.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(response.getCodStatus());
+            //Para obtener una lista con los folios
+            System.out.println(response.getData().getFolios()));
+	        //Para obtener el acuse
+            System.out.println(response.getData().getAcuse());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+
+## Aceptar / Rechazar por XML ##
+Este método recibe el **XML** de aceptación / rechazo.
+**Ejemplo de XML**
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<SolicitudAceptacionRechazo xmlns:xsd='http://www.w3.org/2001/XMLSchema' 
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' RfcReceptor='LAN7008173R5' RfcPacEnviaSolicitud='DAL050601L35' Fecha='2018-08-22T18:38:05' 
+    xmlns='http://cancelacfd.sat.gob.mx'>
+    <Folios>
+        <UUID>06a46e4b-b154-4c12-bb77-f9a63ed55ff2</UUID>
+        <Respuesta>Aceptacion</Respuesta>
+    </Folios>
+    <Signature xmlns='http://www.w3.org/2000/09/xmldsig#'>
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm='http://www.w3.org/TR/2001/REC-xml-c14n-20010315' />
+            <SignatureMethod Algorithm='http://www.w3.org/2000/09/xmldsig#rsa-sha1' />
+            <Reference URI=''>
+                <Transforms>
+                    <Transform Algorithm='http://www.w3.org/2000/09/xmldsig#enveloped-signature' />
+                </Transforms>
+                <DigestMethod Algorithm='http://www.w3.org/2000/09/xmldsig#sha1' />
+                <DigestValue>AQ36cbqKJKHy5vaS6GhDTWtwKE4=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>HVlFUPmRLyxeztem827eaasDObRXi+oqedCNNvDyMsRizqsS99cHt5mJCEE4vWgpDGPGLrph/yd++R4aN+V562DPp9qreFkisFpEvJy5Z8o/KzG7vc5qqaD8z9ohPpRERPHvxFrIm3ryEBqnSV6zqJG02PuxkWvYonVc+B7RdsO5iAiDTMs9guUhOvHBK8BVXQHKCbUAPCp/4YepZ4LUkcdloCAMPsN0x9GaUty2RMtNJuwaRWy+5IIBUCeXXZmQhoQfS0QfPpCByt0ago5v+FocJQiYQrsUV/8mesmNw5JoOCmufQYliQFyZgsstV8+h76dU/rwLr6R8YlFOkTxKg==</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509IssuerSerial>
+                    <X509IssuerName>OID.1.2.840.113549.1.9.2=Responsable: ACDMA, OID.2.5.4.45=SAT970701NN3, L=Coyoacán, S=Distrito Federal, C=MX, PostalCode=06300, STREET='Av. Hidalgo 77, Col. Guerrero', E=asisnet@pruebas.sat.gob.mx, OU=Administración de Seguridad de la Información, O=Servicio de Administración Tributaria, CN=A.C. 2 de pruebas(4096)</X509IssuerName>
+                    <X509SerialNumber>3230303031303030303030333030303232383135</X509SerialNumber>
+                </X509IssuerSerial>
+                <X509Certificate>MIIFxTCCA62gAwIBAgIUMjAwMDEwMDAwMDAzMDAwMjI4MTUwDQYJKoZIhvcNAQELBQAwggFmMSAwHgYDVQQDDBdBLkMuIDIgZGUgcHJ1ZWJhcyg0MDk2KTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxITAfBgkqhkiG9w0BCQIMElJlc3BvbnNhYmxlOiBBQ0RNQTAeFw0xNjEwMjUyMTUyMTFaFw0yMDEwMjUyMTUyMTFaMIGxMRowGAYDVQQDExFDSU5ERU1FWCBTQSBERSBDVjEaMBgGA1UEKRMRQ0lOREVNRVggU0EgREUgQ1YxGjAYBgNVBAoTEUNJTkRFTUVYIFNBIERFIENWMSUwIwYDVQQtExxMQU43MDA4MTczUjUgLyBGVUFCNzcwMTE3QlhBMR4wHAYDVQQFExUgLyBGVUFCNzcwMTE3TURGUk5OMDkxFDASBgNVBAsUC1BydWViYV9DRkRJMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgvvCiCFDFVaYX7xdVRhp/38ULWto/LKDSZy1yrXKpaqFXqERJWF78YHKf3N5GBoXgzwFPuDX+5kvY5wtYNxx/Owu2shNZqFFh6EKsysQMeP5rz6kE1gFYenaPEUP9zj+h0bL3xR5aqoTsqGF24mKBLoiaK44pXBzGzgsxZishVJVM6XbzNJVonEUNbI25DhgWAd86f2aU3BmOH2K1RZx41dtTT56UsszJls4tPFODr/caWuZEuUvLp1M3nj7Dyu88mhD2f+1fA/g7kzcU/1tcpFXF/rIy93APvkU72jwvkrnprzs+SnG81+/F16ahuGsb2EZ88dKHwqxEkwzhMyTbQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAJ/xkL8I+fpilZP+9aO8n93+20XxVomLJjeSL+Ng2ErL2GgatpLuN5JknFBkZAhxVIgMaTS23zzk1RLtRaYvH83lBH5E+M+kEjFGp14Fne1iV2Pm3vL4jeLmzHgY1Kf5HmeVrrp4PU7WQg16VpyHaJ/eonPNiEBUjcyQ1iFfkzJmnSJvDGtfQK2TiEolDJApYv0OWdm4is9Bsfi9j6lI9/T6MNZ+/LM2L/t72Vau4r7m94JDEzaO3A0wHAtQ97fjBfBiO5M8AEISAV7eZidIl3iaJJHkQbBYiiW2gikreUZKPUX0HmlnIqqQcBJhWKRu6Nqk6aZBTETLLpGrvF9OArV1JSsbdw/ZH+P88RAt5em5/gjwwtFlNHyiKG5w+UFpaZOK3gZP0su0sa6dlPeQ9EL4JlFkGqQCgSQ+NOsXqaOavgoP5VLykLwuGnwIUnuhBTVeDbzpgrg9LuF5dYp/zs+Y9ScJqe5VMAagLSYTShNtN8luV7LvxF9pgWwZdcM7lUwqJmUddCiZqdngg3vzTactMToG16gZA4CWnMgbU4E+r541+FNMpgAZNvs2CiW/eApfaaQojsZEAHDsDv4L5n3M1CC7fYjE/d61aSng1LaO6T1mh+dEfPvLzp7zyzz+UgWMhi5Cs4pcXx1eic5r7uxPoBwcCTt3YI1jKVVnV7/w=</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</SolicitudAceptacionRechazo>
+```
+
+
+**Ejemplo de consumo de la librería para la utilización**
+```java
+import mx.com.sw.services.acceptreject.AcceptReject;
+import mx.com.sw.services.acceptreject.requests.EnumAcceptReject;
+import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AcceptReject
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("acceptReject.xml")), "UTF-8");
+            AcceptRejectResponse response = acceptReject.setAction(xml);
+            //Para obtener el status de la consulta
+            System.out.println(response.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(response.getCodStatus());
+            //Para obtener una lista con los folios
+            System.out.println(response.getData().getFolios());
+	        //Para obtener el acuse
+            System.out.println(response.getData().getAcuse());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+```
+
+## Aceptar / Rechazar por UUID ##
+Este método recibe el **RFC**,  **UUID** de la factura y **acción** a realizar.
+***NOTA:*** El usuario deberá tener sus certificados en el administrador de timbres para la utilización de este método.
+**Ejemplo de consumo de la librería para la utilización**
+```java
+import mx.com.sw.services.acceptreject.AcceptReject;
+import mx.com.sw.services.acceptreject.requests.EnumAcceptReject;
+import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AcceptReject
+            //A esta le pasamos la Url, usuario y password o token de authentication
+            //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "user","password", null, 0);
+            AcceptRejectResponse response = acceptReject.setAction("XIA190128J61",
+            "a98d4c19-8b05-4ab0-b231-8e4684a6e6c6", EnumAcceptReject.Aceptacion);
+            //Para obtener el status de la consulta
+            System.out.println(response.getStatus());
+			//Para obtener el codigoStatus
+            System.out.println(response.getCodStatus());
+            //Para obtener una lista con los folios
+            System.out.println(response.getData().getFolios());
+	        //Para obtener el acuse
+            System.out.println(response.getData().getAcuse());
+	        //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+## StampV4(XML) - Email ##
+Este servicio recibe un comprobante CFDI 3.3 ó 4.0 para ser timbrado y recibe un listado de correos email, el cuál tiene como objetivo indicar uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
+Existen varias versiones de respuesta a este metodo, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/)
+***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo SatampV4
+            //A esta le pasamos la Url, usuario y password
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("C:/Users/Soporte1/Documents/Ejemplos/.xml")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(xml, "fernando.carrillo@sw.com.mx", false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo SatampV4
+            //A esta le pasamos la Url, usuario y password
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "fernando.carrillo@sw.com.mx", "Nano+SW.2022", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            StampResponseV1 response = stamp.timbrarV1(xml64, "fernando.carrillo@sw.com.mx", true);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
         catch (Exception e) 
         {
             System.out.println(e);
