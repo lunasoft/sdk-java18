@@ -1273,8 +1273,9 @@ public class App {
 ```
 
 ## StampV4(XML) - Email ##
-Este servicio recibe un comprobante CFDI 3.3 ó 4.0 para ser timbrado y recibe un listado de correos email, el cuál tiene como objetivo indicar uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
-Existen varias versiones de respuesta a este metodo, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/)
+Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
+Existen varias versiones de respuesta a este metodo, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
+
 ***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
 **Ejemplo de consumo de la librería con la version de respuesta 1**
 ```java
@@ -1293,8 +1294,8 @@ public class App {
             //A esta le pasamos la Url, usuario y password
             //Automaticamente despues de obtenerlo se procedera a timbrar
             StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
-            String xml = new String(Files.readAllBytes(Paths.get("C:/Users/Soporte1/Documents/Ejemplos/.xml")), "UTF-8");
-            StampResponseV1 response = stamp.timbrarV1(xml, "fernando.carrillo@sw.com.mx", false);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx", false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -1328,10 +1329,10 @@ public class App {
             //Creamos una instancia de tipo SatampV4
             //A esta le pasamos la Url, usuario y password
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "fernando.carrillo@sw.com.mx", "Nano+SW.2022", null, 0);
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
-            StampResponseV1 response = stamp.timbrarV1(xml64, "fernando.carrillo@sw.com.mx", true);
+            StampResponseV1 response = stamp.timbrarV1(xml64, "test@test.com.mx", true);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
