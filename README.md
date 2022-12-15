@@ -68,8 +68,10 @@ public class App
         AuthenticationResponse res = auth.authenticate();
     }
 }
-
 ```
+
+# Timbrado #
+
 ## Timbrar CFDI V1 ##
 **TimbrarV1** Recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
 
@@ -99,7 +101,6 @@ public class App {
         }  
     }
 }
-
 ```
 
 **Timbrar XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
@@ -152,6 +153,72 @@ public class App {
             String xml64 = Base64.getEncoder().encodeToString(xml);
             StampResponseV1 response = stamp.timbrarV1(xml64, true);
         } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+## Emisión Timbrado ##
+**Emisión Timbrado** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **XML** en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
+
+**Emisión Timbrado XML en formato string utilizando usuario y contraseña**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.Issue;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Stamp 
+            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a timbrar el xml
+            Issue stamp = new Issue("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(xml, false);
+
+            System.out.println(response.getStatus());
+            System.out.println(response.getData().getTFD());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+## Emisión Timbrado JSON ##
+**Emisión Timbrado JSON** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **JSON** en formato **String**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
+
+**Emisión Timbrado JSON en formato string utilizando usuario y contraseña**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueJson;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Stamp 
+            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a timbrar el xml
+            IssueJson stamp = new IssueJson("http://services.test.sw.com.mx", "user", "password",null, 0);
+        
+            String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(json);
+        }
         catch (Exception e) 
         {
             System.out.println(e);
