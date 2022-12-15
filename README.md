@@ -160,6 +160,17 @@ public class App {
 }
 ```
 
+***NOTA:*** Existen varias versiones de respuesta, las cuales son las siguientes:
+
+| Version |                         Respuesta                             | 
+|---------|---------------------------------------------------------------|
+|  V1     | Devuelve el timbre fiscal digital                             | 
+|  V2     | Devuelve el timbre fiscal digital y el cfdi timbrado          | 
+|  V3     | Devuelve el CFDI timbrado                                     | 
+|  V4     | Devuelve todos los datos del timbrado                         |
+
+Para mayor referencia de estas versiones de respuesta, favor de visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
+
 # Cancelación #
 **Cancelacion** Se utiliza para cancelar documentos xml y se puede hacer mediante varios metodos **Cancelación CSD**, **Cancelación PFX**, **Cancelacion por XML** y **Cancelación UUID**.
 
@@ -277,7 +288,7 @@ public class App {
 
 ## Cancelacion por PFX ##
 
-Este metodo recibe los siguientes parametros:
+Este método recibe los siguientes parametros:
 * Archivo PFX en **Base64**
 * RFC emisor
 * Password (CSD)
@@ -394,7 +405,7 @@ public class App {
 ```
 
 ## Cancelacion por XML ##
-Este metodo recibe únicamente el XML sellado con los UUID a cancelar.
+Este método recibe únicamente el XML sellado con los UUID a cancelar.
 
 **Ejemplo de XML para Cancelar**
 ```xml
@@ -429,7 +440,7 @@ Este metodo recibe únicamente el XML sellado con los UUID a cancelar.
     </Signature>
 </Cancelacion>
 ```
-Para caso de motivo 01 deberá añadir el atributo "FolioSustitucion dentro del Nodo <Folio>
+Para caso de motivo 01 deberá añadir el atributo "FolioSustitucion" dentro del Nodo <Folio>
 
 Ejemplo de nodo Folio: 
 ```
@@ -484,7 +495,7 @@ public class App {
 ```
 
 ## Cancelacion por UUID ##
-Este metodo recibe los siguientes parametros:
+Este método recibe los siguientes parametros:
 * RFC emisor
 * UUID
 * Motivo
@@ -739,10 +750,10 @@ public class App {
 }
 ```
 # Reenvio Email #
-Este metodo realiza el reenvío de un xml y/o pdf existente mediante su UUID
+Este servicio realiza el reenvío de un xml y/o pdf existente mediante su UUID
 a través de correo electrónico.
 
-Este metodo recibe los siguientes parametros:
+Este método recibe los siguientes parametros:
 * UUID: Folico fiscal del comprobante timbrado
 * email: Correo electrónico (máximo 5 correos separados por ” , ” )
 
@@ -1006,7 +1017,7 @@ public class App {
 ```
 
 # Consulta solicitudes pendientes Aceptar / Rechazar #
-A través de este método obtendremos una lista de los UUID que tenemos pendientes por aceptar o rechazar.
+A través de este servicio obtendremos una lista de los UUID que tenemos pendientes por aceptar o rechazar.
 Este método recibe el **RFC** del cual obtendremos la lista.
 
 **Ejemplo de consumo de la librería para la consulta**
@@ -1274,7 +1285,7 @@ public class App {
 
 ## StampV4(XML) - Email ##
 Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
-Existen varias versiones de respuesta a este metodo, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
+Existen varias versiones de respuesta a este método, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 
 ***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
 **Ejemplo de consumo de la librería con la version de respuesta 1**
