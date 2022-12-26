@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.Services;
@@ -95,4 +97,5 @@ public abstract class PdfService extends Services {
 
     abstract PdfResponse getPdf(String templateid, String xmlcontent, String logo, Map<String, String> extras);
 
+    abstract PdfResponse regeneratePdf(UUID uuid);
 }

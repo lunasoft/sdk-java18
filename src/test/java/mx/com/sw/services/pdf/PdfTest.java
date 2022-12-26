@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.UUID;
+
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.pdf.responses.PdfResponse;
@@ -201,6 +203,89 @@ public class PdfTest {
             Files.write(path, Base64.getDecoder().decode(b64));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    //------------------------------------------
+    //Pruebas unitarias del metodo Regenerar PDF
+    //-------------------------------------------
+    /**
+     * Método de UT consume servicio regenerar PDF, con token.
+     */
+    @Test
+    public void testRegeneratePdf_Success(){
+        try {
+            Pdf pdf = new Pdf(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("0179ec9f-1740-450b-9ea7-c628b8d3ab49"));
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue(!response.getMessage().isEmpty());
+            Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("Solicitud se proceso correctamente.".equalsIgnoreCase(response.getMessage()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+    /**
+     * Método de UT consume servicio regenerar PDF, con Usuario y contraseña.
+     */
+    @Test
+    public void testRegeneratePdf_AuthSuccess(){
+        try {
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),settings.getPasswordSW(), null, 0);
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("0179ec9f-1740-450b-9ea7-c628b8d3ab49"));
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue(!response.getMessage().isEmpty());
+            Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("Solicitud se proceso correctamente.".equalsIgnoreCase(response.getMessage()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+    /**
+     * Método de UT consume servicio regenerar PDF, error en el usuario.
+     */
+    @Test
+    public void testRegeneratePdf_ErrorAuth(){
+        try {
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), "user",settings.getPasswordSW(), null, 0);
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("0179ec9f-1740-450b-9ea7-c628b8d3ab49"));
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue(!response.getMessage().isEmpty());
+            Assertions.assertTrue("Error".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+    /**
+     * Método de UT consume servicio regenerar PDF, Error con el UUID no encontrado.
+     */
+    @Test
+    public void testRegeneratePdf_ErrorUUIDNull(){
+        try {
+            System.out.println("datos");
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(),  settings.getUserSW(),settings.getPasswordSW(), null, 0);
+            PdfResponse response = pdf.regeneratePdf(null);
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue("Error".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+    /**
+     * Método de UT consume servicio regenerar PDF, Error con el UUID no encontrado.
+     */
+    @Test
+    public void testRegeneratePdf_ErrorUUID(){
+        try {
+            System.out.println("datos");
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),settings.getPasswordSW(), null, 0);
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue("Error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue(!response.getMessage().isEmpty());
+            Assertions.assertTrue("No se encontro el UUID.".equalsIgnoreCase(response.getMessage()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
         }
     }
 }
