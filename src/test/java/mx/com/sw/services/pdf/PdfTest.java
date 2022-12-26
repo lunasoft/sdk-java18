@@ -262,7 +262,6 @@ public class PdfTest {
     @Test
     public void testRegeneratePdf_ErrorUUIDNull(){
         try {
-            System.out.println("datos");
             Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(),  settings.getUserSW(),settings.getPasswordSW(), null, 0);
             PdfResponse response = pdf.regeneratePdf(null);
             Assertions.assertNotNull(response);
@@ -277,7 +276,6 @@ public class PdfTest {
     @Test
     public void testRegeneratePdf_ErrorUUID(){
         try {
-            System.out.println("datos");
             Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),settings.getPasswordSW(), null, 0);
             PdfResponse response = pdf.regeneratePdf(UUID.fromString("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
             Assertions.assertNotNull(response);

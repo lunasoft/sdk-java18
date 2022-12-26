@@ -140,15 +140,18 @@ public class Pdf extends PdfService {
      */
     public PdfResponse regeneratePdf(UUID uuid){
         try {
-            
-            String path = String.format("pdf/v1/api/RegeneratePdf/%s",uuid);
             Map<String, String> headers = getHeaders();
+            String path = String.format("pdf/v1/api/RegeneratePdf/%s",uuid);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
             String urlService = GeneralHelpers.stringEmptyOrNull(getUrlapi()) ? getUrl() : getUrlapi();
             PdfResponse response = handler.postHTTPJson(urlService, path ,headers, null, config,
             PdfResponse.class);
-            if(response.getMessage().equals("Solicitud se proceso correctamente.")){response.setStatus("Success");}
-            else{response.setStatus("Error");}
+            if(response.getMessage().equals("Solicitud se proceso correctamente.")){
+                response.setStatus("Success");
+            }
+            else{
+                response.setStatus("Error");
+            }
             return response;
         } catch (Exception e) {
             return handler.handleException(e);
