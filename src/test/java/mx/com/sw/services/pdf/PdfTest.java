@@ -216,7 +216,7 @@ public class PdfTest {
     public void testRegeneratePdf_Success(){
         try {
             Pdf pdf = new Pdf(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            PdfResponse response = pdf.regeneratePdf(UUID.fromString("0179ec9f-1740-450b-9ea7-c628b8d3ab49"));
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
