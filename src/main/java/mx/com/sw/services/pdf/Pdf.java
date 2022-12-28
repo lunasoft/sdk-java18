@@ -153,7 +153,7 @@ public class Pdf extends PdfService {
                 response.setStatus("Error");
             }
             return response;
-        } catch (Exception e) {
+        } catch (ServicesException e) {
             return handler.handleException(e);
         }
     }

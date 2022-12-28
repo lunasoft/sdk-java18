@@ -247,11 +247,13 @@ public class PdfTest {
     @Test
     public void testRegeneratePdf_ErrorAuth(){
         try {
+            String msgError = "AU2000 - El usuario y/o contraseña son inválidos, no se puede autenticar el servicio.";
             Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), "user",settings.getPasswordSW(), null, 0);
             PdfResponse response = pdf.regeneratePdf(UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue(msgError.equalsIgnoreCase(response.getMessage()));
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
@@ -279,7 +281,7 @@ public class PdfTest {
             Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),settings.getPasswordSW(), null, 0);
             PdfResponse response = pdf.regeneratePdf(UUID.fromString("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
             Assertions.assertNotNull(response);
-            Assertions.assertTrue("Error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("No se encontro el UUID.".equalsIgnoreCase(response.getMessage()));
         } catch (ServicesException ex) {
