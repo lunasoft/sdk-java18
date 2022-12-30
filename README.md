@@ -803,7 +803,7 @@ public class App {
             HashMap<String, String> observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
 
-            //Realizamos la petición de cancelación al servicio.
+            //Realizamos la petición de generacion al servicio.
             PdfResponse response = pdf.getPdf("cfdi33", xmlcontent, observaciones);
 
             System.out.println(response.getStatus());
@@ -816,6 +816,46 @@ public class App {
     }
 }
 ```
+
+# Regenerar PDF #
+El servicio podrá generar o regenerar un PDF de un CFDI previamente timbrados y podrá guardar o remplazar el archivo PDF para ser visualizado posteriormente desde el portal de Smarter. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token. Este método recibe los siguientes parámetros:
+
+- Url servicios SW(cuando se añaden usuario y contraseña)
+- Url Api
+- UUID
+**Ejemplo de consumo de la librería para la utilización**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import mx.com.sw.services.pdf.Pdf;
+import mx.com.sw.services.pdf.responses.PdfResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo PDF 
+            //A esta le pasamos la Url y el token
+            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+
+            //Realizamos la petición de regenerar el pdf pasando el UUID del CFDI que queremos regenerar.
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
+
+            //Obtenemos el detalle de la respuesta
+            System.out.println(response.getStatus());
+            System.out.println(response.getMessage());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
 # Reenvio Email #
 Este servicio realiza el reenvío de un xml y/o pdf existente mediante su UUID
 a través de correo electrónico.
