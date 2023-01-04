@@ -1,6 +1,5 @@
 package mx.com.sw.services.Validate;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import mx.com.sw.exceptions.ServicesException;
