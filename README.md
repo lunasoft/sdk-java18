@@ -664,7 +664,7 @@ public class App {
 
 # Validación #
 
-## Validación XML##
+## Validación XML ##
 Este servicio recibe un comprobante CFDI 3.3 ó 4.0 en formato XML mediante el cual se valida integridad, sello, errores de estructura, matriz de errores del SAT incluyendo complementos, se valida que exista en el SAT, así como el estatus en el SAT.
 
 Este metodo recibe los siguientes parametros:
