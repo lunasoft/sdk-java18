@@ -2,6 +2,8 @@ package mx.com.sw.helpers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
+import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
@@ -168,7 +170,15 @@ public final class ResponseHelper {
      * @param ex Throwable a ser tratado
      * @return {@link ResendResponse}
      */
-     public static ResendResponse toResendResponse(Throwable ex) {
+    public static ResendResponse toResendResponse(Throwable ex) {
         return new ResendResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+    /**
+    * Este método obtiene una respuesta de tipo ValidateResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link PdfResponse}
+    */
+    public static ValidateResponse toValidateResponse(Throwable ex) {
+        return new ValidateResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null,null,null,null,null,null);
     }
 }
