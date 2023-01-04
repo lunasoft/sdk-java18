@@ -662,6 +662,72 @@ public class App {
 }
 ```
 
+# Validación #
+
+## Validación XML##
+Este servicio recibe un comprobante CFDI 3.3 ó 4.0 en formato XML mediante el cual se valida integridad, sello, errores de estructura, matriz de errores del SAT incluyendo complementos, se valida que exista en el SAT, así como el estatus en el SAT.
+
+Este metodo recibe los siguientes parametros:
+- Url Servicios SW
+- Usuario y contraseña o token
+- XML
+
+**Ejemplo de consumo de la libreria para validación de XML mediante usuario y contraseña**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.Validate.Validate;
+import mx.com.sw.services.Validate.responses.ValidateDetailData;
+import mx.com.sw.services.Validate.responses.ValidateNodeDetail;
+import mx.com.sw.services.Validate.responses.ValidateResponse;
+
+public class App {
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo Validate
+            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+            Validate api = new Validate("http://services.test.sw.com.mx", "user","password", null, 0);
+
+            String xml = new String(Files.readAllBytes(Paths.get("pruebas.xml")), "UTF-8");
+            //Realizamos la peticion de validacion pasando el XML
+            ValidateResponse response = api.ValidateXML(xml);
+
+            //El objeto response tendra los siguientes atributos:
+            System.out.println(response.getStatus());
+            List<ValidateNodeDetail> List = response.getDetail();
+            for(int i=0; i<List.size();i++){
+                ValidateNodeDetail node = List.get(i);
+                List<ValidateDetailData> ListData = node.getDetailData();
+                for(int j=0; j<ListData.size();j++){
+                    ValidateDetailData data = ListData.get(j);
+                    System.out.println("\t\t"+data.getMessage());
+                    System.out.println("\t\t"+data.getMessageDetail());
+                    System.out.println("\t\t"+data.getType());
+                }
+                System.out.println("\t"+node.getSection());
+            }
+            System.out.println(response.getCadenaOriginalComprobante());
+            System.out.println(response.getCadenaOriginalSAT());
+            System.out.println(response.getUuid());
+            System.out.println(response.getStatusSat());
+            System.out.println(response.getStatusCodeSat());
+            Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al validar xml");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
 # Consulta de Saldos #
 Este servicio recibe el token y genera los elementos que componen la consulta de saldos:
 
