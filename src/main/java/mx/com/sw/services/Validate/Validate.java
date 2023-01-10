@@ -1,7 +1,6 @@
 package mx.com.sw.services.Validate;
 import java.util.Map;
 import java.util.UUID;
-
 import org.apache.http.client.config.RequestConfig;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;

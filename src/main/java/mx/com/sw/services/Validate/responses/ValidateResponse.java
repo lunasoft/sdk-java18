@@ -1,7 +1,5 @@
 package mx.com.sw.services.Validate.responses;
-
 import java.util.List;
-
 import mx.com.sw.entities.IResponse;
 
 /**

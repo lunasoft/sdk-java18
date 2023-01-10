@@ -1,5 +1,4 @@
 package mx.com.sw.services.Validate.responses;
-
 import mx.com.sw.helpers.ResponseHelper;
 import mx.com.sw.services.ResponseHandler;
 

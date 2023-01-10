@@ -1,8 +1,6 @@
 package mx.com.sw.services.Validate;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
 import mx.com.sw.services.Validate.responses.ValidateResponse;
