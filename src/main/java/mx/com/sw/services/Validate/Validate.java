@@ -52,7 +52,7 @@ public class Validate extends ValidateService{
                     boundary, xmlcontent, boundary);
             headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.postHTTPMultipart(getUrl(), "validate/cfdi33/", headers, xml, config,
+            return handler.postHTTPMultipart(getUrl(), "validate/cfdi", headers, xml, config,
                     ValidateResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
