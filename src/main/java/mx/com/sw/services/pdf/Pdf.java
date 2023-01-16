@@ -1,6 +1,8 @@
 package mx.com.sw.services.pdf;
 
 import java.util.Map;
+import java.util.UUID;
+
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.pdf.responses.PdfResponse;
@@ -126,6 +128,31 @@ public class Pdf extends PdfService {
             String urlService = GeneralHelpers.stringEmptyOrNull(getUrlapi()) ? getUrl() : getUrlapi();
             return handler.postHTTPJson(urlService, "pdf/v1/api/GeneratePdf", headers, jsonBody, config,
                 PdfResponse.class);
+        } catch (ServicesException e) {
+            return handler.handleException(e);
+        }
+    }
+    /**
+     * Metodo para el consumo de la regeneracion de PDF 
+     * @param uuid String uuid.
+     * @return PdfResponse
+     * @see PdfResponse
+     */
+    public PdfResponse regeneratePdf(UUID uuid){
+        try {
+            Map<String, String> headers = getHeaders();
+            String path = String.format("pdf/v1/api/RegeneratePdf/%s",uuid);
+            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+            String urlService = GeneralHelpers.stringEmptyOrNull(getUrlapi()) ? getUrl() : getUrlapi();
+            PdfResponse response = handler.postHTTPJson(urlService, path ,headers, null, config,
+            PdfResponse.class);
+            if(response.getMessage().equals("Solicitud se proceso correctamente.")){
+                response.setStatus("Success");
+            }
+            else{
+                response.setStatus("Error");
+            }
+            return response;
         } catch (ServicesException e) {
             return handler.handleException(e);
         }

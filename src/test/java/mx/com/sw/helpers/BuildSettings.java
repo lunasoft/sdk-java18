@@ -10,9 +10,11 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -61,6 +63,9 @@ public class BuildSettings {
     private String templateId;
     private Map<String, String> observaciones;
     private String xmlTimbrado;
+    private UUID uuid;
+    private List<String> correo;
+    private List<String> correos;
 
     /**
     * Constructor de la clase.
@@ -93,6 +98,9 @@ public class BuildSettings {
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
+            uuid = UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f");
+            correo = Arrays.asList("correo@test.com.mx");
+            correos =Arrays.asList("correo@test.com.mx","correo@test2.com.mx","correo@test3.com.mx","correo@test4.com.mx","correo@test5.com.mx","correo@tes6t.com.mx");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -218,6 +226,26 @@ public class BuildSettings {
     public Map<String, String> getObservaciones() {
         return this.observaciones;
     }
+    /**
+    * Regresa el valor descrito.
+    */
+    public UUID getUuid(){
+        return this.uuid;
+    }
+    /**
+    * Regresa el valor descrito.
+    */
+    public List<String> getCorreo(){
+        return this.correo;
+    }
+    /**
+    * Regresa el valor descrito.
+    */
+    public List<String> getCorreos(){
+        return this.correos;
+    }
+
+
 
     /**
     * Carga un recurso de archivo a base64 String.

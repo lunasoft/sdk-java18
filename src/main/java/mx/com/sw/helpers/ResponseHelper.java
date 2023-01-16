@@ -2,6 +2,8 @@ package mx.com.sw.helpers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
+import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
@@ -10,11 +12,12 @@ import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import mx.com.sw.services.pdf.responses.PdfResponse;
 import mx.com.sw.services.pendings.response.PendingsResponse;
 import mx.com.sw.services.relations.response.RelationsResponse;
+import mx.com.sw.services.resend.response.ResendResponse;
 import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
-
+import mx.com.sw.services.storage.StorageResponse;
 /**
 * ResponseHelper
 * Está clase funciona como un handler de exceptions donde se toma un exception
@@ -152,5 +155,30 @@ public final class ResponseHelper {
      */
     public static RelationsResponse toRelationsResponse(Throwable ex) {
         return new RelationsResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+     * Este método obtiene una respuesta de tipo StorageResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link StorageResponse}
+     */
+    public static StorageResponse toStorageResponse(Throwable ex) {
+        return new StorageResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+    /**
+     * Este método obtiene una respuesta de tipo ResendResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link ResendResponse}
+     */
+    public static ResendResponse toResendResponse(Throwable ex) {
+        return new ResendResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+    /**
+    * Este método obtiene una respuesta de tipo ValidateResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link PdfResponse}
+    */
+    public static ValidateResponse toValidateResponse(Throwable ex) {
+        return new ValidateResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null,null,null,null,null,null);
     }
 }
