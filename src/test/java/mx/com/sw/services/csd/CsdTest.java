@@ -9,6 +9,7 @@ import mx.com.sw.services.csd.responses.CsdData;
 import mx.com.sw.helpers.BuildSettings;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -169,7 +170,7 @@ public class CsdTest {
     public void testGetCsd_Success(){
         try {
             CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            String NoCertificado = "30001000000400002463";
+            String NoCertificado = "30001000000400002434";
             CsdDataResponse response = csd.GetCsd(NoCertificado);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
@@ -208,7 +209,7 @@ public class CsdTest {
     public void testGetCsd_Token_Success(){
         try {
             CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getTokenSW() , null, 0);
-            String NoCertificado = "30001000000400002463";
+            String NoCertificado = "30001000000400002434";
             CsdDataResponse response = csd.GetCsd(NoCertificado);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
@@ -295,6 +296,7 @@ public class CsdTest {
         }
     }
 
+    @Disabled("Número de certificado no disponible en la cuenta de pruebas")
     @Test
     public void testDeleteCsd_Success(){
         try {
@@ -312,6 +314,7 @@ public class CsdTest {
         }
     }
 
+    @Disabled("Número de certificado no disponible en la cuenta de pruebas")
     @Test
     public void testDeleteCsd_Token_Success(){
         try {

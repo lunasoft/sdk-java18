@@ -70,7 +70,7 @@ public class App
 }
 ```
 
-# Timbrado #
+## Timbrado ##
 
 <details>
 <summary>
@@ -257,7 +257,8 @@ public class App {
 
 Para mayor referencia de estas versiones de respuesta, favor de visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 
-# Cancelación #
+## Cancelación ##
+
 **Cancelacion** Se utiliza para cancelar documentos xml y se puede hacer mediante varios metodos **Cancelación CSD**, **Cancelación PFX**, **Cancelacion por XML** y **Cancelación UUID**.
 
 <details>
@@ -705,7 +706,7 @@ public class App {
 ```
 </details>
 
-# Validación #
+## Validación ##
 
 <details>
 <summary>
@@ -777,7 +778,7 @@ public class App {
 ```
 </details>
 
-# Consulta de Saldos #
+## Consulta de Saldos ##
 
 <details>
 <summary>
@@ -892,7 +893,7 @@ public class App {
 ```
 </details>
 
-# PDF #
+## PDF ##
 
 <details>
 <summary>
@@ -1039,7 +1040,7 @@ public class App {
 ```
 </details>
 
-# Certificados #
+## Certificados ##
 Servicio para gestionar los certificados CSD de tu cuenta, será posible cargar, consultar y eliminar los certificados.
 Para administrar los certificados de manera gráfica, puede hacerlo desde el [Administrador de timbres](https://portal.sw.com.mx/).
 
@@ -1057,7 +1058,50 @@ Este metodo recibe los siguientes parametros:
 
 **Ejemplo de consumo de la libreria para la consulta de certificados mediante token**
 ```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
 
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la consulta
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdListDataResponse response = csd.GetAllCsd();
+            //En caso exitoso se podran obtener los siguientes datos
+            List<CsdData> lista = response.getData();
+            if(lista != null) {
+                for(int i=0; i<lista.size(); i++) {
+                    CsdData dato = lista.get(i);
+                    System.out.println(dato.getIssuer_rfc());
+                    System.out.println(dato.getIssuer_business_name());
+                    System.out.println(dato.getCertificate_number());
+                    System.out.println(dato.getCertificate_type());
+                    System.out.println(dato.getIs_active());
+                    System.out.println(dato.getValid_from());
+                    System.out.println(dato.getValid_to());
+                }
+            }
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
 ```
 </details>
 
@@ -1076,7 +1120,46 @@ Este metodo recibe los siguientes parametros:
 
 **Ejemplo de consumo de la libreria para la consulta de certificados por Número de Certificado mediante token**
 ```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
 
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Número de certificado
+            String NoCertificado = "30001000000400002434";
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la consulta
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdDataResponse response = csd.GetCsd(NoCertificado);
+            //En caso exitoso se podran obtener los siguientes datos
+            System.out.println(response.getData().getIssuer_rfc());
+            System.out.println(response.getData().getIssuer_business_name());
+            System.out.println(response.getData().getCertificate_number());
+            System.out.println(response.getData().getCertificate_type());
+            System.out.println(response.getData().getIs_active());
+            System.out.println(response.getData().getValid_from());
+            System.out.println(response.getData().getValid_to());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
 ```
 </details>
 
@@ -1097,7 +1180,48 @@ Este metodo recibe los siguientes parametros:
 
 **Ejemplo de consumo de la libreria para la carga de certificado mediante token**
 ```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
 
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Datos necesarios
+            String passwordCer = "12345678a";
+            //Obtenemos Certificado y lo convertimos a Base 64 
+            String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
+            //Obtenemos LLave y lo convertimos a Base 64
+            String key = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
+
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la carga de los certificados
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdResponse response = csd.UploadCsd(cer, key, passwordCer);
+            //En caso exitoso se podran obtener el mensaje de exito
+            System.out.println(response.data);
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
 ```
 </details>
 
@@ -1116,12 +1240,45 @@ Este metodo recibe los siguientes parametros:
 
 **Ejemplo de consumo de la libreria para eliminar un certificado mediante token**
 ```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
 
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Número de certificado
+            String NoCertificado = "30001000000400002434";
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la eliminacion
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdResponse response = csd.DeleteCsd(NoCertificado);
+            //En caso exitoso se podran obtener el mensaje de exito.
+            System.out.println(response.data);
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
 ```
 </details>
 
 
-# CFDI Relacionados #
+## CFDI Relacionados ##
 A través de estos siguientes métodos obtendremos un listado de los UUID que se encuentren relacionados a una factura.
 
 <details>
@@ -1374,7 +1531,7 @@ public class App {
 ```
 </details>
 
-# Consulta solicitudes pendientes Aceptar / Rechazar #
+## Consulta solicitudes pendientes Aceptar / Rechazar ##
 A través de este servicio obtendremos una lista de los UUID que tenemos pendientes por aceptar o rechazar.
 Este método recibe el **RFC** del cual obtendremos la lista.
 
@@ -1416,7 +1573,7 @@ public class App {
 ```
 </details>
 
-# Aceptar / Rechazar #
+## Aceptar / Rechazar ##
 A través de estos siguientes métodos aceptaremos o rechazaremos los UUID.
 
 <details>
@@ -1670,7 +1827,7 @@ public class App {
 ```
 </details>
 
-# TimbradoV4 #
+## TimbradoV4 ##
 
 <details>
   <summary>StampV4(XML) - Email</summary>
