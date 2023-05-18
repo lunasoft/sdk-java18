@@ -81,8 +81,8 @@ public class CsdUtils extends CsdService{
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.postHTTPJson( getUrl(), path,
-                    headers, null,
+            return handler.deleteHTTP(getUrl(), path,
+                    headers,
                     config, CsdResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);

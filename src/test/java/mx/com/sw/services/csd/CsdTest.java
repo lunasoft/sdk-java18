@@ -294,4 +294,70 @@ public class CsdTest {
             Assertions.assertNotNull(ex);
         }
     }
+
+    @Test
+    public void testDeleteCsd_Success(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String NoCertificado = "30001000000400002463";
+            String Message = String.format("Certificado %s desactivado.", NoCertificado);
+            CsdResponse response = csd.DeleteCsd(NoCertificado);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.data);
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue(Message.equalsIgnoreCase(response.data));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void testDeleteCsd_Token_Success(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getTokenSW(), null, 0);
+            String NoCertificado = "30001000000400002463";
+            String Message = String.format("Certificado %s desactivado.", NoCertificado);
+            CsdResponse response = csd.DeleteCsd(NoCertificado);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.data);
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue(Message.equalsIgnoreCase(response.data));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void testDeleteCsd_Error(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String NoCertificado = "3000100000040";
+            CsdResponse response = csd.DeleteCsd(NoCertificado);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("Certificados".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue("One or more errors occurred.".equalsIgnoreCase(response.getMessageDetail()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void testDeleteCsd_Token_Error(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getTokenSW(), null, 0);
+            String NoCertificado = "3000100000040";
+            CsdResponse response = csd.DeleteCsd(NoCertificado);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("Certificados".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue("One or more errors occurred.".equalsIgnoreCase(response.getMessageDetail()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
 }
