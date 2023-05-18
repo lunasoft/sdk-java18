@@ -28,9 +28,9 @@ Instalar solo si se descarga e instala de manera manual la librería. De igual m
 *  [commons-logging/1.2](https://mvnrepository.com/artifact/commons-logging/commons-logging/1.2)
 
 
-### Documentacion
+### Documentación
 * [Inicio Rápido](https://developers.sw.com.mx/knowledge-base/conoce-el-proceso-de-integracion-en-solo-7-pasos/)
-* Documentación disponible a través de GitHub Pages en el siguiente enlace:[sdk-java18](https://lunasoft.github.io/sdk-java18/)
+* Documentación disponible a través de GitHub Pages en el siguiente enlace: [sdk-java18](https://lunasoft.github.io/sdk-java18/)
 * [Documentacion Oficial Servicios](http://developers.sw.com.mx)
 
 ---
@@ -71,6 +71,11 @@ public class App
 ```
 
 # Timbrado #
+
+<details>
+<summary>
+Timbrar CFDI V1
+</summary>
 
 ## Timbrar CFDI V1 ##
 **TimbrarV1** Recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
@@ -160,6 +165,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Emisión Timbrado
+</summary>
 
 ## Emisión Timbrado ##
 **Emisión Timbrado** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **XML** en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
@@ -194,6 +205,13 @@ public class App {
     }
 }
 ```
+</details>
+
+
+<details>
+<summary>
+Emisión Timbrado JSON
+</summary>
 
 ## Emisión Timbrado JSON ##
 **Emisión Timbrado JSON** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **JSON** en formato **String**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
@@ -226,6 +244,7 @@ public class App {
     }
 }
 ```
+</details>
 
 ***NOTA:*** Existen varias versiones de respuesta, las cuales son las siguientes:
 
@@ -240,6 +259,11 @@ Para mayor referencia de estas versiones de respuesta, favor de visitar el sigui
 
 # Cancelación #
 **Cancelacion** Se utiliza para cancelar documentos xml y se puede hacer mediante varios metodos **Cancelación CSD**, **Cancelación PFX**, **Cancelacion por XML** y **Cancelación UUID**.
+
+<details>
+<summary>
+Cancelacion por CSD
+</summary>
 
  ## Cancelacion por CSD ##
 Como su nombre lo indica, este metodo recibe todos los elementos que componen el CSD los cuales son los siguientes:
@@ -352,6 +376,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Cancelacion por PFX
+</summary>
 
 ## Cancelacion por PFX ##
 
@@ -470,6 +500,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Cancelacion por XML
+</summary>
 
 ## Cancelacion por XML ##
 Este método recibe únicamente el XML sellado con los UUID a cancelar.
@@ -560,6 +596,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Cancelacion por UUID
+</summary>
 
 ## Cancelacion por UUID ##
 Este método recibe los siguientes parametros:
@@ -661,8 +703,14 @@ public class App {
     }
 }
 ```
+</details>
 
 # Validación #
+
+<details>
+<summary>
+Validación XML
+</summary>
 
 ## Validación XML ##
 Este servicio recibe un comprobante CFDI 3.3 ó 4.0 en formato XML mediante el cual se valida integridad, sello, errores de estructura, matriz de errores del SAT incluyendo complementos, se valida que exista en el SAT, así como el estatus en el SAT.
@@ -727,8 +775,16 @@ public class App {
     }
 }
 ```
+</details>
 
 # Consulta de Saldos #
+
+<details>
+<summary>
+Consulta de Saldos
+</summary>
+
+## Consulta de Saldos ##
 Este servicio recibe el token y genera los elementos que componen la consulta de saldos:
 
 Se deberá autenticar en nuestros servicios en orden de obtener token de acceso, o si se desea,  se puede usar el token infinito.
@@ -834,8 +890,16 @@ public class App {
     }
 }
 ```
+</details>
 
-# Generar PDF #
+# PDF #
+
+<details>
+<summary>
+Generar PDF
+</summary>
+
+## Generar PDF ##
 Este método genera y obtiene un pdf en base64 a partir de un documento XML timbrado y una plantilla. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token. Este método recibe los siguientes parámetros:
 
 - Url servicios SW
@@ -882,8 +946,14 @@ public class App {
     }
 }
 ```
+</details>
 
-# Regenerar PDF #
+<details>
+<summary>
+Regenerar PDF
+</summary>
+
+## Regenerar PDF ##
 El servicio podrá generar o regenerar un PDF de un CFDI previamente timbrados y podrá guardar o remplazar el archivo PDF para ser visualizado posteriormente desde el portal de Smarter. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token. Este método recibe los siguientes parámetros:
 
 - Url servicios SW(cuando se añaden usuario y contraseña)
@@ -921,8 +991,14 @@ public class App {
     }
 }
 ```
+</details>
 
-# Reenvio Email #
+<details>
+<summary>
+Reenvio Email
+</summary>
+
+## Reenvio Email ##
 Este servicio realiza el reenvío de un xml y/o pdf existente mediante su UUID
 a través de correo electrónico.
 
@@ -961,9 +1037,98 @@ public class App {
     }
 }
 ```
+</details>
+
+# Certificados #
+Servicio para gestionar los certificados CSD de tu cuenta, será posible cargar, consultar y eliminar los certificados.
+Para administrar los certificados de manera gráfica, puede hacerlo desde el [Administrador de timbres](https://portal.sw.com.mx/).
+
+<details>
+<summary>
+Consultar Certificados
+</summary>
+
+## Consultar Certificados ##
+Método para consultar todos los certificados cargados en la cuenta.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW(cuando se añaden usuario y contraseña)
+* Token
+
+**Ejemplo de consumo de la libreria para la consulta de certificados mediante token**
+```java
+
+```
+</details>
+
+<details>
+<summary>
+Consultar Certificado Por NoCertificado
+</summary>
+
+## Consultar Certificado Por NoCertificado ##
+Método para obtener un certificado cargado enviando como parámetro el número de certificado.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Token
+* Número de certificado a obtener
+
+**Ejemplo de consumo de la libreria para la consulta de certificados por Número de Certificado mediante token**
+```java
+
+```
+</details>
+
+<details>
+<summary>
+Cargar Certificado
+</summary>
+
+## Cargar Certificado ##
+Método para cargar un certificado en la cuenta.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Token
+* CSD en Base64
+* Key en Base64
+* Contraseña del certificado
+
+**Ejemplo de consumo de la libreria para la carga de certificado mediante token**
+```java
+
+```
+</details>
+
+<details>
+<summary>
+Eliminar Certificado
+</summary>
+
+## Eliminar Certificado ##
+Método para eliminar un certificado de la cuenta.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Token
+* Número de certificado a eliminar
+
+**Ejemplo de consumo de la libreria para eliminar un certificado mediante token**
+```java
+
+```
+</details>
+
 
 # CFDI Relacionados #
 A través de estos siguientes métodos obtendremos un listado de los UUID que se encuentren relacionados a una factura.
+
+<details>
+<summary>
+Relacionados por CSD
+</summary>
+
 ## Relacionados por CSD ##
 Este método recibe el **certificado** en base64, **llave** en base64, **RFC**, **password** del certificado, y el **UUID** de la factura.
 **Ejemplo de consumo de la librería para la consulta**
@@ -1015,6 +1180,13 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Relacionados por PFX
+</summary>
+
 ## Relacionados por PFX ##
 Este método recibe el **PFX** en base64, **password** del certificado, **RFC**, y el **UUID** de la factura.
 **Ejemplo de consumo de la librería para la consulta**
@@ -1065,6 +1237,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Relacionados por XML
+</summary>
 
 ## Relacionados por XML ##
 Este método recibe el **XML** de relacionados.
@@ -1144,6 +1322,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Relacionados por UUID
+</summary>
 
 ## Relacionados por UUID ##
 Este método recibe el **RFC** y el **UUID** de la factura.
@@ -1188,10 +1372,14 @@ public class App {
     }
 }
 ```
+</details>
 
 # Consulta solicitudes pendientes Aceptar / Rechazar #
 A través de este servicio obtendremos una lista de los UUID que tenemos pendientes por aceptar o rechazar.
 Este método recibe el **RFC** del cual obtendremos la lista.
+
+<details>
+  <summary>Ejemplos</summary>
 
 **Ejemplo de consumo de la librería para la consulta**
 ```java
@@ -1226,8 +1414,15 @@ public class App {
     }
 }
 ```
+</details>
+
 # Aceptar / Rechazar #
 A través de estos siguientes métodos aceptaremos o rechazaremos los UUID.
+
+<details>
+<summary>
+Aceptar / Rechazar por CSD
+</summary>
 
 ## Aceptar / Rechazar por CSD ##
 Este método recibe el **certificado** en base64, **llave** en base64, **RFC**, **password** del certificado, y los **UUID** con su respectiva acción.
@@ -1284,6 +1479,13 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Aceptar / Rechazar por PFX
+</summary>
+
 ## Aceptar / Rechazar por PFX ##
 Este método recibe el **PFX** en base64, **password** del certificado, **RFC**, y los **UUID** de las facturas con su respectiva acción a realizar.
 **Ejemplo de consumo de la librería para la utilización**
@@ -1338,6 +1540,12 @@ public class App {
 }
 
 ```
+</details>
+
+<details>
+<summary>
+Aceptar / Rechazar por XML
+</summary>
 
 ## Aceptar / Rechazar por XML ##
 Este método recibe el **XML** de aceptación / rechazo.
@@ -1377,7 +1585,6 @@ Este método recibe el **XML** de aceptación / rechazo.
 </SolicitudAceptacionRechazo>
 ```
 
-
 **Ejemplo de consumo de la librería para la utilización**
 ```java
 import mx.com.sw.services.acceptreject.AcceptReject;
@@ -1414,6 +1621,12 @@ public class App {
         }  
     }
 ```
+</details>
+
+<details>
+<summary>
+Aceptar / Rechazar por UUID
+</summary>
 
 ## Aceptar / Rechazar por UUID ##
 Este método recibe el **RFC**,  **UUID** de la factura y **acción** a realizar.
@@ -1455,6 +1668,12 @@ public class App {
     }
 }
 ```
+</details>
+
+# TimbradoV4 #
+
+<details>
+  <summary>StampV4(XML) - Email</summary>
 
 ## StampV4(XML) - Email ##
 Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
@@ -1533,6 +1752,7 @@ public class App {
     }
 }
 ```
+</details>
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
