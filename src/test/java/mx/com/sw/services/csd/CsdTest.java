@@ -151,7 +151,7 @@ public class CsdTest {
     public void testUploadCsd_InvalidPassword()
     {
         try {
-            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(),settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String csdBase64 = settings.getCSD();
             String keyBase64 = settings.getKey();
             String password = "password";
