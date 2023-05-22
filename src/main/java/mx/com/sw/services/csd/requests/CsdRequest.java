@@ -5,7 +5,7 @@ public class CsdRequest {
     private String b64Key;
     private String password;
     private String type;
-    private Boolean isActive;
+    private Boolean is_active;
 
      /**
      * Constructor de la clase.
@@ -18,7 +18,7 @@ public class CsdRequest {
         this.b64Key = b64Key;
         this.password = password;
         this.type = "stamp";
-        this.isActive = true;
+        this.is_active = true;
     }
 
     /**
@@ -57,7 +57,7 @@ public class CsdRequest {
      * Obtiene el estado del certificado
      * @return string
      */
-    public Boolean getIsActive() {
-        return this.isActive;
+    public Boolean getIs_active() {
+        return this.is_active;
     }
 }
