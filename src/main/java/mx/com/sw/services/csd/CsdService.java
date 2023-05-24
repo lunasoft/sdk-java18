@@ -12,7 +12,7 @@ public abstract class CsdService extends Services{
     
     /**
     * Constructor de la clase.
-    * @param url url base de la API
+    * @param url url Services
     * @param user correo o usuario de SW
     * @param password password de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
@@ -26,7 +26,7 @@ public abstract class CsdService extends Services{
 
     /**
     * Constructor de la clase.
-    * @param url url base de la API
+    * @param url url Services
     * @param token token infinito de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)

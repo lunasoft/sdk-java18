@@ -17,11 +17,11 @@ public class CsdData {
      * Retorna el RFC del certificado
      * @return String
     */
-    public String getIssuer_rfc() {
+    public String getIssuerRfc() {
         return issuer_rfc;
     }
 
-    public void setIssuer_rfc(String issuer_rfc) {
+    public void setIssuerRfc(String issuer_rfc) {
         this.issuer_rfc = issuer_rfc;
     }
 
@@ -29,11 +29,11 @@ public class CsdData {
      * Retorna el número del certificado
      * @return String
     */
-    public String getCertificate_number() {
+    public String getCertificateNumber() {
         return certificate_number;
     }
 
-    public void setCertificate_number(String certificate_number) {
+    public void setCertificateNumber(String certificate_number) {
         this.certificate_number = certificate_number;
     }
 
@@ -41,11 +41,11 @@ public class CsdData {
      * Retorna el certificado en B64
      * @return String
     */
-    public String getCsd_certificate() {
+    public String getCsdCertificate() {
         return csd_certificate;
     }
 
-    public void setCsd_certificate(String csd_certificate) {
+    public void setCsdCertificate(String csd_certificate) {
         this.csd_certificate = csd_certificate;
     }
 
@@ -55,11 +55,11 @@ public class CsdData {
      * false 
      * @return String
     */
-    public String getIs_active() {
+    public String getIsActive() {
         return is_active;
     }
 
-    public void setIs_active(String is_active) {
+    public void setIsActive(String is_active) {
         this.is_active = is_active;
     }
 
@@ -67,11 +67,11 @@ public class CsdData {
      * Retorna el nombre a quien esta el certificado
      * @return String
     */
-    public String getIssuer_business_name() {
+    public String getIssuerBusinessName() {
         return issuer_business_name;
     }
 
-    public void setIssuer_business_name(String issuer_business_name) {
+    public void setIssuerBusinessName(String issuer_business_name) {
         this.issuer_business_name = issuer_business_name;
     }
 
@@ -79,11 +79,11 @@ public class CsdData {
      * Retorna la fecha desde la cual es valido el certificado
      * @return String
     */
-    public String getValid_from() {
+    public String getValidFrom() {
         return valid_from;
     }
 
-    public void setValid_from(String valid_from) {
+    public void setValidFrom(String valid_from) {
         this.valid_from = valid_from;
     }
 
@@ -91,11 +91,11 @@ public class CsdData {
      * Retorna la fecha hasta la cual es valido el certificado
      * @return String
     */
-    public String getValid_to() {
+    public String getValidTo() {
         return valid_to;
     }
 
-    public void setValid_to(String valid_to) {
+    public void setValidTo(String valid_to) {
         this.valid_to = valid_to;
     }
 
@@ -104,11 +104,11 @@ public class CsdData {
      * Default = Stamp
      * @return String
     */
-    public String getCertificate_type() {
+    public String getCertificateType() {
         return certificate_type;
     }
 
-    public void setCertificate_type(String certificate_type) {
+    public void setCertificateType(String certificate_type) {
         this.certificate_type = certificate_type;
     }
 }

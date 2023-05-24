@@ -176,13 +176,14 @@ public class CsdTest {
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertNotNull(response.getData());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
-            System.out.println(response.getData().getIssuer_rfc());
-            System.out.println(response.getData().getIssuer_business_name());
-            System.out.println(response.getData().getCertificate_number());
-            System.out.println(response.getData().getCertificate_type());
-            System.out.println(response.getData().getIs_active());
-            System.out.println(response.getData().getValid_from());
-            System.out.println(response.getData().getValid_to());
+            System.out.println(response.getData().getIssuerRfc());
+            System.out.println(response.getData().getIssuerBusinessName());
+            System.out.println(response.getData().getCertificateNumber());
+            System.out.println(response.getData().getCsdCertificate());
+            System.out.println(response.getData().getCertificateType());
+            System.out.println(response.getData().getIsActive());
+            System.out.println(response.getData().getValidFrom());
+            System.out.println(response.getData().getValidTo());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
@@ -215,13 +216,14 @@ public class CsdTest {
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertNotNull(response.getData());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
-            System.out.println(response.getData().getIssuer_rfc());
-            System.out.println(response.getData().getIssuer_business_name());
-            System.out.println(response.getData().getCertificate_number());
-            System.out.println(response.getData().getCertificate_type());
-            System.out.println(response.getData().getIs_active());
-            System.out.println(response.getData().getValid_from());
-            System.out.println(response.getData().getValid_to());
+            System.out.println(response.getData().getIssuerRfc());
+            System.out.println(response.getData().getIssuerBusinessName());
+            System.out.println(response.getData().getCertificateNumber());
+            System.out.println(response.getData().getCsdCertificate());
+            System.out.println(response.getData().getCertificateType());
+            System.out.println(response.getData().getIsActive());
+            System.out.println(response.getData().getValidFrom());
+            System.out.println(response.getData().getValidTo());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
@@ -256,13 +258,14 @@ public class CsdTest {
             if(lista != null) {
                 for(int i=0; i<lista.size(); i++) {
                     CsdData dato = lista.get(i);
-                    System.out.println(dato.getIssuer_rfc());
-                    System.out.println(dato.getIssuer_business_name());
-                    System.out.println(dato.getCertificate_number());
-                    System.out.println(dato.getCertificate_type());
-                    System.out.println(dato.getIs_active());
-                    System.out.println(dato.getValid_from());
-                    System.out.println(dato.getValid_to());
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCsdCertificate());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
                 }
             }
         } catch (ServicesException ex) {
@@ -282,13 +285,14 @@ public class CsdTest {
             if(lista != null) {
                 for(int i=0; i<lista.size(); i++) {
                     CsdData dato = lista.get(i);
-                    System.out.println(dato.getIssuer_rfc());
-                    System.out.println(dato.getIssuer_business_name());
-                    System.out.println(dato.getCertificate_number());
-                    System.out.println(dato.getCertificate_type());
-                    System.out.println(dato.getIs_active());
-                    System.out.println(dato.getValid_from());
-                    System.out.println(dato.getValid_to());
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCsdCertificate());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
                 }
             }
         } catch (ServicesException ex) {

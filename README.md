@@ -1081,13 +1081,13 @@ public class App {
             if(lista != null) {
                 for(int i=0; i<lista.size(); i++) {
                     CsdData dato = lista.get(i);
-                    System.out.println(dato.getIssuer_rfc());
-                    System.out.println(dato.getIssuer_business_name());
-                    System.out.println(dato.getCertificate_number());
-                    System.out.println(dato.getCertificate_type());
-                    System.out.println(dato.getIs_active());
-                    System.out.println(dato.getValid_from());
-                    System.out.println(dato.getValid_to());
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
                 }
             }
 
@@ -1141,13 +1141,13 @@ public class App {
             CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
             CsdDataResponse response = csd.GetCsd(NoCertificado);
             //En caso exitoso se podran obtener los siguientes datos
-            System.out.println(response.getData().getIssuer_rfc());
-            System.out.println(response.getData().getIssuer_business_name());
-            System.out.println(response.getData().getCertificate_number());
-            System.out.println(response.getData().getCertificate_type());
-            System.out.println(response.getData().getIs_active());
-            System.out.println(response.getData().getValid_from());
-            System.out.println(response.getData().getValid_to());
+            System.out.println(response.getData().getIssuerRfc());
+            System.out.println(response.getData().getIssuerBusinessName());
+            System.out.println(response.getData().getCertificateNumber());
+            System.out.println(response.getData().getCertificateType());
+            System.out.println(response.getData().getIsActive());
+            System.out.println(response.getData().getValidFrom());
+            System.out.println(response.getData().getValidTo());
 
             //En caso de error, se pueden visualizar los campos message y/o messageDetail
             System.out.println("Error");
