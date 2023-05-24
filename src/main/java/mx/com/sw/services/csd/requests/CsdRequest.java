@@ -57,7 +57,7 @@ public class CsdRequest {
      * Obtiene el estado del certificado
      * @return string
      */
-    public Boolean getIs_active() {
+    public Boolean getIsActive() {
         return this.is_active;
     }
 }
