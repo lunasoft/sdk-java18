@@ -9,6 +9,9 @@ import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
 import mx.com.sw.services.pdf.responses.PdfResponse;
 import mx.com.sw.services.pendings.response.PendingsResponse;
 import mx.com.sw.services.relations.response.RelationsResponse;
@@ -44,6 +47,33 @@ public final class ResponseHelper {
     */
     public static CancelationResponse toCancellationResponse(Throwable ex) {
         return new CancelationResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo CsdResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link CsdResponse}
+    */
+    public static CsdResponse toCsdResponse(Throwable ex) {
+        return new CsdResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo CsdDataResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link CsdDataResponse}
+    */
+    public static CsdDataResponse toCsdDataResponse(Throwable ex) {
+        return new CsdDataResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo CsdListDataResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link CsdListDataResponse}
+    */
+    public static CsdListDataResponse toCsdListDataResponse(Throwable ex) {
+        return new CsdListDataResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
