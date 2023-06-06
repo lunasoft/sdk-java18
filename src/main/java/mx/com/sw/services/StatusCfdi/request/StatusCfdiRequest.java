@@ -1,4 +1,4 @@
-package mx.com.sw.services.StatusCfdi.responses;
+package mx.com.sw.services.StatusCfdi.request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -22,21 +22,40 @@ import org.w3c.dom.NodeList;
 
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.exceptions.GeneralException;
+import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 
-public class StatusCancelationRequest {
-    public StatusCfdiResponse sendRequest(IRequestor request) throws GeneralException, ServicesException, GeneralException,
-        UnsupportedEncodingException, ClientProtocolException, IOException, SOAPException {
-        String soapEndpointUrl = ((StatusCancelationOptionsRequest) request).getURI();
-        String soapAction = ((StatusCancelationOptionsRequest) request).getAction();
-        String rfcEmisor = ((StatusCancelationOptionsRequest) request).getRfcEmisor();
-        String rfcReceptor = ((StatusCancelationOptionsRequest) request).getRfcReceptor();
-        String total = ((StatusCancelationOptionsRequest) request).getTotal();
-        String uuid = ((StatusCancelationOptionsRequest) request).getUuid();
-        String sello = ((StatusCancelationOptionsRequest) request).getSello();
+/**
+ * Clase para generar una solicitud de estatus de CFDI a los servicios del SAT.
+ */
+public class StatusCfdiRequest {
+    /**
+     * Envía una solicitud de estatus de CFDI y devuelve la respuesta.
+     *
+     * @param request                       La solicitud de opciones de estatus de CFDI.
+     * @return                              La respuesta de la solicitud de estatus de CFDI.
+     * @throws GeneralException             Si ocurre un error general.
+     * @throws ServicesException            Si ocurre un error en los servicios.
+     * @throws UnsupportedEncodingException Si ocurre un error de codificación no admitida.
+     * @throws ClientProtocolException      Si ocurre un error de protocolo del cliente.
+     * @throws IOException                  Si ocurre un error de entrada o salida.
+     * @throws SOAPException                Si ocurre un error de SOAP.
+     */
+    public StatusCfdiResponse sendRequest(IRequestor request) throws GeneralException, ServicesException, GeneralException, UnsupportedEncodingException, ClientProtocolException, IOException, SOAPException {
+        // Obtiene los parámetros de la solicitud
+        String soapEndpointUrl = ((StatusCfdiOptionsRequest) request).getURI();
+        String soapAction = ((StatusCfdiOptionsRequest) request).getAction();
+        String rfcEmisor = ((StatusCfdiOptionsRequest) request).getRfcEmisor();
+        String rfcReceptor = ((StatusCfdiOptionsRequest) request).getRfcReceptor();
+        String total = ((StatusCfdiOptionsRequest) request).getTotal();
+        String uuid = ((StatusCfdiOptionsRequest) request).getUuid();
+        String sello = ((StatusCfdiOptionsRequest) request).getSello();
 
+        // Realiza la llamada al servicio web SOAP
         SOAPMessage response = callSoapWebService(soapEndpointUrl, soapAction, rfcEmisor, rfcReceptor, total, uuid, sello);
         SOAPBody body = response.getSOAPBody();
         SOAPFault error = body.getFault();
+
+        // Procesa la respuesta
         if (error != null) {
             return new StatusCfdiResponse(500, "error", error.getFaultCode(), error.getFaultString());
         } else {
@@ -71,6 +90,17 @@ public class StatusCancelationRequest {
         }
     }
 
+    /**
+     * Crea el envelope SOAP para la solicitud de estatus de CFDI.
+     *
+     * @param soapMessage El mensaje SOAP.
+     * @param rfcEmisor   El RFC del emisor.
+     * @param rfcReceptor El RFC del receptor.
+     * @param total       El total del CFDI.
+     * @param uuid        El UUID del CFDI.
+     * @param sello       El sello del CFDI .
+     * @throws SOAPException Si ocurre un error durante la petición SOAP.
+     */
     private static void createSoapEnvelope(SOAPMessage soapMessage, String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) throws SOAPException {
         SOAPPart soapPart = soapMessage.getSOAPPart();
         String myNamespace = "tem";
@@ -83,6 +113,18 @@ public class StatusCancelationRequest {
         soapExpresionImpresa.addTextNode("<![CDATA[?re=" + rfcEmisor + "&rr=" + rfcReceptor + "&tt=" + total + "&id=" + uuid + "&fe" + sello + "]]>");
     }
 
+    /**
+     * Realiza una llamada al servicio web SOAP.
+     *
+     * @param soapEndpointUrl La URL del punto de conexión del servicio web SOAP.
+     * @param soapAction      La acción SOAP.
+     * @param rfcEmisor       El RFC del emisor.
+     * @param rfcReceptor     El RFC del receptor.
+     * @param total           El total del CFDI.
+     * @param uuid            El UUID del CFDI.
+     * @param sello           El sello del CFDI.
+     * @return                El mensaje SOAP de respuesta.
+     */
     private SOAPMessage callSoapWebService(String soapEndpointUrl, String soapAction, String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) {
         try {
             SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
@@ -97,6 +139,18 @@ public class StatusCancelationRequest {
         return null;
     }
 
+    /**
+     * Crea la solicitud SOAP.
+     *
+     * @param soapAction  La acción SOAP.
+     * @param rfcEmisor   El RFC del emisor.
+     * @param rfcReceptor El RFC del receptor.
+     * @param total       El total del CFDI.
+     * @param uuid        El UUID del CFDI.
+     * @param sello       El sello del CFDI.
+     * @return            El mensaje SOAP de solicitud.
+     * @throws Exception  Si ocurre un error.
+     */
     private static SOAPMessage createSOAPRequest(String soapAction, String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) throws Exception {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage();
