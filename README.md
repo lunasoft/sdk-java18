@@ -1603,11 +1603,11 @@ public class App {
         {
             //Creamos una instancia de tipo StatusCfdiResponse 
             //A esta le pasamos la URL del servicio
-            StatusCfdiService app = new StatusCfdiService("https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc", "http://tempuri.org/IConsultaCFDIService/Consulta");
+            StatusCfdiService app = new StatusCfdiService();
             StatusCfdiResponse response = null;
 
             //Enviamos los parametros del comprobante a verificar
-            response = (StatusCfdiResponse) app.StatusCfdi("API6609273E0", "XAXX010101000", "314.00", "39292240-74c8-40fa-9192-bdca4b412d95","lWZ1DQ==");
+            response = (StatusCfdiResponse) app.GetStatusCfdi("GOM0809114P5", "LSO1306189R5", "206.85", "021ea2fb-2254-4232-983b-9808c2ed831b", "WBjHe+9loaYIMM5wYwLxfhT6FnotG0KLRNheOlIxXoVMvsafsRdWY/aZ....");
 
             //Obtenemos el estatus de la petición
             System.out.println(response.Status);
