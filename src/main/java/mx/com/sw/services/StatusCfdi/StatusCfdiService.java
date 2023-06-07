@@ -1,29 +1,23 @@
 package mx.com.sw.services.StatusCfdi;
 
-import java.io.IOException;
-
-import javax.xml.soap.SOAPException;
-
 import mx.com.sw.exceptions.GeneralException;
 import mx.com.sw.services.StatusCfdi.request.StatusCfdiOptionsRequest;
 import mx.com.sw.services.StatusCfdi.request.StatusCfdiRequest;
 import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 import mx.com.sw.exceptions.ServicesException;
 
-public class StatusCfdiService {
-    private String URL = null;
-    private String Action = null;
+import java.io.IOException;
+import javax.xml.soap.SOAPException;
 
+class StatusCfdiService {
     /**
-     * Constructor de la clase StatusCfdiService.
+     * Endpoint y Action necesarios a usar.
      * 
      * @param URL    La URL del servicio.
      * @param Action La acción a realizar.
      */
-    public StatusCfdiService(String URL, String Action) {
-        this.URL = URL;
-        this.Action = Action;
-    }
+    private String URL = "https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc";
+    private String Action = "http://tempuri.org/IConsultaCFDIService/Consulta";
 
     /**
      * Obtiene el estado del CFDI.
@@ -39,7 +33,7 @@ public class StatusCfdiService {
      * @throws IOException       Si ocurre un error de entrada/salida.
      * @throws SOAPException     Si ocurre un error de SOAP.
      */
-    public StatusCfdiResponse StatusCfdi(String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) throws ServicesException, GeneralException, IOException, SOAPException {
+    StatusCfdiResponse GetStatusCfdi(String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) throws ServicesException, GeneralException, IOException, SOAPException {
         StatusCfdiOptionsRequest settings = new StatusCfdiOptionsRequest(URL, Action, rfcEmisor, rfcReceptor, total, uuid, sello, null, 0);
         StatusCfdiRequest req = new StatusCfdiRequest();
         return req.sendRequest(settings);
