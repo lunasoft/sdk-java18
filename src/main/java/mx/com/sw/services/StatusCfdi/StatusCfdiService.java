@@ -13,11 +13,18 @@ class StatusCfdiService {
     /**
      * Endpoint y Action necesarios a usar.
      * 
-     * @param URL    La URL del servicio.
-     * @param Action La acción a realizar.
+     * @param URL    La URL del servicio según el entorno.
+     * @param Action La acción a realizar SOAP predefinida.
      */
-    private String URL = "https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc";
+    private String URL = null;
     private String Action = "http://tempuri.org/IConsultaCFDIService/Consulta";
+
+    /**
+     * Constructor de la clase StatusCfdiService.
+     */
+	StatusCfdiService(String URL) {
+        this.URL = URL;
+    }
 
     /**
      * Obtiene el estado del CFDI.
