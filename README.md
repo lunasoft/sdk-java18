@@ -1573,6 +1573,62 @@ public class App {
 ```
 </details>
 
+## Consulta Estatus SAT  ##
+
+<details>
+  <summary>Consulta Estatus SAT </summary>
+
+  ####
+
+Este servicio sirve para consultar el estatus de un CFDI antes y después de enviarlo a cancelar, con él sabremos sí puede ser cancelado de forma directa, o en caso de que se necesite consultar los CFDI relacionados para poder generar la cancelación.
+
+:pushpin: ***NOTA:*** El servicio de consulta es de tipo SOAP y es proporcionado directamente por parte del SAT.
+
+Este metodo recibe los siguientes parametros:
+* RFC Emisor
+* RFC Receptor
+* Total declarado en el comprobante
+* UUID del comprobante
+* Sello digital del emisor (Últimos 8 caracteres)
+
+**Ejemplo de consumo para conocer estatus de un comprobante**
+```java
+import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StatusCfdiResponse 
+            //A esta le pasamos la URL del servicio
+            StatusCfdiService app = new StatusCfdiService();
+            StatusCfdiResponse response = null;
+
+            //Enviamos los parametros del comprobante a verificar
+            response = (StatusCfdiResponse) app.GetStatusCfdi("GOM0809114P5", "LSO1306189R5", "206.85", "021ea2fb-2254-4232-983b-9808c2ed831b", "WBjHe+9loaYIMM5wYwLxfhT6FnotG0KLRNheOlIxXoVMvsafsRdWY/aZ....");
+
+            //Obtenemos el estatus de la petición
+            System.out.println(response.Status);
+            System.out.println(response.HttpStatusCode);
+
+            //Se recuperar el estatus del comprobante y en que estado se encuentra
+            System.out.println(response.codigoEstatus);
+            System.out.println(response.estado);
+            System.out.println(response.esCancelable);
+            System.out.println(response.estatusCancelacion);
+
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
 ## Aceptar / Rechazar ##
 A través de estos siguientes métodos aceptaremos o rechazaremos los UUID.
 
