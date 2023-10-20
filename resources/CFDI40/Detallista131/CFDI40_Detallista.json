@@ -2,7 +2,7 @@
   "Version": "4.0",
   "Serie": "Serie",
   "Folio": "Folio",
-  "Fecha": "2022-04-11T00:18:00",
+  "Fecha": "2023-05-12T00:18:00",
   "Sello": "",
   "FormaPago": "99",
   "FormaPagoSpecified": true,
@@ -99,6 +99,8 @@
         "ImporteSpecified": true
       }
     ],
+    "TotalImpuestosRetenidos": "0",
+    "TotalImpuestosRetenidosSpecified": true,
     "TotalImpuestosTrasladados": "0.16",
     "TotalImpuestosTrasladadosSpecified": true
   },
