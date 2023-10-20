@@ -216,7 +216,7 @@ public class PdfTest {
     public void testRegeneratePdf_Success(){
         try {
             Pdf pdf = new Pdf(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            PdfResponse response = pdf.regeneratePdf(UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f"));
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("8d8310f8-9fcb-4c2a-af17-cb747724d208"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
@@ -232,7 +232,7 @@ public class PdfTest {
     public void testRegeneratePdf_AuthSuccess(){
         try {
             Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),settings.getPasswordSW(), null, 0);
-            PdfResponse response = pdf.regeneratePdf(UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f"));
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("8d8310f8-9fcb-4c2a-af17-cb747724d208"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));

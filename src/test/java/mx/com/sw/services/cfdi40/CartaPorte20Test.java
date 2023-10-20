@@ -67,7 +67,8 @@ public class CartaPorte20Test {
     public void testStampV4IngresoCartaPorteTransporteAereoResponseV3B64() {
         try {
             StampResponseV3 response = stampService.stampResponseV3(
-                "resources/CFDI40/CartaPorte20/CFDI40_Ingreso_CartaPorte_TransporteAereo.xml", "V4", true, true);
+                "resources/CFDI40/CartaPorte20/CFDI40_Ingreso_CartaPorte_TransporteAereo.xml", 
+                "V4", true, true);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());

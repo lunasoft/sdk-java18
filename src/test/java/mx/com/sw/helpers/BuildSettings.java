@@ -1,6 +1,8 @@
 package mx.com.sw.helpers;
 
 import com.google.gson.Gson;
+import com.ibm.icu.util.Calendar;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
@@ -34,12 +36,13 @@ import org.xml.sax.SAXException;
 import sw.CadenaOriginalCfdi;
 
 /**
-* BuildSettings
-* Clase auxiliar de UT con datos comunes.
-* @author  Eduardo Mares
-* @version 0.0.0.2
-* @since   2022-05-03
-*/
+ * BuildSettings
+ * Clase auxiliar de UT con datos comunes.
+ * 
+ * @author Eduardo Mares
+ * @version 0.0.0.2
+ * @since 2022-05-03
+ */
 public class BuildSettings {
     private String simpleXml;
     private String bigXml;
@@ -50,6 +53,7 @@ public class BuildSettings {
     private String userSW;
     private String passwordSW;
     private String cerPassword;
+    private String pfxPassword;
     private String tokenSW;
     private String email;
     private String cer;
@@ -68,8 +72,8 @@ public class BuildSettings {
     private List<String> correos;
 
     /**
-    * Constructor de la clase.
-    */
+     * Constructor de la clase.
+     */
     public BuildSettings() {
         try {
             simpleXml = new String(Files.readAllBytes(Paths.get("resources/file.xml")), "UTF-8");
@@ -78,29 +82,31 @@ public class BuildSettings {
             jsonCfdiBig = new String(Files.readAllBytes(Paths.get("resources/big.json")), "UTF-8");
             urlSW = "http://services.test.sw.com.mx";
             urlSWServices = "https://api.test.sw.com.mx";
-            //Estas credenciales solo estarán activadas para las UT,
-            //deben de estar configuradas en las variables de entorno.
+            // Estas credenciales solo estarán activadas para las UT,
+            // deben de estar configuradas en las variables de entorno.
             userSW = System.getenv("SDKTEST_USER");
             passwordSW = System.getenv("SDKTEST_PASSWORD");
             tokenSW = System.getenv("SDKTEST_TOKEN");
             email = "unexestingemail@yopmail.com";
-            cer = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.cer");
-            key = loadResouceAsB64("resources/CertificadosDePrueba/CSD_EKU9003173C9.key");
-            pfx = loadResouceAsB64("resources/CertificadosDePrueba/PFX_EKU9003173C9.pfx");
+            cer = loadResouceAsB64("resources/CertificadosDePrueba/EKU9003173C9.cer");
+            key = loadResouceAsB64("resources/CertificadosDePrueba/EKU9003173C9.key");
+            pfx = loadResouceAsB64("resources/CertificadosDePrueba/EKU9003173C9.pfx");
             cerPassword = "12345678a";
+            pfxPassword = "swpass";
             rfc = "EKU9003173C9";
-            noCertificado = "30001000000400002434";
+            noCertificado = "30001000000500003416";
             acuse = loadResourceAsString("resources/XmlCancelacion.xml");
             relationsXML = loadResourceAsString("resources/RelationsXML.xml");
             acceptRejectXML = loadResourceAsString("resources/AcceptReject.xml");
-            templateId = "cfdi33";
-            templateId = "payment";
+            templateId = "cfdi40";
+            templateId = "payment20";
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
-            uuid = UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f");
+            uuid = UUID.fromString("8d8310f8-9fcb-4c2a-af17-cb747724d208");
             correo = Arrays.asList("correo@test.com.mx");
-            correos =Arrays.asList("correo@test.com.mx","correo@test2.com.mx","correo@test3.com.mx","correo@test4.com.mx","correo@test5.com.mx","correo@tes6t.com.mx");
+            correos = Arrays.asList("correo@test.com.mx", "correo@test2.com.mx", "correo@test3.com.mx",
+                    "correo@test4.com.mx", "correo@test5.com.mx", "correo@tes6t.com.mx");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -109,163 +115,175 @@ public class BuildSettings {
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getUrlSW() {
         return this.urlSW;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getUrlServicesSW() {
         return this.urlSWServices;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getUserSW() {
         return this.userSW;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getPasswordSW() {
         return this.passwordSW;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getPasswordCSD() {
         return this.cerPassword;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
+    public String getPasswordPFX() {
+        return this.pfxPassword;
+    }
+
+    /**
+     * Regresa el valor descrito.
+     */
     public String getTokenSW() {
         return this.tokenSW;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getEmail() {
         return this.email;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getKey() {
         return this.key;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getCSD() {
         return this.cer;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getPFX() {
         return this.pfx;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getRFC() {
         return this.rfc;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getNoCertificado() {
         return this.noCertificado;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getXmlCancelation() {
         return this.acuse;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getXmlRelations() {
         return this.relationsXML;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getXMLAcceptReject() {
         return this.acceptRejectXML;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public String getTemplateId() {
         return this.templateId;
     }
 
     /**
-    * Regresa el valor descrito.
-    */
+     * Regresa el valor descrito.
+     */
     public Map<String, String> getObservaciones() {
         return this.observaciones;
     }
+
     /**
-    * Regresa el valor descrito.
-    */
-    public UUID getUuid(){
+     * Regresa el valor descrito.
+     */
+    public UUID getUuid() {
         return this.uuid;
     }
+
     /**
-    * Regresa el valor descrito.
-    */
-    public List<String> getCorreo(){
+     * Regresa el valor descrito.
+     */
+    public List<String> getCorreo() {
         return this.correo;
     }
+
     /**
-    * Regresa el valor descrito.
-    */
-    public List<String> getCorreos(){
+     * Regresa el valor descrito.
+     */
+    public List<String> getCorreos() {
         return this.correos;
     }
 
-
-
     /**
-    * Carga un recurso de archivo a base64 String.
-    * @param path
-    * @return String Base64
-    */
+     * Carga un recurso de archivo a base64 String.
+     * 
+     * @param path
+     * @return String Base64
+     */
     private String loadResouceAsB64(String path) {
         try {
             byte[] binaryData = Files.readAllBytes(Paths.get(path));
-            return Base64.getEncoder().encodeToString(binaryData);
+            String cad64= Base64.getEncoder().encodeToString(binaryData);
+            return cad64;
+            
         } catch (IOException e) {
             return "";
         }
     }
 
     /**
-    * Carga un recurso de archivo a String.
-    * @param path
-    * @return String
-    */
+     * Carga un recurso de archivo a String.
+     * 
+     * @param path
+     * @return String
+     */
     private String loadResourceAsString(String path) {
         try {
             byte[] binaryData = Files.readAllBytes(Paths.get(path));
@@ -276,21 +294,28 @@ public class BuildSettings {
     }
 
     /**
-    * Obtiene la fecha actual en formato necesario para CFDI.
-    * @return String
-    */
+     * Obtiene la fecha actual en formato necesario para CFDI.
+     * 
+     * @return String
+     */
     private String getDateCFDI() {
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        date.setTimeZone(TimeZone.getTimeZone("America/Mexico_City"));
-        return date.format(new Date());
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, -1); // Restar una hora
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Mexico_City"));
+        String realDate = sdf.format(calendar.getTime());
+        return realDate;
     }
 
     /**
-    * Genera un CFDI único y lo sella en caso de indicarse.
-    * @param xml
-    * @param signed
-    * @return String
-    */
+     * Genera un CFDI único y lo sella en caso de indicarse.
+     * 
+     * @param xml
+     * @param signed
+     * @return String
+     */
     private String changeDateAndSign(String xml, boolean signed, String version) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -304,11 +329,13 @@ public class BuildSettings {
             Document doc = builder.parse(new InputSource(new StringReader(xml)));
             doc.getDocumentElement().setAttribute("Fecha", getDateCFDI());
             doc.getDocumentElement().setAttribute("Folio", randomUUIDString + "sdk-java");
+            doc.getDocumentElement().setAttribute("NoCertificado", getNoCertificado());
+            doc.getDocumentElement().setAttribute("Certificado", getCSD());
             if (signed) {
                 Sign sign = new Sign();
                 String cadena = getGenerateCadena(doc, version);
                 String sello = sign.getSign(cadena,
-                        Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/CSD_EKU9003173C9.key")),
+                        Files.readAllBytes(Paths.get("resources/CertificadosDePrueba/EKU9003173C9.key")),
                         "12345678a");
                 doc.getDocumentElement().setAttribute("Sello", sello);
             }
@@ -332,21 +359,23 @@ public class BuildSettings {
     }
 
     /**
-    * Genera un CFDI único y lo sella en caso de indicarse.
-    * @param signed
-    * @return String
-    */
+     * Genera un CFDI único y lo sella en caso de indicarse.
+     * 
+     * @param signed
+     * @return String
+     */
     public String getCFDIBig(boolean signed) {
-        return changeDateAndSign(bigXml, signed, "3.3");
+        return changeDateAndSign(bigXml, signed, "4.0");
     }
 
     /**
-    * Genera un CFDI único y lo sella en caso de indicarse.
-    * @param signed
-    * @return String como Base64
-    */
+     * Genera un CFDI único y lo sella en caso de indicarse.
+     * 
+     * @param signed
+     * @return String como Base64
+     */
     public String getCFDIB64(boolean signed) {
-        String cfdi = changeDateAndSign(simpleXml, signed, "3.3");
+        String cfdi = changeDateAndSign(simpleXml, signed, "4.0");
         try {
             return Base64.getEncoder().encodeToString(cfdi.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
@@ -356,28 +385,30 @@ public class BuildSettings {
     }
 
     /**
-    * Genera un CFDI único y lo sella en caso de indicarse.
-    * @param signed
-    * @return String
-    */
+     * Genera un CFDI único y lo sella en caso de indicarse.
+     * 
+     * @param signed
+     * @return String
+     */
     public String getCFDI(boolean signed) {
-        return changeDateAndSign(simpleXml, signed, "3.3");
+        return changeDateAndSign(simpleXml, signed, "4.0");
     }
 
     /**
-    * Genera un CFDI especifico y lo sella en caso de indicarse.
-    * @param fileName
-    * @param signed
-    * @param version
-    * @param isBase64
-    * @return String
-    */
+     * Genera un CFDI especifico y lo sella en caso de indicarse.
+     * 
+     * @param fileName
+     * @param signed
+     * @param version
+     * @param isBase64
+     * @return String
+     */
     public String getCFDI(String fileName, boolean signed, String version, boolean isBase64) {
 
         String xml = "";
         try {
             xml = new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8");
-        }  catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -395,18 +426,19 @@ public class BuildSettings {
     }
 
     /**
-    * Genera un CFDI especifico.
-    * @param fileName
-    * @param isBase64
-    * @return String
-    */
+     * Genera un CFDI especifico.
+     * 
+     * @param fileName
+     * @param isBase64
+     * @return String
+     */
     public String getJsonCFDI(String fileName, boolean isBase64) {
 
         Gson gson = new Gson();
         String xml = "";
         try {
             xml = new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8");
-        }  catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -430,9 +462,10 @@ public class BuildSettings {
     }
 
     /**
-    * Genera un CFDI único en formato JSON.
-    * @return String
-    */
+     * Genera un CFDI único en formato JSON.
+     * 
+     * @return String
+     */
     public String getJsonCFDI() {
         Gson gson = new Gson();
         Map<String, Object> data = gson.fromJson(jsonCfdi, Map.class);
@@ -446,9 +479,10 @@ public class BuildSettings {
     }
 
     /**
-    * Genera un CFDI único en formato JSON.
-    * @return String
-    */
+     * Genera un CFDI único en formato JSON.
+     * 
+     * @return String
+     */
     public String getJsonCFDIBig() {
         Gson gson = new Gson();
         Map<String, Object> data = gson.fromJson(jsonCfdiBig, Map.class);
