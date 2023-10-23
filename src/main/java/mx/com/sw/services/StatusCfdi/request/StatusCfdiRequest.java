@@ -43,8 +43,8 @@ public class StatusCfdiRequest {
     public StatusCfdiResponse sendRequest(IRequestor request) throws GeneralException, ServicesException, GeneralException, UnsupportedEncodingException, ClientProtocolException, IOException, SOAPException {
         // Obtiene los parámetros de la solicitud
         String soapEndpointUrl = ((StatusCfdiOptionsRequest) request).getURI();
-        String soapAction = ((StatusCfdiOptionsRequest) request).getAction();
         String rfcEmisor = ((StatusCfdiOptionsRequest) request).getRfcEmisor();
+        String soapAction = ((StatusCfdiOptionsRequest) request).getAction();
         String rfcReceptor = ((StatusCfdiOptionsRequest) request).getRfcReceptor();
         String total = ((StatusCfdiOptionsRequest) request).getTotal();
         String uuid = ((StatusCfdiOptionsRequest) request).getUuid();

@@ -12,7 +12,6 @@ Librería JAVA para el consumo de los servicios de SW sapien®.
 - [Implementación](#Implementación)
 
 ### Compatibilidad
-- CFDI 3.3
 - CFDI 4.0
 - Java 1.8 o superior
 
@@ -173,7 +172,7 @@ Emisión Timbrado
 </summary>
 
 ## Emisión Timbrado ##
-**Emisión Timbrado** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **XML** en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
+**Emisión Timbrado** Realiza el sellado y timbrado de un comprobante CFDI 4.0. Recibe el contenido de un **XML** en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
 
 **Emisión Timbrado XML en formato string utilizando usuario y contraseña**
 ```java
@@ -214,7 +213,7 @@ Emisión Timbrado JSON
 </summary>
 
 ## Emisión Timbrado JSON ##
-**Emisión Timbrado JSON** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **JSON** en formato **String**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
+**Emisión Timbrado JSON** Realiza el sellado y timbrado de un comprobante CFDI 4.0. Recibe el contenido de un **JSON** en formato **String**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
 
 **Emisión Timbrado JSON en formato string utilizando usuario y contraseña**
 ```java
@@ -714,7 +713,7 @@ Validación XML
 </summary>
 
 ## Validación XML ##
-Este servicio recibe un comprobante CFDI 3.3 ó 4.0 en formato XML mediante el cual se valida integridad, sello, errores de estructura, matriz de errores del SAT incluyendo complementos, se valida que exista en el SAT, así como el estatus en el SAT.
+Este servicio recibe un comprobante CFDI 4.0 en formato XML mediante el cual se valida integridad, sello, errores de estructura, matriz de errores del SAT incluyendo complementos, se valida que exista en el SAT, así como el estatus en el SAT.
 
 Este metodo recibe los siguientes parametros:
 - Url Servicios SW
@@ -935,7 +934,7 @@ public class App {
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
 
             //Realizamos la petición de generacion al servicio.
-            PdfResponse response = pdf.getPdf("cfdi33", xmlcontent, observaciones);
+            PdfResponse response = pdf.getPdf("cfdi40", xmlcontent, observaciones);
 
             System.out.println(response.getStatus());
             System.out.println(response.getData().getContentB64());

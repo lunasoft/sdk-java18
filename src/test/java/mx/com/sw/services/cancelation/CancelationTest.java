@@ -54,7 +54,7 @@ public class CancelationTest {
             Cancelation cancelation = new Cancelation(settings.getUrlSW(), settings.getUserSW(),
                 settings.getPasswordSW(), null, 0);
             String pfxBase64 = settings.getPFX();
-            String password = settings.getPasswordCSD();
+            String password = settings.getPasswordPFX();
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
             CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
