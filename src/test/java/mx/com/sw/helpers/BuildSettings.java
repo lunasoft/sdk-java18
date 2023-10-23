@@ -305,8 +305,7 @@ public class BuildSettings {
         calendar.add(Calendar.HOUR_OF_DAY, -1); // Restar una hora
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("America/Mexico_City"));
-        String realDate = sdf.format(calendar.getTime());
-        return realDate;
+        return sdf.format(calendar.getTime());
     }
 
     /**
