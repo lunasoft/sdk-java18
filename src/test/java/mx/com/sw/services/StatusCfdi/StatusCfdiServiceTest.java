@@ -1,6 +1,7 @@
 package mx.com.sw.services.StatusCfdi;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 
@@ -51,6 +52,7 @@ public class StatusCfdiServiceTest {
      * @throws Exception Si ocurre un error durante la prueba.
      */
     @Test
+    @Ignore
     public void testStatusCfdiService_Test() throws Exception {
         StatusCfdiService app = new StatusCfdiService("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc");
         StatusCfdiResponse response = null;
@@ -71,6 +73,7 @@ public class StatusCfdiServiceTest {
      * @throws Exception Si ocurre un error durante la prueba.
      */
     @Test
+    @Ignore
     public void testStatusCfdiService_Test_Error() throws Exception {
         StatusCfdiService app = new StatusCfdiService("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc");
         StatusCfdiResponse response = null;
