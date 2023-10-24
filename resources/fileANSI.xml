@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cfdi:Comprobante LugarExpedicion="35079" Moneda="MXN" TipoCambio="1" certificado="" descuento="587.87" fecha="2017-02-08T15:27:25" folio="37" formaDePago="Pago en una sola exhibici�n" metodoDePago="NA" noCertificado="" sello="" serie="G" subTotal="3500.00" tipoDeComprobante="egreso" total="2912.13" version="3.2" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
-	<cfdi:Emisor nombre="C.V." rfc="GPI1106108S8">
-		<cfdi:RegimenFiscal Regimen="601"/>
-	</cfdi:Emisor>
-	<cfdi:Receptor nombre="" rfc="GALA630720712"/>
+<cfdi:Comprobante xmlns:nomina12="http://www.sat.gob.mx/nomina12"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd" Version="4.0" Serie="Serie" Folio="Folio" Fecha="2022-07-21T00:00:00" Sello="" SubTotal="5000" Descuento="300" Moneda="MXN" TipoCambio="1" Total="4700" TipoDeComprobante="N" Exportacion="01" MetodoPago="PPD" LugarExpedicion="20000"
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4" NoCertificado="30001000000400002444" Certificado="">
+	<cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601" />
+	<cfdi:Receptor Rfc="XOJI740919U48" Nombre="INGRID XODAR JIMENEZ" DomicilioFiscalReceptor="76028" RegimenFiscalReceptor="605" UsoCFDI="CN01" />
 	<cfdi:Conceptos>
-		<cfdi:Concepto cantidad="1" descripcion="Pago de n�mina" importe="3500.00" unidad="ACT" valorUnitario="3500.00"/>
+		<cfdi:Concepto ClaveProdServ="84111505" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago de n??mina" ValorUnitario="5000.00" Descuento="300" Importe="5000.00" ObjetoImp="01"></cfdi:Concepto>
 	</cfdi:Conceptos>
-	<cfdi:Impuestos/>
 	<cfdi:Complemento>
-		<nomina12:Nomina FechaFinalPago="2016-12-04" FechaInicialPago="2016-11-28" FechaPago="2016-12-02" NumDiasPagados="7" TipoNomina="O" TotalDeducciones="587.87" TotalOtrosPagos="0.00" TotalPercepciones="3500.00" Version="1.2" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
-			<nomina12:Emisor RegistroPatronal="B2832472107"/>
-			<nomina12:Receptor Antig�edad="P0W" ClaveEntFed="DUR" Curp="GALA630720HCLBPN02" FechaInicioRelLaboral="2016-12-01" NumEmpleado="170131122036552" NumSeguridadSocial="89846315730" PeriodicidadPago="02" RiesgoPuesto="1" SalarioBaseCotApor="522.6" SalarioDiarioIntegrado="500" TipoContrato="01" TipoRegimen="02"/>
-			<nomina12:Percepciones TotalExento="0.00" TotalGravado="3500.00" TotalSueldos="3500.00">
-				<nomina12:Percepcion Clave="001" Concepto="Sueldos, Salarios Rayas y Jornales" ImporteExento="0.00" ImporteGravado="3500.00" TipoPercepcion="001"/>
+		<nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2021-12-24" FechaInicialPago="2021-12-09" FechaFinalPago="2021-12-24" NumDiasPagados="15" TotalPercepciones="5000.0" TotalDeducciones="300">
+			<nomina12:Emisor RegistroPatronal="B5510768108" RfcPatronOrigen="URE180429TM6" />
+			<nomina12:Receptor Curp="XEXX010101HNEXXXA4" NumSeguridadSocial="000000" FechaInicioRelLaboral="2015-01-01" Antig�edad="P364W" TipoContrato="01" TipoJornada="01" TipoRegimen="03" NumEmpleado="120" Departamento="Desarrollo" Puesto="Ingeniero de Software" RiesgoPuesto="1" PeriodicidadPago="04" CuentaBancaria="1111111111" Banco="002" SalarioBaseCotApor="490.22" SalarioDiarioIntegrado="146.47" ClaveEntFed="JAL" />
+			<nomina12:Percepciones TotalSueldos="5000.0" TotalGravado="2808.8" TotalExento="2191.2">
+				<nomina12:Percepcion TipoPercepcion="001" Clave="00500" Concepto="Sueldos, Salarios Rayas y Jornales" ImporteGravado="2808.8" ImporteExento="2191.2" />
 			</nomina12:Percepciones>
-			<nomina12:Deducciones TotalImpuestosRetenidos="492.24" TotalOtrasDeducciones="95.63">
-				<nomina12:Deduccion Clave="002" Concepto="ISR" Importe="492.24" TipoDeduccion="002"/>
-				<nomina12:Deduccion Clave="001" Concepto="Seguridad social" Importe="95.63" TipoDeduccion="001"/>
+			<nomina12:Deducciones TotalOtrasDeducciones="200" TotalImpuestosRetenidos="100">
+				<nomina12:Deduccion TipoDeduccion="001" Clave="00301" Concepto="Seguridad Social" Importe="200" />
+				<nomina12:Deduccion TipoDeduccion="002" Clave="00302" Concepto="ISR" Importe="100" />
 			</nomina12:Deducciones>
 		</nomina12:Nomina>
 	</cfdi:Complemento>

@@ -12,7 +12,6 @@ Librería JAVA para el consumo de los servicios de SW sapien®.
 - [Implementación](#Implementación)
 
 ### Compatibilidad
-- CFDI 3.3
 - CFDI 4.0
 - Java 1.8 o superior
 
@@ -28,9 +27,9 @@ Instalar solo si se descarga e instala de manera manual la librería. De igual m
 *  [commons-logging/1.2](https://mvnrepository.com/artifact/commons-logging/commons-logging/1.2)
 
 
-### Documentacion
+### Documentación
 * [Inicio Rápido](https://developers.sw.com.mx/knowledge-base/conoce-el-proceso-de-integracion-en-solo-7-pasos/)
-* Documentación disponible a través de GitHub Pages en el siguiente enlace:[sdk-java18](https://lunasoft.github.io/sdk-java18/)
+* Documentación disponible a través de GitHub Pages en el siguiente enlace: [sdk-java18](https://lunasoft.github.io/sdk-java18/)
 * [Documentacion Oficial Servicios](http://developers.sw.com.mx)
 
 ---
@@ -70,7 +69,12 @@ public class App
 }
 ```
 
-# Timbrado #
+## Timbrado ##
+
+<details>
+<summary>
+Timbrar CFDI V1
+</summary>
 
 ## Timbrar CFDI V1 ##
 **TimbrarV1** Recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
@@ -160,9 +164,15 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Emisión Timbrado
+</summary>
 
 ## Emisión Timbrado ##
-**Emisión Timbrado** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **XML** en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
+**Emisión Timbrado** Realiza el sellado y timbrado de un comprobante CFDI 4.0. Recibe el contenido de un **XML** en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
 
 **Emisión Timbrado XML en formato string utilizando usuario y contraseña**
 ```java
@@ -194,9 +204,16 @@ public class App {
     }
 }
 ```
+</details>
+
+
+<details>
+<summary>
+Emisión Timbrado JSON
+</summary>
 
 ## Emisión Timbrado JSON ##
-**Emisión Timbrado JSON** Realiza el sellado y timbrado de un comprobante CFDI 3.3 ó CFDI 4.0. Recibe el contenido de un **JSON** en formato **String**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
+**Emisión Timbrado JSON** Realiza el sellado y timbrado de un comprobante CFDI 4.0. Recibe el contenido de un **JSON** en formato **String**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción
 
 **Emisión Timbrado JSON en formato string utilizando usuario y contraseña**
 ```java
@@ -226,6 +243,7 @@ public class App {
     }
 }
 ```
+</details>
 
 ***NOTA:*** Existen varias versiones de respuesta, las cuales son las siguientes:
 
@@ -238,8 +256,14 @@ public class App {
 
 Para mayor referencia de estas versiones de respuesta, favor de visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 
-# Cancelación #
+## Cancelación ##
+
 **Cancelacion** Se utiliza para cancelar documentos xml y se puede hacer mediante varios metodos **Cancelación CSD**, **Cancelación PFX**, **Cancelacion por XML** y **Cancelación UUID**.
+
+<details>
+<summary>
+Cancelacion por CSD
+</summary>
 
  ## Cancelacion por CSD ##
 Como su nombre lo indica, este metodo recibe todos los elementos que componen el CSD los cuales son los siguientes:
@@ -352,6 +376,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Cancelacion por PFX
+</summary>
 
 ## Cancelacion por PFX ##
 
@@ -470,6 +500,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Cancelacion por XML
+</summary>
 
 ## Cancelacion por XML ##
 Este método recibe únicamente el XML sellado con los UUID a cancelar.
@@ -560,6 +596,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Cancelacion por UUID
+</summary>
 
 ## Cancelacion por UUID ##
 Este método recibe los siguientes parametros:
@@ -661,11 +703,17 @@ public class App {
     }
 }
 ```
+</details>
 
-# Validación #
+## Validación ##
+
+<details>
+<summary>
+Validación XML
+</summary>
 
 ## Validación XML ##
-Este servicio recibe un comprobante CFDI 3.3 ó 4.0 en formato XML mediante el cual se valida integridad, sello, errores de estructura, matriz de errores del SAT incluyendo complementos, se valida que exista en el SAT, así como el estatus en el SAT.
+Este servicio recibe un comprobante CFDI 4.0 en formato XML mediante el cual se valida integridad, sello, errores de estructura, matriz de errores del SAT incluyendo complementos, se valida que exista en el SAT, así como el estatus en el SAT.
 
 Este metodo recibe los siguientes parametros:
 - Url Servicios SW
@@ -727,8 +775,16 @@ public class App {
     }
 }
 ```
+</details>
 
-# Consulta de Saldos #
+## Consulta de Saldos ##
+
+<details>
+<summary>
+Consulta de Saldos
+</summary>
+
+## Consulta de Saldos ##
 Este servicio recibe el token y genera los elementos que componen la consulta de saldos:
 
 Se deberá autenticar en nuestros servicios en orden de obtener token de acceso, o si se desea,  se puede usar el token infinito.
@@ -834,8 +890,16 @@ public class App {
     }
 }
 ```
+</details>
 
-# Generar PDF #
+## PDF ##
+
+<details>
+<summary>
+Generar PDF
+</summary>
+
+## Generar PDF ##
 Este método genera y obtiene un pdf en base64 a partir de un documento XML timbrado y una plantilla. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token. Este método recibe los siguientes parámetros:
 
 - Url servicios SW
@@ -870,7 +934,7 @@ public class App {
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
 
             //Realizamos la petición de generacion al servicio.
-            PdfResponse response = pdf.getPdf("cfdi33", xmlcontent, observaciones);
+            PdfResponse response = pdf.getPdf("cfdi40", xmlcontent, observaciones);
 
             System.out.println(response.getStatus());
             System.out.println(response.getData().getContentB64());
@@ -882,8 +946,14 @@ public class App {
     }
 }
 ```
+</details>
 
-# Regenerar PDF #
+<details>
+<summary>
+Regenerar PDF
+</summary>
+
+## Regenerar PDF ##
 El servicio podrá generar o regenerar un PDF de un CFDI previamente timbrados y podrá guardar o remplazar el archivo PDF para ser visualizado posteriormente desde el portal de Smarter. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token. Este método recibe los siguientes parámetros:
 
 - Url servicios SW(cuando se añaden usuario y contraseña)
@@ -921,8 +991,14 @@ public class App {
     }
 }
 ```
+</details>
 
-# Reenvio Email #
+<details>
+<summary>
+Reenvio Email
+</summary>
+
+## Reenvio Email ##
 Este servicio realiza el reenvío de un xml y/o pdf existente mediante su UUID
 a través de correo electrónico.
 
@@ -961,9 +1037,254 @@ public class App {
     }
 }
 ```
+</details>
 
-# CFDI Relacionados #
+## Certificados ##
+Servicio para gestionar los certificados CSD de tu cuenta, será posible cargar, consultar y eliminar los certificados.
+Para administrar los certificados de manera gráfica, puede hacerlo desde el [Administrador de timbres](https://portal.sw.com.mx/).
+
+<details>
+<summary>
+Consultar Certificados
+</summary>
+
+## Consultar Certificados ##
+Método para consultar todos los certificados cargados en la cuenta.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW(cuando se añaden usuario y contraseña)
+* Token
+
+**Ejemplo de consumo de la libreria para la consulta de certificados mediante token**
+```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la consulta
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdListDataResponse response = csd.GetAllCsd();
+            //En caso exitoso se podran obtener los siguientes datos
+            List<CsdData> lista = response.getData();
+            if(lista != null) {
+                for(int i=0; i<lista.size(); i++) {
+                    CsdData dato = lista.get(i);
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
+                }
+            }
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar Certificado Por NoCertificado
+</summary>
+
+## Consultar Certificado Por NoCertificado ##
+Método para obtener un certificado cargado enviando como parámetro el número de certificado.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Token
+* Número de certificado a obtener
+
+**Ejemplo de consumo de la libreria para la consulta de certificados por Número de Certificado mediante token**
+```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Número de certificado
+            String NoCertificado = "30001000000400002434";
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la consulta
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdDataResponse response = csd.GetCsd(NoCertificado);
+            //En caso exitoso se podran obtener los siguientes datos
+            System.out.println(response.getData().getIssuerRfc());
+            System.out.println(response.getData().getIssuerBusinessName());
+            System.out.println(response.getData().getCertificateNumber());
+            System.out.println(response.getData().getCertificateType());
+            System.out.println(response.getData().getIsActive());
+            System.out.println(response.getData().getValidFrom());
+            System.out.println(response.getData().getValidTo());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Cargar Certificado
+</summary>
+
+## Cargar Certificado ##
+Método para cargar un certificado en la cuenta.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Token
+* CSD en Base64
+* Key en Base64
+* Contraseña del certificado
+
+**Ejemplo de consumo de la libreria para la carga de certificado mediante token**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Datos necesarios
+            String passwordCer = "12345678a";
+            //Obtenemos Certificado y lo convertimos a Base 64 
+            String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
+            //Obtenemos LLave y lo convertimos a Base 64
+            String key = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.key")));
+
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la carga de los certificados
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdResponse response = csd.UploadCsd(cer, key, passwordCer);
+            //En caso exitoso se podran obtener el mensaje de exito
+            System.out.println(response.data);
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Eliminar Certificado
+</summary>
+
+## Eliminar Certificado ##
+Método para eliminar un certificado de la cuenta.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Token
+* Número de certificado a eliminar
+
+**Ejemplo de consumo de la libreria para eliminar un certificado mediante token**
+```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Número de certificado
+            String NoCertificado = "30001000000400002434";
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la eliminacion
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdResponse response = csd.DeleteCsd(NoCertificado);
+            //En caso exitoso se podran obtener el mensaje de exito.
+            System.out.println(response.data);
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+
+## CFDI Relacionados ##
 A través de estos siguientes métodos obtendremos un listado de los UUID que se encuentren relacionados a una factura.
+
+<details>
+<summary>
+Relacionados por CSD
+</summary>
+
 ## Relacionados por CSD ##
 Este método recibe el **certificado** en base64, **llave** en base64, **RFC**, **password** del certificado, y el **UUID** de la factura.
 **Ejemplo de consumo de la librería para la consulta**
@@ -1015,6 +1336,13 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Relacionados por PFX
+</summary>
+
 ## Relacionados por PFX ##
 Este método recibe el **PFX** en base64, **password** del certificado, **RFC**, y el **UUID** de la factura.
 **Ejemplo de consumo de la librería para la consulta**
@@ -1065,6 +1393,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Relacionados por XML
+</summary>
 
 ## Relacionados por XML ##
 Este método recibe el **XML** de relacionados.
@@ -1144,6 +1478,12 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Relacionados por UUID
+</summary>
 
 ## Relacionados por UUID ##
 Este método recibe el **RFC** y el **UUID** de la factura.
@@ -1188,10 +1528,14 @@ public class App {
     }
 }
 ```
+</details>
 
-# Consulta solicitudes pendientes Aceptar / Rechazar #
+## Consulta solicitudes pendientes Aceptar / Rechazar ##
 A través de este servicio obtendremos una lista de los UUID que tenemos pendientes por aceptar o rechazar.
 Este método recibe el **RFC** del cual obtendremos la lista.
+
+<details>
+  <summary>Ejemplos</summary>
 
 **Ejemplo de consumo de la librería para la consulta**
 ```java
@@ -1226,8 +1570,71 @@ public class App {
     }
 }
 ```
-# Aceptar / Rechazar #
+</details>
+
+## Consulta Estatus SAT  ##
+
+<details>
+  <summary>Consulta Estatus SAT </summary>
+
+  ####
+
+Este servicio sirve para consultar el estatus de un CFDI antes y después de enviarlo a cancelar, con él sabremos sí puede ser cancelado de forma directa, o en caso de que se necesite consultar los CFDI relacionados para poder generar la cancelación.
+
+:pushpin: ***NOTA:*** El servicio de consulta es de tipo SOAP y es proporcionado directamente por parte del SAT.
+
+Este metodo recibe los siguientes parametros:
+* RFC Emisor
+* RFC Receptor
+* Total declarado en el comprobante
+* UUID del comprobante
+* Sello digital del emisor (Últimos 8 caracteres)
+
+**Ejemplo de consumo para conocer estatus de un comprobante**
+```java
+import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StatusCfdiResponse 
+            //A esta le pasamos la URL del servicio
+            StatusCfdiService app = new StatusCfdiService();
+            StatusCfdiResponse response = null;
+
+            //Enviamos los parametros del comprobante a verificar
+            response = (StatusCfdiResponse) app.GetStatusCfdi("GOM0809114P5", "LSO1306189R5", "206.85", "021ea2fb-2254-4232-983b-9808c2ed831b", "WBjHe+9loaYIMM5wYwLxfhT6FnotG0KLRNheOlIxXoVMvsafsRdWY/aZ....");
+
+            //Obtenemos el estatus de la petición
+            System.out.println(response.Status);
+            System.out.println(response.HttpStatusCode);
+
+            //Se recuperar el estatus del comprobante y en que estado se encuentra
+            System.out.println(response.codigoEstatus);
+            System.out.println(response.estado);
+            System.out.println(response.esCancelable);
+            System.out.println(response.estatusCancelacion);
+
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+## Aceptar / Rechazar ##
 A través de estos siguientes métodos aceptaremos o rechazaremos los UUID.
+
+<details>
+<summary>
+Aceptar / Rechazar por CSD
+</summary>
 
 ## Aceptar / Rechazar por CSD ##
 Este método recibe el **certificado** en base64, **llave** en base64, **RFC**, **password** del certificado, y los **UUID** con su respectiva acción.
@@ -1284,6 +1691,13 @@ public class App {
     }
 }
 ```
+</details>
+
+<details>
+<summary>
+Aceptar / Rechazar por PFX
+</summary>
+
 ## Aceptar / Rechazar por PFX ##
 Este método recibe el **PFX** en base64, **password** del certificado, **RFC**, y los **UUID** de las facturas con su respectiva acción a realizar.
 **Ejemplo de consumo de la librería para la utilización**
@@ -1338,6 +1752,12 @@ public class App {
 }
 
 ```
+</details>
+
+<details>
+<summary>
+Aceptar / Rechazar por XML
+</summary>
 
 ## Aceptar / Rechazar por XML ##
 Este método recibe el **XML** de aceptación / rechazo.
@@ -1377,7 +1797,6 @@ Este método recibe el **XML** de aceptación / rechazo.
 </SolicitudAceptacionRechazo>
 ```
 
-
 **Ejemplo de consumo de la librería para la utilización**
 ```java
 import mx.com.sw.services.acceptreject.AcceptReject;
@@ -1414,6 +1833,12 @@ public class App {
         }  
     }
 ```
+</details>
+
+<details>
+<summary>
+Aceptar / Rechazar por UUID
+</summary>
 
 ## Aceptar / Rechazar por UUID ##
 Este método recibe el **RFC**,  **UUID** de la factura y **acción** a realizar.
@@ -1455,6 +1880,12 @@ public class App {
     }
 }
 ```
+</details>
+
+## TimbradoV4 ##
+
+<details>
+  <summary>StampV4(XML) - Email</summary>
 
 ## StampV4(XML) - Email ##
 Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
@@ -1533,6 +1964,7 @@ public class App {
     }
 }
 ```
+</details>
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
