@@ -1,7 +1,6 @@
 package mx.com.sw.services.StatusCfdi;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 
@@ -52,11 +51,10 @@ public class StatusCfdiServiceTest {
      * @throws Exception Si ocurre un error durante la prueba.
      */
     @Test
-    @Ignore
     public void testStatusCfdiService_Test() throws Exception {
         StatusCfdiService app = new StatusCfdiService("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc");
         StatusCfdiResponse response = null;
-        response = (StatusCfdiResponse) app.GetStatusCfdi("EKU9003173C9", "XEXX010101000", "9300.00", "bad75896-551e-4d5e-a372-d168180133f5", "bX4qYU8wHAhLk6UXrs93hM1iSFMXubIBgQtfRCJZTGRpy9sfsnTu2M....");
+        response = (StatusCfdiResponse) app.GetStatusCfdi("EKU9003173C9", "XEXX010101000", "9300.00", "bad75896-551e-4d5e-a372-d168180133f5", "bb2k2g==");
         System.out.println(response.Status);
         System.out.println(response.HttpStatusCode);
         System.out.println(response.codigoEstatus);
@@ -66,14 +64,12 @@ public class StatusCfdiServiceTest {
         String expect_status = "success";
         Assert.assertTrue(expect_status.equalsIgnoreCase(response.Status));
     }
-
     /**
      * Prueba el servicio StatusCfdi en el entorno de pruebas cuando se genera un error.
      * 
      * @throws Exception Si ocurre un error durante la prueba.
      */
     @Test
-    @Ignore
     public void testStatusCfdiService_Test_Error() throws Exception {
         StatusCfdiService app = new StatusCfdiService("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc");
         StatusCfdiResponse response = null;
