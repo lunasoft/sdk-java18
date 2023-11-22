@@ -20,5 +20,5 @@ public class AccountBalanceResponseHandler extends ResponseHandler<AccountBalanc
     public AccountBalanceResponse handleException(Throwable ex) {
         return ResponseHelper.toAccountBalanceResponse(ex);
     }
-
 }
+

@@ -2,6 +2,7 @@ package mx.com.sw.services.account.balance.responses;
 
 /**
  * AccountBalanceData - Clase con la informacion del saldo del cliente.
+ * 
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-14
@@ -17,6 +18,7 @@ public class AccountBalanceData {
 
     /**
      * Obtiene el id del saldo.
+     * 
      * @return String
      */
     public String getIdSaldoCliente() {
@@ -25,6 +27,7 @@ public class AccountBalanceData {
 
     /**
      * Obtiene el id del cliente.
+     * 
      * @return String
      */
     public String getIdClienteUsuario() {
@@ -33,6 +36,7 @@ public class AccountBalanceData {
 
     /**
      * Obtiene el saldo restante.
+     * 
      * @return Integer
      */
     public Integer getSaldoTimbres() {
@@ -41,6 +45,7 @@ public class AccountBalanceData {
 
     /**
      * Obtiene el total de timbres utilizados.
+     * 
      * @return Integer
      */
     public Integer getTimbresUtilizados() {
@@ -49,6 +54,7 @@ public class AccountBalanceData {
 
     /**
      * Obtiene la fecha de expiración de los timbres.
+     * 
      * @return String
      */
     public String getFechaExpiracion() {
@@ -58,6 +64,7 @@ public class AccountBalanceData {
     /**
      * Indica si el cliente está bajo el esquema de "ilimitado",
      * lo cual hace que se descuenten los timbres de la cuenta distribuidora.
+     * 
      * @return boolean
      */
     public boolean isUnlimited() {
@@ -66,6 +73,7 @@ public class AccountBalanceData {
 
     /**
      * Obtiene total de los timbres adquiridos.
+     * 
      * @return String
      */
     public Integer getTimbresAsignados() {
