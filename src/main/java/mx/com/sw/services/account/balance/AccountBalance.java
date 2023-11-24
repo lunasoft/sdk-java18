@@ -22,10 +22,28 @@ import org.apache.http.client.config.RequestConfig;
  */
 public class AccountBalance extends AccountBalanceService {
     private static final String MANAGEMENT_API_BALANCE_PATH = "management/api/balance/";
+     private static final String SERVICE_BALANCE_PATH = "account/balance";
     private final AccountBalanceResponseHandler handler;
     private final AccountActionsDataHandler handlerActions;
 
     /**
+     * Constructor de la clase.
+     * 
+     * @param url       URL base del servicio.
+     * @param user      Correo o usuario de SW.
+     * @param password  Contraseña de SW.
+     * @param proxy     IP o dominio de proxy (null si no se utiliza).
+     * @param proxyPort Número de puerto de proxy (cualquier valor si proxy es null).
+     * @throws ServicesException Excepción en caso de error.
+     */
+    public AccountBalance(String url, String user, String password, String proxy,
+            int proxyPort) throws ServicesException {
+        super(url, user, password, proxy, proxyPort);
+        handler = new AccountBalanceResponseHandler();
+        handlerActions = new AccountActionsDataHandler();
+    }
+
+     /**
      * Constructor de la clase.
      * 
      * @param url       URL base de la API.
@@ -46,7 +64,7 @@ public class AccountBalance extends AccountBalanceService {
     /**
      * Constructor de la clase.
      * 
-     * @param url       URL base de la API.
+     * @param urlApi    URL base de la API o servicio
      * @param token     Token infinito de SW.
      * @param proxy     IP o dominio de proxy (null si no se utiliza).
      * @param proxyPort Número de puerto de proxy (cualquier valor si proxy es null).
@@ -120,5 +138,17 @@ public class AccountBalance extends AccountBalanceService {
         String path = String.format(MANAGEMENT_API_BALANCE_PATH, idUser.toString());
         return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
                 AccountBalanceResponse.class);
+    }
+/**
+     * Obtiene el saldo de un usuario asociado al token usado para la consulta.
+     * 
+     * @return Objeto AccountBalanceResponse con la respuesta del servicio
+     * @throws ServicesException Excepción en caso de error.
+     */
+    @Override
+    public AccountBalanceResponse getBalance() throws ServicesException {
+        Map<String, String> headers = getHeaders();
+        RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+        return handler.getHTTP(getUrl(), SERVICE_BALANCE_PATH, headers, config, AccountBalanceResponse.class);
     }
 }

@@ -783,7 +783,66 @@ Este servicio consulta, asigna y elimina saldo a las cuentas que administres.
 Se deberá autenticar en nuestros servicios para obtener token de acceso, o si se desea, se puede usar el token infinito.
 <details>
 <summary>
-Consultar saldo
+Consultar saldo por token
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+
+**Ejemplo de consumo de la libreria para consultar el saldo mediante token**
+```java
+import mx.com.sw.services.account.balance.AccountBalance;
+import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo BalanceAccount 
+            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+
+            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountBalanceResponse res = account.getBalance();
+           
+
+            //Para Obtener el idSaldoCliente
+            System.out.println(res.getData().getIdSaldoCliente());
+                        
+            //Para Obtener el idClienteUsuario
+            System.out.println(res.getData().getIdClienteUsuario());
+                    
+            //Para Obtener el saldo Timbres
+            System.out.println(res.getData().getSaldoTimbres());
+                    
+            //Para Obtenerlos timbres Utilizados
+            System.out.println(res.getData().getTimbresUtilizados());
+                    
+            //Para Obtener la fechaExpiracion
+            System.out.println(res.getData().getFechaExpiracion());
+
+            //Para Obtener si es Ilimitado
+            System.out.println(res.getData().isUnlimited());
+                    
+            //Para Obtener los timbres Asignados
+            System.out.println(res.getData().getTimbresAsignados());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar saldo");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+<details>
+<summary>
+Consultar saldo por Id User
 </summary>
 Este metodo necesita como parámetro:
 

@@ -45,7 +45,7 @@ public abstract class AccountBalanceService extends Services {
     /**
      * Constructor de la clase.
      * 
-     * @param urlApi    URL base de la API
+     * @param urlApi    URL base de la API o URL base de Servicios
      * @param token     Token infinito de SW.
      * @param proxy     IP o dominio de proxy (null si no se utiliza)
      * @param proxyPort Número de puerto de proxy (cualquier valor si proxy es null)
@@ -56,6 +56,21 @@ public abstract class AccountBalanceService extends Services {
     }
 
     /**
+     * Constructor de la clase.
+     * 
+     * @param url       URL base de SW
+     * @param user      Correo o usuario de SW
+     * @param password  Contraseña de SW.
+     * @param proxy     IP o dominio de proxy (null si no se utiliza)
+     * @param proxyPort Número de puerto de proxy (cualquier valor si proxy es null)
+     * @throws ServicesException Excepción en caso de error.
+     */
+    protected AccountBalanceService(String url, String user, String password, String proxy,
+            int proxyPort) throws ServicesException {
+        super(url, user, password, proxy, proxyPort);
+    }
+
+    /**
      * Consulta el saldo de la cuenta configurada para un usuario específico.
      * 
      * @param idUser ID del usuario.
@@ -63,6 +78,14 @@ public abstract class AccountBalanceService extends Services {
      * @throws ServicesException Excepción en caso de error.
      */
     public abstract AccountBalanceResponse getBalanceById(UUID idUser) throws ServicesException;
+
+    /**
+     * Consulta el saldo de la cuenta configurada para el usuario asociado al token proporcionado
+     * 
+     * @return Objeto {@link AccountBalanceResponse} con la respuesta de la API.
+     * @throws ServicesException Excepción en caso de error.
+     */
+    public abstract AccountBalanceResponse getBalance() throws ServicesException;
 
     /**
      * Realiza la distribución de timbres para un usuario específico.

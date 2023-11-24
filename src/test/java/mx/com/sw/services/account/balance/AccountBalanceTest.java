@@ -26,12 +26,63 @@ public class AccountBalanceTest {
     public AccountBalanceTest() {
         this.settings = new BuildSettings();
     }
+    
 
+    /**
+    * Método de UT con usuario y password.
+    */
+    @Test
+    public void testGetBalance() {
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUserSW(),
+                settings.getPasswordSW(), null, 0);
+            AccountBalanceResponse res = account.getBalance();
+            Assertions.assertNotNull(res);
+            Assertions.assertTrue("success".equals(res.getStatus()));
+            Assertions.assertNotNull(res.getData());
+            Assertions.assertNotNull(res.getData().getSaldoTimbres() > 0);
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+    * Método de UT con token.
+    */
+    @Test
+    public void testGetBalanceToken() {
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getTokenSW(), null, 0);
+            AccountBalanceResponse res = account.getBalance();
+            Assertions.assertNotNull(res);
+            Assertions.assertTrue("success".equals(res.getStatus()));
+            Assertions.assertNotNull(res.getData());
+            Assertions.assertNotNull(res.getData().getSaldoTimbres() > 0);
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+    * Método de UT con token incorrecto.
+    */
+    @Test
+    public void testGetBalanceBadToken() {
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlSW(), "empty.token.sw", null, 0);
+            AccountBalanceResponse res = account.getBalance();
+            Assertions.assertNotNull(res);
+            Assertions.assertNotNull(res.getMessage());
+            Assertions.assertFalse("success".equals(res.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
     /**
      * Método para obtener el saldo con usuario y password.
      */
     @Test
-    public void testGetBalance() {
+    public void testGetBalanceById() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUrlServicesSW(),
                     settings.getUserSW(),
@@ -51,7 +102,7 @@ public class AccountBalanceTest {
      * Método para obtener el saldo con token.
      */
     @Test
-    public void testGetBalanceByToken() {
+    public void testGetBalanceByIdByToken() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
             AccountBalanceResponse res = account
@@ -69,7 +120,7 @@ public class AccountBalanceTest {
      * Método para obtener el saldo con token incorrecto.
      */
     @Test
-    public void testGetBalanceBadToken() {
+    public void testGetBalanceByIdBadToken() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), "empty.token.sw", null, 0);
             AccountBalanceResponse res = account
