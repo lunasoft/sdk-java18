@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.EnumAccountBalance;
 import mx.com.sw.services.Services;
-import mx.com.sw.services.account.balance.responses.AccountActionsData;
+import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 
 /**
@@ -94,10 +94,10 @@ public abstract class AccountBalanceService extends Services {
      * @param stamps   Cantidad de timbres a distribuir.
      * @param action   Acción a realizar (EnumAccountBalance.Add o EnumAccountBalance.Remove).
      * @param comment  Comentario asociado a la operación.
-     * @return Objeto {@link AccountActionsData} con la respuesta de la API.
+     * @return Objeto {@link AccountBalanceActionResponse} con la respuesta de la API.
      * @throws ServicesException Excepción en caso de error.
      */
-    public abstract AccountActionsData distributionStamps(UUID idUser, int stamps, EnumAccountBalance action,
+    protected abstract AccountBalanceActionResponse distributionStamps(UUID idUser, int stamps, EnumAccountBalance action,
             @Nullable String comment) throws ServicesException;
 
     /**
@@ -106,10 +106,10 @@ public abstract class AccountBalanceService extends Services {
      * @param idUser  ID del usuario.
      * @param stamps  Cantidad de timbres a agregar.
      * @param comment Comentario asociado a la operación.
-     * @return Objeto {@link AccountActionsData} con la respuesta de la API.
+     * @return Objeto {@link AccountBalanceActionResponse} con la respuesta de la API.
      * @throws ServicesException Excepción en caso de error.
      */
-    public abstract AccountActionsData addStamps(UUID idUser, int stamps, @Nullable String comment) throws ServicesException;
+    public abstract AccountBalanceActionResponse addStamps(UUID idUser, int stamps, @Nullable String comment) throws ServicesException;
 
     /**
      * Elimina timbres para un usuario específico.
@@ -117,10 +117,10 @@ public abstract class AccountBalanceService extends Services {
      * @param idUser  ID del usuario.
      * @param stamps  Cantidad de timbres a eliminar.
      * @param comment Comentario asociado a la operación.
-     * @return Objeto {@link AccountActionsData} con la respuesta de la API.
+     * @return Objeto {@link AccountBalanceActionResponse} con la respuesta de la API.
      * @throws ServicesException Excepción en caso de error.
      */
-    public abstract AccountActionsData removeStamps(UUID idUser, int stamps, @Nullable String comment)
+    public abstract AccountBalanceActionResponse removeStamps(UUID idUser, int stamps, @Nullable String comment)
             throws ServicesException;
 
     /**

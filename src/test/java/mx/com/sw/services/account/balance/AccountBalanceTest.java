@@ -2,7 +2,7 @@ package mx.com.sw.services.account.balance;
 
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
-import mx.com.sw.services.account.balance.responses.AccountActionsData;
+import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 
 import java.util.UUID;
@@ -140,7 +140,7 @@ public class AccountBalanceTest {
     public void testAddStampsBadToken() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), "empty.token.sw", null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .addStamps(UUID.fromString("24419cba-1bd4-4a46-8244-2ae02f6dc15e"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertFalse("success".equals(res.getStatus()));
@@ -156,7 +156,7 @@ public class AccountBalanceTest {
     public void testAddStampsByToken() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .addStamps(UUID.fromString("828f19b1-77dc-48bc-9cfa-d48b5cf7e30c"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
@@ -173,7 +173,7 @@ public class AccountBalanceTest {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUrlServicesSW(),
                     settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .addStamps(UUID.fromString("828f19b1-77dc-48bc-9cfa-d48b5cf7e30c"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
@@ -190,7 +190,7 @@ public class AccountBalanceTest {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUrlServicesSW(),
                     settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .addStamps(UUID.fromString("24419cba-1bd4-4a46-8244-2ae02f6dc15e"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertFalse("success".equals(res.getStatus()));
@@ -207,7 +207,7 @@ public class AccountBalanceTest {
     public void testRemoveStampsBadToken() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), "empty.token.sw", null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .removeStamps(UUID.fromString("24419cba-1bd4-4a46-8244-2ae02f6dc15e"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertFalse("success".equals(res.getStatus()));
@@ -223,7 +223,7 @@ public class AccountBalanceTest {
     public void testRemoveStampsByToken() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .removeStamps(UUID.fromString("828f19b1-77dc-48bc-9cfa-d48b5cf7e30c"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
@@ -238,7 +238,7 @@ public class AccountBalanceTest {
     public void testRemoveStampsSaldoInsuficiente() {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .removeStamps(UUID.fromString("828f19b1-77dc-48bc-9cfa-d48b5cf7e30c"), 2000000000, "Prueba");
              Assertions.assertNotNull(res);
             Assertions.assertFalse("success".equals(res.getStatus()));
@@ -257,7 +257,7 @@ public class AccountBalanceTest {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUrlServicesSW(),
                     settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .removeStamps(UUID.fromString("828f19b1-77dc-48bc-9cfa-d48b5cf7e30c"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
@@ -274,7 +274,7 @@ public class AccountBalanceTest {
         try {
             AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUrlServicesSW(),
                     settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            AccountActionsData res = account
+            AccountBalanceActionResponse res = account
                     .removeStamps(UUID.fromString("24419cba-1bd4-4a46-8244-2ae02f6dc15e"), 5, "Prueba");
             Assertions.assertNotNull(res);
             Assertions.assertFalse("success".equals(res.getStatus()));

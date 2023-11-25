@@ -6,7 +6,7 @@ import java.io.StringWriter;
 import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
-import mx.com.sw.services.account.balance.responses.AccountActionsData;
+import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
@@ -134,10 +134,10 @@ public final class ResponseHelper {
     /**
     * Este método obtiene una respuesta de tipo AccountActionsData.
     * @param ex Throwable a ser tratado
-    * @return {@link AccountActionsData}
+    * @return {@link AccountBalanceActionResponse}
     */
-    public static AccountActionsData toAccountActionsData(Throwable ex) {
-        return new AccountActionsData(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    public static AccountBalanceActionResponse toAccountActionsData(Throwable ex) {
+        return new AccountBalanceActionResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
     /**
      * Este método obtiene una respuesta de tipo PendingsResponse.

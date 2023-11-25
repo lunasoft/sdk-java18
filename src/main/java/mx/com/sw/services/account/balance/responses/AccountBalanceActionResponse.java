@@ -2,7 +2,7 @@ package mx.com.sw.services.account.balance.responses;
 
 import mx.com.sw.entities.IResponse;
 
-public class AccountActionsData extends IResponse {
+public class AccountBalanceActionResponse extends IResponse {
     private String data;
 
     /**
@@ -13,7 +13,7 @@ public class AccountActionsData extends IResponse {
      * @param messageDetail detalles mensaje de la API.
      * @param data          objeto con los datos de respuesta.
      */
-    public AccountActionsData(String status, String message, String messageDetail, String data) {
+    public AccountBalanceActionResponse(String status, String message, String messageDetail, String data) {
         super(status, message, messageDetail);
         this.data = data;
     }
@@ -21,7 +21,7 @@ public class AccountActionsData extends IResponse {
     /**
      * Obtiene los datos del movimiento de saldo cuando está fue "success".
      * 
-     * @return {@link AccountActionsData}
+     * @return {@link AccountBalanceActionResponse}
      */
     public String getData() {
         return this.data;

@@ -5,8 +5,8 @@ import java.util.UUID;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.EnumAccountBalance;
 import mx.com.sw.helpers.GeneralHelpers;
-import mx.com.sw.services.account.balance.responses.AccountActionsData;
-import mx.com.sw.services.account.balance.responses.AccountActionsDataHandler;
+import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
+import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponseHandler;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponseHandler;
 import org.apache.http.client.config.RequestConfig;
@@ -24,7 +24,7 @@ public class AccountBalance extends AccountBalanceService {
     private static final String MANAGEMENT_API_BALANCE_PATH = "management/api/balance/";
      private static final String SERVICE_BALANCE_PATH = "account/balance";
     private final AccountBalanceResponseHandler handler;
-    private final AccountActionsDataHandler handlerActions;
+    private final AccountBalanceActionResponseHandler handlerActions;
 
     /**
      * Constructor de la clase.
@@ -40,13 +40,13 @@ public class AccountBalance extends AccountBalanceService {
             int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
         handler = new AccountBalanceResponseHandler();
-        handlerActions = new AccountActionsDataHandler();
+        handlerActions = new AccountBalanceActionResponseHandler();
     }
 
      /**
      * Constructor de la clase.
      * 
-     * @param url       URL base de la API.
+     * @param url       URL base del servicio.
      * @param urlApi    URL específica de la API.
      * @param user      Correo o usuario de SW.
      * @param password  Contraseña de SW.
@@ -58,7 +58,7 @@ public class AccountBalance extends AccountBalanceService {
             int proxyPort) throws ServicesException {
         super(url, urlApi, user, password, proxy, proxyPort);
         handler = new AccountBalanceResponseHandler();
-        handlerActions = new AccountActionsDataHandler();
+        handlerActions = new AccountBalanceActionResponseHandler();
     }
 
     /**
@@ -73,7 +73,7 @@ public class AccountBalance extends AccountBalanceService {
     public AccountBalance(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
         super(urlApi, token, proxy, proxyPort);
         handler = new AccountBalanceResponseHandler();
-        handlerActions = new AccountActionsDataHandler();
+        handlerActions = new AccountBalanceActionResponseHandler();
     }
 
     /**
@@ -86,7 +86,7 @@ public class AccountBalance extends AccountBalanceService {
      * @return Objeto AccountActionsData con la respuesta de la API.
      * @throws ServicesException Excepción en caso de error.
      */
-    public AccountActionsData distributionStamps(UUID idUser, int stamps, EnumAccountBalance action, String comment)
+    protected AccountBalanceActionResponse distributionStamps(UUID idUser, int stamps, EnumAccountBalance action, String comment)
             throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
@@ -95,7 +95,7 @@ public class AccountBalance extends AccountBalanceService {
                 + stamps;
         return handlerActions.postHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, jsonBody,
                 config,
-                AccountActionsData.class);
+                AccountBalanceActionResponse.class);
     }
 
     /**
@@ -107,7 +107,7 @@ public class AccountBalance extends AccountBalanceService {
      * @return Objeto AccountActionsData con la respuesta de la API.
      * @throws ServicesException Excepción en caso de error.
      */
-    public AccountActionsData addStamps(UUID idUser, int stamps, String comment) throws ServicesException {
+    public AccountBalanceActionResponse addStamps(UUID idUser, int stamps, String comment) throws ServicesException {
         return distributionStamps(idUser, stamps, EnumAccountBalance.Add, comment);
     }
 
@@ -120,7 +120,7 @@ public class AccountBalance extends AccountBalanceService {
      * @return Objeto AccountActionsData con la respuesta de la API.
      * @throws ServicesException Excepción en caso de error.
      */
-    public AccountActionsData removeStamps(UUID idUser, int stamps, String comment) throws ServicesException {
+    public AccountBalanceActionResponse removeStamps(UUID idUser, int stamps, String comment) throws ServicesException {
         return distributionStamps(idUser, stamps, EnumAccountBalance.Remove, comment);
     }
 
