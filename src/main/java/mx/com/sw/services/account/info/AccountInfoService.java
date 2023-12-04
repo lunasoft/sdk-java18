@@ -47,6 +47,46 @@ public abstract class AccountInfoService extends Services {
     public abstract AccountInfoResponse getInfo() throws ServicesException;
 
     /**
+     * Obtiene la información de la cuenta para un usuario específico por su Id.
+     * @param IdUser    Identificador del usuario.
+     * @return          Respuesta de la solicitud de información de la cuenta.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountInfoResponse getInfoById(String IdUser) throws ServicesException;
+
+    /**
+     * Obtiene la información de todos los usuarios con paginación.
+     * @param page      Número de la página.
+     * @param pageSize  Tamaño de la página.
+     * @return          Respuesta de la solicitud de información de los usuarios.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountInfoResponse getInfoAllUsers(int page, int pageSize) throws ServicesException;
+
+    /**
+     * Obtiene la información de todos los usuarios con paginación.
+     * @param email     Correo para el usuario.
+     * @param password  Contraseña para el usuario.
+     * @param name      Nombre para el usuario.
+     * @param rfc       RFC del usuario.
+     * @param profile   Perfil del cliente (por defecto 3).
+     * @param stamps    Número de timbres al crear la cuenta.
+     * @param unlimited Booleano que determina si la cuenta es ilimitada o no.
+     * @param active    Booleano que determina si la cuenta se genera como activa o inactiva.
+     * @return          Respuesta de la solicitud de información de los usuarios.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountInfoResponse getInfoCreateUser(String email, String password, String name, String rfc, int profile, int stamps, boolean unlimited, boolean active) throws ServicesException;
+
+    /**
+     * Elimina la cuenta para un usuario específico por su Id.
+     * @param IdUser    Identificador del usuario.
+     * @return          Respuesta de la solicitud de información de la cuenta.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountInfoResponse getInfoDeleteIdUser(String IdUser) throws ServicesException;
+
+    /**
      * Obtiene los headers necesarios para el consumo del servicio.
      * @throws ServicesException exception en caso de error.
      * @return {@link Map}
@@ -58,4 +98,6 @@ public abstract class AccountInfoService extends Services {
         headers.put("Content-Type", "application/json");
         return headers;
     }
+
+     
 }
