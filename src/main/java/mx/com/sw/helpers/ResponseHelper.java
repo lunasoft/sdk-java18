@@ -7,6 +7,7 @@ import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
+import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
@@ -132,6 +133,14 @@ public final class ResponseHelper {
         return new AccountBalanceResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
+    /**
+    * Este método obtiene una respuesta de tipo AccountActionsData.
+    * @param ex Throwable a ser tratado
+    * @return {@link AccountBalanceActionResponse}
+    */
+    public static AccountBalanceActionResponse toAccountActionsData(Throwable ex) {
+        return new AccountBalanceActionResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
     /**
      * Este método obtiene una respuesta de tipo PendingsResponse.
      * @param ex Throwable a ser tratado

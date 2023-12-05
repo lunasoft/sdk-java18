@@ -48,7 +48,7 @@ Descargas el modulo mediante Maven:
 
 La librería contara con los servicios principales como lo son Timbrado de CFDI, Cancelación, Consulta estatus CFDI, etc.
 
-## Auntenticaci&oacute;n ##
+## Autenticaci&oacute;n ##
 El servicio de Autenticación es utilizado principalmente para obtener el **token** el cual sera utilizado para poder timbrar nuestro CFDI (xml) ya emitido (sellado), para poder utilizar este servicio es necesario que cuente con un **usuario** y **contraseña** para posteriormente obtenga el token, usted puede utilizar los que estan en este ejemplo para el ambiente de **Pruebas**.
 
 **Obtener Token**
@@ -777,19 +777,18 @@ public class App {
 ```
 </details>
 
-## Consulta de Saldos ##
+## Administración de Saldos ##
+Este servicio consulta, asigna y elimina saldo a las cuentas que administres.
 
+Se deberá autenticar en nuestros servicios para obtener token de acceso, o si se desea, se puede usar el token infinito.
 <details>
 <summary>
-Consulta de Saldos
+Consultar saldo por token
 </summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
 
-## Consulta de Saldos ##
-Este servicio recibe el token y genera los elementos que componen la consulta de saldos:
 
-Se deberá autenticar en nuestros servicios en orden de obtener token de acceso, o si se desea,  se puede usar el token infinito.
-
-**Ejemplo de consumo de la libreria para consultar el saldo mediante usuario y contraseña**
+**Ejemplo de consumo de la libreria para consultar el saldo mediante token**
 ```java
 import mx.com.sw.services.account.balance.AccountBalance;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
@@ -801,10 +800,11 @@ public class App {
         try 
         {
             //Creamos una instancia de tipo BalanceAccount 
-            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-            //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "user","password", null, 0);
+            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+
+            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
             AccountBalanceResponse res = account.getBalance();
+           
 
             //Para Obtener el idSaldoCliente
             System.out.println(res.getData().getIdSaldoCliente());
@@ -839,8 +839,17 @@ public class App {
     }
 }
 ```
+</details>
+<details>
+<summary>
+Consultar saldo por Id User
+</summary>
+Este metodo necesita como parámetro:
 
-**Ejemplo de consumo de la libreria para consultar el saldo mediante token**
+- IdUser a consultar el saldo
+
+
+**Ejemplo de consumo de la libreria para consultar el saldo mediante usuario y contraseña**
 ```java
 import mx.com.sw.services.account.balance.AccountBalance;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
@@ -852,10 +861,12 @@ public class App {
         try 
         {
             //Creamos una instancia de tipo BalanceAccount 
-            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-            //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
-            AccountBalanceResponse res = account.getBalance();
+            //A esta le pasamos la Url. UrlApi, Usuario y Contraseña para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a consultar el saldo mediante el IdCliente
+            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx","https://api.test.sw.com.mx", "user","password", null, 0);
+            AccountBalanceResponse res = account
+                    .getBalanceById(UUID.fromString("24418fba-1bd4-4a46-8244-2ae02f6dc15e"));
+           
 
             //Para Obtener el idSaldoCliente
             System.out.println(res.getData().getIdSaldoCliente());
@@ -882,6 +893,88 @@ public class App {
             System.out.println("Error al consultar saldo");
             System.out.println(res.getMessage());
             System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+<details>
+<summary>
+Añadir saldo
+</summary>
+Este metodo necesita como parametros:
+
+- IdUser a añadirle saldo
+- Cantidad de timbres
+- Comentario (opcional)
+
+**Ejemplo de consumo de la libreria para añadir saldo mediante token**
+```java
+import java.util.UUID;
+import mx.com.sw.services.account.balance.AccountBalance;
+import mx.com.sw.services.account.balance.responses.AccountActionsData;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo BalanceAccount 
+            //A esta le pasamos solo UrlApi y token para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a consultar el saldo mediante el IdCliente
+            AccountBalance account = new AccountBalance("https://api.test.sw.com.mx", "token", null, 0);
+            AccountActionsData res = account.addStamps(UUID.fromString("24419cba-1af4-4a46-8244-2ae02f6dc15e"), 5, "Prueba");
+           
+            //Visualizamos la respuesta
+            System.out.println(res.getStatus());
+            System.out.println(res.getData());
+            System.out.println(res.getMessage());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+<details>
+<summary>
+Eliminar saldo
+</summary>
+Este metodo necesita como parametros:
+
+- IdUser a remover saldo
+- Cantidad de timbres
+- Comentario (opcional)
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import java.util.UUID;
+import mx.com.sw.services.account.balance.AccountBalance;
+import mx.com.sw.services.account.balance.responses.AccountActionsData;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo BalanceAccount 
+            //A esta le pasamos solo UrlApi y token para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a consultar el saldo mediante el IdCliente
+            AccountBalance account = new AccountBalance("https://api.test.sw.com.mx", "token", null, 0);
+            AccountActionsData res = account.removeStamps(UUID.fromString("24419cba-1af4-4a46-8244-2ae02f6dc15e"), 5, null);
+           
+            //Visualizamos la respuesta
+            System.out.println(res.getStatus());
+            System.out.println(res.getData());
+            System.out.println(res.getMessage());
         } 
         catch (Exception e) 
         {
