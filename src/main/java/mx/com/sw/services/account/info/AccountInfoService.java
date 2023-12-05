@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
+import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 
 /**
  * AccountInfoService - Servicio para implementación de consulta de información.
@@ -22,9 +24,9 @@ public abstract class AccountInfoService extends Services {
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     * @throws ServicesException exception en caso de error.
     */
-    protected AccountInfoService(String url, String user, String password, String proxy,
+    protected AccountInfoService(String url, String urlApi, String user, String password, String proxy,
         int proxyPort) throws ServicesException {
-        super(url, user, password, proxy, proxyPort);
+        super(url, urlApi, user, password, proxy, proxyPort);
     }
 
     /**
@@ -35,8 +37,8 @@ public abstract class AccountInfoService extends Services {
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     * @throws ServicesException exception en caso de error.
     */
-    protected AccountInfoService(String url, String token, String proxy, int proxyPort) throws ServicesException {
-        super(url, token, proxy, proxyPort);
+    protected AccountInfoService(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
+        super(urlApi, token, proxy, proxyPort);
     }
 
     /**
@@ -61,7 +63,7 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de los usuarios.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoResponse getInfoAllUsers(int page, int pageSize) throws ServicesException;
+    public abstract AccountListDataResponse getInfoAllUsers(int page, int pageSize) throws ServicesException;
 
     /**
      * Obtiene la información de todos los usuarios con paginación.
@@ -76,7 +78,7 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de los usuarios.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoResponse getInfoCreateUser(String email, String password, String name, String rfc, int profile, int stamps, boolean unlimited, boolean active) throws ServicesException;
+    public abstract AccountInfoActionResponse getInfoCreateUser(String email, String password, String name, String rfc, int profile, int stamps, boolean unlimited, boolean active) throws ServicesException;
 
     /**
      * Elimina la cuenta para un usuario específico por su Id.
@@ -84,7 +86,7 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de la cuenta.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoResponse getInfoDeleteIdUser(String IdUser) throws ServicesException;
+    public abstract AccountInfoActionResponse getInfoDeleteIdUser(String IdUser) throws ServicesException;
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.

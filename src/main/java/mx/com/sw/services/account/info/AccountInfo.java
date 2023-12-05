@@ -4,8 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
+import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
+import mx.com.sw.services.account.info.responses.AccountInfoActionResponseHandler;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponseHandler;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
+import mx.com.sw.services.account.info.responses.AccountListDataResponseHandler;
+
 import org.apache.http.client.config.RequestConfig;
 
 import com.google.gson.Gson;
@@ -43,7 +48,9 @@ import com.google.gson.Gson;
  * @since 2020-08-17
  */
 public class AccountInfo extends AccountInfoService {
-    private AccountInfoResponseHandler handler;
+    private final AccountInfoResponseHandler handler;
+    private final AccountInfoActionResponseHandler handlerActions;
+    private final AccountListDataResponseHandler handlerList;
 
     /**
      * Constructor de la clase.
@@ -55,10 +62,12 @@ public class AccountInfo extends AccountInfoService {
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
      * @throws ServicesException exception en caso de error.
      */
-    private AccountInfo(String url, String user, String password, String proxy,
+    public AccountInfo(String url, String urlApi, String user, String password, String proxy,
             int proxyPort) throws ServicesException {
-        super(url, user, password, proxy, proxyPort);
+        super(url, urlApi, user, password, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
+        handlerActions = new AccountInfoActionResponseHandler();
+        handlerList = new AccountListDataResponseHandler();
     }
 
     /**
@@ -70,36 +79,41 @@ public class AccountInfo extends AccountInfoService {
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
      * @throws ServicesException exception en caso de error.
      */
-    public AccountInfo(String url, String token, String proxy, int proxyPort) throws ServicesException {
-        super(url, token, proxy, proxyPort);
+    public AccountInfo(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
+        super(urlApi, token, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
+        handlerActions = new AccountInfoActionResponseHandler();
+        handlerList = new AccountListDataResponseHandler();
     }
 
     /**
      * @throws ServicesException exception en caso de error.
      */
     @Override
+
+    //Metodos de respuesta con array de todos los datos de usuarios
+    public AccountListDataResponse getInfoAllUsers(int page, int pageSize) throws ServicesException {
+        Map<String, String> headers = getHeaders();
+        RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+        String path = "management/api/users?page=" + page + "&pageSize=" + pageSize;
+        return handlerList.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountListDataResponse.class);
+    }
+    //Metodos de respuestas de que devuelven los datos del user
     public AccountInfoResponse getInfo() throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        return handler.getHTTP(getUrl(), "management/api/users/info", headers, config, AccountInfoResponse.class);
+        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), "management/api/users/info", headers, config, AccountInfoResponse.class);
     }
 
     public AccountInfoResponse getInfoById(String IdUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String path = "management/api/users/" + IdUser;
-        return handler.getHTTP(getUrl(), path, headers, config, AccountInfoResponse.class);
+        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountInfoResponse.class);
     }
+    //Metodos de respuestas simples
 
-    public AccountInfoResponse getInfoAllUsers(int page, int pageSize) throws ServicesException {
-        Map<String, String> headers = getHeaders();
-        RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/api/users?page=" + page + "&pageSize=" + pageSize;
-        return handler.getHTTP(getUrl(), path, headers, config, AccountInfoResponse.class);
-    }
-
-    public AccountInfoResponse getInfoCreateUser(String email, String password, String name, String rfc, int profile,
+    public AccountInfoActionResponse createUser(String email, String password, String name, String rfc, int profile,
             int stamps, boolean unlimited, boolean active) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
@@ -114,13 +128,19 @@ public class AccountInfo extends AccountInfoService {
         params.put("Unlimited", unlimited);
         params.put("Active", active);
         String jsonBody = new Gson().toJson(params);
-        return handler.postHTTPJson(getUrl(), path, headers, jsonBody, config, AccountInfoResponse.class);
+        return handlerActions.postHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, jsonBody,
+                config, AccountInfoActionResponse.class);
     }
 
-    public AccountInfoResponse getInfoDeleteIdUser(String IdUser) throws ServicesException {
+    public AccountInfoActionResponse getInfoDeleteIdUser(String IdUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String path = "management/api/users/" + IdUser;
-        return handler.deleteHTTP(getUrl(), path, headers, config, AccountInfoResponse.class);
+        return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountInfoActionResponse.class);
+    }
+
+    public AccountInfoActionResponse getInfoCreateUser(String email, String password, String name, String rfc, int profile,
+            int stamps, boolean unlimited, boolean active) throws ServicesException {
+        return createUser(email, password, name, rfc, profile, stamps, unlimited, active);
     }
 }
