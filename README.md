@@ -985,6 +985,210 @@ public class App {
 ```
 </details>
 
+
+## Administración de Usuarios ##
+Este servicio consulta, crea y elimina usuarios a las cuentas que administres.
+
+Se deberá autenticar en nuestros servicios para obtener token de acceso, o si se desea, se puede usar el token infinito.
+<details>
+<summary>
+Consultar usuario por token
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+
+**Ejemplo de consumo de la libreria para consultar el saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoResponse res = account.getInfo();
+            
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar usuario por Id
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y el id de la cuenta a consultar
+            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoResponse res = account.getInfoById("32501cf2-dc62-4370-b47d-25024c44e131");
+            
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar todos los usuarios de una cuenta administradora.
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y en este caso el paginado que deseamos y cuantos usuarios por pagina.
+            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            //El primer valor es de la pagina a consultar, y el segundo el numero de registros a obtener por pagina.
+            AccountListDataResponse res = account.getInfoAllUsers(1, 2);
+            
+            //Para Obtener la respuesta de que fue creado con exito.
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Crear un usuario
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y en este caso se debe de ingresar, correo, contraseña, nombre, rfc, perfil default(3), numero de timbres, si es ilimitada o no y si la crearemos como activa o inactiva.
+            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoActionResponse res = account.getInfoCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
+                    "XAXX010101000", 3, 0, false, true);
+            
+            //Para Obtener los datos del usuario creado
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Eliminar un usuario
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y se le pasa el Id usuario de la cuenta a eliminar
+            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoActionResponse res = account.getInfoDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
+            
+            //Para Obtener la respuesta de que fue eliminado con exito.
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+
 ## PDF ##
 
 <details>
