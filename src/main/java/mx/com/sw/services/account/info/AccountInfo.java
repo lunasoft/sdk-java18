@@ -73,12 +73,13 @@ public class AccountInfo extends AccountInfoService {
     /**
      * Constructor de la clase.
      * 
-     * @param url       url base de la API
+     * @param urlApi    url base de la API
      * @param token     token infinito de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
      * @throws ServicesException exception en caso de error.
      */
+    
     public AccountInfo(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
         super(urlApi, token, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
@@ -92,7 +93,7 @@ public class AccountInfo extends AccountInfoService {
     @Override
 
     //Metodos de respuesta con array de todos los datos de usuarios
-    public AccountListDataResponse getInfoAllUsers(int page, int pageSize) throws ServicesException {
+    public AccountListDataResponse getAllUsers(int page, int pageSize) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String path = "management/api/users?page=" + page + "&pageSize=" + pageSize;
@@ -132,14 +133,14 @@ public class AccountInfo extends AccountInfoService {
                 config, AccountInfoActionResponse.class);
     }
 
-    public AccountInfoActionResponse getInfoDeleteIdUser(String IdUser) throws ServicesException {
+    public AccountInfoActionResponse getDeleteIdUser(String IdUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String path = "management/api/users/" + IdUser;
         return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountInfoActionResponse.class);
     }
 
-    public AccountInfoActionResponse getInfoCreateUser(String email, String password, String name, String rfc, int profile,
+    public AccountInfoActionResponse getCreateUser(String email, String password, String name, String rfc, int profile,
             int stamps, boolean unlimited, boolean active) throws ServicesException {
         return createUser(email, password, name, rfc, profile, stamps, unlimited, active);
     }

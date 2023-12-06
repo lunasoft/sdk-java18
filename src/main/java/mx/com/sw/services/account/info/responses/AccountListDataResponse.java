@@ -27,5 +27,3 @@ public class AccountListDataResponse extends IResponse{
         return this.data;
     }
 }
-
-

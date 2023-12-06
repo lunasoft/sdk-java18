@@ -63,7 +63,7 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de los usuarios.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountListDataResponse getInfoAllUsers(int page, int pageSize) throws ServicesException;
+    public abstract AccountListDataResponse getAllUsers(int page, int pageSize) throws ServicesException;
 
     /**
      * Obtiene la información de todos los usuarios con paginación.
@@ -78,7 +78,7 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de los usuarios.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoActionResponse getInfoCreateUser(String email, String password, String name, String rfc, int profile, int stamps, boolean unlimited, boolean active) throws ServicesException;
+    public abstract AccountInfoActionResponse getCreateUser(String email, String password, String name, String rfc, int profile, int stamps, boolean unlimited, boolean active) throws ServicesException;
 
     /**
      * Elimina la cuenta para un usuario específico por su Id.
@@ -86,7 +86,7 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de la cuenta.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoActionResponse getInfoDeleteIdUser(String IdUser) throws ServicesException;
+    public abstract AccountInfoActionResponse getDeleteIdUser(String IdUser) throws ServicesException;
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.

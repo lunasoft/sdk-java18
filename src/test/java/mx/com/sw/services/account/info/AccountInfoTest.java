@@ -103,7 +103,7 @@ public class AccountInfoTest {
     public void testGetInfoAllUsers() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountListDataResponse res = account.getInfoAllUsers(1, 2);
+            AccountListDataResponse res = account.getAllUsers(1, 2);
             Assertions.assertNotNull(res);
             Assertions.assertNotNull(res.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(res.getStatus()));
@@ -120,7 +120,7 @@ public class AccountInfoTest {
     public void testGetInfoAllUsersError() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), "empty.token.sw", null, 0);
-            AccountListDataResponse res = account.getInfoAllUsers(1, 2);
+            AccountListDataResponse res = account.getAllUsers(1, 2);
             Assertions.assertNotNull(res);
             Assertions.assertNotNull(res.getStatus());
             Assertions.assertTrue("error".equalsIgnoreCase(res.getStatus()));
@@ -137,7 +137,7 @@ public class AccountInfoTest {
     public void testGetInfoCreateUser() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getInfoCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
+            AccountInfoActionResponse res = account.getCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
                     "XAXX010101000", 3, 0, false, true);
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
@@ -155,7 +155,7 @@ public class AccountInfoTest {
     public void testGetInfoCreateUserError() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), "empty.token.sw", null, 0);
-            AccountInfoActionResponse res = account.getInfoCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
+            AccountInfoActionResponse res = account.getCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
                     "XAXX010101000", 3, 0, false, true);
             Assertions.assertNotNull(res);
             Assertions.assertTrue("error".equals(res.getStatus()));
@@ -172,7 +172,7 @@ public class AccountInfoTest {
     public void testGetInfoDeleteUserId() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getInfoDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
+            AccountInfoActionResponse res = account.getDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
             Assertions.assertNotNull(res.getData());
@@ -189,7 +189,7 @@ public class AccountInfoTest {
     public void testGetInfoDeleteUserIdError() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getInfoDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
+            AccountInfoActionResponse res = account.getDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
             System.out.println(res.toString());
             Assertions.assertNotNull(res);
             Assertions.assertTrue("error".equals(res.getStatus()));
