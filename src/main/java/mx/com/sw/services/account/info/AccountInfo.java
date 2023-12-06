@@ -55,7 +55,7 @@ public class AccountInfo extends AccountInfoService {
     /**
      * Constructor de la clase.
      * 
-     * @param url       url base de la API
+     * @param urlApi       url base de la API
      * @param user      correo o usuario de SW
      * @param password  password de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
