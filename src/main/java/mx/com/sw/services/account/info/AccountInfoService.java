@@ -86,7 +86,7 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de la cuenta.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoActionResponse getDeleteIdUser(String IdUser) throws ServicesException;
+    public abstract AccountInfoActionResponse getDeleteIdUser(String idUser) throws ServicesException;
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.

@@ -133,10 +133,10 @@ public class AccountInfo extends AccountInfoService {
                 config, AccountInfoActionResponse.class);
     }
 
-    public AccountInfoActionResponse getDeleteIdUser(String IdUser) throws ServicesException {
+    public AccountInfoActionResponse getDeleteIdUser(String idUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/api/users/" + IdUser;
+        String path = "management/api/users/" + idUser;
         return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountInfoActionResponse.class);
     }
 
