@@ -1010,7 +1010,7 @@ public class App {
         {
             //Creamos una instancia de tipo AccountInfo 
             //A esta le pasamos la UrlApi y el token de la cuenta a consultar
-            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
             AccountInfoResponse res = account.getInfo();
             
             //Para Obtener los datos del usuario
@@ -1049,7 +1049,7 @@ public class App {
         {
             //Creamos una instancia de tipo AccountInfo 
             //A esta le pasamos la UrlApi, token y el id de la cuenta a consultar
-            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
             AccountInfoResponse res = account.getInfoById("32501cf2-dc62-4370-b47d-25024c44e131");
             
             //Para Obtener los datos del usuario
@@ -1088,7 +1088,7 @@ public class App {
         {
             //Creamos una instancia de tipo AccountInfo 
             //A esta le pasamos la UrlApi, token y en este caso el paginado que deseamos y cuantos usuarios por pagina.
-            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
             //El primer valor es de la pagina a consultar, y el segundo el numero de registros a obtener por pagina.
             AccountListDataResponse res = account.getInfoAllUsers(1, 2);
             
@@ -1128,7 +1128,7 @@ public class App {
         {
             //Creamos una instancia de tipo AccountInfo 
             //A esta le pasamos la UrlApi, token y en este caso se debe de ingresar, correo, contraseña, nombre, rfc, perfil default(3), numero de timbres, si es ilimitada o no y si la crearemos como activa o inactiva.
-            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
             AccountInfoActionResponse res = account.getInfoCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
                     "XAXX010101000", 3, 0, false, true);
             
@@ -1168,7 +1168,7 @@ public class App {
         {
             //Creamos una instancia de tipo AccountInfo 
             //A esta le pasamos la UrlApi, token y se le pasa el Id usuario de la cuenta a eliminar
-            AccountInfo account = new AccountInfo("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
             AccountInfoActionResponse res = account.getInfoDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
             
             //Para Obtener la respuesta de que fue eliminado con exito.
