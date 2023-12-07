@@ -7,6 +7,7 @@ import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoData;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 
+import java.util.Random;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class AccountInfoTest {
     public AccountInfoTest() {
         this.settings = new BuildSettings();
     }
+
+    // Variable para generar un correo random para prueba de crear usuario.
+    private Random random = new Random();
 
     /**
      * Método de UT con token.
@@ -113,7 +117,8 @@ public class AccountInfoTest {
     }
 
     /**
-     * Método de UT Para obtener la info de todos los usuarios error, Token incorrecto.
+     * Método de UT Para obtener la info de todos los usuarios error, Token
+     * incorrecto.
      */
 
     @Test
@@ -134,10 +139,13 @@ public class AccountInfoTest {
      */
 
     @Test
-    public void testGetInfoCreateUser() {
+    public void testCreateUser() {
         try {
+            int randomFourDigitNumber = random.nextInt(9000) + 1000;
+            String correoPrueba = "correoPrueba" + randomFourDigitNumber + "@java18.com";
+
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
+            AccountInfoActionResponse res = account.createUser(correoPrueba, "123abcABC..", "PruebaJava18",
                     "XAXX010101000", 3, 0, false, true);
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
@@ -152,10 +160,10 @@ public class AccountInfoTest {
      */
 
     @Test
-    public void testGetInfoCreateUserError() {
+    public void testCreateUserError() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), "empty.token.sw", null, 0);
-            AccountInfoActionResponse res = account.getCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
+            AccountInfoActionResponse res = account.createUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
                     "XAXX010101000", 3, 0, false, true);
             Assertions.assertNotNull(res);
             Assertions.assertTrue("error".equals(res.getStatus()));
@@ -169,10 +177,18 @@ public class AccountInfoTest {
      */
 
     @Test
-    public void testGetInfoDeleteUserId() {
+    public void testDeleteUserId() {
         try {
+            // Se reestablece el usuario para posteriormente eliminarlo nuevamente.
+            AccountInfo accountRestart = new AccountInfo(settings.getUrlServicesSW(),
+                    "T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRZbFlVYmJVSkxXa1NZNzN5VUlSUzlJaTYvbi9wczBSRnZGK1NUNUVoM1FQYnJGcTRvYUNEajdpRlpQQm9sUkdZV0s5MEVlOVdQanp6bUtUVHRPL2pDNE9PTk1WZWVWWDhLQzlSRjNEUUlKUU5icG83aXV4S0tjdm9DKzlhTVI2RzJWOWN4TDVxZzYwalJDRnJmWG5qVDVvWWtJOHVsNytyT2xRU2orVFJaTmZVYjJZUFZTVkJmUEthbGxmOWhTalYyd1pXWTBtdG1QbkVUVllsRXJUYTFtMFhYaWtWcUw0QW42RlRGaGwrRXlGV2dUWnl3c2pYaWJVdEVUNk94YXc3TVJWVFlyVTMyWE9xOGd3UmozdmVjdmVUOWhaazg3enpMTkdjZmFLNkZDSTErazk3V281aE50Rm9DSUV4NDVQWVlWaTYzQ2dwbkd3QVZkcXZZTVJEUzJMZE01UW11UTg1eE05SHJhY1VpK0pkUGs3WnVHVkFzMVplQmtYcldScmU.3nqJNAdl4nYfou7gDeLAGgiWPAmeosjSPX-9Xvm9ipI",
+                    null, 0);
+            AccountInfoActionResponse resRestart = accountRestart.createUser("user_pruebas_ut@sw.com.mx", "123abcABC..",
+                    "PruebaJava18",
+                    "XAXX010101000", 3, 0, false, true);
+            Assertions.assertNotNull(resRestart);
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
+            AccountInfoActionResponse res = account.deleteIdUser("2c6a91f6-2b14-4e61-b528-2becd26d6c33");
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
             Assertions.assertNotNull(res.getData());
@@ -186,11 +202,10 @@ public class AccountInfoTest {
      */
 
     @Test
-    public void testGetInfoDeleteUserIdError() {
+    public void testDeleteUserIdError() {
         try {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
-            System.out.println(res.toString());
+            AccountInfoActionResponse res = account.deleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9ab");
             Assertions.assertNotNull(res);
             Assertions.assertTrue("error".equals(res.getStatus()));
         } catch (ServicesException ex) {

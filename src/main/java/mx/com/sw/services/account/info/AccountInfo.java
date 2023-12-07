@@ -55,7 +55,7 @@ public class AccountInfo extends AccountInfoService {
     /**
      * Constructor de la clase.
      * 
-     * @param urlApi       url base de la API
+     * @param urlApi    url base de la API
      * @param user      correo o usuario de SW
      * @param password  password de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
@@ -79,7 +79,7 @@ public class AccountInfo extends AccountInfoService {
      * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
      * @throws ServicesException exception en caso de error.
      */
-    
+
     public AccountInfo(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
         super(urlApi, token, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
@@ -92,29 +92,66 @@ public class AccountInfo extends AccountInfoService {
      */
     @Override
 
-    //Metodos de respuesta con array de todos los datos de usuarios
+    /**
+     * Obtiene la lista de todos los usuarios.
+     * 
+     * @param page     Número de página.
+     * @param pageSize Tamaño de la página.
+     * @return Objeto AccountListDataResponse con la respuesta de la API.
+     * @throws ServicesException Excepción en caso de error.
+     */
     public AccountListDataResponse getAllUsers(int page, int pageSize) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String path = "management/api/users?page=" + page + "&pageSize=" + pageSize;
-        return handlerList.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountListDataResponse.class);
+        return handlerList.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
+                AccountListDataResponse.class);
     }
-    //Metodos de respuestas de que devuelven los datos del user
+
+    /**
+     * Obtiene la información de un usuario por su Token.
+     * 
+     * @return Objeto AccountInfoResponse con la respuesta de la API.
+     * @throws ServicesException Excepción en caso de error.
+     */
     public AccountInfoResponse getInfo() throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), "management/api/users/info", headers, config, AccountInfoResponse.class);
+        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), "management/api/users/info", headers,
+                config, AccountInfoResponse.class);
     }
 
+    /**
+     * Obtiene la información de un usuario por su ID.
+     * 
+     * @param IdUser ID del usuario.
+     * @return Objeto AccountInfoResponse con la respuesta de la API.
+     * @throws ServicesException Excepción en caso de error.
+     */
     public AccountInfoResponse getInfoById(String IdUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String path = "management/api/users/" + IdUser;
-        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountInfoResponse.class);
+        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
+                AccountInfoResponse.class);
     }
-    //Metodos de respuestas simples
 
-    public AccountInfoActionResponse createUser(String email, String password, String name, String rfc, int profile,
+    /**
+     * Crea un nuevo usuario con la información proporcionada.
+     * 
+     * @param email     Correo electrónico del usuario.
+     * @param password  Contraseña del usuario.
+     * @param name      Nombre del usuario.
+     * @param rfc       RFC del usuario.
+     * @param profile   Perfil del usuario.
+     * @param stamps    Cantidad de timbres del usuario.
+     * @param unlimited Indica si el usuario tiene timbres ilimitados.
+     * @param active    Indica si el usuario está activo.
+     * @return Objeto AccountInfoActionResponse con la respuesta de la API.
+     * @throws ServicesException Excepción en caso de error.
+     */
+
+    private AccountInfoActionResponse createMapUser(String email, String password, String name, String rfc, int profile,
             int stamps, boolean unlimited, boolean active) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
@@ -133,15 +170,39 @@ public class AccountInfo extends AccountInfoService {
                 config, AccountInfoActionResponse.class);
     }
 
-    public AccountInfoActionResponse getDeleteIdUser(String idUser) throws ServicesException {
+    /**
+     * Elimina un usuario por su ID.
+     * 
+     * @param idUser ID del usuario a eliminar.
+     * @return Objeto AccountInfoActionResponse con la respuesta de la API.
+     * @throws ServicesException Excepción en caso de error.
+     */
+    public AccountInfoActionResponse deleteIdUser(String idUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String path = "management/api/users/" + idUser;
-        return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountInfoActionResponse.class);
+        return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
+                AccountInfoActionResponse.class);
     }
 
-    public AccountInfoActionResponse getCreateUser(String email, String password, String name, String rfc, int profile,
+    /**
+     * Crea un nuevo usuario con la información proporcionada.
+     * 
+     * @param email     Correo electrónico del usuario.
+     * @param password  Contraseña del usuario.
+     * @param name      Nombre del usuario.
+     * @param rfc       RFC del usuario.
+     * @param profile   Perfil del usuario.
+     * @param stamps    Cantidad de timbres del usuario.
+     * @param unlimited Indica si el usuario tiene timbres ilimitados.
+     * @param active    Indica si el usuario está activo.
+     * @return Objeto AccountInfoActionResponse con la respuesta de la API.
+     * @throws ServicesException Excepción en caso de error.
+     */
+
+    public AccountInfoActionResponse createUser(String email, String password, String name, String rfc, int profile,
             int stamps, boolean unlimited, boolean active) throws ServicesException {
-        return createUser(email, password, name, rfc, profile, stamps, unlimited, active);
+        return createMapUser(email, password, name, rfc, profile, stamps, unlimited, active);
     }
+
 }
