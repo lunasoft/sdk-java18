@@ -6,8 +6,10 @@ import java.io.StringWriter;
 import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
+import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import mx.com.sw.services.csd.responses.CsdResponse;
@@ -155,6 +157,23 @@ public final class ResponseHelper {
     */
     public static AccountInfoResponse toAccountInfoResponse(Throwable ex) {
         return new AccountInfoResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+     /**
+    * Este método obtiene una respuesta de tipo AccountInfoActionResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link AccountInfoResponse}
+    */
+    public static AccountInfoActionResponse toAccountInfoActionResponse(Throwable ex) {
+        return new AccountInfoActionResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+    /**
+    * Este método obtiene una respuesta de tipo AccountListDataResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link AccountInfoResponse}
+    */
+    public static AccountListDataResponse toAccountListDataResponse(Throwable ex) {
+        return new AccountListDataResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**

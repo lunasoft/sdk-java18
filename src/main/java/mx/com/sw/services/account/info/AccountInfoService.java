@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
+import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 
 /**
  * AccountInfoService - Servicio para implementación de consulta de información.
@@ -22,9 +24,9 @@ public abstract class AccountInfoService extends Services {
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     * @throws ServicesException exception en caso de error.
     */
-    protected AccountInfoService(String url, String user, String password, String proxy,
+    protected AccountInfoService(String url, String urlApi, String user, String password, String proxy,
         int proxyPort) throws ServicesException {
-        super(url, user, password, proxy, proxyPort);
+        super(url, urlApi, user, password, proxy, proxyPort);
     }
 
     /**
@@ -35,8 +37,8 @@ public abstract class AccountInfoService extends Services {
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
     * @throws ServicesException exception en caso de error.
     */
-    protected AccountInfoService(String url, String token, String proxy, int proxyPort) throws ServicesException {
-        super(url, token, proxy, proxyPort);
+    protected AccountInfoService(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
+        super(urlApi, token, proxy, proxyPort);
     }
 
     /**
@@ -45,6 +47,46 @@ public abstract class AccountInfoService extends Services {
      * @throws ServicesException exception en caso de error.
      */
     public abstract AccountInfoResponse getInfo() throws ServicesException;
+
+    /**
+     * Obtiene la información de la cuenta para un usuario específico por su Id.
+     * @param IdUser    Identificador del usuario.
+     * @return          Respuesta de la solicitud de información de la cuenta.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountInfoResponse getInfoById(String IdUser) throws ServicesException;
+
+    /**
+     * Obtiene la información de todos los usuarios con paginación.
+     * @param page      Número de la página.
+     * @param pageSize  Tamaño de la página.
+     * @return          Respuesta de la solicitud de información de los usuarios.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountListDataResponse getAllUsers(int page, int pageSize) throws ServicesException;
+
+    /**
+     * Obtiene la información de todos los usuarios con paginación.
+     * @param email     Correo para el usuario.
+     * @param password  Contraseña para el usuario.
+     * @param name      Nombre para el usuario.
+     * @param rfc       RFC del usuario.
+     * @param profile   Perfil del cliente (por defecto 3).
+     * @param stamps    Número de timbres al crear la cuenta.
+     * @param unlimited Booleano que determina si la cuenta es ilimitada o no.
+     * @param active    Booleano que determina si la cuenta se genera como activa o inactiva.
+     * @return          Respuesta de la solicitud de información de los usuarios.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountInfoActionResponse createUser(String email, String password, String name, String rfc, int profile, int stamps, boolean unlimited, boolean active) throws ServicesException;
+
+    /**
+     * Elimina la cuenta para un usuario específico por su Id.
+     * @param IdUser    Identificador del usuario.
+     * @return          Respuesta de la solicitud de información de la cuenta.
+     * @throws ServicesException exception en caso de error.
+     */
+    public abstract AccountInfoActionResponse deleteIdUser(String idUser) throws ServicesException;
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.
@@ -58,4 +100,6 @@ public abstract class AccountInfoService extends Services {
         headers.put("Content-Type", "application/json");
         return headers;
     }
+
+     
 }
