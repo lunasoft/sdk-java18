@@ -180,9 +180,7 @@ public class AccountInfoTest {
     public void testDeleteUserId() {
         try {
             // Se reestablece el usuario para posteriormente eliminarlo nuevamente.
-            AccountInfo accountRestart = new AccountInfo(settings.getUrlServicesSW(),
-                    "T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRZbFlVYmJVSkxXa1NZNzN5VUlSUzlJaTYvbi9wczBSRnZGK1NUNUVoM1FQYnJGcTRvYUNEajdpRlpQQm9sUkdZV0s5MEVlOVdQanp6bUtUVHRPL2pDNE9PTk1WZWVWWDhLQzlSRjNEUUlKUU5icG83aXV4S0tjdm9DKzlhTVI2RzJWOWN4TDVxZzYwalJDRnJmWG5qVDVvWWtJOHVsNytyT2xRU2orVFJaTmZVYjJZUFZTVkJmUEthbGxmOWhTalYyd1pXWTBtdG1QbkVUVllsRXJUYTFtMFhYaWtWcUw0QW42RlRGaGwrRXlGV2dUWnl3c2pYaWJVdEVUNk94YXc3TVJWVFlyVTMyWE9xOGd3UmozdmVjdmVUOWhaazg3enpMTkdjZmFLNkZDSTErazk3V281aE50Rm9DSUV4NDVQWVlWaTYzQ2dwbkd3QVZkcXZZTVJEUzJMZE01UW11UTg1eE05SHJhY1VpK0pkUGs3WnVHVkFzMVplQmtYcldScmU.3nqJNAdl4nYfou7gDeLAGgiWPAmeosjSPX-9Xvm9ipI",
-                    null, 0);
+            AccountInfo accountRestart = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
             AccountInfoActionResponse resRestart = accountRestart.createUser("user_pruebas_ut@sw.com.mx", "123abcABC..",
                     "PruebaJava18",
                     "XAXX010101000", 3, 0, false, true);
