@@ -1350,7 +1350,7 @@ Método para consultar todos los certificados cargados en la cuenta.
 
 Este metodo recibe los siguientes parametros:
 * Url Servicios SW(cuando se añaden usuario y contraseña)
-* Token
+* Usuario y contraseña ó Token 
 
 **Ejemplo de consumo de la libreria para la consulta de certificados mediante token**
 ```java
@@ -1403,6 +1403,70 @@ public class App {
 
 <details>
 <summary>
+Consultar Certificado Por RFC
+</summary>
+
+## Consultar Certificado Por RFC ##
+Método para obtener un certificado cargado enviando como parámetro el RFC del contribuyente.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Usuario y contraseña ó Token 
+* RFC del contribuyente
+
+**Ejemplo de consumo de la librería para la consulta de certificados por RFC mediante token**
+```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //RFC del certificado
+            String Rfc = "EKU9003173C9";
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la consulta
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdListDataResponse response = csd.GetCsdByRfc(NoCertificado);
+            //En caso exitoso se podran obtener los siguientes datos
+            List<CsdData> lista = response.getData();
+            if(lista != null) {
+                for(int i=0; i<lista.size(); i++) {
+                    CsdData dato = lista.get(i);
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
+                }
+            }
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
 Consultar Certificado Por NoCertificado
 </summary>
 
@@ -1411,7 +1475,7 @@ Método para obtener un certificado cargado enviando como parámetro el número 
 
 Este metodo recibe los siguientes parametros:
 * Url Servicios SW
-* Token
+* Usuario y contraseña ó Token 
 * Número de certificado a obtener
 
 **Ejemplo de consumo de la libreria para la consulta de certificados por Número de Certificado mediante token**
