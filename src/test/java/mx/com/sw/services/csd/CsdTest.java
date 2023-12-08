@@ -247,6 +247,96 @@ public class CsdTest {
     }
 
     @Test
+    public void testGetCsdByRfc_Success(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String Rfc = "EKU9003173C9";
+            CsdListDataResponse response = csd.GetCsdByRfc(Rfc);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull("success".equalsIgnoreCase(response.getStatus()));
+            List<CsdData> lista = response.getData();
+            if(lista != null) {
+                for(int i=0; i<lista.size(); i++) {
+                    CsdData dato = lista.get(i);
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCsdCertificate());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
+                }
+            }            
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void testGetCsdByRfc_Error(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String Rfc = "MYRFC";
+            CsdListDataResponse response = csd.GetCsdByRfc(Rfc);
+            String Message = String.format("El Rfc proporcionado es invalido. Favor de verificar.");
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("Certificados".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue(Message.equalsIgnoreCase(response.getMessageDetail()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void testGetCsdByRfc_Token_Success(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getTokenSW(), null, 0);
+            String Rfc = "EKU9003173C9";
+            CsdListDataResponse response = csd.GetCsdByRfc(Rfc);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull("success".equalsIgnoreCase(response.getStatus()));
+            List<CsdData> lista = response.getData();
+            if(lista != null) {
+                for(int i=0; i<lista.size(); i++) {
+                    CsdData dato = lista.get(i);
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCsdCertificate());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
+                }
+            }
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void testGetCsdByRfc_Token_Error(){
+        try {
+            CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getTokenSW(), null, 0);
+            String Rfc = "MYRFC";
+            CsdListDataResponse response = csd.GetCsdByRfc(Rfc);
+            String Message = String.format("El Rfc proporcionado es invalido. Favor de verificar.");
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("Certificados".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue(Message.equalsIgnoreCase(response.getMessageDetail()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    @Test
     public void testGetAllCsd_Success(){
         try {
             CsdUtils csd = new CsdUtils(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);

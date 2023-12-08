@@ -117,7 +117,6 @@ public class CsdUtils extends CsdService{
     public CsdDataResponse GetCsd(String noCertificado)throws ServicesException {
         CsdDataResponseHandler handler = new CsdDataResponseHandler();
         try {
-            
             String path = String.format("certificates/%s", noCertificado);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
@@ -125,6 +124,26 @@ public class CsdUtils extends CsdService{
             return handler.getHTTP(getUrl(), path, 
                         headers, 
                         config, CsdDataResponse.class);
+        } catch (ServicesException e) {
+            return handler.handleException(e);
+        }
+    }
+    /**
+     * Servicio que realiza la obtención de un certificado por RFC
+     * 
+     * @param rfc RFC del certificado.
+     * @return CsdResponse.
+     * @throws ServicesException
+     */
+    public CsdListDataResponse GetCsdByRfc(String rfc)throws ServicesException {
+        CsdListDataResponseHandler handler = new CsdListDataResponseHandler();
+        try {
+            Map<String, String> headers = getHeaders();
+            headers.put("Content-Type", "application/json");
+            RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+            return handler.getHTTP(getUrl(), String.format("certificates/rfc/%s", rfc), 
+                        headers, 
+                        config, CsdListDataResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }
