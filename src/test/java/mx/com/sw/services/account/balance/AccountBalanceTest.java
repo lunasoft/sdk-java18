@@ -8,6 +8,7 @@ import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -152,6 +153,7 @@ public class AccountBalanceTest {
     /**
      * Método de UT AgregarTimbres con token correcto.
      */
+    @Disabled("No quitar/agregar timbres de la cuenta de pruebas")
     @Test
     public void testAddStampsByToken() {
         try {
@@ -168,6 +170,7 @@ public class AccountBalanceTest {
     /**
      * Método de UT AgregarTimbres con Autenticacion.
      */
+    @Disabled("No quitar/agregar timbres de la cuenta de pruebas")
     @Test
     public void testAddStampsByAuth() {
         try {
@@ -219,6 +222,7 @@ public class AccountBalanceTest {
     /**
      * Método de UT EliminarTimbres con token correcto.
      */
+    @Disabled("No quitar/agregar timbres de la cuenta de pruebas")
     @Test
     public void testRemoveStampsByToken() {
         try {
@@ -234,6 +238,7 @@ public class AccountBalanceTest {
      /**
      * Método de UT EliminarTimbres con token correcto.
      */
+    @Disabled("No quitar/agregar timbres de la cuenta de pruebas")
     @Test
     public void testRemoveStampsSaldoInsuficiente() {
         try {
@@ -252,6 +257,7 @@ public class AccountBalanceTest {
     /**
      * Método de UT EliminarTimbres con Autenticacion.
      */
+    @Disabled("No quitar/agregar timbres de la cuenta de pruebas")
     @Test
     public void testRemoveStampsByAuth() {
         try {

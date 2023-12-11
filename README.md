@@ -123,7 +123,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url y su Token infinito 
             //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(xml, false);
         } 
@@ -152,7 +152,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url y su Token infinito 
             //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             StampResponseV1 response = stamp.timbrarV1(xml64, true);
@@ -294,7 +294,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
             String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
@@ -344,7 +344,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
             String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
@@ -1221,7 +1221,7 @@ public class App {
         {
             //Creamos una instancia de tipo PDF 
             //A esta le pasamos la Url y el token
-            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
 
             //Obtenemos el xml
             String xmlcontent = new String(Files.readAllBytes(Paths.get("cfdi_pdf.xml")), "UTF-8");
@@ -1272,7 +1272,7 @@ public class App {
         {
             //Creamos una instancia de tipo PDF 
             //A esta le pasamos la Url y el token
-            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
 
             //Realizamos la petición de regenerar el pdf pasando el UUID del CFDI que queremos regenerar.
             PdfResponse response = pdf.regeneratePdf(UUID.fromString("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
@@ -1319,7 +1319,7 @@ public class App {
         {
             //Creamos una instancia de tipo Resend
 		    //A esta le pasamos el UrlAPi, asi como nuestro token
-            Resend resend = new Resend("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Resend resend = new Resend("https://api.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             //Creamos una array con los correos (Max. 5 correos, separados por ",")
             List<String> correo = Arrays.asList("correo@test.com.mx");
             ////Automaticamente recibiremos a nuestro correo el XML y/o PDF existente
@@ -1350,7 +1350,7 @@ Método para consultar todos los certificados cargados en la cuenta.
 
 Este metodo recibe los siguientes parametros:
 * Url Servicios SW(cuando se añaden usuario y contraseña)
-* Token
+* Usuario y contraseña ó Token 
 
 **Ejemplo de consumo de la libreria para la consulta de certificados mediante token**
 ```java
@@ -1370,8 +1370,72 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la consulta
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdListDataResponse response = csd.GetAllCsd();
+            //En caso exitoso se podran obtener los siguientes datos
+            List<CsdData> lista = response.getData();
+            if(lista != null) {
+                for(int i=0; i<lista.size(); i++) {
+                    CsdData dato = lista.get(i);
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
+                }
+            }
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar Certificado Por RFC
+</summary>
+
+## Consultar Certificado Por RFC ##
+Método para obtener un certificado cargado enviando como parámetro el RFC del contribuyente.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Usuario y contraseña ó Token 
+* RFC del contribuyente
+
+**Ejemplo de consumo de la librería para la consulta de certificados por RFC mediante token**
+```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //RFC del certificado
+            String Rfc = "EKU9003173C9";
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la consulta
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            CsdListDataResponse response = csd.GetCsdByRfc(Rfc);
             //En caso exitoso se podran obtener los siguientes datos
             List<CsdData> lista = response.getData();
             if(lista != null) {
@@ -1411,7 +1475,7 @@ Método para obtener un certificado cargado enviando como parámetro el número 
 
 Este metodo recibe los siguientes parametros:
 * Url Servicios SW
-* Token
+* Usuario y contraseña ó Token 
 * Número de certificado a obtener
 
 **Ejemplo de consumo de la libreria para la consulta de certificados por Número de Certificado mediante token**
@@ -1434,7 +1498,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la consulta
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdDataResponse response = csd.GetCsd(NoCertificado);
             //En caso exitoso se podran obtener los siguientes datos
             System.out.println(response.getData().getIssuerRfc());
@@ -1502,7 +1566,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la carga de los certificados
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdResponse response = csd.UploadCsd(cer, key, passwordCer);
             //En caso exitoso se podran obtener el mensaje de exito
             System.out.println(response.data);
@@ -1554,7 +1618,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la eliminacion
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdResponse response = csd.DeleteCsd(NoCertificado);
             //En caso exitoso se podran obtener el mensaje de exito.
             System.out.println(response.data);
@@ -1848,7 +1912,7 @@ public class App {
             //Creamos una instancia de tipo Pending
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-            Pendings pendings = new Pendings("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Pendings pendings = new Pendings("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             PendingsResponse response = pendings.getPendings("EKU9003173C9");
             //Para obtener el status de la consulta
             System.out.println(response.getStatus());
@@ -1956,7 +2020,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
             //Datos
             List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
                 add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
@@ -2018,7 +2082,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
             //Datos
             List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
                 add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
@@ -2109,7 +2173,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("acceptReject.xml")), "UTF-8");
             AcceptRejectResponse response = acceptReject.setAction(xml);
             //Para obtener el status de la consulta
