@@ -2,7 +2,6 @@ package mx.com.sw.services.StatusCfdi.request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -18,15 +17,13 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPFault;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
-
+import mx.com.sw.exceptions.GeneralException;
+import mx.com.sw.exceptions.ServicesException;
+import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.eclipse.jdt.internal.eval.IRequestor;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import mx.com.sw.exceptions.ServicesException;
-import mx.com.sw.exceptions.GeneralException;
-import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 
 /**
  * Clase para generar una solicitud de estatus de CFDI a los servicios del SAT.
@@ -44,7 +41,8 @@ public class StatusCfdiRequest {
      * @throws IOException                  Si ocurre un error de entrada o salida.
      * @throws SOAPException                Si ocurre un error de SOAP.
      */
-    public StatusCfdiResponse sendRequest(IRequestor request) throws GeneralException, ServicesException, GeneralException, UnsupportedEncodingException, ClientProtocolException, IOException, SOAPException {
+    public StatusCfdiResponse sendRequest(IRequestor request) throws GeneralException, ServicesException,
+            GeneralException, UnsupportedEncodingException, ClientProtocolException, IOException, SOAPException {
         // Obtiene los parámetros de la solicitud
         String soapEndpointUrl = ((StatusCfdiOptionsRequest) request).getURI();
         String rfcEmisor = ((StatusCfdiOptionsRequest) request).getRfcEmisor();
@@ -55,7 +53,8 @@ public class StatusCfdiRequest {
         String sello = ((StatusCfdiOptionsRequest) request).getSello();
 
         // Realiza la llamada al servicio web SOAP
-        SOAPMessage response = callSoapWebService(soapEndpointUrl, soapAction, rfcEmisor, rfcReceptor, total, uuid, sello);
+        SOAPMessage response = callSoapWebService(soapEndpointUrl, soapAction, rfcEmisor,
+                rfcReceptor, total, uuid, sello);
         SOAPBody body = response.getSOAPBody();
         SOAPFault error = body.getFault();
 
@@ -87,9 +86,11 @@ public class StatusCfdiRequest {
                 }
             }
             if (codigoEstatus.startsWith("N -")) {
-                return new StatusCfdiResponse(400, "error", codigoEstatus, estado, esCancelable, estatusCancelacion, codigoEstatus, codigoEstatus);
+                return new StatusCfdiResponse(400, "error", codigoEstatus, estado, esCancelable,
+                        estatusCancelacion, codigoEstatus, codigoEstatus);
             } else {
-                return new StatusCfdiResponse(200, "success", codigoEstatus, estado, esCancelable, estatusCancelacion, "OK", "OK");
+                return new StatusCfdiResponse(200, "success", codigoEstatus, estado, esCancelable,
+                        estatusCancelacion, "OK", "OK");
             }
         }
     }
@@ -105,7 +106,8 @@ public class StatusCfdiRequest {
      * @param sello       El sello del CFDI .
      * @throws SOAPException Si ocurre un error durante la petición SOAP.
      */
-    private static void createSoapEnvelope(SOAPMessage soapMessage, String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) throws SOAPException {
+    private static void createSoapEnvelope(SOAPMessage soapMessage, String rfcEmisor, String rfcReceptor,
+            String total, String uuid, String sello) throws SOAPException {
         SOAPPart soapPart = soapMessage.getSOAPPart();
         String myNamespace = "tem";
         String myNamespaceURI = "http://tempuri.org/";
@@ -114,7 +116,8 @@ public class StatusCfdiRequest {
         SOAPBody soapBody = envelope.getBody();
         SOAPElement soapBodyElem = soapBody.addChildElement("Consulta", myNamespace);
         SOAPElement soapExpresionImpresa = soapBodyElem.addChildElement("expresionImpresa", myNamespace);
-        soapExpresionImpresa.addTextNode("<![CDATA[?re=" + rfcEmisor + "&rr=" + rfcReceptor + "&tt=" + total + "&id=" + uuid + "&fe" + sello + "]]>");
+        soapExpresionImpresa.addTextNode("<![CDATA[?re=" + rfcEmisor + "&rr=" + rfcReceptor + "&tt=" + total
+                + "&id=" + uuid + "&fe" + sello + "]]>");
     }
 
     /**
@@ -129,10 +132,11 @@ public class StatusCfdiRequest {
      * @param sello           El sello del CFDI.
      * @return                El mensaje SOAP de respuesta.
      */
-    private SOAPMessage callSoapWebService(String soapEndpointUrl, String soapAction, String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) {
+    private SOAPMessage callSoapWebService(String soapEndpointUrl, String soapAction, String rfcEmisor,
+            String rfcReceptor, String total, String uuid, String sello) {
         try {
             // Configurar la confianza en la conexión SSL solo para URL de pruebas
-            if (soapEndpointUrl == "https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc") {
+            if (soapEndpointUrl.equals("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc")) {
                 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
                     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                         return null;
@@ -143,7 +147,7 @@ public class StatusCfdiRequest {
 
                     public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
                     }
-                }};
+                } };
 
                 SSLContext sc = SSLContext.getInstance("SSL");
                 sc.init(null, trustAllCerts, new java.security.SecureRandom());
@@ -175,7 +179,8 @@ public class StatusCfdiRequest {
      * @return            El mensaje SOAP de solicitud.
      * @throws Exception  Si ocurre un error.
      */
-    private static SOAPMessage createSOAPRequest(String soapAction, String rfcEmisor, String rfcReceptor, String total, String uuid, String sello) throws Exception {
+    private static SOAPMessage createSOAPRequest(String soapAction, String rfcEmisor, String rfcReceptor,
+            String total, String uuid, String sello) throws Exception {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage();
         createSoapEnvelope(soapMessage, rfcEmisor, rfcReceptor, total, uuid, sello);

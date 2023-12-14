@@ -21,7 +21,6 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -34,7 +33,6 @@ import org.apache.http.util.EntityUtils;
 /**
  * ResponseHandler Clase mediante la cual se hacen las peticiones y
  * des-serializaciones de respuestas.
- * 
  * @param <T> IResponse subclasses
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -48,7 +46,6 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP POST con la configuracion enviada.
-     * 
      * @param url          String url o host.
      * @param path         String path
      * @param headers      Map String String con headers.
@@ -122,7 +119,6 @@ public abstract class ResponseHandler<T> {
     /**
      * Este método realiza un HTTP POST (modo Multipart form data) con la
      * configuracion enviada.
-     * 
      * @param url          String url o host.
      * @param path         String path.
      * @param headers      Map String String con headers.
@@ -202,7 +198,6 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP GET con la configuracion enviada.
-     * 
      * @param url          String url o host.
      * @param path         String path.
      * @param headers      Map String String con headers.
@@ -274,7 +269,6 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP DELTE con la configuracion enviada.
-     * 
      * @param url          String url o host.
      * @param path         String path.
      * @param headers      Map String String con headers.
@@ -346,7 +340,6 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza una deserializacion de un JSON al tipo de clase T.
-     * 
      * @param json         String json.
      * @param contentClass Clase esperada de respuesta.
      * @return T

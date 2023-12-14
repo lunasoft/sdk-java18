@@ -1,8 +1,10 @@
 package mx.com.sw.services.storage;
 
 import java.util.List;
-/*Estructura de los datos que se enviaran en el Storage response */
 
+/**
+ * StorageData.
+ */
 public class StorageData {
     private List<Records> records;
 
@@ -10,6 +12,9 @@ public class StorageData {
         return this.records;
     }
 
+    /**
+     * Records.
+     */
     public class Records {
         private String codigoCancelacion;
         private String statusSAT;

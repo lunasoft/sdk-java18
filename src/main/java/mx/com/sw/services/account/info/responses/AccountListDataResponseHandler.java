@@ -6,7 +6,7 @@ import mx.com.sw.services.ResponseHandler;
 /**
  * CsdListDataResponseHandler Handler para servicio de CSD en las acciones de consulta.
  */
-public class AccountListDataResponseHandler extends ResponseHandler<AccountListDataResponse>{
+public class AccountListDataResponseHandler extends ResponseHandler<AccountListDataResponse> {
 
     /**
      * Método para hacer handle de un exception.

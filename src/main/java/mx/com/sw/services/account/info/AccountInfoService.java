@@ -31,7 +31,7 @@ public abstract class AccountInfoService extends Services {
 
     /**
     * Constructor de la clase.
-    * @param url url base de la API
+    * @param urlApi url base de la API
     * @param token token infinito de SW.
     * @param proxy ip o dominio de proxy (null si no se utiliza)
     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
@@ -50,11 +50,11 @@ public abstract class AccountInfoService extends Services {
 
     /**
      * Obtiene la información de la cuenta para un usuario específico por su Id.
-     * @param IdUser    Identificador del usuario.
+     * @param idUser    Identificador del usuario.
      * @return          Respuesta de la solicitud de información de la cuenta.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoResponse getInfoById(String IdUser) throws ServicesException;
+    public abstract AccountInfoResponse getInfoById(String idUser) throws ServicesException;
 
     /**
      * Obtiene la información de todos los usuarios con paginación.
@@ -78,11 +78,13 @@ public abstract class AccountInfoService extends Services {
      * @return          Respuesta de la solicitud de información de los usuarios.
      * @throws ServicesException exception en caso de error.
      */
-    public abstract AccountInfoActionResponse createUser(String email, String password, String name, String rfc, int profile, int stamps, boolean unlimited, boolean active) throws ServicesException;
+    public abstract AccountInfoActionResponse createUser(String email, String password, String name,
+            String rfc, int profile, int stamps, boolean unlimited, boolean active
+    ) throws ServicesException;
 
     /**
      * Elimina la cuenta para un usuario específico por su Id.
-     * @param IdUser    Identificador del usuario.
+     * @param idUser    Identificador del usuario.
      * @return          Respuesta de la solicitud de información de la cuenta.
      * @throws ServicesException exception en caso de error.
      */
@@ -92,7 +94,7 @@ public abstract class AccountInfoService extends Services {
      * Obtiene los headers necesarios para el consumo del servicio.
      * @throws ServicesException exception en caso de error.
      * @return {@link Map}
-     */
+    */
     protected Map<String, String> getHeaders() throws ServicesException {
         this.setupRequest();
         Map<String, String> headers = new HashMap<String, String>();
@@ -100,6 +102,4 @@ public abstract class AccountInfoService extends Services {
         headers.put("Content-Type", "application/json");
         return headers;
     }
-
-     
 }

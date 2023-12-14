@@ -7,15 +7,16 @@ import mx.com.sw.services.csd.responses.CsdResponse;
 import mx.com.sw.services.csd.responses.CsdDataResponse;
 import mx.com.sw.services.csd.responses.CsdListDataResponse;
 import mx.com.sw.services.csd.responses.CsdListDataResponseHandler;
-import mx.com.sw.services.csd.responses.CsdDataResponseHandler;
 import mx.com.sw.services.csd.responses.CsdResponseHandler;
+import mx.com.sw.services.csd.responses.CsdDataResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 
-public class CsdUtils extends CsdService{
-
+/**
+ * Servicio que contiene metodos para administrar certificados en una cuenta.
+ */
+public class CsdUtils extends CsdService {
     /**
      * Constructor de la clase.
-     * 
      * @param url       url Services
      * @param user      correo o usuario de SW
      * @param password  password de SW.
@@ -30,7 +31,6 @@ public class CsdUtils extends CsdService{
 
     /**
      * Constructor de la clase.
-     * 
      * @param url       url Services
      * @param token     token infinito de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
@@ -43,7 +43,6 @@ public class CsdUtils extends CsdService{
 
     /**
      * Servicio que realiza la carga de un CSD.
-     * 
      * @param b64Cer Certificado CSD en formato B64.
      * @param b64Key Certificado Key en formato B64.
      * @param password Contraseña del certificado.
@@ -58,7 +57,7 @@ public class CsdUtils extends CsdService{
             headers.put("Content-Type", "application/json");
             String jsonBody = this.requestCsd(b64Cer, b64Key, password);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.postHTTPJson( getUrl(), "certificates/save",
+            return handler.postHTTPJson(getUrl(), "certificates/save",
                     headers, jsonBody,
                     config, CsdResponse.class);
         } catch (ServicesException e) {
@@ -66,13 +65,12 @@ public class CsdUtils extends CsdService{
         }
     }
 
-     /**
+    /**
      * Servicio que realiza la eliminación de un certificado.
-     * 
      * @param noCertificado Número de certificado.
      * @return CsdResponse.
      * @throws ServicesException
-     */
+    */
     public CsdResponse DeleteCsd(String noCertificado)throws ServicesException {
         CsdResponseHandler handler = new CsdResponseHandler();
         try {
@@ -88,61 +86,59 @@ public class CsdUtils extends CsdService{
         }
     }
 
-     /**
+    /**
      * Servicio que realiza la obtención de todos los certificados cargados.
-     * 
      * @return CsdResponse.
      * @throws ServicesException
-     */
+    */
     public CsdListDataResponse GetAllCsd()throws ServicesException {
         CsdListDataResponseHandler handler = new CsdListDataResponseHandler();
         try {
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.getHTTP(getUrl(), "certificates", 
-                    headers, 
-                    config, CsdListDataResponse.class);    
+            return handler.getHTTP(getUrl(), "certificates",
+                    headers,
+                    config, CsdListDataResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }
     }
     /**
-     * Servicio que realiza la obtención de un certificado por número de certificado
-     * 
+     * Servicio que realiza la obtención de un certificado por número de certificado.
      * @param noCertificado Número de certificado.
      * @return CsdResponse.
      * @throws ServicesException
-     */
-    public CsdDataResponse GetCsd(String noCertificado)throws ServicesException {
+    */
+    public CsdDataResponse GetCsd(String noCertificado) throws ServicesException {
         CsdDataResponseHandler handler = new CsdDataResponseHandler();
         try {
             String path = String.format("certificates/%s", noCertificado);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.getHTTP(getUrl(), path, 
-                        headers, 
+            return handler.getHTTP(getUrl(), path,
+                        headers,
                         config, CsdDataResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }
     }
+    
     /**
-     * Servicio que realiza la obtención de un certificado por RFC
-     * 
+     * Servicio que realiza la obtención de un certificado por RFC.
      * @param rfc RFC del certificado.
      * @return CsdResponse.
      * @throws ServicesException
-     */
-    public CsdListDataResponse GetCsdByRfc(String rfc)throws ServicesException {
+    */
+    public CsdListDataResponse GetCsdByRfc(String rfc) throws ServicesException {
         CsdListDataResponseHandler handler = new CsdListDataResponseHandler();
         try {
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.getHTTP(getUrl(), String.format("certificates/rfc/%s", rfc), 
-                        headers, 
+            return handler.getHTTP(getUrl(), String.format("certificates/rfc/%s", rfc),
+                        headers,
                         config, CsdListDataResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);

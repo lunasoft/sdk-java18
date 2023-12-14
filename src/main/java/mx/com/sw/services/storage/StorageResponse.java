@@ -2,12 +2,14 @@ package mx.com.sw.services.storage;
 
 import mx.com.sw.entities.IResponse;
 
+/**
+ * StorageResponse.
+ */
 public class StorageResponse extends IResponse {
     private StorageData data;
 
     /**
      * Constructor de la clase.
-     * 
      * @param status        status de llamada a API.
      * @param message       mensaje devuelto por API.
      * @param messageDetail detalles mensaje de la API.
@@ -21,12 +23,9 @@ public class StorageResponse extends IResponse {
 
     /**
      * Obtiene los datos del xml cuando está fue "success".
-     * 
      * @return {@link StorageData}
      */
     public StorageData getData() {
         return this.data;
     }
-
-   
 }

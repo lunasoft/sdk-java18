@@ -2,6 +2,9 @@ package mx.com.sw.services.account.info.responses;
 
 import mx.com.sw.entities.IResponse;
 
+/**
+ * AccountInfoActionResponse.
+ */
 public class AccountInfoActionResponse extends IResponse {
     private String data;
 
@@ -13,5 +16,5 @@ public class AccountInfoActionResponse extends IResponse {
     public String getData() {
         return this.data;
     }
-
 }
+

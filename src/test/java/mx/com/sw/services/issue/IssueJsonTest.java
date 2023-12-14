@@ -258,7 +258,7 @@ public class IssueJsonTest {
             Assertions.assertNotNull(ex);
         }
     }
-   
+
     /**
      * Método de UT timbrado versión 3 bigFile.
      */

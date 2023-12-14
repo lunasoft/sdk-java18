@@ -1,4 +1,5 @@
 package mx.com.sw.services.Validate.responses;
+
 import java.util.List;
 
 /**
@@ -9,24 +10,26 @@ public class ValidateNodeDetail {
     private List<ValidateDetailData> detail;
 
     /**
-     * Retorna la seccion
+     * Retorna la seccion.
      * @return String
     */
-    public String getSection(){
+    public String getSection() {
         return section;
     }
-    public void setSection(String section){
+
+    public void setSection(String section) {
         this.section = section;
     }
 
     /**
-     * Retorna datos detallados de cada seccion
+     * Retorna datos detallados de cada seccion.
      * @return objeto tipo ValidateDetailData
-     */
-    public List<ValidateDetailData> getDetailData(){
+    */
+    public List<ValidateDetailData> getDetailData() {
         return detail;
     }
-    public void setDetailData(List<ValidateDetailData> detail){
+
+    public void setDetailData(List<ValidateDetailData> detail) {
         this.detail = detail;
     }
 }

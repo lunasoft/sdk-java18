@@ -1,7 +1,5 @@
 package mx.com.sw.services.account.info.responses;
 
-
-
 /**
  * AccountInfoData - Clase con la informacion de la cuenta del cliente.
  * @author Juan Gamez
@@ -24,7 +22,7 @@ public class AccountInfoData {
     private String registeredDate;
     private boolean eliminado;
     private String tokenAccess;
-    private String data;  
+    private String data;
     private String status;
 
     /**
@@ -162,5 +160,4 @@ public class AccountInfoData {
     public String getStatus() {
         return this.status;
     }
-    
 }

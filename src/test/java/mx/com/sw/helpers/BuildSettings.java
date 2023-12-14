@@ -2,7 +2,6 @@ package mx.com.sw.helpers;
 
 import com.google.gson.Gson;
 import com.ibm.icu.util.Calendar;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
@@ -38,7 +37,6 @@ import sw.CadenaOriginalCfdi;
 /**
  * BuildSettings
  * Clase auxiliar de UT con datos comunes.
- * 
  * @author Eduardo Mares
  * @version 0.0.0.2
  * @since 2022-05-03
@@ -263,16 +261,14 @@ public class BuildSettings {
 
     /**
      * Carga un recurso de archivo a base64 String.
-     * 
      * @param path
      * @return String Base64
      */
     private String loadResouceAsB64(String path) {
         try {
             byte[] binaryData = Files.readAllBytes(Paths.get(path));
-            String cad64= Base64.getEncoder().encodeToString(binaryData);
+            String cad64 = Base64.getEncoder().encodeToString(binaryData);
             return cad64;
-            
         } catch (IOException e) {
             return "";
         }
@@ -280,7 +276,6 @@ public class BuildSettings {
 
     /**
      * Carga un recurso de archivo a String.
-     * 
      * @param path
      * @return String
      */
@@ -295,7 +290,6 @@ public class BuildSettings {
 
     /**
      * Obtiene la fecha actual en formato necesario para CFDI.
-     * 
      * @return String
      */
     private String getDateCFDI() {
@@ -310,7 +304,6 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI único y lo sella en caso de indicarse.
-     * 
      * @param xml
      * @param signed
      * @return String
@@ -322,8 +315,7 @@ public class BuildSettings {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
-            UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString().replace("-", "");
+            String randomUUIDString = UUID.randomUUID().toString().replace("-", "");
             builder = factory.newDocumentBuilder();
             Document doc = builder.parse(new InputSource(new StringReader(xml)));
             doc.getDocumentElement().setAttribute("Fecha", getDateCFDI());
@@ -359,7 +351,6 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI único y lo sella en caso de indicarse.
-     * 
      * @param signed
      * @return String
      */
@@ -369,7 +360,6 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI único y lo sella en caso de indicarse.
-     * 
      * @param signed
      * @return String como Base64
      */
@@ -385,7 +375,6 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI único y lo sella en caso de indicarse.
-     * 
      * @param signed
      * @return String
      */
@@ -395,7 +384,6 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI especifico y lo sella en caso de indicarse.
-     * 
      * @param fileName
      * @param signed
      * @param version
@@ -426,7 +414,6 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI especifico.
-     * 
      * @param fileName
      * @param isBase64
      * @return String
@@ -443,8 +430,7 @@ public class BuildSettings {
 
         Map<String, Object> data = gson.fromJson(xml, Map.class);
         if (data != null) {
-            UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString().replace("-", "");
+            String randomUUIDString = UUID.randomUUID().toString().replace("-", "");
             data.put("Folio", randomUUIDString + "sdk-java");
             data.put("Fecha", getDateCFDI());
         }
@@ -462,15 +448,13 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI único en formato JSON.
-     * 
      * @return String
      */
     public String getJsonCFDI() {
         Gson gson = new Gson();
         Map<String, Object> data = gson.fromJson(jsonCfdi, Map.class);
         if (data != null) {
-            UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString().replace("-", "");
+            String randomUUIDString = UUID.randomUUID().toString().replace("-", "");
             data.put("Folio", randomUUIDString + "sdk-java");
             data.put("Fecha", getDateCFDI());
         }
@@ -479,15 +463,13 @@ public class BuildSettings {
 
     /**
      * Genera un CFDI único en formato JSON.
-     * 
      * @return String
      */
     public String getJsonCFDIBig() {
         Gson gson = new Gson();
         Map<String, Object> data = gson.fromJson(jsonCfdiBig, Map.class);
         if (data != null) {
-            UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString().replace("-", "");
+            String randomUUIDString = UUID.randomUUID().toString().replace("-", "");
             data.put("Folio", randomUUIDString + "sdk-java");
             data.put("Fecha", getDateCFDI());
         }

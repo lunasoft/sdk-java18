@@ -5,7 +5,7 @@ import mx.com.sw.entities.IResponse;
 /**
  * CsdDataResponse Clase que retorna la informacion retornada por el servicio de CSD al realizar una consulta.
  */
-public class CsdDataResponse extends IResponse{
+public class CsdDataResponse extends IResponse {
     private CsdData data;
 
     /**
