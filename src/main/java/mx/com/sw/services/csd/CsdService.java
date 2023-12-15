@@ -8,8 +8,7 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
 import mx.com.sw.services.csd.requests.CsdRequest;
 
-public abstract class CsdService extends Services{
-    
+public abstract class CsdService extends Services {
     /**
     * Constructor de la clase.
     * @param url url Services
@@ -56,7 +55,7 @@ public abstract class CsdService extends Services{
      * @return Gson, gson
      */
     protected String requestCsd(String b64Cer, String b64Key, String password) {
-        CsdRequest request = new CsdRequest(b64Cer,b64Key,password);
+        CsdRequest request = new CsdRequest(b64Cer, b64Key, password);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(request);
     }

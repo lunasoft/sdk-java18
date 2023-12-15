@@ -1,23 +1,16 @@
 package mx.com.sw.services.account.info;
 
+import java.util.Random;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
-import mx.com.sw.services.account.info.responses.AccountListDataResponse;
-import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
-import mx.com.sw.services.account.info.responses.AccountInfoData;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
-
-import java.util.Random;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.Ignore;
+import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * AccountInfoTest Clase para UT del servicio de AccountInfo.
- * 
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-17
@@ -31,9 +24,6 @@ public class AccountInfoTest {
     public AccountInfoTest() {
         this.settings = new BuildSettings();
     }
-
-    // Variable para generar un correo random para prueba de crear usuario.
-    private Random random = new Random();
 
     /**
      * Método de UT con token.
@@ -87,7 +77,7 @@ public class AccountInfoTest {
 
     /**
      * Método de UT con ID Incorrecto.
-     */
+    */
     @Test
     public void testGetInfoUserIdError() {
         try {
@@ -102,7 +92,7 @@ public class AccountInfoTest {
 
     /**
      * Método de UT Para obtener la info de todos los usuarios.
-     */
+    */
     @Test
     public void testGetInfoAllUsers() {
         try {
@@ -119,8 +109,7 @@ public class AccountInfoTest {
     /**
      * Método de UT Para obtener la info de todos los usuarios error, Token
      * incorrecto.
-     */
-
+    */
     @Test
     public void testGetInfoAllUsersError() {
         try {
@@ -136,11 +125,11 @@ public class AccountInfoTest {
 
     /**
      * Método de UT Para crear un usuario.
-     */
-
+    */
     @Test
     public void testCreateUser() {
         try {
+            Random random = new Random();
             int randomFourDigitNumber = random.nextInt(9000) + 1000;
             String correoPrueba = "correoPrueba" + randomFourDigitNumber + "@java18.com";
 
@@ -157,8 +146,7 @@ public class AccountInfoTest {
 
     /**
      * Método de UT Para crear un usuario error (Ya existe).
-     */
-
+    */
     @Test
     public void testCreateUserError() {
         try {
@@ -174,8 +162,7 @@ public class AccountInfoTest {
 
     /**
      * Método de UT Para eliminar un usuario.
-     */
-
+    */
     @Test
     public void testDeleteUserId() {
         try {
@@ -197,8 +184,7 @@ public class AccountInfoTest {
 
     /**
      * Método de UT Para eliminar un usuario error.
-     */
-
+    */
     @Test
     public void testDeleteUserIdError() {
         try {

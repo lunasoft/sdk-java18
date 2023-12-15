@@ -2,17 +2,18 @@ package mx.com.sw.services.storage;
 
 import java.util.Map;
 import java.util.UUID;
-
-import org.apache.http.client.config.RequestConfig;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
+import org.apache.http.client.config.RequestConfig;
 
+/**
+ * StorageService.
+ */
 public class Storage extends StorageService {
     StorageResponseHandler handler;
 
     /**
      * Constructor de la clase.
-     * 
      * @param urlApi       url base de la API
      * @param url url base
      * @param user      correo o usuario de SW
@@ -30,7 +31,6 @@ public class Storage extends StorageService {
 
     /**
      * Constructor de la clase.
-     * 
      * @param urlApi       url base de la API
      * @param token     token infinito de SW.
      * @param proxy     ip o dominio de proxy (null si no se utiliza)
@@ -52,7 +52,7 @@ public class Storage extends StorageService {
     public StorageResponse getXml(UUID uuid) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        StorageResponse response = handler.getHTTP(getUrlapi()==null ? getUrl() : getUrlapi(),
+        StorageResponse response = handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(),
                 "datawarehouse/v1/live/" + uuid, headers, config,
                 StorageResponse.class);
         if (response.getData() == null || response.getData().getRecords().size() <= 0) {
@@ -60,5 +60,4 @@ public class Storage extends StorageService {
         }
         return response;
     }
-
 }

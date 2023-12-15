@@ -1,10 +1,12 @@
 package mx.com.sw.services.account.info.responses;
 
 import java.util.List;
-
 import mx.com.sw.entities.IResponse;
 
-public class AccountListDataResponse extends IResponse{
+/**
+ * AccountListDataResponse.
+ */
+public class AccountListDataResponse extends IResponse {
     private List<AccountInfoData> data;
 
     /**

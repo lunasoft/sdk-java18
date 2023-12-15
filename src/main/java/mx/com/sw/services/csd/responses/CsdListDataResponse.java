@@ -1,13 +1,13 @@
 package mx.com.sw.services.csd.responses;
-import java.util.List;
 
+import java.util.List;
 import mx.com.sw.entities.IResponse;
 
 /**
- * CsdListDataResponse Clase que retorna una lista de informacion retornada por el servicio de CSD al realizar una consulta.
+ * CsdListDataResponse Clase que retorna una lista de informacion retornada por el servicio de CSD al realizar una
+ * consulta.
  */
-
-public class CsdListDataResponse extends IResponse{
+public class CsdListDataResponse extends IResponse {
     private List<CsdData> data;
 
     /**

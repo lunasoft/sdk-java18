@@ -1,5 +1,8 @@
 package mx.com.sw.services.csd.requests;
 
+/**
+ * CsdRequest.
+ */
 public class CsdRequest {
     private String b64Cer;
     private String b64Key;
@@ -7,12 +10,12 @@ public class CsdRequest {
     private String type;
     private Boolean is_active;
 
-     /**
+    /**
      * Constructor de la clase.
      * @param b64Cer String base64 certificado.
      * @param b64Key String base64 llave privada.
      * @param password password llave privada.
-     */
+    */
     public CsdRequest(String b64Cer, String b64Key, String password) {
         this.b64Cer = b64Cer;
         this.b64Key = b64Key;
@@ -46,7 +49,7 @@ public class CsdRequest {
     }
 
     /**
-     * Obtiene el tipo de certificado
+     * Obtiene el tipo de certificado.
      * @return string
      */
     public String getType() {
@@ -54,7 +57,7 @@ public class CsdRequest {
     }
 
     /**
-     * Obtiene el estado del certificado
+     * Obtiene el estado del certificado.
      * @return string
      */
     public Boolean getIsActive() {

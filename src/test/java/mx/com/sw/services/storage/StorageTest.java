@@ -1,15 +1,16 @@
 package mx.com.sw.services.storage;
 
 import java.util.UUID;
-
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.authentication.Authentication;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
+/**
+ * StorageTest.
+ */
 public class StorageTest {
     private final BuildSettings settings;
 
@@ -106,7 +107,7 @@ public class StorageTest {
     }
 
     /**
-     * Método de UT con Authentication exitoso pero uuid incorrecto
+     * Método de UT con Authentication exitoso pero uuid incorrecto.
      */
     @Test
     public void testGetXmlAuth_Error() {

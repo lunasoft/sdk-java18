@@ -3,8 +3,11 @@ package mx.com.sw.services.account.balance.responses;
 import mx.com.sw.helpers.ResponseHelper;
 import mx.com.sw.services.ResponseHandler;
 
-public class AccountBalanceActionResponseHandler extends ResponseHandler<AccountBalanceActionResponse>{
- /**
+/**
+ * AccountBalanceActionResponseHandler.
+ */
+public class AccountBalanceActionResponseHandler extends ResponseHandler<AccountBalanceActionResponse> {
+    /**
      * Método para hacer handle de un exception.
      * @param ex exception.
      * @return AccountActionsData
@@ -13,6 +16,4 @@ public class AccountBalanceActionResponseHandler extends ResponseHandler<Account
     public AccountBalanceActionResponse handleException(Throwable ex) {
         return ResponseHelper.toAccountActionsData(ex);
     }
-    
-    
 }

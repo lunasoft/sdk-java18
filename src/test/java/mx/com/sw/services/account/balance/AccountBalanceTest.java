@@ -1,19 +1,16 @@
 package mx.com.sw.services.account.balance;
 
+import java.util.UUID;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
-
-import java.util.UUID;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
  * AccountBalanceTest Clase para UT del servicio de AccountBalance.
- * 
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-14
@@ -27,7 +24,6 @@ public class AccountBalanceTest {
     public AccountBalanceTest() {
         this.settings = new BuildSettings();
     }
-    
 
     /**
     * Método de UT con usuario y password.
@@ -79,6 +75,7 @@ public class AccountBalanceTest {
             Assertions.assertNotNull(ex);
         }
     }
+
     /**
      * Método para obtener el saldo con usuario y password.
      */
@@ -203,6 +200,7 @@ public class AccountBalanceTest {
             Assertions.assertNotNull(ex);
         }
     }
+
     /**
      * Método de UT EliminarTimbres con token incorrecto.
      */
@@ -235,7 +233,8 @@ public class AccountBalanceTest {
             Assertions.assertNotNull(ex);
         }
     }
-     /**
+
+    /**
      * Método de UT EliminarTimbres con token correcto.
      */
     @Disabled("No quitar/agregar timbres de la cuenta de pruebas")
@@ -245,7 +244,7 @@ public class AccountBalanceTest {
             AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
             AccountBalanceActionResponse res = account
                     .removeStamps(UUID.fromString("828f19b1-77dc-48bc-9cfa-d48b5cf7e30c"), 2000000000, "Prueba");
-             Assertions.assertNotNull(res);
+            Assertions.assertNotNull(res);
             Assertions.assertFalse("success".equals(res.getStatus()));
             Assertions.assertNotNull(res.getMessage());
             Assertions.assertNotNull(res.getMessageDetail());
@@ -273,7 +272,7 @@ public class AccountBalanceTest {
     }
 
     /**
-     * Método de UT EliminarTimbres error
+     * Método de UT EliminarTimbres error.
      */
     @Test
     public void testRemoveStampsError() {
@@ -290,5 +289,4 @@ public class AccountBalanceTest {
             Assertions.assertNotNull(ex);
         }
     }
-
 }
