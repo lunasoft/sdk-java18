@@ -2249,12 +2249,12 @@ public class App {
 Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el XML timbrado.
 Existen varias versiones de respuesta a este método, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 
+:pushpin: ***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
+
 <details>
   <summary>Timbrado CFDI (StampV4)</summary>
 
 <br>
-
-:pushpin: ***NOTA:*** Existen varias versiones de respuesta, las cuales son las siguientes: ***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
 
 **Ejemplo de consumo de la librería con la version de respuesta 1**
 ```java
