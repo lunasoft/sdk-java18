@@ -2245,14 +2245,17 @@ public class App {
 
 ## TimbradoV4 ##
 
-<details>
-  <summary>StampV4(XML) - Email</summary>
-
-## StampV4(XML) - Email ##
-Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
+### **Email** ###
+Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el XML timbrado.
 Existen varias versiones de respuesta a este método, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 
-***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
+<details>
+  <summary>Timbrado CFDI (StampV4)</summary>
+
+<br>
+
+:pushpin: ***NOTA:*** Existen varias versiones de respuesta, las cuales son las siguientes: ***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
+
 **Ejemplo de consumo de la librería con la version de respuesta 1**
 ```java
 import java.nio.file.Files;
@@ -2266,12 +2269,12 @@ public class App {
     {
         try 
         {
-            //Creamos una instancia de tipo SatampV4
-            //A esta le pasamos la Url, usuario y password
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
             StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
-            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx", false);
+            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -2287,6 +2290,7 @@ public class App {
         }  
     }
 }
+
 ```
 **Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
 ```java
@@ -2302,13 +2306,13 @@ public class App {
     {
         try 
         {
-            //Creamos una instancia de tipo SatampV4
-            //A esta le pasamos la Url, usuario y password
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
             StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
-            StampResponseV1 response = stamp.timbrarV1(xml64, "test@test.com.mx", true);
+            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -2326,6 +2330,560 @@ public class App {
 }
 ```
 </details>
+
+<details>
+  <summary>Emisión Timbrado (IssueV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary>Emisión Timbrado Json (IssueJsonV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueJsonV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueJsonV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(json, "test@test.com.mx, test@test2.com.mx", null, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+</details>
+
+### **CustomId** ###
+Este servicio recibe un comprobante CFDI para ser timbrado y que recibe un header conocido como CustomID, el cuál tiene el objetivo de agregar un filtro adicional al timbrado para evitar la duplicidad de timbrado.
+El CustomId es un string y el valor es asignado por el usuario, el cual tiene un límite de 100 caracteres.
+
+
+<details>
+  <summary>Timbrado CFDI (StampV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado (IssueV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado Json (IssueJsonV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueJsonV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueJsonV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(json, null, customId , false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+### **PDF** ###
+Este servicio recibe un comprobante CFDI para ser timbrado y que recibe un header conocido como extra mediante el cual se confirma la generación de un PDF del CFDI timbrado que será guardado en automático en el ADT.
+
+:pushpin: ***NOTA:*** En caso de que no se cuente con una plantilla PDF customizada los PDF’s serán generados con las plantillas genéricas.
+
+<details>
+  <summary>Timbrado CFDI (StampV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, true);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado (IssueV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, true);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado Json (IssueJsonV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueJsonV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueJsonV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(json, null, null , true;
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+---
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
