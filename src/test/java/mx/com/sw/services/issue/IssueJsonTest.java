@@ -6,6 +6,13 @@ import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -190,7 +197,129 @@ public class IssueJsonTest {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
                 null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV1 response = stamp.timbrarV1(json, settings.getEmail());
+            StampResponseV1 response = stamp.timbrarV1(json, settings.getEmail(), null, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getTFD());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT timbrado versión 1 (con usuario y password y envio de email erroneo).
+     */
+    @Test
+    public void testV4StampV1_errorEmail() {
+        try {
+            IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
+                null, 0);
+            String json = settings.getJsonCFDI();
+            StampResponseV1 response = stamp.timbrarV1(json, "correotest.com.mx", null, false);
+            String messageExpect = "El listado de correos no contiene un formato válido o alguno de los correos es inválido.";
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue(messageExpect .equalsIgnoreCase(response.getMessage()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT timbrado versión 1 (con usuario y password y envio de 6 emails).
+     */
+    @Test
+    public void testV4StampV1_maxEmail() {
+        try {
+            IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
+                null, 0);
+            String json = settings.getJsonCFDI();
+            String emails = "correo@test.com.mx, correo@test2.com.mx, correo@test3.com.mx, correo@test4.com.mx, correo@test5.com.mx, correo@test6.com.mx";
+            StampResponseV1 response = stamp.timbrarV1(json, emails, null, false);
+            String messageExpect = "El listado de correos está vacío o contiene más de 5 correos.";
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue(messageExpect .equalsIgnoreCase(response.getMessage()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT timbrado versión 1 (con usuario y password y envio de CustomId).
+     */
+    @Test
+    public void testV4StampV1_customId() {
+        try {
+            IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
+                null, 0);
+            String json = settings.getJsonCFDI();
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(json, null, customId, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getTFD());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT timbrado versión 1 (con usuario y password y envio de CustomId duplicado).
+     */
+    @Test
+    public void testV4StampV1_duplicateCustomId() {
+        try {
+            IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
+                null, 0);
+            String json = settings.getJsonCFDI();
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(json, null, customId, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+            response = stamp.timbrarV1(json, null, customId, false);
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue("307. El comprobante contiene un timbre previo.".equalsIgnoreCase(response.getMessage()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT timbrado versión 1 (con usuario y password y envio de CustomId invalido).
+     */
+    @Test
+    public void testV4StampV1_invalidCustomId() {
+        try {
+            IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
+                null, 0);
+            String json = settings.getJsonCFDI();
+            String customId = UUID.randomUUID().toString();
+            customId = Collections.nCopies(10, customId).stream().collect(Collectors.joining());
+            StampResponseV1 response = stamp.timbrarV1(json, null, customId, false);
+            String messageExpect = "El CustomId no es válido o viene vacío.";
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertTrue(messageExpect .equalsIgnoreCase(response.getMessage()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+     /**
+     * Método de UT timbrado versión 1 (con usuario y password y envio de parametro extra para crear PDF).
+     */
+    @Test
+    public void testV4StampV1_pdf() {
+        try {
+            IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
+                null, 0);
+            String json = settings.getJsonCFDI();
+            StampResponseV1 response = stamp.timbrarV1(json, null, null, true);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -210,7 +339,7 @@ public class IssueJsonTest {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
                 null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV2 response = stamp.timbrarV2(json, settings.getEmail());
+            StampResponseV2 response = stamp.timbrarV2(json, settings.getEmail(), null, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -229,7 +358,7 @@ public class IssueJsonTest {
         try {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getTokenSW(), null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV3 response = stamp.timbrarV3(json, settings.getEmail());
+            StampResponseV3 response = stamp.timbrarV3(json, settings.getEmail(), null, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -248,7 +377,7 @@ public class IssueJsonTest {
         try {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getTokenSW(), null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV4 response = stamp.timbrarV4(json, settings.getEmail());
+            StampResponseV4 response = stamp.timbrarV4(json, settings.getEmail(), null, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());

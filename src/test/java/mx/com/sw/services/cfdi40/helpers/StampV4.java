@@ -37,7 +37,7 @@ public class StampV4 extends BaseStamp {
     public StampResponseV1 stampResponseV1(String fileName, String stampVersion, boolean signed,
         boolean isBase64) throws ServicesException {
         return stamp.timbrarV1(getSettings().getCFDI(fileName, true, "4.0", isBase64),
-            getSettings().getEmail(), isBase64);
+            getSettings().getEmail(), null, false, isBase64);
     }
 
     /**
@@ -47,7 +47,7 @@ public class StampV4 extends BaseStamp {
     public StampResponseV2 stampResponseV2(String fileName, String stampVersion, boolean signed,
         boolean isBase64) throws ServicesException {
         return stamp.timbrarV2(getSettings().getCFDI(fileName, true, "4.0", isBase64),
-            getSettings().getEmail(), isBase64);
+            getSettings().getEmail(), null, false, isBase64);
     }
 
     /**
@@ -57,7 +57,7 @@ public class StampV4 extends BaseStamp {
     public StampResponseV3 stampResponseV3(String fileName, String stampVersion, boolean signed,
         boolean isBase64) throws ServicesException {
         return stamp.timbrarV3(getSettings().getCFDI(fileName, true, "4.0", isBase64),
-            getSettings().getEmail(), isBase64);
+            getSettings().getEmail(), null, false, isBase64);
     }
 
     /**
@@ -67,6 +67,6 @@ public class StampV4 extends BaseStamp {
     public StampResponseV4 stampResponseV4(String fileName, String stampVersion, boolean signed,
         boolean isBase64) throws ServicesException {
         return stamp.timbrarV4(getSettings().getCFDI(fileName, true, "4.0", isBase64),
-            getSettings().getEmail(), isBase64);
+            getSettings().getEmail(), null, false, isBase64);
     }
 }
