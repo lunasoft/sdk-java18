@@ -55,6 +55,31 @@ public abstract class StampService extends Services {
     }
 
     /**
+     * Obtiene los headers para su funcionamiento.
+     * @param emails String emails receptor(max 5).
+     * @param customId String identificador único asignado al comprobante.
+     * @param extra boolean confirma la generación de un PDF.
+     * @return Map String, String
+     * @throws ServicesException exception en caso de error.
+     */
+    protected Map<String, String> getHeaders(String emails, String customId, boolean extra) throws ServicesException {
+        super.setupRequest();
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Authorization", "bearer " + this.getToken());
+        if (emails != null && validateEmails(emails)) {
+            headers.put("email", emails);
+        }
+        if (customId != null) {
+            validateCustomId(customId);
+            headers.put("customid", customId);
+        }
+        if(extra){
+            headers.put("extra", "pdf");
+        }
+        return headers;
+    }
+
+    /**
      * Realiza el timbrado de un documento dada la configuracion.
      * @param <T> generic response type
      * @param xml String xml.

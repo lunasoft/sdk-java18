@@ -60,18 +60,23 @@ public abstract class BaseStampV4 extends StampService {
      * utilizando la versión 1 de timbrado.
      * @param xml String xml.
      * @param isBase64 indica si es base64.
-     * @param email String email receptor.
+     * @param emails String emails receptor(max 5).
+     * @param customId String identificador único asignado al comprobante.
+     * @param extra boolean confirma la generación de un PDF.
      * @return StampResponseV1
      * @see StampResponseV1
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV1 timbrarV1(String xml, String email, boolean isBase64) throws ServicesException {
+    public StampResponseV1 timbrarV1(String xml, String emails, String customId, boolean extra, boolean isBase64) throws ServicesException {
         StampResponseHandlerV1 handler = new StampResponseHandlerV1();
-        Map<String, String> headers = getHeaders();
-        headers.put("email", email);
-        String format = isBase64 ? "b64" : "";
-        String path = String.format(formatPath, operation, "v1", format);
-        return super.timbrar(xml, path, headers, handler, StampResponseV1.class);
+        try{
+            Map<String, String> headers = getHeaders(emails,customId, extra);
+            String format = isBase64 ? "b64" : "";
+            String path = String.format(formatPath, operation, "v1", format);
+            return super.timbrar(xml, path, headers, handler, StampResponseV1.class);
+        }catch (ServicesException e) {
+            return handler.handleException(e);
+        }
     }
 
     /**
@@ -79,18 +84,23 @@ public abstract class BaseStampV4 extends StampService {
      * utilizando la versión 2 de timbrado.
      * @param xml String xml.
      * @param isBase64 indica si es base64.
-     * @param email String email receptor.
+     * @param emails String emails receptor(max 5).
+     * @param customId String identificador único asignado al comprobante.
+     * @param extra boolean confirma la generación de un PDF.
      * @return StampResponseV2
      * @see StampResponseV2
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV2 timbrarV2(String xml, String email, boolean isBase64) throws ServicesException {
+    public StampResponseV2 timbrarV2(String xml, String emails, String customId,boolean extra, boolean isBase64) throws ServicesException {
         StampResponseHandlerV2 handler = new StampResponseHandlerV2();
-        Map<String, String> headers = getHeaders();
-        headers.put("email", email);
-        String format = isBase64 ? "b64" : "";
-        String path = String.format(formatPath, operation, "v2", format);
-        return super.timbrar(xml, path, headers, handler, StampResponseV2.class);
+        try{
+            Map<String, String> headers = getHeaders(emails,customId, extra);
+            String format = isBase64 ? "b64" : "";
+            String path = String.format(formatPath, operation, "v2", format);
+            return super.timbrar(xml, path, headers, handler, StampResponseV2.class);
+        }catch (ServicesException e) {
+            return handler.handleException(e);
+        }
     }
 
     /**
@@ -98,18 +108,23 @@ public abstract class BaseStampV4 extends StampService {
      * utilizando la versión 3 de timbrado.
      * @param xml String xml.
      * @param isBase64 indica si es base64.
-     * @param email String email receptor.
+     * @param emails String emails receptor(max 5).
+     * @param customId String identificador único asignado al comprobante.
+     * @param extra boolean confirma la generación de un PDF.
      * @return StampResponseV3
      * @see StampResponseV3
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV3 timbrarV3(String xml, String email, boolean isBase64) throws ServicesException {
+    public StampResponseV3 timbrarV3(String xml, String emails, String customId, boolean extra, boolean isBase64) throws ServicesException {
         StampResponseHandlerV3 handler = new StampResponseHandlerV3();
-        Map<String, String> headers = getHeaders();
-        headers.put("email", email);
-        String format = isBase64 ? "b64" : "";
-        String path = String.format(formatPath, operation, "v3", format);
-        return super.timbrar(xml, path, headers, handler, StampResponseV3.class);
+        try{
+            Map<String, String> headers = getHeaders(emails,customId, extra);
+            String format = isBase64 ? "b64" : "";
+            String path = String.format(formatPath, operation, "v3", format);
+            return super.timbrar(xml, path, headers, handler, StampResponseV3.class);
+        }catch (ServicesException e) {
+            return handler.handleException(e);
+        }
     }
 
     /**
@@ -117,17 +132,22 @@ public abstract class BaseStampV4 extends StampService {
      * utilizando la versión 4 de timbrado.
      * @param xml String xml.
      * @param isBase64 indica si es base64.
-     * @param email String email receptor.
+     * @param emails String emails receptor(max 5).
+     * @param customId String identificador único asignado al comprobante.
+     * @param extra boolean confirma la generación de un PDF.
      * @return StampResponseV4
      * @see StampResponseV4
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV4 timbrarV4(String xml, String email, boolean isBase64) throws ServicesException {
+    public StampResponseV4 timbrarV4(String xml, String emails, String customId, boolean extra, boolean isBase64) throws ServicesException {
         StampResponseHandlerV4 handler = new StampResponseHandlerV4();
-        Map<String, String> headers = getHeaders();
-        headers.put("email", email);
-        String format = isBase64 ? "b64" : "";
-        String path = String.format(formatPath, operation, "v4", format);
-        return super.timbrar(xml, path, headers, handler, StampResponseV4.class);
+        try{
+            Map<String, String> headers = getHeaders(emails,customId, extra);
+            String format = isBase64 ? "b64" : "";
+            String path = String.format(formatPath, operation, "v4", format);
+            return super.timbrar(xml, path, headers, handler, StampResponseV4.class);
+        }catch (ServicesException e) {
+            return handler.handleException(e);
+        }
     }
 }
