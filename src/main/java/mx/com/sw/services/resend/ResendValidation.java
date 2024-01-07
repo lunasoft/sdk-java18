@@ -28,8 +28,7 @@ public class ResendValidation {
                     Matcher matcher = pattern.matcher(correos.get(i));
                     if (!matcher.matches()) {
                         throw new ServicesException(
-                                "El listado de correos no contiene un formato válido o alguno de los correos es"
-                                        + "inválido."
+                                "El listado de correos no contiene un formato válido o alguno de los correos es inválido."
                         );
                     }
                 }
