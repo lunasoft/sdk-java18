@@ -197,7 +197,7 @@ public class IssueJsonTest {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
                 null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV1 response = stamp.timbrarV1(json, settings.getEmail(), null, false);
+            StampResponseV1 response = stamp.timbrarV1(json, settings.getCorreo(), null, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -217,7 +217,8 @@ public class IssueJsonTest {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
                 null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV1 response = stamp.timbrarV1(json, "correotest.com.mx", null, false);
+            List<String> email = Arrays.asList("invalid email");
+            StampResponseV1 response = stamp.timbrarV1(json, email, null, false);
             String messageExpect = "El listado de correos no contiene un formato válido o alguno de los correos es inválido.";
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
@@ -236,8 +237,7 @@ public class IssueJsonTest {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
                 null, 0);
             String json = settings.getJsonCFDI();
-            String emails = "correo@test.com.mx, correo@test2.com.mx, correo@test3.com.mx, correo@test4.com.mx, correo@test5.com.mx, correo@test6.com.mx";
-            StampResponseV1 response = stamp.timbrarV1(json, emails, null, false);
+            StampResponseV1 response = stamp.timbrarV1(json, settings.getCorreos(), null, false);
             String messageExpect = "El listado de correos está vacío o contiene más de 5 correos.";
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
@@ -339,7 +339,7 @@ public class IssueJsonTest {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(),
                 null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV2 response = stamp.timbrarV2(json, settings.getEmail(), null, false);
+            StampResponseV2 response = stamp.timbrarV2(json, settings.getCorreo(), null, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -358,7 +358,7 @@ public class IssueJsonTest {
         try {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getTokenSW(), null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV3 response = stamp.timbrarV3(json, settings.getEmail(), null, false);
+            StampResponseV3 response = stamp.timbrarV3(json, settings.getCorreo(), null, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -377,7 +377,7 @@ public class IssueJsonTest {
         try {
             IssueJsonV4 stamp = new IssueJsonV4(settings.getUrlSW(), settings.getTokenSW(), null, 0);
             String json = settings.getJsonCFDI();
-            StampResponseV4 response = stamp.timbrarV4(json, settings.getEmail(), null, false);
+            StampResponseV4 response = stamp.timbrarV4(json, settings.getCorreo(), null, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());

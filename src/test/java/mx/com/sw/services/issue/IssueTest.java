@@ -7,7 +7,9 @@ import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -111,7 +113,7 @@ public class IssueTest {
         try {
             IssueV4 stamp = new IssueV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(false);
-            StampResponseV1 response = stamp.timbrarV1(xml, settings.getEmail(), null, false, false);
+            StampResponseV1 response = stamp.timbrarV1(xml, settings.getCorreo(), null, false, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -129,7 +131,8 @@ public class IssueTest {
         try {
             IssueV4 stamp = new IssueV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(false);
-            StampResponseV1 response = stamp.timbrarV1(xml, "correotest.com.mx", null, false, false);
+            List<String> email = Arrays.asList("invalid email");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
             String messageExpect = "El listado de correos no contiene un formato válido o alguno de los correos es inválido.";
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
@@ -147,8 +150,7 @@ public class IssueTest {
         try {
             IssueV4 stamp = new IssueV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(false);
-            String emails = "correo@test.com.mx, correo@test2.com.mx, correo@test3.com.mx, correo@test4.com.mx, correo@test5.com.mx, correo@test6.com.mx";
-            StampResponseV1 response = stamp.timbrarV1(xml, emails, null, false, false);
+            StampResponseV1 response = stamp.timbrarV1(xml, settings.getCorreos(), null, false, false);
             String messageExpect = "El listado de correos está vacío o contiene más de 5 correos.";
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));

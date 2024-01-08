@@ -7,7 +7,9 @@ import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -39,7 +41,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV1 response = stamp.timbrarV1(xml, settings.getEmail(), null,false, false);
+            StampResponseV1 response = stamp.timbrarV1(xml, settings.getCorreo(), null,false, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -58,7 +60,8 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV1 response = stamp.timbrarV1(xml, "correotest.com.mx", null,false, false);
+            List<String> email = Arrays.asList("invalid email");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null,false, false);
             String messageExpect = "El listado de correos no contiene un formato válido o alguno de los correos es inválido.";
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
@@ -76,8 +79,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            String emails = "correo@test.com.mx, correo@test2.com.mx, correo@test3.com.mx, correo@test4.com.mx, correo@test5.com.mx, correo@test6.com.mx";
-            StampResponseV1 response = stamp.timbrarV1(xml, emails, null,false, false);
+            StampResponseV1 response = stamp.timbrarV1(xml, settings.getCorreos(), null,false, false);
             String messageExpect = "El listado de correos está vacío o contiene más de 5 correos.";
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
@@ -174,7 +176,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV2 response = stamp.timbrarV2(xml, settings.getEmail(), null, false, false);
+            StampResponseV2 response = stamp.timbrarV2(xml, settings.getCorreo(), null, false, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -234,7 +236,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV3 response = stamp.timbrarV3(xml, settings.getEmail(),null, false, false);
+            StampResponseV3 response = stamp.timbrarV3(xml, settings.getCorreo(),null, false, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -273,7 +275,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV4 response = stamp.timbrarV4(xml, settings.getEmail(),null, false, false);
+            StampResponseV4 response = stamp.timbrarV4(xml, settings.getCorreo(),null, false, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -293,7 +295,7 @@ public class StampV4Test {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
             String customId = UUID.randomUUID().toString();
-            StampResponseV4 response = stamp.timbrarV4(xml, settings.getEmail(),customId, false, false);
+            StampResponseV4 response = stamp.timbrarV4(xml, settings.getCorreo(),customId, false, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -312,7 +314,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDIB64(true);
-            StampResponseV1 response = stamp.timbrarV1(xml, settings.getEmail(), null,false, true);
+            StampResponseV1 response = stamp.timbrarV1(xml, settings.getCorreo(), null,false, true);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -331,7 +333,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDIB64(true);
-            StampResponseV2 response = stamp.timbrarV2(xml, settings.getEmail(),null, false, true);
+            StampResponseV2 response = stamp.timbrarV2(xml, settings.getCorreo(),null, false, true);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -350,7 +352,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDIB64(true);
-            StampResponseV3 response = stamp.timbrarV3(xml, settings.getEmail(),null, false, true);
+            StampResponseV3 response = stamp.timbrarV3(xml, settings.getCorreo(),null, false, true);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
@@ -369,7 +371,7 @@ public class StampV4Test {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDIB64(true);
-            StampResponseV4 response = stamp.timbrarV4(xml, settings.getEmail(),null, false, true);
+            StampResponseV4 response = stamp.timbrarV4(xml, settings.getCorreo(),null, false, true);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
