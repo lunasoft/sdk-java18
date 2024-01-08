@@ -89,21 +89,16 @@ public class GeneralValidations {
      * @param emails
      * @throws ServicesException
      */
-    protected boolean validateEmails(String emails) throws ServicesException {
-        List<String> emailList = Arrays.asList(emails.split("\\s*,\\s*"));
-        if (emailList.size() > 0 && emailList.size() <= 5) {
-            for (int i = 0; i <= emailList.size() - 1; i++) {
-                Pattern pattern = Pattern
-                        .compile("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$");
-                Matcher matcher = pattern.matcher(emailList.get(i));
-                if (!matcher.matches()) {
-                    throw new ServicesException(
-                        "El listado de correos no contiene un formato válido o alguno de los correos es inválido."
-                        );
-                }
-            }
-        } else {
+    protected boolean validateEmails(List<String> emails) throws ServicesException {
+        if (emails.isEmpty() || emails.size() > 5) {
             throw new ServicesException("El listado de correos está vacío o contiene más de 5 correos.");
+        }
+        Pattern emailPattern = Pattern.compile("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$");
+        for (String email : emails) {
+            Matcher matcher = emailPattern.matcher(email);
+            if (!matcher.matches()) {
+                throw new ServicesException("El listado de correos no contiene un formato válido o alguno de los correos es inválido.");
+            }
         }
         return true;
     }

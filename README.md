@@ -2274,7 +2274,8 @@ public class App {
             //Automaticamente despues de obtenerlo se procedera a timbrar
             StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
-            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -2312,7 +2313,8 @@ public class App {
             StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
-            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -2354,7 +2356,8 @@ public class App {
             //Automaticamente despues de obtenerlo se procedera a timbrar
             IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
-            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -2392,7 +2395,8 @@ public class App {
             IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
-            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx, test@test2.com.mx", null, false, false);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -2434,8 +2438,9 @@ public class App {
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
             IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            List<String> email = Arrays.asList("test@test.com.mx");
             String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
-            StampResponseV1 response = stamp.timbrarV1(json, "test@test.com.mx, test@test2.com.mx", null, false);
+            StampResponseV1 response = stamp.timbrarV1(json, email, null, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
