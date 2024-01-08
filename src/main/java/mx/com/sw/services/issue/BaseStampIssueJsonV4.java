@@ -1,5 +1,6 @@
 package mx.com.sw.services.issue;
 
+import java.util.List;
 import java.util.Map;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.stamp.responses.StampResponseHandlerV1;
@@ -57,24 +58,25 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
 
     /**
      * Obtiene los headers para su funcionamiento.
-     * @param emails String emails receptor(max 5).
+     * @param emails List<String> emails receptor(max 5).
      * @param customId String identificador único asignado al comprobante.
-     * @param extra boolean confirma la generación de un PDF.
+     * @param isPdf boolean confirma la generación de un PDF.
      * @return Map String, String
      * @throws ServicesException exception en caso de error.
      */
-    protected Map<String, String> getHeaders(String emails, String customId, boolean extra) throws ServicesException {
+    protected Map<String, String> getHeaders(List<String> emails, String customId, boolean isPdf) throws ServicesException {
         Map<String, String> headers = this.getHeaders();
 
         headers.put("Authorization", "bearer " + this.getToken());
         if (emails != null && validateEmails(emails)) {
-            headers.put("email", emails);
+            String email = String.join(",", emails);
+            headers.put("email", email);
         }
         if (customId != null) {
             validateCustomId(customId);
             headers.put("customid", customId);
         }
-        if(extra){
+        if(isPdf){
             headers.put("extra", "pdf");
         }
         return headers;
@@ -84,17 +86,17 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 1 de timbrado.
      * @param json String json.
-     * @param emails String emails receptor.(max 5).
+     * @param emails List<String> emails receptor.(max 5).
      * @param customId String identificador único asignado al comprobante.
-     * @param extra boolean confirma la generación de un PDF.
+     * @param isPdf boolean confirma la generación de un PDF.
      * @return StampResponseV1
      * @see StampResponseV1
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV1 timbrarV1(String json, String emails, String customId, boolean extra) throws ServicesException {
+    public StampResponseV1 timbrarV1(String json, List<String> emails, String customId, boolean isPdf) throws ServicesException {
         StampResponseHandlerV1 handler = new StampResponseHandlerV1();
         try{
-            Map<String, String> headers = this.getHeaders(emails, customId, extra);
+            Map<String, String> headers = this.getHeaders(emails, customId, isPdf);
             return super.timbrar(json, headers, formatPath, operation, "v1", handler, StampResponseV1.class);
         }catch (ServicesException e) {
             return handler.handleException(e);
@@ -105,17 +107,17 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 2 de timbrado.
      * @param json String json.
-     * @param emails String emails receptor.(max 5).
+     * @param emails List<String> emails receptor.(max 5).
      * @param customId String identificador único asignado al comprobante.
-     * @param extra boolean confirma la generación de un PDF.
+     * @param isPdf boolean confirma la generación de un PDF.
      * @return StampResponseV2
      * @see StampResponseV2
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV2 timbrarV2(String json, String emails, String customId, boolean extra) throws ServicesException {
+    public StampResponseV2 timbrarV2(String json, List<String> emails, String customId, boolean isPdf) throws ServicesException {
         StampResponseHandlerV2 handler = new StampResponseHandlerV2();
         try{
-            Map<String, String> headers = this.getHeaders(emails, customId, extra);
+            Map<String, String> headers = this.getHeaders(emails, customId, isPdf);
             return super.timbrar(json, headers, formatPath, operation, "v2", handler, StampResponseV2.class);
         }catch (ServicesException e) {
             return handler.handleException(e);
@@ -126,17 +128,17 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 3 de timbrado.
      * @param json String json.
-     * @param emails String emails receptor.(max 5).
+     * @param emails List<String> emails receptor.(max 5).
      * @param customId String identificador único asignado al comprobante.
-     * @param extra boolean confirma la generación de un PDF.
+     * @param isPdf boolean confirma la generación de un PDF.
      * @return StampResponseV3
      * @see StampResponseV3
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV3 timbrarV3(String json, String emails, String customId, boolean extra) throws ServicesException {
+    public StampResponseV3 timbrarV3(String json, List<String> emails, String customId, boolean isPdf) throws ServicesException {
         StampResponseHandlerV3 handler = new StampResponseHandlerV3();
         try{
-            Map<String, String> headers = this.getHeaders(emails, customId, extra);
+            Map<String, String> headers = this.getHeaders(emails, customId, isPdf);
             return super.timbrar(json, headers, formatPath, operation, "v3", handler, StampResponseV3.class);
         }catch (ServicesException e) {
             return handler.handleException(e);
@@ -147,17 +149,17 @@ public class BaseStampIssueJsonV4 extends IssueJsonService {
      * Timbra una representacion de CFDI en formato JSON
      * utilizando la versión 4 de timbrado.
      * @param json String json.
-     * @param emails String emails receptor.(max 5).
+     * @param emails List<String> emails receptor.(max 5).
      * @param customId String identificador único asignado al comprobante.
-     * @param extra boolean confirma la generación de un PDF.
+     * @param isPdf boolean confirma la generación de un PDF.
      * @return StampResponseV4
      * @see StampResponseV4
      * @throws ServicesException exception en caso de error.
      */
-    public StampResponseV4 timbrarV4(String json, String emails, String customId, boolean extra) throws ServicesException {
+    public StampResponseV4 timbrarV4(String json, List<String> emails, String customId, boolean isPdf) throws ServicesException {
         StampResponseHandlerV4 handler = new StampResponseHandlerV4();
         try{
-            Map<String, String> headers = this.getHeaders(emails, customId, extra);
+            Map<String, String> headers = this.getHeaders(emails, customId, isPdf);
             return super.timbrar(json, headers, formatPath, operation, "v4", handler, StampResponseV4.class);
         }catch (ServicesException e) {
             return handler.handleException(e);
