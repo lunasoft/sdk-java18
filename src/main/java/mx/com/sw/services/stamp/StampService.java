@@ -1,6 +1,7 @@
 package mx.com.sw.services.stamp;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
@@ -51,6 +52,32 @@ public abstract class StampService extends Services {
         super.setupRequest();
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", "bearer " + this.getToken());
+        return headers;
+    }
+
+    /**
+     * Obtiene los headers para su funcionamiento.
+     * @param emails List<String> emails receptor(max 5).
+     * @param customId String identificador único asignado al comprobante.
+     * @param isPdf boolean confirma la generación de un PDF.
+     * @return Map String, String
+     * @throws ServicesException exception en caso de error.
+     */
+    protected Map<String, String> getHeaders(List<String> emails, String customId, boolean isPdf) throws ServicesException {
+        super.setupRequest();
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Authorization", "bearer " + this.getToken());
+        if (emails != null && validateEmails(emails)) {
+            String email = String.join(",", emails);
+            headers.put("email", email);
+        }
+        if (customId != null) {
+            validateCustomId(customId);
+            headers.put("customid", customId);
+        }
+        if(isPdf){
+            headers.put("extra", "pdf");
+        }
         return headers;
     }
 
