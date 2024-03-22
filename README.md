@@ -2251,6 +2251,9 @@ Existen varias versiones de respuesta a este método, las cuales puede consultar
 
 :pushpin: ***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
 
+
+
+
 <details>
   <summary>Timbrado CFDI (StampV4)</summary>
 
