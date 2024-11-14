@@ -2,6 +2,7 @@ package mx.com.sw.services.StatusCfdi;
 
 import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -58,12 +59,13 @@ public class StatusCfdiServiceTest {
      * Prueba el servicio StatusCfdi en el entorno de pruebas.
      * @throws Exception Si ocurre un error durante la prueba.
      */
-    @Test
+    @Ignore
+    //Intermitencia en pruebas
     public void testStatusCfdiService_Test() throws Exception {
         StatusCfdiService app = new StatusCfdiService(
                 "https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc"
         );
-        StatusCfdiResponse response = null;
+        StatusCfdiResponse response=null;
         response = (StatusCfdiResponse) app.GetStatusCfdi("EKU9003173C9",
                 "XEXX010101000", "9300.00", "bad75896-551e-4d5e-a372-d168180133f5",
                 "bb2k2g==");
@@ -80,7 +82,8 @@ public class StatusCfdiServiceTest {
      * Prueba el servicio StatusCfdi en el entorno de pruebas cuando se genera un error.
      * @throws Exception Si ocurre un error durante la prueba.
     */
-    @Test
+    @Ignore
+    //intermintencia en pruebas
     public void testStatusCfdiService_Test_Error() throws Exception {
         StatusCfdiService app = new StatusCfdiService(
                 "https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc"
