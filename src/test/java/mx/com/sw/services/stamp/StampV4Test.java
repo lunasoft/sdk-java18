@@ -37,7 +37,61 @@ public class StampV4Test {
     * Método de UT timbrado versión 1 y envio de email.
     */
     @Test
-    public void testStampV1() {
+    public void testStampV1Email() {
+        try {
+            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            StampResponseV1 response = stamp.timbrarV1(xml, settings.getCorreo(), null,false, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getTFD());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+        /**
+    * Método de UT timbrado versión 2 y envio de email.
+    */
+    @Test
+    public void testStampV2Email() {
+        try {
+            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            StampResponseV2 response = stamp.timbrarV2(xml, settings.getCorreo(), null,false, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getTFD());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+        /**
+    * Método de UT timbrado versión 3 y envio de email.
+    */
+    @Test
+    public void testStampV3Email() {
+        try {
+            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            StampResponseV3 response = stamp.timbrarV3(xml, settings.getCorreo(), null,false, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+        /**
+    * Método de UT timbrado versión 4 y envio de email.
+    */
+    @Test
+    public void testStampV4Email() {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
@@ -72,14 +126,14 @@ public class StampV4Test {
     }
 
     /**
-    * Método de UT timbrado versión 1 y envio de 6 emails.
+    * Método de UT timbrado versión 3 y envio de 6 emails.
     */
     @Test
-    public void testV4StampV1_maxEmail() {
+    public void testV4StampV3_maxEmail() {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV1 response = stamp.timbrarV1(xml, settings.getCorreos(), null,false, false);
+            StampResponseV3 response = stamp.timbrarV3(xml, settings.getCorreos(), null,false, false);
             String messageExpect = "El listado de correos está vacío o contiene más de 5 correos.";
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
@@ -108,6 +162,64 @@ public class StampV4Test {
             Assertions.assertNotNull(ex);
         }
     }
+    /**
+    * Método de UT timbrado versión 2 con envio de parametro CustomId.
+    */
+    @Test
+    public void testStampV2_customId() {
+        try {
+            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            String customId = UUID.randomUUID().toString();
+            StampResponseV2 response = stamp.timbrarV2(xml, null, customId, false, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+       /**
+    * Método de UT timbrado versión 3 con envio de parametro CustomId.
+    */
+    @Test
+    public void testStampV3_customId() {
+        try {
+            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+            String xml = settings.getCFDI(true);
+            String customId = UUID.randomUUID().toString();
+            StampResponseV3 response = stamp.timbrarV3(xml, null, customId, false, false);
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getData());
+            Assertions.assertNotNull(response.getStatus());
+            Assertions.assertNotNull(response.getData().getCFDI());
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+    /**
+ * Método de UT timbrado versión 3 con envio de parametro CustomId.
+ */
+ @Test
+ public void testStampV4_customId() {
+     try {
+         StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+         String xml = settings.getCFDI(true);
+         String customId = UUID.randomUUID().toString();
+         StampResponseV4 response = stamp.timbrarV4(xml, null, customId, false, false);
+         Assertions.assertNotNull(response);
+         Assertions.assertNotNull(response.getData());
+         Assertions.assertNotNull(response.getStatus());
+         Assertions.assertNotNull(response.getData().getCFDI());
+         Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+     } catch (ServicesException ex) {
+         Assertions.assertNotNull(ex);
+     }
+ }
+
 
     /**
     * Método de UT timbrado versión 1 con envio de parametro customId duplicado.
@@ -149,65 +261,7 @@ public class StampV4Test {
             Assertions.assertNotNull(ex);
         }
     }
-
-    /**
-    * Método de UT timbrado versión 1 con envio de parametro PDF.
-    */
-    @Test
-    public void testStampV1_pdf() {
-        try {
-            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            String xml = settings.getCFDI(true);
-            StampResponseV1 response = stamp.timbrarV1(xml, null, null,true, false);
-            Assertions.assertNotNull(response);
-            Assertions.assertNotNull(response.getData());
-            Assertions.assertNotNull(response.getStatus());
-            Assertions.assertNotNull(response.getData().getTFD());
-        } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
-        }
-    }
-
-    /**
-    * Método de UT timbrado versión 2.
-    */
-    @Test
-    public void testStampV2() {
-        try {
-            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            String xml = settings.getCFDI(true);
-            StampResponseV2 response = stamp.timbrarV2(xml, settings.getCorreo(), null, false, false);
-            Assertions.assertNotNull(response);
-            Assertions.assertNotNull(response.getData());
-            Assertions.assertNotNull(response.getStatus());
-            Assertions.assertNotNull(response.getData().getCFDI());
-            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
-        } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
-        }
-    }
-
-    /**
-    * Método de UT timbrado versión 2 con envio de parametro CustomId.
-    */
-    @Test
-    public void testStampV2_customId() {
-        try {
-            StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
-            String xml = settings.getCFDI(true);
-            String customId = UUID.randomUUID().toString();
-            StampResponseV2 response = stamp.timbrarV2(xml, null, customId, false, false);
-            Assertions.assertNotNull(response);
-            Assertions.assertNotNull(response.getData());
-            Assertions.assertNotNull(response.getStatus());
-            Assertions.assertNotNull(response.getData().getCFDI());
-            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
-        } catch (ServicesException ex) {
-            Assertions.assertNotNull(ex);
-        }
-    }
-
-    /**
+     /**
     * Método de UT timbrado versión 2 con envio de parametro customId duplicado.
     */
     @Test
@@ -229,83 +283,73 @@ public class StampV4Test {
     }
 
     /**
-    * Método de UT timbrado versión 3.
+    * Método de UT timbrado versión 1 con envio de parametro PDF.
     */
     @Test
-    public void testStampV3() {
+    public void testStampV1_pdf() {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV3 response = stamp.timbrarV3(xml, settings.getCorreo(),null, false, false);
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null,true, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
-            Assertions.assertNotNull(response.getData().getCFDI());
-            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertNotNull(response.getData().getTFD());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
     }
-
-    /**
-    * Método de UT timbrado versión 3 con envio de parametro CustomId.
+        /**
+    * Método de UT timbrado versión 2 con envio de parametro PDF.
     */
     @Test
-    public void testStampV3_customId() {
+    public void testStampV2_pdf() {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            String customId = UUID.randomUUID().toString();
-            StampResponseV3 response = stamp.timbrarV3(xml, null, customId, false, false);
+            StampResponseV2 response = stamp.timbrarV2(xml, null, null,true, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
-            Assertions.assertNotNull(response.getData().getCFDI());
-            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
+            Assertions.assertNotNull(response.getData().getTFD());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
     }
-
-    /**
-    * Método de UT timbrado versión 4.
+        /**
+    * Método de UT timbrado versión 3 con envio de parametro PDF.
     */
     @Test
-    public void testStampV4() {
+    public void testStampV3_pdf() {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            StampResponseV4 response = stamp.timbrarV4(xml, settings.getCorreo(),null, false, false);
+            StampResponseV3 response = stamp.timbrarV3(xml, null, null,true, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertNotNull(response.getData().getCFDI());
-            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
     }
-
-    /**
-    * Método de UT timbrado versión 4 con envio de parametro CustomId.
+            /**
+    * Método de UT timbrado versión 4 con envio de parametro PDF.
     */
     @Test
-    public void testStampV4_customId() {
+    public void testStampV4_pdf() {
         try {
             StampV4 stamp = new StampV4(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
             String xml = settings.getCFDI(true);
-            String customId = UUID.randomUUID().toString();
-            StampResponseV4 response = stamp.timbrarV4(xml, settings.getCorreo(),customId, false, false);
+            StampResponseV4 response = stamp.timbrarV4(xml, null, null,true, false);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getData());
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertNotNull(response.getData().getCFDI());
-            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
-    }    
-
+    }
     /**
     * Método de UT timbrado versión 1 base64.
     */
