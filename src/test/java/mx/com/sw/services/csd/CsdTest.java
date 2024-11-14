@@ -154,7 +154,7 @@ public class CsdTest {
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue("Certificados".equalsIgnoreCase(response.getMessage()));
-            Assertions.assertTrue("El certificado no pertenece a la llave privada."
+            Assertions.assertTrue("No se pudo cargar la llave privada, asegúrese de que la contraseña sea válida."
                     .equalsIgnoreCase(response.getMessageDetail()));
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);

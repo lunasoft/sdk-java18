@@ -101,7 +101,7 @@ public class BuildSettings {
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
-            uuid = UUID.fromString("8d8310f8-9fcb-4c2a-af17-cb747724d208");
+            uuid = UUID.fromString("9524cdf9-41f8-43b5-8460-58b164cef570");
             correo = Arrays.asList("correo@test.com.mx");
             correos = Arrays.asList("correo@test.com.mx", "correo@test2.com.mx", "correo@test3.com.mx",
                     "correo@test4.com.mx", "correo@test5.com.mx", "correo@tes6t.com.mx");
