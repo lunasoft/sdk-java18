@@ -1,13 +1,17 @@
 package mx.com.sw.services.Validate;
+
 import java.util.Map;
 import java.util.UUID;
-import org.apache.http.client.config.RequestConfig;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
 import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.Validate.responses.ValidateResponseHandler;
+import org.apache.http.client.config.RequestConfig;
 
-public class Validate extends ValidateService{
+/**
+ * Servicio que contiene un metodo para realizar la validacion de CFDI.
+ */
+public class Validate extends ValidateService {
     private ValidateResponseHandler handler;
 
     /**
@@ -42,7 +46,7 @@ public class Validate extends ValidateService{
      * @param xmlcontent String xml.
      * @return ValidateResponse
      */
-    public ValidateResponse ValidateXML(String xmlcontent){
+    public ValidateResponse ValidateXML(String xmlcontent) {
         try {
             Map<String, String> headers = getHeaders();
             String boundary = UUID.randomUUID().toString();

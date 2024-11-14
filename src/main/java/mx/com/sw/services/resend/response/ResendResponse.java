@@ -2,6 +2,9 @@ package mx.com.sw.services.resend.response;
 
 import mx.com.sw.entities.IResponse;
 
+/**
+ * ResendResponse.
+ */
 public class ResendResponse extends IResponse {
 
     private String data;
@@ -26,6 +29,4 @@ public class ResendResponse extends IResponse {
     public void setData(String value) {
         this.data = value;
     }
-
-
 }

@@ -1,4 +1,5 @@
 package mx.com.sw.services.Validate;
+
 import java.util.HashMap;
 import java.util.Map;
 import mx.com.sw.exceptions.ServicesException;
@@ -8,7 +9,7 @@ import mx.com.sw.services.Validate.responses.ValidateResponse;
 /**
  * ValidateService, servicio de validacion de XML.
  */
-public abstract class ValidateService extends Services{
+public abstract class ValidateService extends Services {
 
     /**
     * Constructor de la clase.

@@ -1,5 +1,11 @@
 package mx.com.sw.helpers;
 
+import java.util.List;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import mx.com.sw.exceptions.GeneralException;
 import mx.com.sw.exceptions.ServicesException;
 
 /**
@@ -65,5 +71,35 @@ public class GeneralValidations {
         if (validToken.length != TOKEN_PARTS) {
             throw new ServicesException("Token Mal Formado");
         }
+    }
+
+    /**
+     * Este método valida el CustomId proporcionado.
+     * @param customId
+     * @throws ServicesException
+     */
+    protected void validateCustomId(String customId) throws ServicesException{
+        if (customId.length() <= 0 || customId.length() > 150) {
+            throw new ServicesException("El CustomId no es válido o viene vacío.");
+        } 
+    }
+
+    /**
+     * Este método valida el o los emails proporcionados.
+     * @param emails
+     * @throws ServicesException
+     */
+    protected boolean validateEmails(List<String> emails) throws ServicesException {
+        if (emails.isEmpty() || emails.size() > 5) {
+            throw new ServicesException("El listado de correos está vacío o contiene más de 5 correos.");
+        }
+        Pattern emailPattern = Pattern.compile("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$");
+        for (String email : emails) {
+            Matcher matcher = emailPattern.matcher(email);
+            if (!matcher.matches()) {
+                throw new ServicesException("El listado de correos no contiene un formato válido o alguno de los correos es inválido.");
+            }
+        }
+        return true;
     }
 }

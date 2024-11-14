@@ -20,14 +20,14 @@ public class CsdValidation {
             throw new ServicesException(errorDescription);
         }
     }
-    
+
     /**
      * Validación para verificar que parametros enviados en el Request.
      * @param b64Cer String Certificado en base 64
      * @param b64Key string Llave privada en base 64
      * @param password String Contraseña del certificado
      * @throws ServicesException exception en caso de error.
-     */
+    */
     public void validateRequestCsd(String b64Cer, String b64Key, String password) throws ServicesException {
         validateNull(b64Cer, "El certificado viene vacio");
         validateNull(b64Key, "La llave privada viene vacia");

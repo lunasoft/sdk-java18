@@ -13,8 +13,8 @@ public class CsdData {
     private String valid_to;
     private String certificate_type;
 
-     /**
-     * Retorna el RFC del certificado
+    /**
+     * Retorna el RFC del certificado.
      * @return String
     */
     public String getIssuerRfc() {
@@ -26,7 +26,7 @@ public class CsdData {
     }
 
     /**
-     * Retorna el número del certificado
+     * Retorna el número del certificado.
      * @return String
     */
     public String getCertificateNumber() {
@@ -38,7 +38,7 @@ public class CsdData {
     }
 
     /**
-     * Retorna el certificado en B64
+     * Retorna el certificado en B64.
      * @return String
     */
     public String getCsdCertificate() {
@@ -50,9 +50,9 @@ public class CsdData {
     }
 
     /**
-     * Retorna el estado del certificado
-     * true 
-     * false 
+     * Retorna el estado del certificado.
+     * true
+     * false
      * @return String
     */
     public String getIsActive() {
@@ -64,7 +64,7 @@ public class CsdData {
     }
 
     /**
-     * Retorna el nombre a quien esta el certificado
+     * Retorna el nombre a quien esta el certificado.
      * @return String
     */
     public String getIssuerBusinessName() {
@@ -76,7 +76,7 @@ public class CsdData {
     }
 
     /**
-     * Retorna la fecha desde la cual es valido el certificado
+     * Retorna la fecha desde la cual es valido el certificado.
      * @return String
     */
     public String getValidFrom() {
@@ -88,7 +88,7 @@ public class CsdData {
     }
 
     /**
-     * Retorna la fecha hasta la cual es valido el certificado
+     * Retorna la fecha hasta la cual es valido el certificado.
      * @return String
     */
     public String getValidTo() {
@@ -100,7 +100,7 @@ public class CsdData {
     }
 
     /**
-     * Retorna el tipo de certificado
+     * Retorna el tipo de certificado.
      * Default = Stamp
      * @return String
     */

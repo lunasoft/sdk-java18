@@ -6,6 +6,9 @@ import mx.com.sw.entities.IResponse;
  * CsdResponse Clase con mensaje de exito que el servicio de CSD al cargar un certificado.
  */
 public class CsdResponse extends IResponse {
+    /**
+     * Data.
+     */
     public String data;
 
     /**
@@ -19,6 +22,4 @@ public class CsdResponse extends IResponse {
         super(status, message, messageDetail);
         this.data = data;
     }
-
-    
 }

@@ -19,7 +19,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Constructor de la clase StatusCfdiOptionsRequest.
-     * 
      * @param URI         La URI de la solicitud.
      * @param action      La acción de la solicitud.
      * @param rfcEmisor   El RFC del emisor.
@@ -30,7 +29,8 @@ public class StatusCfdiOptionsRequest implements IRequestor {
      * @param proxyHost   El host del proxy.
      * @param proxyPort   El puerto del proxy.
      */
-    public StatusCfdiOptionsRequest(String URI, String action, String rfcEmisor, String rfcReceptor, String total, String uuid, String sello, String proxyHost, int proxyPort) {
+    public StatusCfdiOptionsRequest(String URI, String action, String rfcEmisor, String rfcReceptor,
+            String total, String uuid, String sello, String proxyHost, int proxyPort) {
         this.URI = URI;
         this.rfcEmisor = rfcEmisor;
         this.rfcReceptor = rfcReceptor;
@@ -42,7 +42,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Obtiene la URI de la solicitud.
-     * 
      * @return La URI de la solicitud.
      */
     public String getURI() {
@@ -51,7 +50,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Obtiene el RFC del emisor.
-     * 
      * @return El RFC del emisor.
      */
     public String getRfcEmisor() {
@@ -60,7 +58,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Obtiene el RFC del receptor.
-     * 
      * @return El RFC del receptor.
      */
     public String getRfcReceptor() {
@@ -69,7 +66,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Obtiene el total del CFDI.
-     * 
      * @return El total del CFDI.
      */
     public String getTotal() {
@@ -78,7 +74,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Obtiene el UUID del CFDI.
-     * 
      * @return El UUID del CFDI.
      */
     public String getUuid() {
@@ -87,7 +82,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Obtiene el sello del CFDI.
-     * 
      * @return El sello del CFDI.
      */
     public String getSello() {
@@ -96,7 +90,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Obtiene la acción de la solicitud.
-     * 
      * @return La acción de la solicitud.
      */
     public String getAction() {
@@ -105,7 +98,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Método sobreescrito de la interfaz IRequestor.
-     * 
      * @param arg0                              Los archivos de clase.
      * @param arg1                              Los caracteres.
      * @return                                  Si se aceptan los archivos de clase.
@@ -118,7 +110,6 @@ public class StatusCfdiOptionsRequest implements IRequestor {
 
     /**
      * Método sobreescrito de la interfaz IRequestor.
-     * 
      * @param arg0                              El problema categorizado.
      * @param arg1                              Los caracteres.
      * @param arg2                              El número.

@@ -1,16 +1,16 @@
 package mx.com.sw.services.resend;
 
+import java.util.Arrays;
+import java.util.List;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.resend.response.ResendResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import org.junit.jupiter.api.Assertions;
-
+/**
+ * ResendTest.
+ */
 public class ResendTest {
     private final BuildSettings settings;
 
@@ -65,6 +65,7 @@ public class ResendTest {
             Assertions.assertNotNull(ex);
         }
     }
+
     @Test
     public void testResendNullToken() {
         try {
@@ -72,7 +73,8 @@ public class ResendTest {
             ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreo());
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
-            Assertions.assertTrue("AU4101 - El token proporcionado viene vacio.".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue("AU4101 - El token proporcionado viene vacio."
+                    .equalsIgnoreCase(response.getMessage()));
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
@@ -102,12 +104,14 @@ public class ResendTest {
             ResendResponse response = resend.ResendEmail(null, settings.getCorreo());
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
-            Assertions.assertTrue("Can not process the message, we need uuid and to parametters".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue("Can not process the message, we need uuid and to parametters"
+                    .equalsIgnoreCase(response.getMessage()));
             Assertions.assertNotNull(response.getMessageDetail());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
     }
+
     @Test
     public void testResendNullEmail() {
         try {
@@ -115,12 +119,14 @@ public class ResendTest {
             ResendResponse response = resend.ResendEmail(settings.getUuid(), null);
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
-            Assertions.assertTrue("El listado de correos está vacío o contiene más de 5 correos.".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue("El listado de correos está vacío o contiene más de 5 correos."
+                    .equalsIgnoreCase(response.getMessage()));
             Assertions.assertNotNull(response.getMessageDetail());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
     }
+
     @Test
     public void testResendSixEmail() {
         try {
@@ -128,12 +134,14 @@ public class ResendTest {
             ResendResponse response = resend.ResendEmail(settings.getUuid(), settings.getCorreos());
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
-            Assertions.assertTrue("El listado de correos está vacío o contiene más de 5 correos.".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue("El listado de correos está vacío o contiene más de 5 correos."
+                    .equalsIgnoreCase(response.getMessage()));
             Assertions.assertNotNull(response.getMessageDetail());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
     }
+
     @Test
     public void testResendInvalidEmail() {
         try {
@@ -142,12 +150,11 @@ public class ResendTest {
             ResendResponse response = resend.ResendEmail(settings.getUuid(), email);
             Assertions.assertNull(response.getData());
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
-            Assertions.assertTrue("El listado de correos no contiene un formato válido o alguno de los correos es inválido.".equalsIgnoreCase(response.getMessage()));
+            String message = "El listado de correos no contiene un formato válido o alguno de los correos es inválido.";
+            Assertions.assertTrue(message.equalsIgnoreCase(response.getMessage()));
             Assertions.assertNotNull(response.getMessageDetail());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
     }
-
-
 }

@@ -46,11 +46,11 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP POST con la configuracion enviada.
-     * @param url String url o host.
-     * @param path String path
-     * @param headers Map String String con headers.
-     * @param jsonBody String body
-     * @param configHTTP RequestConfig objeto de configuración.
+     * @param url          String url o host.
+     * @param path         String path
+     * @param headers      Map String String con headers.
+     * @param jsonBody     String body
+     * @param configHTTP   RequestConfig objeto de configuración.
      * @param contentClass Clase de respuesta esperada.
      * @return T
      */
@@ -117,12 +117,13 @@ public abstract class ResponseHandler<T> {
     }
 
     /**
-     * Este método realiza un HTTP POST (modo Multipart form data) con la configuracion enviada.
-     * @param url String url o host.
-     * @param path String path.
-     * @param headers Map String String con headers.
-     * @param body String formato Multipart con body a enviar.
-     * @param configHTTP RequestConfig objeto de configuración.
+     * Este método realiza un HTTP POST (modo Multipart form data) con la
+     * configuracion enviada.
+     * @param url          String url o host.
+     * @param path         String path.
+     * @param headers      Map String String con headers.
+     * @param body         String formato Multipart con body a enviar.
+     * @param configHTTP   RequestConfig objeto de configuración.
      * @param contentClass Clase esperada de respuesta.
      * @return T
      */
@@ -150,7 +151,7 @@ public abstract class ResponseHandler<T> {
             Future<HttpResponse> future = client.execute(request, null);
             HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
             if (response.getStatusLine() != null
-                && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                    && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
@@ -159,13 +160,15 @@ public abstract class ResponseHandler<T> {
                 } else {
                     throw new GeneralException(
                             response.getStatusLine() != null
-                                ? response.getStatusLine().getStatusCode() : HttpStatus.SC_UNPROCESSABLE_ENTITY,
+                                    ? response.getStatusLine().getStatusCode()
+                                    : HttpStatus.SC_UNPROCESSABLE_ENTITY,
                             "Can´t get body from the request made.");
                 }
             } else {
                 throw new GeneralException(
                         response.getStatusLine() != null
-                            ? response.getStatusLine().getStatusCode() : HttpStatus.SC_INTERNAL_SERVER_ERROR,
+                                ? response.getStatusLine().getStatusCode()
+                                : HttpStatus.SC_INTERNAL_SERVER_ERROR,
                         "Error > 500 calling the service.");
             }
         } catch (IllegalArgumentException e) {
@@ -195,10 +198,10 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP GET con la configuracion enviada.
-     * @param url String url o host.
-     * @param path String path.
-     * @param headers Map String String con headers.
-     * @param configHTTP RequestConfig objeto de configuración.
+     * @param url          String url o host.
+     * @param path         String path.
+     * @param headers      Map String String con headers.
+     * @param configHTTP   RequestConfig objeto de configuración.
      * @param contentClass Clase esperada de respuesta.
      * @return T
      */
@@ -219,7 +222,7 @@ public abstract class ResponseHandler<T> {
             Future<HttpResponse> future = client.execute(request, null);
             HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
             if (response.getStatusLine() != null
-                && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                    && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
@@ -228,13 +231,15 @@ public abstract class ResponseHandler<T> {
                 } else {
                     throw new GeneralException(
                             response.getStatusLine() != null
-                            ? response.getStatusLine().getStatusCode() : HttpStatus.SC_UNPROCESSABLE_ENTITY,
+                                    ? response.getStatusLine().getStatusCode()
+                                    : HttpStatus.SC_UNPROCESSABLE_ENTITY,
                             "Can´t get body from the request made.");
                 }
             } else {
                 throw new GeneralException(
                         response.getStatusLine() != null
-                        ? response.getStatusLine().getStatusCode() : HttpStatus.SC_INTERNAL_SERVER_ERROR,
+                                ? response.getStatusLine().getStatusCode()
+                                : HttpStatus.SC_INTERNAL_SERVER_ERROR,
                         "Error > 500 calling the service.");
             }
         } catch (IllegalArgumentException e) {
@@ -264,10 +269,10 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP DELTE con la configuracion enviada.
-     * @param url String url o host.
-     * @param path String path.
-     * @param headers Map String String con headers.
-     * @param configHTTP RequestConfig objeto de configuración.
+     * @param url          String url o host.
+     * @param path         String path.
+     * @param headers      Map String String con headers.
+     * @param configHTTP   RequestConfig objeto de configuración.
      * @param contentClass Clase esperada de respuesta.
      * @return T
      */
@@ -288,7 +293,7 @@ public abstract class ResponseHandler<T> {
             Future<HttpResponse> future = client.execute(request, null);
             HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
             if (response.getStatusLine() != null
-                && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                    && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
@@ -297,13 +302,15 @@ public abstract class ResponseHandler<T> {
                 } else {
                     throw new GeneralException(
                             response.getStatusLine() != null
-                            ? response.getStatusLine().getStatusCode() : HttpStatus.SC_UNPROCESSABLE_ENTITY,
+                                    ? response.getStatusLine().getStatusCode()
+                                    : HttpStatus.SC_UNPROCESSABLE_ENTITY,
                             "Can´t get body from the request made.");
                 }
             } else {
                 throw new GeneralException(
                         response.getStatusLine() != null
-                        ? response.getStatusLine().getStatusCode() : HttpStatus.SC_INTERNAL_SERVER_ERROR,
+                                ? response.getStatusLine().getStatusCode()
+                                : HttpStatus.SC_INTERNAL_SERVER_ERROR,
                         "Error > 500 calling the service.");
             }
         } catch (IllegalArgumentException e) {
@@ -337,7 +344,7 @@ public abstract class ResponseHandler<T> {
      * @param contentClass Clase esperada de respuesta.
      * @return T
      * @throws JsonSyntaxException en caso de error.
-     * @throws ServicesException en caso de json vacío (Errores 404 o similar).
+     * @throws ServicesException   en caso de json vacío (Errores 404 o similar).
      */
     public T deserialize(String json, Class<T> contentClass) throws JsonSyntaxException, ServicesException {
         if (json == null || json.isEmpty()) {

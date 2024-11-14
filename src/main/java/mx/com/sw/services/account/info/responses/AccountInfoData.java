@@ -22,6 +22,8 @@ public class AccountInfoData {
     private String registeredDate;
     private boolean eliminado;
     private String tokenAccess;
+    private String data;
+    private String status;
 
     /**
      * Obtiene el Saldo de timbres.
@@ -141,5 +143,21 @@ public class AccountInfoData {
      */
     public String getTokenAccess() {
         return this.tokenAccess;
+    }
+
+    /**
+     * Obtiene los datos de la cuenta.
+     * @return String
+     */
+    public String getData() {
+        return this.data;
+    }
+
+    /**
+     * Obtiene el estado de la respuesta.
+     * @return String
+     */
+    public String getStatus() {
+        return this.status;
     }
 }

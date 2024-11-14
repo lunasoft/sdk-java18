@@ -2,11 +2,13 @@ package mx.com.sw.helpers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
+import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
+import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
 import mx.com.sw.services.csd.responses.CsdResponse;
@@ -21,6 +23,7 @@ import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
 import mx.com.sw.services.storage.StorageResponse;
+
 /**
 * ResponseHelper
 * Está clase funciona como un handler de exceptions donde se toma un exception
@@ -131,6 +134,15 @@ public final class ResponseHelper {
     }
 
     /**
+    * Este método obtiene una respuesta de tipo AccountActionsData.
+    * @param ex Throwable a ser tratado
+    * @return {@link AccountBalanceActionResponse}
+    */
+    public static AccountBalanceActionResponse toAccountActionsData(Throwable ex) {
+        return new AccountBalanceActionResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
      * Este método obtiene una respuesta de tipo PendingsResponse.
      * @param ex Throwable a ser tratado
      * @return {@link PendingsResponse}
@@ -146,6 +158,24 @@ public final class ResponseHelper {
     */
     public static AccountInfoResponse toAccountInfoResponse(Throwable ex) {
         return new AccountInfoResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo AccountInfoActionResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link AccountInfoResponse}
+    */
+    public static AccountInfoActionResponse toAccountInfoActionResponse(Throwable ex) {
+        return new AccountInfoActionResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+    * Este método obtiene una respuesta de tipo AccountListDataResponse.
+    * @param ex Throwable a ser tratado
+    * @return {@link AccountInfoResponse}
+    */
+    public static AccountListDataResponse toAccountListDataResponse(Throwable ex) {
+        return new AccountListDataResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
@@ -195,6 +225,7 @@ public final class ResponseHelper {
     public static StorageResponse toStorageResponse(Throwable ex) {
         return new StorageResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
+
     /**
      * Este método obtiene una respuesta de tipo ResendResponse.
      * @param ex Throwable a ser tratado
@@ -203,12 +234,14 @@ public final class ResponseHelper {
     public static ResendResponse toResendResponse(Throwable ex) {
         return new ResendResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
+
     /**
     * Este método obtiene una respuesta de tipo ValidateResponse.
     * @param ex Throwable a ser tratado
     * @return {@link PdfResponse}
     */
     public static ValidateResponse toValidateResponse(Throwable ex) {
-        return new ValidateResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null,null,null,null,null,null);
+        return new ValidateResponse(STATUS_ERROR, ex.getMessage(),
+                getStackError(ex), null, null, null, null, null, null);
     }
 }

@@ -1,12 +1,12 @@
-package mx.com.sw.services.storage;
+package mx.com.sw.services.account.balance.responses;
 
 import mx.com.sw.entities.IResponse;
 
 /**
- * StorageResponse.
+ * AccountBalanceActionResponse.
  */
-public class StorageResponse extends IResponse {
-    private StorageData data;
+public class AccountBalanceActionResponse extends IResponse {
+    private String data;
 
     /**
      * Constructor de la clase.
@@ -15,17 +15,16 @@ public class StorageResponse extends IResponse {
      * @param messageDetail detalles mensaje de la API.
      * @param data          objeto con los datos de respuesta.
      */
-
-    public StorageResponse(String status, String message, String messageDetail, StorageData data) {
+    public AccountBalanceActionResponse(String status, String message, String messageDetail, String data) {
         super(status, message, messageDetail);
         this.data = data;
     }
 
     /**
-     * Obtiene los datos del xml cuando está fue "success".
-     * @return {@link StorageData}
+     * Obtiene los datos del movimiento de saldo cuando está fue "success".
+     * @return {@link AccountBalanceActionResponse}
      */
-    public StorageData getData() {
+    public String getData() {
         return this.data;
     }
 }

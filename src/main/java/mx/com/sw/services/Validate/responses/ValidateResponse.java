@@ -1,11 +1,12 @@
 package mx.com.sw.services.Validate.responses;
+
 import java.util.List;
 import mx.com.sw.entities.IResponse;
 
 /**
  * ValidateResponse Clase con la informacion de la validacion.
  */
-public class ValidateResponse extends IResponse{
+public class ValidateResponse extends IResponse {
     private List<ValidateNodeDetail> detail;
     private String cadenaOriginalSAT;
     private String cadenaOriginalComprobante;
@@ -25,8 +26,9 @@ public class ValidateResponse extends IResponse{
      * @param statusSat estatus del comprobante ante el SAT.
      * @param statusCodeSat codigo de estatus del SAT
      */
-    public ValidateResponse(String status, String message, String messageDetail, List<ValidateNodeDetail> detail, String cadenaOriginalSAT,
-    String cadenaOriginalComprobante, String uuid, String statusSat, String statusCodeSat) {
+    public ValidateResponse(String status, String message, String messageDetail, List<ValidateNodeDetail> detail,
+            String cadenaOriginalSAT, String cadenaOriginalComprobante, String uuid, String statusSat,
+            String statusCodeSat) {
         super(status, message, messageDetail);
         this.detail = detail;
         this.cadenaOriginalSAT = cadenaOriginalSAT;
@@ -41,7 +43,7 @@ public class ValidateResponse extends IResponse{
      * Obtiene una lista de nodos de la validacion.
      * @return ValidateData
      */
-    public List<ValidateNodeDetail> getDetail(){
+    public List<ValidateNodeDetail> getDetail() {
         return this.detail;
     }
 
@@ -49,7 +51,7 @@ public class ValidateResponse extends IResponse{
      * Retorna la cadena original del SAT.
      * @return String
     */
-    public String getCadenaOriginalSAT(){
+    public String getCadenaOriginalSAT() {
         return cadenaOriginalSAT;
     }
 
@@ -57,7 +59,7 @@ public class ValidateResponse extends IResponse{
      * Retorna la cadena original del Comprobante.
      * @return String
     */
-    public String getCadenaOriginalComprobante(){
+    public String getCadenaOriginalComprobante() {
         return cadenaOriginalComprobante;
     }
 
@@ -78,7 +80,7 @@ public class ValidateResponse extends IResponse{
     }
 
     /**
-     * Retorna el codigo de estatus del SAT
+     * Retorna el codigo de estatus del SAT.
      * @return String
     */
     public String getStatusCodeSat() {

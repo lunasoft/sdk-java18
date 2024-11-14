@@ -26,7 +26,7 @@ public class AccountBalanceResponse extends IResponse {
     /**
      * Obtiene los datos de la consulta de saldo cuando está fue "success".
      * @return {@link AccountBalanceData}
-     */
+    */
     public AccountBalanceData getData() {
         return this.data;
     }

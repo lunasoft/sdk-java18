@@ -1,12 +1,13 @@
-package mx.com.sw.services.csd.responses;
+package mx.com.sw.services.account.info.responses;
 
+import java.util.List;
 import mx.com.sw.entities.IResponse;
 
 /**
- * CsdDataResponse Clase que retorna la informacion retornada por el servicio de CSD al realizar una consulta.
+ * AccountListDataResponse.
  */
-public class CsdDataResponse extends IResponse {
-    private CsdData data;
+public class AccountListDataResponse extends IResponse {
+    private List<AccountInfoData> data;
 
     /**
      * Constructor de la clase.
@@ -15,7 +16,7 @@ public class CsdDataResponse extends IResponse {
      * @param messageDetail detalles mensaje de la API.
      * @param data objeto con los datos de respuesta.
      */
-    public CsdDataResponse(String status, String message, String messageDetail, CsdData data) {
+    public AccountListDataResponse(String status, String message, String messageDetail, List<AccountInfoData> data) {
         super(status, message, messageDetail);
         this.data = data;
     }
@@ -24,7 +25,7 @@ public class CsdDataResponse extends IResponse {
      * Obtiene los datos del certificado cuando la consulta fue "success".
      * @return CsdData
      */
-    public CsdData getData() {
+    public List<AccountInfoData> getData() {
         return this.data;
     }
 }

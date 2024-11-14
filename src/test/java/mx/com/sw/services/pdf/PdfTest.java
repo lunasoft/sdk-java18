@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.UUID;
-
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.pdf.responses.PdfResponse;
@@ -18,20 +17,20 @@ import org.junit.jupiter.api.Test;
  * @author Manuel Castillo
  * @version 0.0.0.1
  * @since 2020-12-15
- */
+*/
 public class PdfTest {
     private final BuildSettings settings;
 
     /**
      * Constructor de la clase.
-     */
+    */
     public PdfTest() {
         this.settings = new BuildSettings();
     }
 
     /**
      * Método de UT consume servicio genera PDF con token.
-     */
+    */
     @Test
     public void testGetPdfToken() {
         try {
@@ -51,7 +50,7 @@ public class PdfTest {
 
     /**
      * Método de UT consume servicio genera PDF.
-     */
+    */
     @Test
     public void testGetPdf() {
         try {
@@ -72,7 +71,7 @@ public class PdfTest {
 
     /**
      * Método de UT consume servicio genera PDF.
-     */
+    */
     @Test
     public void testGetPdfUT1() {
         try {
@@ -93,7 +92,7 @@ public class PdfTest {
 
     /**
      * Método de UT consume servicio genera PDF, con CFDI + template.
-     */
+    */
     @Test
     public void testGetPdfUT2() {
         try {
@@ -114,7 +113,7 @@ public class PdfTest {
 
     /**
      * Método de UT consume servicio genera PDF, con CFDI + datos extra.
-     */
+    */
     @Test
     public void testGetPdfUT3() {
         try {
@@ -211,12 +210,12 @@ public class PdfTest {
     //-------------------------------------------
     /**
      * Método de UT consume servicio regenerar PDF, con token.
-     */
+    */
     @Test
-    public void testRegeneratePdf_Success(){
+    public void testRegeneratePdf_Success() {
         try {
             Pdf pdf = new Pdf(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            PdfResponse response = pdf.regeneratePdf(UUID.fromString("8d8310f8-9fcb-4c2a-af17-cb747724d208"));
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("9524cdf9-41f8-43b5-8460-58b164cef570"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
@@ -225,14 +224,16 @@ public class PdfTest {
             Assertions.assertNotNull(ex);
         }
     }
+
     /**
      * Método de UT consume servicio regenerar PDF, con Usuario y contraseña.
-     */
+    */
     @Test
-    public void testRegeneratePdf_AuthSuccess(){
+    public void testRegeneratePdf_AuthSuccess() {
         try {
-            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),settings.getPasswordSW(), null, 0);
-            PdfResponse response = pdf.regeneratePdf(UUID.fromString("8d8310f8-9fcb-4c2a-af17-cb747724d208"));
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),
+                    settings.getPasswordSW(), null, 0);
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("9524cdf9-41f8-43b5-8460-58b164cef570"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
@@ -241,14 +242,16 @@ public class PdfTest {
             Assertions.assertNotNull(ex);
         }
     }
+
     /**
      * Método de UT consume servicio regenerar PDF, error en el usuario.
-     */
+    */
     @Test
-    public void testRegeneratePdf_ErrorAuth(){
+    public void testRegeneratePdf_ErrorAuth() {
         try {
             String msgError = "AU2000 - El usuario y/o contraseña son inválidos, no se puede autenticar el servicio.";
-            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), "user",settings.getPasswordSW(), null, 0);
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), "user",
+                    settings.getPasswordSW(), null, 0);
             PdfResponse response = pdf.regeneratePdf(UUID.fromString("5bb78a5c-9fd7-4100-8fac-9b51b585e22f"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
@@ -258,13 +261,15 @@ public class PdfTest {
             Assertions.assertNotNull(ex);
         }
     }
+
     /**
      * Método de UT consume servicio regenerar PDF, Error con el UUID no encontrado.
-     */
+    */
     @Test
-    public void testRegeneratePdf_ErrorUUIDNull(){
+    public void testRegeneratePdf_ErrorUUIDNull() {
         try {
-            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(),  settings.getUserSW(),settings.getPasswordSW(), null, 0);
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(),  settings.getUserSW(),
+                    settings.getPasswordSW(), null, 0);
             PdfResponse response = pdf.regeneratePdf(null);
             Assertions.assertNotNull(response);
             Assertions.assertTrue("Error".equalsIgnoreCase(response.getStatus()));
@@ -272,13 +277,15 @@ public class PdfTest {
             Assertions.assertNotNull(ex);
         }
     }
+
     /**
      * Método de UT consume servicio regenerar PDF, Error con el UUID no encontrado.
-     */
+    */
     @Test
-    public void testRegeneratePdf_ErrorUUID(){
+    public void testRegeneratePdf_ErrorUUID() {
         try {
-            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),settings.getPasswordSW(), null, 0);
+            Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),
+                    settings.getPasswordSW(), null, 0);
             PdfResponse response = pdf.regeneratePdf(UUID.fromString("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));

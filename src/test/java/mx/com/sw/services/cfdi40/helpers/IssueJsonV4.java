@@ -39,7 +39,7 @@ public class IssueJsonV4 extends BaseStamp {
     @Override
     public StampResponseV1 stampResponseV1(String fileName, String stampVersion, boolean signed,
          boolean isBase64) throws ServicesException {
-        return issue.timbrarV1(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getEmail());
+        return issue.timbrarV1(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getCorreo(), null, false);
     }
 
     /**
@@ -48,7 +48,7 @@ public class IssueJsonV4 extends BaseStamp {
     @Override
     public StampResponseV2 stampResponseV2(String fileName, String stampVersion, boolean signed,
         boolean isBase64) throws ServicesException {
-        return issue.timbrarV2(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getEmail());
+        return issue.timbrarV2(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getCorreo(), null, false);
     }
 
     /**
@@ -57,7 +57,7 @@ public class IssueJsonV4 extends BaseStamp {
     @Override
     public StampResponseV3 stampResponseV3(String fileName, String stampVersion, boolean signed,
         boolean isBase64) throws ServicesException {
-        return issue.timbrarV3(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getEmail());
+        return issue.timbrarV3(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getCorreo(), null, false);
     }
 
     /**
@@ -66,6 +66,6 @@ public class IssueJsonV4 extends BaseStamp {
     @Override
     public StampResponseV4 stampResponseV4(String fileName, String stampVersion, boolean signed,
         boolean isBase64) throws ServicesException {
-        return issue.timbrarV4(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getEmail());
+        return issue.timbrarV4(getSettings().getJsonCFDI(fileName, isBase64), getSettings().getCorreo(), null, false);
     }
 }

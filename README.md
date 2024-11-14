@@ -48,7 +48,7 @@ Descargas el modulo mediante Maven:
 
 La librería contara con los servicios principales como lo son Timbrado de CFDI, Cancelación, Consulta estatus CFDI, etc.
 
-## Auntenticaci&oacute;n ##
+## Autenticaci&oacute;n ##
 El servicio de Autenticación es utilizado principalmente para obtener el **token** el cual sera utilizado para poder timbrar nuestro CFDI (xml) ya emitido (sellado), para poder utilizar este servicio es necesario que cuente con un **usuario** y **contraseña** para posteriormente obtenga el token, usted puede utilizar los que estan en este ejemplo para el ambiente de **Pruebas**.
 
 **Obtener Token**
@@ -123,7 +123,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url y su Token infinito 
             //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(xml, false);
         } 
@@ -152,7 +152,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url y su Token infinito 
             //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             StampResponseV1 response = stamp.timbrarV1(xml64, true);
@@ -294,7 +294,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
             String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
@@ -344,7 +344,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
             String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
@@ -777,68 +777,16 @@ public class App {
 ```
 </details>
 
-## Consulta de Saldos ##
+## Administración de Saldos ##
+Este servicio consulta, asigna y elimina saldo a las cuentas que administres.
 
+Se deberá autenticar en nuestros servicios para obtener token de acceso, o si se desea, se puede usar el token infinito.
 <details>
 <summary>
-Consulta de Saldos
+Consultar saldo por token
 </summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
 
-## Consulta de Saldos ##
-Este servicio recibe el token y genera los elementos que componen la consulta de saldos:
-
-Se deberá autenticar en nuestros servicios en orden de obtener token de acceso, o si se desea,  se puede usar el token infinito.
-
-**Ejemplo de consumo de la libreria para consultar el saldo mediante usuario y contraseña**
-```java
-import mx.com.sw.services.account.balance.AccountBalance;
-import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
-
-public class App {
-    
-    public static void main(String[] args)
-    {
-        try 
-        {
-            //Creamos una instancia de tipo BalanceAccount 
-            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-            //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "user","password", null, 0);
-            AccountBalanceResponse res = account.getBalance();
-
-            //Para Obtener el idSaldoCliente
-            System.out.println(res.getData().getIdSaldoCliente());
-                        
-            //Para Obtener el idClienteUsuario
-            System.out.println(res.getData().getIdClienteUsuario());
-                    
-            //Para Obtener el saldo Timbres
-            System.out.println(res.getData().getSaldoTimbres());
-                    
-            //Para Obtenerlos timbres Utilizados
-            System.out.println(res.getData().getTimbresUtilizados());
-                    
-            //Para Obtener la fechaExpiracion
-            System.out.println(res.getData().getFechaExpiracion());
-
-            //Para Obtener si es Ilimitado
-            System.out.println(res.getData().isUnlimited());
-                    
-            //Para Obtener los timbres Asignados
-            System.out.println(res.getData().getTimbresAsignados());
-
-            //En caso de error, se pueden visualizar los campos message y/o messageDetail
-            System.out.println("Error al consultar saldo");
-            System.out.println(res.getMessage());
-            System.out.println(res.getMessageDetail());
-        } 
-        catch (Exception e) 
-        {
-            System.out.println(e);
-        }  
-    }
-}
-```
 
 **Ejemplo de consumo de la libreria para consultar el saldo mediante token**
 ```java
@@ -852,10 +800,11 @@ public class App {
         try 
         {
             //Creamos una instancia de tipo BalanceAccount 
-            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-            //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+
+            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
             AccountBalanceResponse res = account.getBalance();
+           
 
             //Para Obtener el idSaldoCliente
             System.out.println(res.getData().getIdSaldoCliente());
@@ -891,6 +840,354 @@ public class App {
 }
 ```
 </details>
+<details>
+<summary>
+Consultar saldo por Id User
+</summary>
+Este metodo necesita como parámetro:
+
+- IdUser a consultar el saldo
+
+
+**Ejemplo de consumo de la libreria para consultar el saldo mediante usuario y contraseña**
+```java
+import mx.com.sw.services.account.balance.AccountBalance;
+import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo BalanceAccount 
+            //A esta le pasamos la Url. UrlApi, Usuario y Contraseña para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a consultar el saldo mediante el IdCliente
+            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx","https://api.test.sw.com.mx", "user","password", null, 0);
+            AccountBalanceResponse res = account
+                    .getBalanceById(UUID.fromString("24418fba-1bd4-4a46-8244-2ae02f6dc15e"));
+           
+
+            //Para Obtener el idSaldoCliente
+            System.out.println(res.getData().getIdSaldoCliente());
+                        
+            //Para Obtener el idClienteUsuario
+            System.out.println(res.getData().getIdClienteUsuario());
+                    
+            //Para Obtener el saldo Timbres
+            System.out.println(res.getData().getSaldoTimbres());
+                    
+            //Para Obtenerlos timbres Utilizados
+            System.out.println(res.getData().getTimbresUtilizados());
+                    
+            //Para Obtener la fechaExpiracion
+            System.out.println(res.getData().getFechaExpiracion());
+
+            //Para Obtener si es Ilimitado
+            System.out.println(res.getData().isUnlimited());
+                    
+            //Para Obtener los timbres Asignados
+            System.out.println(res.getData().getTimbresAsignados());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar saldo");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+<details>
+<summary>
+Añadir saldo
+</summary>
+Este metodo necesita como parametros:
+
+- IdUser a añadirle saldo
+- Cantidad de timbres
+- Comentario (opcional)
+
+**Ejemplo de consumo de la libreria para añadir saldo mediante token**
+```java
+import java.util.UUID;
+import mx.com.sw.services.account.balance.AccountBalance;
+import mx.com.sw.services.account.balance.responses.AccountActionsData;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo BalanceAccount 
+            //A esta le pasamos solo UrlApi y token para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a consultar el saldo mediante el IdCliente
+            AccountBalance account = new AccountBalance("https://api.test.sw.com.mx", "token", null, 0);
+            AccountActionsData res = account.addStamps(UUID.fromString("24419cba-1af4-4a46-8244-2ae02f6dc15e"), 5, "Prueba");
+           
+            //Visualizamos la respuesta
+            System.out.println(res.getStatus());
+            System.out.println(res.getData());
+            System.out.println(res.getMessage());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+<details>
+<summary>
+Eliminar saldo
+</summary>
+Este metodo necesita como parametros:
+
+- IdUser a remover saldo
+- Cantidad de timbres
+- Comentario (opcional)
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import java.util.UUID;
+import mx.com.sw.services.account.balance.AccountBalance;
+import mx.com.sw.services.account.balance.responses.AccountActionsData;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo BalanceAccount 
+            //A esta le pasamos solo UrlApi y token para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a consultar el saldo mediante el IdCliente
+            AccountBalance account = new AccountBalance("https://api.test.sw.com.mx", "token", null, 0);
+            AccountActionsData res = account.removeStamps(UUID.fromString("24419cba-1af4-4a46-8244-2ae02f6dc15e"), 5, null);
+           
+            //Visualizamos la respuesta
+            System.out.println(res.getStatus());
+            System.out.println(res.getData());
+            System.out.println(res.getMessage());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+
+## Administración de Usuarios ##
+Este servicio consulta, crea y elimina usuarios a las cuentas que administres.
+
+Se deberá autenticar en nuestros servicios para obtener token de acceso, o si se desea, se puede usar el token infinito.
+<details>
+<summary>
+Consultar usuario por token
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+
+**Ejemplo de consumo de la libreria para consultar el saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoResponse res = account.getInfo();
+            
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar usuario por Id
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y el id de la cuenta a consultar
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoResponse res = account.getInfoById("32501cf2-dc62-4370-b47d-25024c44e131");
+            
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar todos los usuarios de una cuenta administradora.
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y en este caso el paginado que deseamos y cuantos usuarios por pagina.
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            //El primer valor es de la pagina a consultar, y el segundo el numero de registros a obtener por pagina.
+            AccountListDataResponse res = account.getInfoAllUsers(1, 2);
+            
+            //Para Obtener la respuesta de que fue creado con exito.
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Crear un usuario
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y en este caso se debe de ingresar, correo, contraseña, nombre, rfc, perfil default(3), numero de timbres, si es ilimitada o no y si la crearemos como activa o inactiva.
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoActionResponse res = account.getInfoCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
+                    "XAXX010101000", 3, 0, false, true);
+            
+            //Para Obtener los datos del usuario creado
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Eliminar un usuario
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y se le pasa el Id usuario de la cuenta a eliminar
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountInfoActionResponse res = account.getInfoDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
+            
+            //Para Obtener la respuesta de que fue eliminado con exito.
+            System.out.println(response.getData());
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error al consultar el usuario");
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
 
 ## PDF ##
 
@@ -924,7 +1221,7 @@ public class App {
         {
             //Creamos una instancia de tipo PDF 
             //A esta le pasamos la Url y el token
-            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
 
             //Obtenemos el xml
             String xmlcontent = new String(Files.readAllBytes(Paths.get("cfdi_pdf.xml")), "UTF-8");
@@ -975,7 +1272,7 @@ public class App {
         {
             //Creamos una instancia de tipo PDF 
             //A esta le pasamos la Url y el token
-            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
 
             //Realizamos la petición de regenerar el pdf pasando el UUID del CFDI que queremos regenerar.
             PdfResponse response = pdf.regeneratePdf(UUID.fromString("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
@@ -1022,7 +1319,7 @@ public class App {
         {
             //Creamos una instancia de tipo Resend
 		    //A esta le pasamos el UrlAPi, asi como nuestro token
-            Resend resend = new Resend("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Resend resend = new Resend("https://api.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             //Creamos una array con los correos (Max. 5 correos, separados por ",")
             List<String> correo = Arrays.asList("correo@test.com.mx");
             ////Automaticamente recibiremos a nuestro correo el XML y/o PDF existente
@@ -1053,7 +1350,7 @@ Método para consultar todos los certificados cargados en la cuenta.
 
 Este metodo recibe los siguientes parametros:
 * Url Servicios SW(cuando se añaden usuario y contraseña)
-* Token
+* Usuario y contraseña ó Token 
 
 **Ejemplo de consumo de la libreria para la consulta de certificados mediante token**
 ```java
@@ -1073,8 +1370,72 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la consulta
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdListDataResponse response = csd.GetAllCsd();
+            //En caso exitoso se podran obtener los siguientes datos
+            List<CsdData> lista = response.getData();
+            if(lista != null) {
+                for(int i=0; i<lista.size(); i++) {
+                    CsdData dato = lista.get(i);
+                    System.out.println(dato.getIssuerRfc());
+                    System.out.println(dato.getIssuerBusinessName());
+                    System.out.println(dato.getCertificateNumber());
+                    System.out.println(dato.getCertificateType());
+                    System.out.println(dato.getIsActive());
+                    System.out.println(dato.getValidFrom());
+                    System.out.println(dato.getValidTo());
+                }
+            }
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println("Error");
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar Certificado Por RFC
+</summary>
+
+## Consultar Certificado Por RFC ##
+Método para obtener un certificado cargado enviando como parámetro el RFC del contribuyente.
+
+Este metodo recibe los siguientes parametros:
+* Url Servicios SW
+* Usuario y contraseña ó Token 
+* RFC del contribuyente
+
+**Ejemplo de consumo de la librería para la consulta de certificados por RFC mediante token**
+```java
+import java.util.List;
+import mx.com.sw.services.csd.responses.CsdDataResponse;
+import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
+import mx.com.sw.services.csd.responses.CsdData;
+import mx.com.sw.services.csd.CsdUtils;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //RFC del certificado
+            String Rfc = "EKU9003173C9";
+            //Creamos una instancia de tipo CsdUtils
+            //A esta le pasamos la Url y token
+            //Automaticamente se procedera a la consulta
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            CsdListDataResponse response = csd.GetCsdByRfc(Rfc);
             //En caso exitoso se podran obtener los siguientes datos
             List<CsdData> lista = response.getData();
             if(lista != null) {
@@ -1114,7 +1475,7 @@ Método para obtener un certificado cargado enviando como parámetro el número 
 
 Este metodo recibe los siguientes parametros:
 * Url Servicios SW
-* Token
+* Usuario y contraseña ó Token 
 * Número de certificado a obtener
 
 **Ejemplo de consumo de la libreria para la consulta de certificados por Número de Certificado mediante token**
@@ -1137,7 +1498,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la consulta
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdDataResponse response = csd.GetCsd(NoCertificado);
             //En caso exitoso se podran obtener los siguientes datos
             System.out.println(response.getData().getIssuerRfc());
@@ -1205,7 +1566,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la carga de los certificados
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdResponse response = csd.UploadCsd(cer, key, passwordCer);
             //En caso exitoso se podran obtener el mensaje de exito
             System.out.println(response.data);
@@ -1257,7 +1618,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la eliminacion
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdResponse response = csd.DeleteCsd(NoCertificado);
             //En caso exitoso se podran obtener el mensaje de exito.
             System.out.println(response.data);
@@ -1551,7 +1912,7 @@ public class App {
             //Creamos una instancia de tipo Pending
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-            Pendings pendings = new Pendings("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            Pendings pendings = new Pendings("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             PendingsResponse response = pendings.getPendings("EKU9003173C9");
             //Para obtener el status de la consulta
             System.out.println(response.getStatus());
@@ -1659,7 +2020,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
             //Datos
             List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
                 add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
@@ -1721,7 +2082,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
             //Datos
             List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
                 add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
@@ -1812,7 +2173,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken", null, 0);
+            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("acceptReject.xml")), "UTF-8");
             AcceptRejectResponse response = acceptReject.setAction(xml);
             //Para obtener el status de la consulta
@@ -1884,14 +2245,17 @@ public class App {
 
 ## TimbradoV4 ##
 
-<details>
-  <summary>StampV4(XML) - Email</summary>
-
-## StampV4(XML) - Email ##
-Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
+### **Email** ###
+Este servicio recibe un comprobante CFDI para ser timbrado y recibe un listado de uno o hasta 5 correos electrónicos a los que se requiera enviar el XML timbrado.
 Existen varias versiones de respuesta a este método, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 
-***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
+:pushpin: ***NOTA:*** En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las plantillas genéricas.
+
+<details>
+  <summary>Timbrado CFDI (StampV4)</summary>
+
+<br>
+
 **Ejemplo de consumo de la librería con la version de respuesta 1**
 ```java
 import java.nio.file.Files;
@@ -1905,12 +2269,13 @@ public class App {
     {
         try 
         {
-            //Creamos una instancia de tipo SatampV4
-            //A esta le pasamos la Url, usuario y password
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
             StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
-            StampResponseV1 response = stamp.timbrarV1(xml, "test@test.com.mx", false);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -1926,6 +2291,7 @@ public class App {
         }  
     }
 }
+
 ```
 **Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
 ```java
@@ -1941,13 +2307,14 @@ public class App {
     {
         try 
         {
-            //Creamos una instancia de tipo SatampV4
-            //A esta le pasamos la Url, usuario y password
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
             StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
-            StampResponseV1 response = stamp.timbrarV1(xml64, "test@test.com.mx", true);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
 
             //Para obtener el estatus
             System.out.println(response.getStatus());
@@ -1965,6 +2332,563 @@ public class App {
 }
 ```
 </details>
+
+<details>
+  <summary>Emisión Timbrado (IssueV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary>Emisión Timbrado Json (IssueJsonV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueJsonV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueJsonV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            List<String> email = Arrays.asList("test@test.com.mx");
+            String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(json, email, null, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+</details>
+
+### **CustomId** ###
+Este servicio recibe un comprobante CFDI para ser timbrado y que recibe un header conocido como CustomID, el cuál tiene el objetivo de agregar un filtro adicional al timbrado para evitar la duplicidad de timbrado.
+El CustomId es un string y el valor es asignado por el usuario, el cual tiene un límite de 100 caracteres.
+
+
+<details>
+  <summary>Timbrado CFDI (StampV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado (IssueV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, customId, false, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado Json (IssueJsonV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueJsonV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueJsonV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(json, null, customId , false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+### **PDF** ###
+Este servicio recibe un comprobante CFDI para ser timbrado y que recibe un header conocido como extra mediante el cual se confirma la generación de un PDF del CFDI timbrado que será guardado en automático en el ADT.
+
+:pushpin: ***NOTA:*** En caso de que no se cuente con una plantilla PDF customizada los PDF’s serán generados con las plantillas genéricas.
+
+<details>
+  <summary>Timbrado CFDI (StampV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.stamp.StampV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo StampV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            //creamos la variable de nuestro customId
+            String customId = UUID.randomUUID().toString();
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, true);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado (IssueV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, false);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+
+```
+**Ejemplo de consumo de la librería en base64 con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import mx.com.sw.services.issue.IssueV4
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
+            String xml64 = Base64.getEncoder().encodeToString(xml);
+            StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, true);
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado Json (IssueJsonV4)</summary>
+
+<br>
+
+**Ejemplo de consumo de la librería con la version de respuesta 1**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.issue.IssueJsonV4;
+import mx.com.sw.services.stamp.responses.StampResponseV1;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo IssueJsonV4
+            //A esta le pasamos la Url, usuario y password o token
+            //Automaticamente despues de obtenerlo se procedera a timbrar
+            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
+            StampResponseV1 response = stamp.timbrarV1(json, null, null , true;
+
+            //Para obtener el estatus
+            System.out.println(response.getStatus());
+            //Para obtener el TFD
+            System.out.println(response.getData().getTFD());
+            //En caso de error se pueden consultar los siguientes campos
+            System.out.println(response.getMessage());
+            System.out.println(response.getMessageDetail());
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+---
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
