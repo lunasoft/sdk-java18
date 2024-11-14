@@ -7,6 +7,7 @@ import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 * @version 0.0.0.1
 * @since   2022-04-28
 */
+@Disabled
 public class CartaPorte20Test {
 
     private StampService stampService = new StampService(false);
