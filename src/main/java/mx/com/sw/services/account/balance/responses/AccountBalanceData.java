@@ -1,74 +1,78 @@
 package mx.com.sw.services.account.balance.responses;
 
-/**
- * AccountBalanceData - Clase con la informacion del saldo del cliente.
- * @author Juan Gamez
- * @version 0.0.0.1
- * @since 2020-08-14
- */
+
 public class AccountBalanceData {
-    private String idSaldoCliente;
-    private String idClienteUsuario;
-    private Integer saldoTimbres;
-    private Integer timbresUtilizados;
-    private String fechaExpiracion;
-    private boolean unlimited;
-    private Integer timbresAsignados;
+    private String idUserBalance;
+    private String idUser;
+    private Integer stampsBalance;
+    private Integer stampsUsed;
+    private Integer stampsAssigned;
+    private boolean isUnlimited;
+    private String expirationDate;
+    private LastTransaction lastTransaction;
 
-    /**
-     * Obtiene el id del saldo.
-     * @return String
-     */
-    public String getIdSaldoCliente() {
-        return this.idSaldoCliente;
+    // Getters y Setters
+    public String getIdUserBalance() {
+        return idUserBalance;
     }
 
-    /**
-     * Obtiene el id del cliente.
-     * @return String
-     */
-    public String getIdClienteUsuario() {
-        return this.idClienteUsuario;
+    public void setIdUserBalance(String idUserBalance) {
+        this.idUserBalance = idUserBalance;
     }
 
-    /**
-     * Obtiene el saldo restante.
-     * @return Integer
-     */
-    public Integer getSaldoTimbres() {
-        return this.saldoTimbres;
+    public String getIdUser() {
+        return idUser;
     }
 
-    /**
-     * Obtiene el total de timbres utilizados.
-     * @return Integer
-     */
-    public Integer getTimbresUtilizados() {
-        return this.timbresUtilizados;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
-    /**
-     * Obtiene la fecha de expiración de los timbres.
-     * @return String
-     */
-    public String getFechaExpiracion() {
-        return this.fechaExpiracion;
+    public Integer getStampsBalance() {
+        return stampsBalance;
     }
 
-    /**
-     * Indica si el cliente está bajo el esquema de "ilimitado",
-     * lo cual hace que se descuenten los timbres de la cuenta distribuidora.
-     * @return boolean
-     */
+    public void setStampsBalance(Integer stampsBalance) {
+        this.stampsBalance = stampsBalance;
+    }
+
+    public Integer getStampsUsed() {
+        return stampsUsed;
+    }
+
+    public void setStampsUsed(Integer stampsUsed) {
+        this.stampsUsed = stampsUsed;
+    }
+
+    public Integer getStampsAssigned() {
+        return stampsAssigned;
+    }
+
+    public void setStampsAssigned(Integer stampsAssigned) {
+        this.stampsAssigned = stampsAssigned;
+    }
+
     public boolean isUnlimited() {
-        return this.unlimited;
+        return isUnlimited;
     }
 
-    /**
-     * Obtiene total de los timbres adquiridos.
-     * @return String
-     */
-    public Integer getTimbresAsignados() {
-        return this.timbresAsignados;
+    public void setUnlimited(boolean isUnlimited) {
+        this.isUnlimited = isUnlimited;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public LastTransaction getLastTransaction() {
+        return lastTransaction;
+    }
+
+    public void setLastTransaction(LastTransaction lastTransaction) {
+        this.lastTransaction = lastTransaction;
     }
 }
