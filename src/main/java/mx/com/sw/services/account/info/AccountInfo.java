@@ -1,64 +1,31 @@
-package mx.com.sw.services.account.info;
+package mx.com.sw.services.account.info; // Paquete que contiene la clase AccountInfo
 
+// Importación de clases necesarias para manejo de solicitudes HTTP, UUID, y JSON
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import org.apache.http.client.config.RequestConfig;
 import mx.com.sw.exceptions.ServicesException;
+import mx.com.sw.helpers.EnumAccountFilters;
 import mx.com.sw.helpers.GeneralHelpers;
-import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
-import mx.com.sw.services.account.info.responses.AccountInfoActionResponseHandler;
-import mx.com.sw.services.account.info.responses.AccountInfoResponse;
-import mx.com.sw.services.account.info.responses.AccountInfoResponseHandler;
-import mx.com.sw.services.account.info.responses.AccountListDataResponse;
-import mx.com.sw.services.account.info.responses.AccountListDataResponseHandler;
+import mx.com.sw.services.account.info.responses.*;
 import com.google.gson.Gson;
 
 /**
- * Servicio de Consulta de Información de cuenta. Clase que permite obtener el
- * saldo de la
- * cuenta de SW.
- * <p>
- * Ejemplo de uso:
- * <pre>
- * AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", "token SW", null, 0);
- * AccountInfoResponse res = account.getInfo();
- * if("success".equalsIgnoreCase(res.getStatus()){
- *    System.out.println(res.getData().getStamps());
- *    System.out.println(res.getData().getIdUsuario());
- *    System.out.println(res.getData().getIdCliente());
- *    System.out.println(res.getData().isUnlimited());
- *    System.out.println(res.getData().getNombre());
- *    System.out.println(res.getData().getRfc());
- *    System.out.println(res.getData().getUsername());
- *    System.out.println(res.getData().getEmail());
- *    System.out.println(res.getData().isActivo());
- *    System.out.println(res.getData().getRegisteredDate());
- *    System.out.println(res.getData().getTokenAccess());
- * } else{ // ocurrió un error y en los mensajes podría haber información últil acerca del error.
- *   System.out.println(res.getMessage());
- *   System.out.println(res.getMessageDetail());
- * }
- * </pre>
- * @author Juan Gamez
- * @version 0.0.0.1
- * @since 2020-08-17
+ * Clase para consultar información de cuentas en el sistema SW.
  */
 public class AccountInfo extends AccountInfoService {
+
+    // Manejadores de respuesta para diferentes tipos de solicitudes
     private final AccountInfoResponseHandler handler;
     private final AccountInfoActionResponseHandler handlerActions;
     private final AccountListDataResponseHandler handlerList;
 
     /**
-     * Constructor de la clase.
-     * @param urlApi    url base de la API
-     * @param user      correo o usuario de SW
-     * @param password  password de SW.
-     * @param proxy     ip o dominio de proxy (null si no se utiliza)
-     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
-     * @throws ServicesException exception en caso de error.
+     * Constructor con autenticación por usuario y contraseña.
      */
-    public AccountInfo(String url, String urlApi, String user, String password, String proxy,
-            int proxyPort) throws ServicesException {
+    public AccountInfo(String url, String urlApi, String user, String password, String proxy, int proxyPort)
+            throws ServicesException {
         super(url, urlApi, user, password, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
         handlerActions = new AccountInfoActionResponseHandler();
@@ -66,14 +33,8 @@ public class AccountInfo extends AccountInfoService {
     }
 
     /**
-     * Constructor de la clase.
-     * @param urlApi    url base de la API
-     * @param token     token infinito de SW.
-     * @param proxy     ip o dominio de proxy (null si no se utiliza)
-     * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
-     * @throws ServicesException exception en caso de error.
+     * Constructor con autenticación por token.
      */
-
     public AccountInfo(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
         super(urlApi, token, proxy, proxyPort);
         handler = new AccountInfoResponseHandler();
@@ -82,113 +43,157 @@ public class AccountInfo extends AccountInfoService {
     }
 
     /**
-     * @throws ServicesException exception en caso de error.
+     * Crea un usuario con la información proporcionada.
      */
-    @Override
-
-    /**
-     * Obtiene la lista de todos los usuarios.
-     * @param page     Número de página.
-     * @param pageSize Tamaño de la página.
-     * @return Objeto AccountListDataResponse con la respuesta de la API.
-     * @throws ServicesException Excepción en caso de error.
-     */
-    public AccountListDataResponse getAllUsers(int page, int pageSize) throws ServicesException {
-        Map<String, String> headers = getHeaders();
-        RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/api/users?page=" + page + "&pageSize=" + pageSize;
-        return handlerList.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
-                AccountListDataResponse.class);
+    public AccountInfoResponse createUser(String email, String password, String name, String rfc, int stamps,
+            boolean unlimited, String notificationEmail, String phone) throws ServicesException {
+        return createMapUser(email, password, name, rfc, stamps, unlimited, notificationEmail, phone);
     }
 
     /**
-     * Obtiene la información de un usuario por su Token.
-     * @return Objeto AccountInfoResponse con la respuesta de la API.
-     * @throws ServicesException Excepción en caso de error.
+     * Actualiza los datos de un usuario existente.
      */
-    public AccountInfoResponse getInfo() throws ServicesException {
-        Map<String, String> headers = getHeaders();
-        RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), "management/api/users/info", headers,
-                config, AccountInfoResponse.class);
+    public AccountInfoActionResponse updateUser(UUID iduser, String name, String rfc, String notificationEmail,
+            String phone, boolean isUnlimited) throws ServicesException {
+        return updateMapUser(iduser, name, rfc, notificationEmail, phone, isUnlimited);
     }
 
+    // Métodos privados para mapear datos y enviar solicitudes a la API
+
     /**
-     * Obtiene la información de un usuario por su ID.
-     * @param idUser ID del usuario.
-     * @return Objeto AccountInfoResponse con la respuesta de la API.
-     * @throws ServicesException Excepción en caso de error.
+     * Crea un nuevo usuario en el sistema.
      */
-    public AccountInfoResponse getInfoById(String idUser) throws ServicesException {
-        Map<String, String> headers = getHeaders();
+    private AccountInfoResponse createMapUser(String email, String password, String name, String rfc, int stamps,
+            boolean unlimited, String notificationEmail, String phone) throws ServicesException {
+        Map<String, String> headers = getHeaders(); // Genera encabezados para la solicitud
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/api/users/" + idUser;
-        return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
+        String path = "management/v2/api/dealers/users";
+
+        // Mapeo de parámetros para el cuerpo de la solicitud
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        params.put("taxId", rfc);
+        params.put("email", email);
+        params.put("stamps", stamps);
+        params.put("isUnlimited", unlimited);
+        params.put("password", password);
+        params.put("notificationEmail", notificationEmail);
+        params.put("phone", phone);
+
+        // Conversión del cuerpo de la solicitud a JSON
+        String jsonBody = new Gson().toJson(params);
+        return handler.postHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, jsonBody, config,
                 AccountInfoResponse.class);
     }
 
     /**
-     * Crea un nuevo usuario con la información proporcionada.
-     * @param email     Correo electrónico del usuario.
-     * @param password  Contraseña del usuario.
-     * @param name      Nombre del usuario.
-     * @param rfc       RFC del usuario.
-     * @param profile   Perfil del usuario.
-     * @param stamps    Cantidad de timbres del usuario.
-     * @param unlimited Indica si el usuario tiene timbres ilimitados.
-     * @param active    Indica si el usuario está activo.
-     * @return Objeto AccountInfoActionResponse con la respuesta de la API.
-     * @throws ServicesException Excepción en caso de error.
+     * Actualiza un usuario existente en el sistema.
      */
-
-    private AccountInfoActionResponse createMapUser(String email, String password, String name, String rfc, int profile,
-            int stamps, boolean unlimited, boolean active) throws ServicesException {
+    private AccountInfoActionResponse updateMapUser(UUID iduser, String name, String rfc, String notificationEmail,
+            String phone, boolean isUnlimited) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "/management/api/users";
+        String path = "management/v2/api/dealers/users/" + iduser;
+
+        // Mapeo de parámetros para la solicitud
         Map<String, Object> params = new HashMap<>();
-        params.put("Email", email);
-        params.put("Password", password);
-        params.put("Name", name);
-        params.put("RFC", rfc);
-        params.put("Profile", profile);
-        params.put("Stamps", stamps);
-        params.put("Unlimited", unlimited);
-        params.put("Active", active);
+        params.put("iduser", iduser);
+        params.put("name", name);
+        params.put("taxId", rfc);
+        params.put("isUnlimited", isUnlimited);
+        params.put("notificationEmail", notificationEmail);
+        params.put("phone", phone);
+
+        // Envío de la solicitud PUT con los datos
         String jsonBody = new Gson().toJson(params);
-        return handlerActions.postHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, jsonBody,
-                config, AccountInfoActionResponse.class);
+        return handlerActions.putHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, jsonBody, config,
+                AccountInfoActionResponse.class);
+    }
+
+    // Métodos para obtener usuarios con diferentes filtros
+
+    /**
+     * Obtiene todos los usuarios del sistema.
+     */
+    public AccountListDataResponse getAllUsers() throws ServicesException {
+        return getUserFiltersRequest("management/v2/api/dealers/users", new HashMap<>());
+    }
+
+    /**
+     * Obtiene un usuario por su ID.
+     */
+    public AccountListDataResponse getUserById(String idUser) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new HashMap<>();
+        filters.put(EnumAccountFilters.ID_USER, idUser);
+        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
+    }
+
+    /**
+     * Obtiene usuarios por su correo electrónico.
+     */
+    public AccountListDataResponse getUsersByEmail(String email) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new HashMap<>();
+        filters.put(EnumAccountFilters.EMAIL, email);
+        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
+    }
+
+    /**
+     * Obtiene usuarios por su RFC.
+     */
+    public AccountListDataResponse getUsersByRfc(String rfc) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new HashMap<>();
+        filters.put(EnumAccountFilters.TAX_ID, rfc);
+        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
+    }
+
+    /**
+     * Obtiene usuarios activos o inactivos según el parámetro.
+     */
+    public AccountListDataResponse getUsersActivate(boolean activate) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new HashMap<>();
+        filters.put(EnumAccountFilters.IS_ACTIVE, String.valueOf(activate));
+        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
     }
 
     /**
      * Elimina un usuario por su ID.
-     * @param idUser ID del usuario a eliminar.
-     * @return Objeto AccountInfoActionResponse con la respuesta de la API.
-     * @throws ServicesException Excepción en caso de error.
      */
     public AccountInfoActionResponse deleteIdUser(String idUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/api/users/" + idUser;
+        String path = "management/v2/api/dealers/users/" + idUser;
         return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
                 AccountInfoActionResponse.class);
     }
 
     /**
-     * Crea un nuevo usuario con la información proporcionada.
-     * @param email     Correo electrónico del usuario.
-     * @param password  Contraseña del usuario.
-     * @param name      Nombre del usuario.
-     * @param rfc       RFC del usuario.
-     * @param profile   Perfil del usuario.
-     * @param stamps    Cantidad de timbres del usuario.
-     * @param unlimited Indica si el usuario tiene timbres ilimitados.
-     * @param active    Indica si el usuario está activo.
-     * @return Objeto AccountInfoActionResponse con la respuesta de la API.
-     * @throws ServicesException Excepción en caso de error.
+     * Realiza una solicitud GET con filtros.
      */
-    public AccountInfoActionResponse createUser(String email, String password, String name, String rfc, int profile,
-            int stamps, boolean unlimited, boolean active) throws ServicesException {
-        return createMapUser(email, password, name, rfc, profile, stamps, unlimited, active);
+    public AccountListDataResponse getUserFiltersRequest(String baseUri, Map<EnumAccountFilters, String> filters)
+            throws ServicesException {
+        Map<String, String> headers = getHeaders();
+        RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
+        String uriWithFilters = buildUriWithFilter(baseUri, filters);
+        return handlerList.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), uriWithFilters, headers, config,
+                AccountListDataResponse.class);
+    }
+
+    /**
+     * Construye una URI con parámetros de filtro.
+     */
+    private String buildUriWithFilter(String baseUri, Map<EnumAccountFilters, String> filters) {
+        StringBuilder uriBuilder = new StringBuilder(baseUri);
+        boolean hasQueryParams = false;
+
+        for (Map.Entry<EnumAccountFilters, String> filter : filters.entrySet()) {
+            if (filter.getValue() != null && !filter.getValue().isEmpty()) {
+                uriBuilder.append(hasQueryParams ? "&" : "?")
+                        .append(filter.getKey().getQueryKey())
+                        .append("=")
+                        .append(filter.getValue());
+                hasQueryParams = true;
+            }
+        }
+        return uriBuilder.toString();
     }
 }
