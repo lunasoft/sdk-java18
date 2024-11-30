@@ -62,7 +62,7 @@ public class App
     {
         //Creamos una instancia de tipo Authentication 
         //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-        Authentication auth = new Authentication("http://services.test.sw.com.mx", 
+        Authentication auth = new Authentication("https://services.test.sw.com.mx", 
         "user","password", null, 0);
         AuthenticationResponse res = auth.authenticate();
     }
@@ -95,7 +95,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a timbrar el xml
-            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "user", "password", null, 0);
+            Stamp stamp = new Stamp("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(xml, false);
         } 
@@ -123,7 +123,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url y su Token infinito 
             //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            Stamp stamp = new Stamp("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(xml, false);
         } 
@@ -152,7 +152,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url y su Token infinito 
             //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-            Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            Stamp stamp = new Stamp("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             StampResponseV1 response = stamp.timbrarV1(xml64, true);
@@ -190,7 +190,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a timbrar el xml
-            Issue stamp = new Issue("http://services.test.sw.com.mx", "user", "password", null, 0);
+            Issue stamp = new Issue("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(xml, false);
 
@@ -231,7 +231,7 @@ public class App {
             //Creamos una instancia de tipo Stamp 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a timbrar el xml
-            IssueJson stamp = new IssueJson("http://services.test.sw.com.mx", "user", "password",null, 0);
+            IssueJson stamp = new IssueJson("https://services.test.sw.com.mx", "user", "password",null, 0);
         
             String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(json);
@@ -294,7 +294,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            Cancelation cancelation = new Cancelation("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
             String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
@@ -344,7 +344,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            Cancelation cancelation = new Cancelation("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             
             //Obtenemos Certificado y lo convertimos a Base 64
             String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
@@ -414,7 +414,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user",
+            Cancelation cancelation = new Cancelation("https://services.test.sw.com.mx", "user",
             "password", null, 0);
 
             //Convertimos el PFX a base 64
@@ -469,7 +469,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user",
+            Cancelation cancelation = new Cancelation("https://services.test.sw.com.mx", "user",
             "password", null, 0);
 
             //Convertimos el PFX a base 64
@@ -568,7 +568,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user",
+            Cancelation cancelation = new Cancelation("https://services.test.sw.com.mx", "user",
             "password", null, 0);
             //Obtenemos el XML de cancelacion
             String xmlCancelation = new String(Files.readAllBytes(Paths.get("cancelacion.xml")), "UTF-8");
@@ -628,7 +628,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user",
+            Cancelation cancelation = new Cancelation("https://services.test.sw.com.mx", "user",
             "password", null, 0);
             
             //Realizamos la petición de cancelación al servicio.
@@ -675,7 +675,7 @@ public class App {
             //Creamos una instancia de tipo Cancelation 
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
             //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-            Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user",
+            Cancelation cancelation = new Cancelation("https://services.test.sw.com.mx", "user",
             "password", null, 0);
             
             //Realizamos la petición de cancelación al servicio.
@@ -736,7 +736,7 @@ public class App {
         {
             //Creamos una instancia de tipo Validate
             //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-            Validate api = new Validate("http://services.test.sw.com.mx", "user","password", null, 0);
+            Validate api = new Validate("https://services.test.sw.com.mx", "user","password", null, 0);
 
             String xml = new String(Files.readAllBytes(Paths.get("pruebas.xml")), "UTF-8");
             //Realizamos la peticion de validacion pasando el XML
@@ -802,35 +802,43 @@ public class App {
             //Creamos una instancia de tipo BalanceAccount 
             //A esta le pasamos la UrlApi y el token de la cuenta a consultar
 
-            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountBalance account = new AccountBalance("https://api.test.sw.com.mx", "token", null, 0);
             AccountBalanceResponse res = account.getBalance();
-           
+            AccountBalanceResponse response = account.getBalance();
+            System.out.println("Estado: " + response.getStatus());
+            System.out.println("ID Usuario: " + response.getData().getIdUser());
+            System.out.println("ID Balance Usuario: " + response.getData().getIdUserBalance());
+            System.out.println("Stamps Asignados: " + response.getData().getStampsAssigned());
+            System.out.println("Stamps Usados: " + response.getData().getStampsUsed());
+            System.out.println("Saldo Stamps: " + response.getData().getStampsBalance());
+            System.out.println("Es Ilimitado: " + response.getData().isUnlimited());
+            System.out.println("Fecha Expiración: " + response.getData().getExpirationDate());
+            if (response.getData().getLastTransaction() != null) {
+                System.out.println("Folio: " + response.getData().getLastTransaction().getFolio());
+                System.out.println("ID Usuario: " + response.getData().getLastTransaction().getIdUser());
+                System.out
+                        .println("ID Usuario Receptor: " + response.getData().getLastTransaction().getIdUserReceiver());
+                System.out.println("Nombre Receptor: " + response.getData().getLastTransaction().getNameReceiver());
+                System.out.println("Stamps In: "
+                        + (response.getData().getLastTransaction().getStampsIn() != null
+                                ? response.getData().getLastTransaction().getStampsIn()
+                                : "null"));
+                System.out.println("Stamps Out: "
+                        + (response.getData().getLastTransaction().getStampsOut() != null
+                                ? response.getData().getLastTransaction().getStampsOut()
+                                : "null"));
+                System.out.println("Stamps Current: "
+                        + (response.getData().getLastTransaction().getStampsCurrent() != null
+                                ? response.getData().getLastTransaction().getStampsCurrent()
+                                : "null"));
+                System.out.println("Comentario: " + response.getData().getLastTransaction().getComment());
+                System.out.println("Fecha: " + response.getData().getLastTransaction().getDate());
+                System.out.println("Email Enviado: " +
+                        (response.getData().getLastTransaction().isEmailSent() ? "Sí" : "No"));
 
-            //Para Obtener el idSaldoCliente
-            System.out.println(res.getData().getIdSaldoCliente());
-                        
-            //Para Obtener el idClienteUsuario
-            System.out.println(res.getData().getIdClienteUsuario());
-                    
-            //Para Obtener el saldo Timbres
-            System.out.println(res.getData().getSaldoTimbres());
-                    
-            //Para Obtenerlos timbres Utilizados
-            System.out.println(res.getData().getTimbresUtilizados());
-                    
-            //Para Obtener la fechaExpiracion
-            System.out.println(res.getData().getFechaExpiracion());
-
-            //Para Obtener si es Ilimitado
-            System.out.println(res.getData().isUnlimited());
-                    
-            //Para Obtener los timbres Asignados
-            System.out.println(res.getData().getTimbresAsignados());
-
-            //En caso de error, se pueden visualizar los campos message y/o messageDetail
-            System.out.println("Error al consultar saldo");
-            System.out.println(res.getMessage());
-            System.out.println(res.getMessageDetail());
+            } else {
+                System.out.println("No hay transacción registrada.");
+            }
         } 
         catch (Exception e) 
         {
@@ -840,68 +848,7 @@ public class App {
 }
 ```
 </details>
-<details>
-<summary>
-Consultar saldo por Id User
-</summary>
-Este metodo necesita como parámetro:
 
-- IdUser a consultar el saldo
-
-
-**Ejemplo de consumo de la libreria para consultar el saldo mediante usuario y contraseña**
-```java
-import mx.com.sw.services.account.balance.AccountBalance;
-import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
-
-public class App {
-    
-    public static void main(String[] args)
-    {
-        try 
-        {
-            //Creamos una instancia de tipo BalanceAccount 
-            //A esta le pasamos la Url. UrlApi, Usuario y Contraseña para obtener el token
-            //Automaticamente despues de obtenerlo se procedera a consultar el saldo mediante el IdCliente
-            AccountBalance account = new AccountBalance("http://services.test.sw.com.mx","https://api.test.sw.com.mx", "user","password", null, 0);
-            AccountBalanceResponse res = account
-                    .getBalanceById(UUID.fromString("24418fba-1bd4-4a46-8244-2ae02f6dc15e"));
-           
-
-            //Para Obtener el idSaldoCliente
-            System.out.println(res.getData().getIdSaldoCliente());
-                        
-            //Para Obtener el idClienteUsuario
-            System.out.println(res.getData().getIdClienteUsuario());
-                    
-            //Para Obtener el saldo Timbres
-            System.out.println(res.getData().getSaldoTimbres());
-                    
-            //Para Obtenerlos timbres Utilizados
-            System.out.println(res.getData().getTimbresUtilizados());
-                    
-            //Para Obtener la fechaExpiracion
-            System.out.println(res.getData().getFechaExpiracion());
-
-            //Para Obtener si es Ilimitado
-            System.out.println(res.getData().isUnlimited());
-                    
-            //Para Obtener los timbres Asignados
-            System.out.println(res.getData().getTimbresAsignados());
-
-            //En caso de error, se pueden visualizar los campos message y/o messageDetail
-            System.out.println("Error al consultar saldo");
-            System.out.println(res.getMessage());
-            System.out.println(res.getMessageDetail());
-        } 
-        catch (Exception e) 
-        {
-            System.out.println(e);
-        }  
-    }
-}
-```
-</details>
 <details>
 <summary>
 Añadir saldo
@@ -992,12 +939,11 @@ Este servicio consulta, crea y elimina usuarios a las cuentas que administres.
 Se deberá autenticar en nuestros servicios para obtener token de acceso, o si se desea, se puede usar el token infinito.
 <details>
 <summary>
-Consultar usuario por token
+Crear un usuario
 </summary>
 Este metodo solo necesita la autenticación a nuestros servicios.
 
-
-**Ejemplo de consumo de la libreria para consultar el saldo mediante token**
+**Ejemplo de consumo de la libreria para crear usuario mediante token**
 ```java
 import mx.com.sw.services.account.info;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
@@ -1009,90 +955,12 @@ public class App {
         try 
         {
             //Creamos una instancia de tipo AccountInfo 
-            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+            //A esta le pasamos la UrlApi, token y en este caso se debe de ingresar, correo, contraseña, nombre, rfc, perfil default(3), numero de timbres, si es ilimitada o no y si la crearemos como activa o inactiva.
             AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
-            AccountInfoResponse res = account.getInfo();
+            AccountInfoResponse res = account.createUser("usuario@nuevo.com", "123abcABC..", "PruebaJava18",
+                    "XAXX010101000", 1, false, "correo@notification.com", "3920000000");
             
-            //Para Obtener los datos del usuario
-            System.out.println(response.getData());
-
-            //En caso de error, se pueden visualizar los campos message y/o messageDetail
-            System.out.println("Error al consultar el usuario");
-            System.out.println(res.getMessage());
-            System.out.println(res.getMessageDetail());
-        } 
-        catch (Exception e) 
-        {
-            System.out.println(e);
-        }  
-    }
-}
-```
-</details>
-
-<details>
-<summary>
-Consultar usuario por Id
-</summary>
-Este metodo solo necesita la autenticación a nuestros servicios.
-
-**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
-```java
-import mx.com.sw.services.account.info;
-import mx.com.sw.services.account.info.responses.AccountInfoResponse;
-
-public class App {
-    
-    public static void main(String[] args)
-    {
-        try 
-        {
-            //Creamos una instancia de tipo AccountInfo 
-            //A esta le pasamos la UrlApi, token y el id de la cuenta a consultar
-            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
-            AccountInfoResponse res = account.getInfoById("32501cf2-dc62-4370-b47d-25024c44e131");
-            
-            //Para Obtener los datos del usuario
-            System.out.println(response.getData());
-
-            //En caso de error, se pueden visualizar los campos message y/o messageDetail
-            System.out.println("Error al consultar el usuario");
-            System.out.println(res.getMessage());
-            System.out.println(res.getMessageDetail());
-        } 
-        catch (Exception e) 
-        {
-            System.out.println(e);
-        }  
-    }
-}
-```
-</details>
-
-<details>
-<summary>
-Consultar todos los usuarios de una cuenta administradora.
-</summary>
-Este metodo solo necesita la autenticación a nuestros servicios.
-
-**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
-```java
-import mx.com.sw.services.account.info;
-import mx.com.sw.services.account.info.responses.AccountInfoResponse;
-
-public class App {
-    
-    public static void main(String[] args)
-    {
-        try 
-        {
-            //Creamos una instancia de tipo AccountInfo 
-            //A esta le pasamos la UrlApi, token y en este caso el paginado que deseamos y cuantos usuarios por pagina.
-            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
-            //El primer valor es de la pagina a consultar, y el segundo el numero de registros a obtener por pagina.
-            AccountListDataResponse res = account.getInfoAllUsers(1, 2);
-            
-            //Para Obtener la respuesta de que fue creado con exito.
+            //Para Obtener los datos del usuario creado
             System.out.println(response.getData());
 
             //En caso de error, se pueden visualizar los campos message y/o messageDetail
@@ -1115,7 +983,7 @@ Crear un usuario
 </summary>
 Este metodo solo necesita la autenticación a nuestros servicios.
 
-**Ejemplo de consumo de la libreria para eliminar saldo mediante token**
+**Ejemplo de consumo de la libreria para crear usuario mediante token**
 ```java
 import mx.com.sw.services.account.info;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
@@ -1129,13 +997,11 @@ public class App {
             //Creamos una instancia de tipo AccountInfo 
             //A esta le pasamos la UrlApi, token y en este caso se debe de ingresar, correo, contraseña, nombre, rfc, perfil default(3), numero de timbres, si es ilimitada o no y si la crearemos como activa o inactiva.
             AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getInfoCreateUser("correoPrueba@java18.com", "123abcABC..", "PruebaJava18",
-                    "XAXX010101000", 3, 0, false, true);
+           AccountInfoActionResponse res = account.updateUser(UUID.fromString("be2a859c-cd5f-42b5-b35d-f065b3a9aac4"),
+                    "PruebaAct Java 18", "RAQÑ7701212M3", "nuevoEmail@notification.com",
+                    "9820000000", false);
             
-            //Para Obtener los datos del usuario creado
-            System.out.println(response.getData());
-
-            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println(response.getStatus());
             System.out.println("Error al consultar el usuario");
             System.out.println(res.getMessage());
             System.out.println(res.getMessageDetail());
@@ -1168,13 +1034,8 @@ public class App {
         {
             //Creamos una instancia de tipo AccountInfo 
             //A esta le pasamos la UrlApi, token y se le pasa el Id usuario de la cuenta a eliminar
-            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
-            AccountInfoActionResponse res = account.getInfoDeleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9aa");
-            
-            //Para Obtener la respuesta de que fue eliminado con exito.
-            System.out.println(response.getData());
-
-            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+           AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountInfoActionResponse res = account.deleteIdUser("dec88273-6587-4f1e-9673-317b30e07aab");
             System.out.println("Error al consultar el usuario");
             System.out.println(res.getMessage());
             System.out.println(res.getMessageDetail());
@@ -1187,6 +1048,243 @@ public class App {
 }
 ```
 </details>
+<details>
+<summary>
+Consultar cuentas hijas
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios.
+
+
+**Ejemplo de consumo de la libreria para consultar cuentas hijas**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountListDataResponse res = account.getAllUsers();
+            
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+            List<AccountInfoData> lista = res.getData();
+            if (lista != null) {
+                for (int i = 0; i < lista.size(); i++) {
+                    AccountInfoData dato = lista.get(i);
+                    System.out.println("Email: " + dato.getEmail());
+                    System.out.println("Nombre: " + dato.getName());
+                    System.out.println("Perfil: " + dato.getProfile());
+                    System.out.println("Stamps: " + dato.getStamps());
+                    System.out.println("idUsuario: " + dato.getIdUser());
+                    System.out.println("Rfc: " + dato.getTaxId());
+                    System.out.println("Ilimitado: " + dato.isUnlimited());
+                    System.out.println("Activo: " + dato.isActive() + "\n");
+                }
+            }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar usuario por Id
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios y el ID del cliente a consultar
+
+**Ejemplo de consumo de la libreria para consultar un usuario por ID**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi, token y el id de la cuenta a consultar
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+           AccountListDataResponse res = account.getUserById("32501cf2-dc62-4370-b47d-25024c44e130");
+            
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+            List<AccountInfoData> lista = res.getData();
+            if (lista != null) {
+                for (int i = 0; i < lista.size(); i++) {
+                    AccountInfoData dato = lista.get(i);
+                    System.out.println("Email: " + dato.getEmail());
+                    System.out.println("Nombre: " + dato.getName());
+                    System.out.println("Perfil: " + dato.getProfile());
+                    System.out.println("Stamps: " + dato.getStamps());
+                    System.out.println("idUsuario: " + dato.getIdUser());
+                    System.out.println("Rfc: " + dato.getTaxId());
+                    System.out.println("Ilimitado: " + dato.isUnlimited());
+                    System.out.println("Activo: " + dato.isActive() + "\n");
+                }
+            }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar usuarios por RFC
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios y el RFC a consultar
+
+**Ejemplo de consumo de la libreria para consultar usuario por RFC**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+             AccountListDataResponse res = account.getUsersByRfc("EKU9003173C9");
+            
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+            List<AccountInfoData> lista = res.getData();
+            if (lista != null) {
+                for (int i = 0; i < lista.size(); i++) {
+                    AccountInfoData dato = lista.get(i);
+                    System.out.println("Email: " + dato.getEmail());
+                    System.out.println("Nombre: " + dato.getName());
+                    System.out.println("Perfil: " + dato.getProfile());
+                    System.out.println("Stamps: " + dato.getStamps());
+                    System.out.println("idUsuario: " + dato.getIdUser());
+                    System.out.println("Rfc: " + dato.getTaxId());
+                    System.out.println("Ilimitado: " + dato.isUnlimited());
+                    System.out.println("Activo: " + dato.isActive() + "\n");
+                }
+            }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar usuarios por Email
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios y el Email a consultar
+
+**Ejemplo de consumo de la libreria para consultar clientes con un correo en especifico**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+           AccountListDataResponse res = account.getUsersByEmail("emailquequiero@buscar.com");
+    
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+            List<AccountInfoData> lista = res.getData();
+            if (lista != null) {
+                for (int i = 0; i < lista.size(); i++) {
+                    AccountInfoData dato = lista.get(i);
+                    System.out.println("Email: " + dato.getEmail());
+                    System.out.println("Nombre: " + dato.getName());
+                    System.out.println("Perfil: " + dato.getProfile());
+                    System.out.println("Stamps: " + dato.getStamps());
+                    System.out.println("idUsuario: " + dato.getIdUser());
+                    System.out.println("Rfc: " + dato.getTaxId());
+                    System.out.println("Ilimitado: " + dato.isUnlimited());
+                    System.out.println("Activo: " + dato.isActive() + "\n");
+                }
+            }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar usuarios activos o no activos
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios y true si quieres ver los usuarios activos, o false si buscas los desactivados
+
+**Ejemplo de consumo de la libreria para consultar los usuarios activos**
+```java
+import mx.com.sw.services.account.info;
+import mx.com.sw.services.account.info.responses.AccountInfoResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+           AccountListDataResponse res = account.getUsersActivate(true);
+            //Para Obtener los datos del usuario
+            System.out.println(response.getData());
+            List<AccountInfoData> lista = res.getData();
+            if (lista != null) {
+                for (int i = 0; i < lista.size(); i++) {
+                    AccountInfoData dato = lista.get(i);
+                    System.out.println("Email: " + dato.getEmail());
+                    System.out.println("Nombre: " + dato.getName());
+                    System.out.println("Perfil: " + dato.getProfile());
+                    System.out.println("Stamps: " + dato.getStamps());
+                    System.out.println("idUsuario: " + dato.getIdUser());
+                    System.out.println("Rfc: " + dato.getTaxId());
+                    System.out.println("Ilimitado: " + dato.isUnlimited());
+                    System.out.println("Activo: " + dato.isActive() + "\n");
+                }
+            }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+
 
 
 ## PDF ##
@@ -1370,7 +1468,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la consulta
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            CsdUtils csd = new CsdUtils("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdListDataResponse response = csd.GetAllCsd();
             //En caso exitoso se podran obtener los siguientes datos
             List<CsdData> lista = response.getData();
@@ -1434,7 +1532,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la consulta
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            CsdUtils csd = new CsdUtils("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdListDataResponse response = csd.GetCsdByRfc(Rfc);
             //En caso exitoso se podran obtener los siguientes datos
             List<CsdData> lista = response.getData();
@@ -1498,7 +1596,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la consulta
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            CsdUtils csd = new CsdUtils("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdDataResponse response = csd.GetCsd(NoCertificado);
             //En caso exitoso se podran obtener los siguientes datos
             System.out.println(response.getData().getIssuerRfc());
@@ -1566,7 +1664,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la carga de los certificados
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            CsdUtils csd = new CsdUtils("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdResponse response = csd.UploadCsd(cer, key, passwordCer);
             //En caso exitoso se podran obtener el mensaje de exito
             System.out.println(response.data);
@@ -1618,7 +1716,7 @@ public class App {
             //Creamos una instancia de tipo CsdUtils
             //A esta le pasamos la Url y token
             //Automaticamente se procedera a la eliminacion
-            CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            CsdUtils csd = new CsdUtils("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             CsdResponse response = csd.DeleteCsd(NoCertificado);
             //En caso exitoso se podran obtener el mensaje de exito.
             System.out.println(response.data);
@@ -1665,7 +1763,7 @@ public class App {
             //Creamos una instancia de tipo Relations
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            Relations relations = new Relations("https://services.test.sw.com.mx", "user","password", null, 0);
             //Obtenemos Certificado y lo convertimos a Base 64 
             String cer = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("CSD_Prueba_CFDI_EKU9003173C9.cer")));
             //Obtenemos LLave y lo convertimos a Base 64
@@ -1723,7 +1821,7 @@ public class App {
             //Creamos una instancia de tipo Relations
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            Relations relations = new Relations("https://services.test.sw.com.mx", "user","password", null, 0);
             //Convertimos el PFX a base 64
             String pfx = Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("PFX_EKU9003173C9.pfx")));
             //Datos
@@ -1812,7 +1910,7 @@ public class App {
             //Creamos una instancia de tipo Relations
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            Relations relations = new Relations("https://services.test.sw.com.mx", "user","password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("relacionado.xml")), "UTF-8");
             
             RelationsResponse res = relations.getRelations(xml);
@@ -1863,7 +1961,7 @@ public class App {
             //Creamos una instancia de tipo Relations
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-            Relations relations = new Relations("http://services.test.sw.com.mx", "user","password", null, 0);
+            Relations relations = new Relations("https://services.test.sw.com.mx", "user","password", null, 0);
             RelationsResponse res = relations.getRelations("EKU9003173C9","106D7664-6A1D-4EC6-9C09-2AA27532EC59");
             
             //Para obtener el status de la consulta
@@ -1912,7 +2010,7 @@ public class App {
             //Creamos una instancia de tipo Pending
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-            Pendings pendings = new Pendings("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            Pendings pendings = new Pendings("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             PendingsResponse response = pendings.getPendings("EKU9003173C9");
             //Para obtener el status de la consulta
             System.out.println(response.getStatus());
@@ -2020,7 +2118,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
+            AcceptReject acceptReject = new AcceptReject("https://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
             //Datos
             List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
                 add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
@@ -2082,7 +2180,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
+            AcceptReject acceptReject = new AcceptReject("https://services.test.sw.com.mx","T2lYQ0t4L0R...", null, 0);
             //Datos
             List<AcceptRejectItem> list = new ArrayList<AcceptRejectItem>() {{
                 add(new AcceptRejectItem("7FA1C269-25AA-4898-BA2C-7CBCF6DB694B", EnumAcceptReject.Aceptacion));
@@ -2173,7 +2271,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            AcceptReject acceptReject = new AcceptReject("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("acceptReject.xml")), "UTF-8");
             AcceptRejectResponse response = acceptReject.setAction(xml);
             //Para obtener el status de la consulta
@@ -2219,7 +2317,7 @@ public class App {
             //Creamos una instancia de tipo AcceptReject
             //A esta le pasamos la Url, usuario y password o token de authentication
             //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-            AcceptReject acceptReject = new AcceptReject("http://services.test.sw.com.mx", "user","password", null, 0);
+            AcceptReject acceptReject = new AcceptReject("https://services.test.sw.com.mx", "user","password", null, 0);
             AcceptRejectResponse response = acceptReject.setAction("XIA190128J61",
             "a98d4c19-8b05-4ab0-b231-8e4684a6e6c6", EnumAcceptReject.Aceptacion);
             //Para obtener el status de la consulta
@@ -2272,7 +2370,7 @@ public class App {
             //Creamos una instancia de tipo StampV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            StampV4 stamp = new StampV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             List<String> email = Arrays.asList("test@test.com.mx");
             StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
@@ -2310,7 +2408,7 @@ public class App {
             //Creamos una instancia de tipo StampV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            StampV4 stamp = new StampV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             List<String> email = Arrays.asList("test@test.com.mx");
@@ -2354,7 +2452,7 @@ public class App {
             //Creamos una instancia de tipo IssueV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueV4 stamp = new IssueV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             List<String> email = Arrays.asList("test@test.com.mx");
             StampResponseV1 response = stamp.timbrarV1(xml, email, null, false, false);
@@ -2392,7 +2490,7 @@ public class App {
             //Creamos una instancia de tipo IssueV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueV4 stamp = new IssueV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             List<String> email = Arrays.asList("test@test.com.mx");
@@ -2437,7 +2535,7 @@ public class App {
             //Creamos una instancia de tipo IssueJsonV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueJsonV4 stamp = new IssueJsonV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             List<String> email = Arrays.asList("test@test.com.mx");
             String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(json, email, null, false);
@@ -2486,7 +2584,7 @@ public class App {
             //Creamos una instancia de tipo StampV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            StampV4 stamp = new StampV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             //creamos la variable de nuestro customId
             String customId = UUID.randomUUID().toString();
@@ -2525,7 +2623,7 @@ public class App {
             //Creamos una instancia de tipo StampV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            StampV4 stamp = new StampV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             //creamos la variable de nuestro customId
@@ -2570,7 +2668,7 @@ public class App {
             //Creamos una instancia de tipo IssueV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueV4 stamp = new IssueV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             //creamos la variable de nuestro customId
             String customId = UUID.randomUUID().toString();
@@ -2609,7 +2707,7 @@ public class App {
             //Creamos una instancia de tipo IssueV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueV4 stamp = new IssueV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             //creamos la variable de nuestro customId
@@ -2654,7 +2752,7 @@ public class App {
             //Creamos una instancia de tipo IssueJsonV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueJsonV4 stamp = new IssueJsonV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
             //creamos la variable de nuestro customId
             String customId = UUID.randomUUID().toString();
@@ -2703,7 +2801,7 @@ public class App {
             //Creamos una instancia de tipo StampV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            StampV4 stamp = new StampV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             //creamos la variable de nuestro customId
             String customId = UUID.randomUUID().toString();
@@ -2742,7 +2840,7 @@ public class App {
             //Creamos una instancia de tipo StampV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            StampV4 stamp = new StampV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             //creamos la variable de nuestro customId
@@ -2787,7 +2885,7 @@ public class App {
             //Creamos una instancia de tipo IssueV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueV4 stamp = new IssueV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String xml = new String(Files.readAllBytes(Paths.get("file.xml")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, false);
 
@@ -2824,7 +2922,7 @@ public class App {
             //Creamos una instancia de tipo IssueV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueV4 stamp = new IssueV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueV4 stamp = new IssueV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             byte[] xml = Files.readAllBytes(Paths.get("file.xml"));
             String xml64 = Base64.getEncoder().encodeToString(xml);
             StampResponseV1 response = stamp.timbrarV1(xml, null, null, true, true);
@@ -2867,7 +2965,7 @@ public class App {
             //Creamos una instancia de tipo IssueJsonV4
             //A esta le pasamos la Url, usuario y password o token
             //Automaticamente despues de obtenerlo se procedera a timbrar
-            IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password", null, 0);
+            IssueJsonV4 stamp = new IssueJsonV4("https://services.test.sw.com.mx", "user", "password", null, 0);
             String json = new String(Files.readAllBytes(Paths.get("pruebas.json")), "UTF-8");
             StampResponseV1 response = stamp.timbrarV1(json, null, null , true;
 
