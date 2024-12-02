@@ -84,7 +84,7 @@ public abstract class ResponseHandler<T> {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
-                    responseBody = EntityUtils.toString(responseEntity);
+                    responseBody = EntityUtils.toString(responseEntity,"UTF-8");
                     return deserialize(responseBody, contentClass);
                 } else {
                     throw new GeneralException(
@@ -157,7 +157,7 @@ public abstract class ResponseHandler<T> {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
-                    responseBody = EntityUtils.toString(responseEntity);
+                    responseBody = EntityUtils.toString(responseEntity, "UTF-8");
                     return deserialize(responseBody, contentClass);
                 } else {
                     throw new GeneralException(
@@ -234,7 +234,7 @@ public abstract class ResponseHandler<T> {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
-                    responseBody = EntityUtils.toString(responseEntity);
+                    responseBody = EntityUtils.toString(responseEntity,"UTF-8");
                     return deserialize(responseBody, contentClass);
                 } else {
                     throw new GeneralException(
@@ -427,7 +427,7 @@ public abstract class ResponseHandler<T> {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
-                    responseBody = EntityUtils.toString(responseEntity);
+                    responseBody = EntityUtils.toString(responseEntity,"UTF-8");
                     return deserialize(responseBody, contentClass);
                 } else {
                     throw new GeneralException(
