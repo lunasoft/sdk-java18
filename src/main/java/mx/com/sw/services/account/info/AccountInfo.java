@@ -116,7 +116,7 @@ public class AccountInfo extends AccountInfoService {
      * Obtiene todos los usuarios del sistema.
      */
     public AccountListDataResponse getAllUsers() throws ServicesException {
-        return getUserFiltersRequest("management/v2/api/dealers/users", new HashMap<>());
+        return getUserFiltersRequest(new HashMap<>());
     }
 
     /**
@@ -125,7 +125,7 @@ public class AccountInfo extends AccountInfoService {
     public AccountListDataResponse getUserById(String idUser) throws ServicesException {
         Map<EnumAccountFilters, String> filters = new HashMap<>();
         filters.put(EnumAccountFilters.ID_USER, idUser);
-        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
+        return getUserFiltersRequest(filters);
     }
 
     /**
@@ -134,7 +134,7 @@ public class AccountInfo extends AccountInfoService {
     public AccountListDataResponse getUsersByEmail(String email) throws ServicesException {
         Map<EnumAccountFilters, String> filters = new HashMap<>();
         filters.put(EnumAccountFilters.EMAIL, email);
-        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
+        return getUserFiltersRequest(filters);
     }
 
     /**
@@ -143,7 +143,7 @@ public class AccountInfo extends AccountInfoService {
     public AccountListDataResponse getUsersByRfc(String rfc) throws ServicesException {
         Map<EnumAccountFilters, String> filters = new HashMap<>();
         filters.put(EnumAccountFilters.TAX_ID, rfc);
-        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
+        return getUserFiltersRequest(filters);
     }
 
     /**
@@ -152,7 +152,7 @@ public class AccountInfo extends AccountInfoService {
     public AccountListDataResponse getUsersActivate(boolean activate) throws ServicesException {
         Map<EnumAccountFilters, String> filters = new HashMap<>();
         filters.put(EnumAccountFilters.IS_ACTIVE, String.valueOf(activate));
-        return getUserFiltersRequest("management/v2/api/dealers/users", filters);
+        return getUserFiltersRequest(filters);
     }
 
     /**
@@ -169,8 +169,9 @@ public class AccountInfo extends AccountInfoService {
     /**
      * Realiza una solicitud GET con filtros.
      */
-    public AccountListDataResponse getUserFiltersRequest(String baseUri, Map<EnumAccountFilters, String> filters)
+    public AccountListDataResponse getUserFiltersRequest(Map<EnumAccountFilters, String> filters)
             throws ServicesException {
+        String baseUri = "management/v2/api/dealers/users";
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
         String uriWithFilters = buildUriWithFilter(baseUri, filters);
