@@ -20,6 +20,7 @@ public class AccountInfo extends AccountInfoService {
     private final AccountInfoResponseHandler handler;
     private final AccountInfoActionResponseHandler handlerActions;
     private final AccountListDataResponseHandler handlerList;
+    private static final String API_USER_PATH = "management/v2/api/dealers/users";
 
     /**
      * Constructor con autenticación por usuario y contraseña.
@@ -67,7 +68,6 @@ public class AccountInfo extends AccountInfoService {
             boolean unlimited, String notificationEmail, String phone) throws ServicesException {
         Map<String, String> headers = getHeaders(); // Genera encabezados para la solicitud
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/v2/api/dealers/users";
 
         // Mapeo de parámetros para el cuerpo de la solicitud
         Map<String, Object> params = new HashMap<>();
@@ -82,7 +82,7 @@ public class AccountInfo extends AccountInfoService {
 
         // Conversión del cuerpo de la solicitud a JSON
         String jsonBody = new Gson().toJson(params);
-        return handler.postHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, jsonBody, config,
+        return handler.postHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), API_USER_PATH, headers, jsonBody, config,
                 AccountInfoResponse.class);
     }
 
@@ -93,7 +93,6 @@ public class AccountInfo extends AccountInfoService {
             String phone, boolean isUnlimited) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/v2/api/dealers/users/" + iduser;
 
         // Mapeo de parámetros para la solicitud
         Map<String, Object> params = new HashMap<>();
@@ -106,7 +105,7 @@ public class AccountInfo extends AccountInfoService {
 
         // Envío de la solicitud PUT con los datos
         String jsonBody = new Gson().toJson(params);
-        return handlerActions.putHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, jsonBody, config,
+        return handlerActions.putHTTPJson(getUrlapi() == null ? getUrl() : getUrlapi(), API_USER_PATH+"/" + iduser, headers, jsonBody, config,
                 AccountInfoActionResponse.class);
     }
 
@@ -161,8 +160,7 @@ public class AccountInfo extends AccountInfoService {
     public AccountInfoActionResponse deleteIdUser(String idUser) throws ServicesException {
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String path = "management/v2/api/dealers/users/" + idUser;
-        return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config,
+        return handlerActions.deleteHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), API_USER_PATH+"/" + idUser, headers, config,
                 AccountInfoActionResponse.class);
     }
 
@@ -171,10 +169,9 @@ public class AccountInfo extends AccountInfoService {
      */
     public AccountListDataResponse getUserFiltersRequest(Map<EnumAccountFilters, String> filters)
             throws ServicesException {
-        String baseUri = "management/v2/api/dealers/users";
         Map<String, String> headers = getHeaders();
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-        String uriWithFilters = buildUriWithFilter(baseUri, filters);
+        String uriWithFilters = buildUriWithFilter(API_USER_PATH, filters);
         return handlerList.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), uriWithFilters, headers, config,
                 AccountListDataResponse.class);
     }
