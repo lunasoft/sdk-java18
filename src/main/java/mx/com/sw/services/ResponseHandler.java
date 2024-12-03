@@ -6,6 +6,7 @@ import com.google.gson.JsonSyntaxException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -19,8 +20,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -33,6 +36,7 @@ import org.apache.http.util.EntityUtils;
 /**
  * ResponseHandler Clase mediante la cual se hacen las peticiones y
  * des-serializaciones de respuestas.
+ * 
  * @param <T> IResponse subclasses
  * @author Juan Gamez
  * @version 0.0.0.1
@@ -46,6 +50,7 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP POST con la configuracion enviada.
+     * 
      * @param url          String url o host.
      * @param path         String path
      * @param headers      Map String String con headers.
@@ -79,7 +84,80 @@ public abstract class ResponseHandler<T> {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
-                    responseBody = EntityUtils.toString(responseEntity);
+                    responseBody = EntityUtils.toString(responseEntity,"UTF-8");
+                    return deserialize(responseBody, contentClass);
+                } else {
+                    throw new GeneralException(
+                            response.getStatusLine() != null ? response.getStatusLine().getStatusCode()
+                                    : HttpStatus.SC_UNPROCESSABLE_ENTITY,
+                            "Can´t get body from the request made.");
+                }
+            } else {
+                throw new GeneralException(response.getStatusLine() != null ? response.getStatusLine().getStatusCode()
+                        : HttpStatus.SC_INTERNAL_SERVER_ERROR, "Error > 500 calling the service.");
+            }
+        } catch (IllegalArgumentException e) {
+            return handleException(e);
+        } catch (GeneralException e) {
+            return handleException(e);
+        } catch (InterruptedException e) {
+            return handleException(e);
+        } catch (ExecutionException e) {
+            return handleException(e);
+        } catch (TimeoutException e) {
+            return handleException(e);
+        } catch (IOException e) {
+            return handleException(e);
+        } catch (JsonSyntaxException e) {
+            return handleException(e);
+        } catch (ServicesException e) {
+            return handleException(e);
+        } finally {
+            try {
+                client.close();
+            } catch (IOException e) {
+                return handleException(e);
+            }
+        }
+    }
+
+    /**
+     * Este método realiza un HTTP POST con la configuracion enviada.
+     * 
+     * @param url          String url o host.
+     * @param path         String path
+     * @param headers      Map String String con headers.
+     * @param jsonBody     String body
+     * @param configHTTP   RequestConfig objeto de configuración.
+     * @param contentClass Clase de respuesta esperada.
+     * @return T
+     */
+    public T putHTTPJson(String url, String path, Map<String, String> headers, String jsonBody,
+            RequestConfig configHTTP, Class<T> contentClass) {
+        CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
+        try {
+            client.start();
+            HttpPut request = new HttpPut(url + path);
+            if (headers != null) {
+                for (Map.Entry<String, String> entry : headers.entrySet()) {
+                    request.addHeader(new BasicHeader(entry.getKey(), entry.getValue()));
+                }
+            }
+            if (configHTTP != null) {
+                request.setConfig(configHTTP);
+            }
+            if (jsonBody != null) {
+                StringEntity sEntity = new StringEntity(jsonBody, "UTF-8");
+                request.setEntity(sEntity);
+            }
+            Future<HttpResponse> future = client.execute(request, null);
+            HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
+            if (response.getStatusLine() != null
+                    && response.getStatusLine().getStatusCode() < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                HttpEntity responseEntity = response.getEntity();
+                String responseBody = new String();
+                if (responseEntity != null) {
+                    responseBody = EntityUtils.toString(responseEntity, "UTF-8");
                     return deserialize(responseBody, contentClass);
                 } else {
                     throw new GeneralException(
@@ -119,6 +197,7 @@ public abstract class ResponseHandler<T> {
     /**
      * Este método realiza un HTTP POST (modo Multipart form data) con la
      * configuracion enviada.
+     * 
      * @param url          String url o host.
      * @param path         String path.
      * @param headers      Map String String con headers.
@@ -155,7 +234,7 @@ public abstract class ResponseHandler<T> {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
-                    responseBody = EntityUtils.toString(responseEntity);
+                    responseBody = EntityUtils.toString(responseEntity,"UTF-8");
                     return deserialize(responseBody, contentClass);
                 } else {
                     throw new GeneralException(
@@ -198,6 +277,7 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP GET con la configuracion enviada.
+     * 
      * @param url          String url o host.
      * @param path         String path.
      * @param headers      Map String String con headers.
@@ -269,6 +349,7 @@ public abstract class ResponseHandler<T> {
 
     /**
      * Este método realiza un HTTP DELTE con la configuracion enviada.
+     * 
      * @param url          String url o host.
      * @param path         String path.
      * @param headers      Map String String con headers.
@@ -290,6 +371,55 @@ public abstract class ResponseHandler<T> {
             if (configHTTP != null) {
                 request.setConfig(configHTTP);
             }
+
+            Future<HttpResponse> future = client.execute(request, null);
+            HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 204) { // 204 No Content
+                String responseBody = "{ \"data\": \"Usuario borrado exitosamente.\", \"status\": \"success\" }";
+                return deserialize(responseBody, contentClass);
+            } else if (statusCode < HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                HttpEntity responseEntity = response.getEntity();
+                String responseBody = "";
+                if (responseEntity != null) {
+                    responseBody = EntityUtils.toString(responseEntity, "UTF-8");
+                    return deserialize(responseBody, contentClass);
+                } else {
+                    throw new GeneralException(statusCode, "Can´t get body from the request made.");
+                }
+            } else {
+                throw new GeneralException(statusCode, "Error > 500 calling the service.");
+            }
+        } catch (IllegalArgumentException | GeneralException | InterruptedException | ExecutionException
+                | TimeoutException | IOException | JsonSyntaxException | ServicesException e) {
+            return handleException(e);
+        } finally {
+            try {
+                client.close();
+            } catch (IOException e) {
+                return handleException(e);
+            }
+        }
+    }
+
+    public T deleteHTTPJson(String url, String path, Map<String, String> headers, String jsonBody,
+            RequestConfig configHTTP, Class<T> contentClass) {
+        CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
+        try {
+            client.start();
+            HttpDeleteWithBody request = new HttpDeleteWithBody(url + path);
+            if (headers != null) {
+                for (Map.Entry<String, String> entry : headers.entrySet()) {
+                    request.addHeader(new BasicHeader(entry.getKey(), entry.getValue()));
+                }
+            }
+            if (configHTTP != null) {
+                request.setConfig(configHTTP);
+            }
+            if (jsonBody != null) {
+                StringEntity sEntity = new StringEntity(jsonBody, "UTF-8");
+                request.setEntity(sEntity);
+            }
             Future<HttpResponse> future = client.execute(request, null);
             HttpResponse response = future.get(MAX_EXECUTION_TIME, TimeUnit.MINUTES);
             if (response.getStatusLine() != null
@@ -297,19 +427,17 @@ public abstract class ResponseHandler<T> {
                 HttpEntity responseEntity = response.getEntity();
                 String responseBody = new String();
                 if (responseEntity != null) {
-                    responseBody = EntityUtils.toString(responseEntity, "UTF-8");
+                    responseBody = EntityUtils.toString(responseEntity,"UTF-8");
                     return deserialize(responseBody, contentClass);
                 } else {
                     throw new GeneralException(
-                            response.getStatusLine() != null
-                                    ? response.getStatusLine().getStatusCode()
+                            response.getStatusLine() != null ? response.getStatusLine().getStatusCode()
                                     : HttpStatus.SC_UNPROCESSABLE_ENTITY,
-                            "Can´t get body from the request made.");
+                            "Can't get body from the request made.");
                 }
             } else {
                 throw new GeneralException(
-                        response.getStatusLine() != null
-                                ? response.getStatusLine().getStatusCode()
+                        response.getStatusLine() != null ? response.getStatusLine().getStatusCode()
                                 : HttpStatus.SC_INTERNAL_SERVER_ERROR,
                         "Error > 500 calling the service.");
             }
@@ -338,8 +466,23 @@ public abstract class ResponseHandler<T> {
         }
     }
 
+    class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
+        public static final String METHOD_NAME = "DELETE";
+
+        public HttpDeleteWithBody(final String uri) {
+            super();
+            setURI(URI.create(uri));
+        }
+
+        @Override
+        public String getMethod() {
+            return METHOD_NAME;
+        }
+    }
+
     /**
      * Este método realiza una deserializacion de un JSON al tipo de clase T.
+     * 
      * @param json         String json.
      * @param contentClass Clase esperada de respuesta.
      * @return T

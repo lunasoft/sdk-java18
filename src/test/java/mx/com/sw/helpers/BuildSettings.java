@@ -78,7 +78,7 @@ public class BuildSettings {
             bigXml = new String(Files.readAllBytes(Paths.get("resources/big.xml")), "UTF-8");
             jsonCfdi = new String(Files.readAllBytes(Paths.get("resources/cfdi.json")), "UTF-8");
             jsonCfdiBig = new String(Files.readAllBytes(Paths.get("resources/big.json")), "UTF-8");
-            urlSW = "http://services.test.sw.com.mx";
+            urlSW = "https://services.test.sw.com.mx";
             urlSWServices = "https://api.test.sw.com.mx";
             // Estas credenciales solo estarán activadas para las UT,
             // deben de estar configuradas en las variables de entorno.

@@ -2,6 +2,8 @@ package mx.com.sw.services.account.info;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
 import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
@@ -9,95 +11,55 @@ import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 
 /**
- * AccountInfoService - Servicio para implementación de consulta de información.
+ * Servicio para consulta y gestión de información de cuentas.
+ * 
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-17
  */
 public abstract class AccountInfoService extends Services {
-    /**
-    * Constructor de la clase.
-    * @param url url base de la API
-    * @param user correo o usuario de SW
-    * @param password password de SW.
-    * @param proxy ip o dominio de proxy (null si no se utiliza)
-    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
-    * @throws ServicesException exception en caso de error.
-    */
-    protected AccountInfoService(String url, String urlApi, String user, String password, String proxy,
-        int proxyPort) throws ServicesException {
+
+    // Constructor con autenticación por usuario y contraseña
+    protected AccountInfoService(String url, String urlApi, String user, String password, String proxy, int proxyPort)
+            throws ServicesException {
         super(url, urlApi, user, password, proxy, proxyPort);
     }
 
-    /**
-    * Constructor de la clase.
-    * @param urlApi url base de la API
-    * @param token token infinito de SW.
-    * @param proxy ip o dominio de proxy (null si no se utiliza)
-    * @param proxyPort número de puerto de proxy (cualquier valor si proxy es null)
-    * @throws ServicesException exception en caso de error.
-    */
+    // Constructor con autenticación por token
     protected AccountInfoService(String urlApi, String token, String proxy, int proxyPort) throws ServicesException {
         super(urlApi, token, proxy, proxyPort);
     }
 
-    /**
-     * Consulta los datos de la cuenta configurada.
-     * @return {@link AccountInfoResponse}
-     * @throws ServicesException exception en caso de error.
-     */
-    public abstract AccountInfoResponse getInfo() throws ServicesException;
+    // Consulta información de un usuario por ID
+    public abstract AccountListDataResponse getUserById(String idUser) throws ServicesException;
 
-    /**
-     * Obtiene la información de la cuenta para un usuario específico por su Id.
-     * @param idUser    Identificador del usuario.
-     * @return          Respuesta de la solicitud de información de la cuenta.
-     * @throws ServicesException exception en caso de error.
-     */
-    public abstract AccountInfoResponse getInfoById(String idUser) throws ServicesException;
+    // Consulta información de un usuario por email
+    public abstract AccountListDataResponse getUsersByEmail(String email) throws ServicesException;
 
-    /**
-     * Obtiene la información de todos los usuarios con paginación.
-     * @param page      Número de la página.
-     * @param pageSize  Tamaño de la página.
-     * @return          Respuesta de la solicitud de información de los usuarios.
-     * @throws ServicesException exception en caso de error.
-     */
-    public abstract AccountListDataResponse getAllUsers(int page, int pageSize) throws ServicesException;
+    // Consulta información de un usuario por RFC
+    public abstract AccountListDataResponse getUsersByRfc(String rfc) throws ServicesException;
 
-    /**
-     * Obtiene la información de todos los usuarios con paginación.
-     * @param email     Correo para el usuario.
-     * @param password  Contraseña para el usuario.
-     * @param name      Nombre para el usuario.
-     * @param rfc       RFC del usuario.
-     * @param profile   Perfil del cliente (por defecto 3).
-     * @param stamps    Número de timbres al crear la cuenta.
-     * @param unlimited Booleano que determina si la cuenta es ilimitada o no.
-     * @param active    Booleano que determina si la cuenta se genera como activa o inactiva.
-     * @return          Respuesta de la solicitud de información de los usuarios.
-     * @throws ServicesException exception en caso de error.
-     */
-    public abstract AccountInfoActionResponse createUser(String email, String password, String name,
-            String rfc, int profile, int stamps, boolean unlimited, boolean active
-    ) throws ServicesException;
+    // Consulta usuarios activos o inactivos
+    public abstract AccountListDataResponse getUsersActivate(boolean activate) throws ServicesException;
 
-    /**
-     * Elimina la cuenta para un usuario específico por su Id.
-     * @param idUser    Identificador del usuario.
-     * @return          Respuesta de la solicitud de información de la cuenta.
-     * @throws ServicesException exception en caso de error.
-     */
+    // Consulta todos los usuarios
+    public abstract AccountListDataResponse getAllUsers() throws ServicesException;
+
+    // Crea un nuevo usuario con la información proporcionada
+    public abstract AccountInfoResponse createUser(String email, String password, String name, String rfc, int stamps,
+            boolean unlimited, String notificationEmail, String phone) throws ServicesException;
+
+    // Actualiza información de un usuario específico
+    public abstract AccountInfoActionResponse updateUser(UUID iduser, String name, String rfc, String notificationEmail,
+            String phone, boolean isUnlimited) throws ServicesException;
+
+    // Elimina un usuario por ID
     public abstract AccountInfoActionResponse deleteIdUser(String idUser) throws ServicesException;
 
-    /**
-     * Obtiene los headers necesarios para el consumo del servicio.
-     * @throws ServicesException exception en caso de error.
-     * @return {@link Map}
-    */
+    // Configura y retorna los headers necesarios para la solicitud
     protected Map<String, String> getHeaders() throws ServicesException {
         this.setupRequest();
-        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "bearer " + this.getToken());
         headers.put("Content-Type", "application/json");
         return headers;
