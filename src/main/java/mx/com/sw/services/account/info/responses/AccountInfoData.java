@@ -1,163 +1,166 @@
 package mx.com.sw.services.account.info.responses;
 
 /**
- * AccountInfoData - Clase con la informacion de la cuenta del cliente.
+ * AccountInfoData - Clase con la información de la cuenta del cliente.
+ * 
  * @author Juan Gamez
  * @version 0.0.0.1
  * @since 2020-08-17
  */
 public class AccountInfoData {
-    private int stamps;
-    private boolean unlimited;
-    private String profileValue;
-    private String idUsuario;
-    private String idCliente;
-    private String nombre;
-    private String rfc;
+    private String idUser;
+    private String idDealer;
+    private String name;
+    private String taxId;
     private String username;
-    private String fechaUltimoPassword;
+    private String lastPasswordChange;
     private String email;
-    private String telefono;
-    private boolean activo;
+    private boolean isAdmin;
+    private int profile;
+    private boolean isActive;
     private String registeredDate;
-    private boolean eliminado;
-    private String tokenAccess;
+    private String accessToken;
+    private String phone;
+    private int stamps;
+    private boolean isUnlimited;
     private String data;
     private String status;
 
-    /**
-     * Obtiene el Saldo de timbres.
-     * @return Integer
-     */
-    public int getStamps() {
-        return this.stamps;
+    // Getters y Setters
+
+    public String getIdUser() {
+        return idUser;
     }
 
-    /**
-     * Indica si la cuenta está bajo el esquema "ilimitado".
-     * @return boolean
-     */
-    public boolean isUnlimited() {
-        return this.unlimited;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
-    /**
-     * Obtiene el profile de la cuenta.
-     * @return String
-     */
-    public String getProfileValue() {
-        return this.profileValue;
+    public String getIdDealer() {
+        return idDealer;
     }
 
-    /**
-     * Obtiene idUsuario.
-     * @return String
-     */
-    public String getIdUsuario() {
-        return this.idUsuario;
+    public void setIdDealer(String idDealer) {
+        this.idDealer = idDealer;
     }
 
-    /**
-     * Obtiene idCliente o también conocido como idDealer.
-     * @return String
-     */
-    public String getIdCliente() {
-        return this.idCliente;
+    public String getName() {
+        return name;
     }
 
-    /**
-     * Obtiene el nombre de la cuenta.
-     * @return String
-     */
-    public String getNombre() {
-        return this.nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    /**
-     * Obtiene el rfc registrado en la cuenta.
-     * @return String
-     */
-    public String getRfc() {
-        return this.rfc;
+    public String getTaxId() {
+        return taxId;
     }
 
-    /**
-     * Obtiene el username.
-     * @return String
-     */
+    public void setTaxId(String taxId) {
+        this.taxId = taxId;
+    }
+
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
-    /**
-     * Obtiene la fecha del último password.
-     * @return String
-     */
-    public String getFechaUltimoPassword() {
-        return this.fechaUltimoPassword;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    /**
-     * Obtiene el email.
-     * @return String
-     */
+    public String getLastPasswordChange() {
+        return lastPasswordChange;
+    }
+
+    public void setLastPasswordChange(String lastPasswordChange) {
+        this.lastPasswordChange = lastPasswordChange;
+    }
+
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
-    /**
-     * Obtiene telefono registrado en la cuenta.
-     * @return String
-     */
-    public String getTelefono() {
-        return this.telefono;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    /**
-     * Indica si la cuenta está activada o no.
-     * @return boolean
-     */
-    public boolean isActivo() {
-        return this.activo;
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
-    /**
-     * Obtiene la fecha en la cual se registro la cuenta.
-     * @return String
-     */
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public int getProfile() {
+        return profile;
+    }
+
+    public void setProfile(int profile) {
+        this.profile = profile;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public String getRegisteredDate() {
-        return this.registeredDate;
+        return registeredDate;
     }
 
-    /**
-     * Indica si la cuenta está eliminada o no.
-     * @return boolean
-     */
-    public boolean isEliminado() {
-        return this.eliminado;
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
     }
 
-    /**
-     * Obtiene el token infinito de la cuenta.
-     * @return String
-     */
-    public String getTokenAccess() {
-        return this.tokenAccess;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    /**
-     * Obtiene los datos de la cuenta.
-     * @return String
-     */
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getStamps() {
+        return stamps;
+    }
+
+    public void setStamps(int stamps) {
+        this.stamps = stamps;
+    }
+
+    public boolean isUnlimited() {
+        return isUnlimited;
+    }
+
+    public void setUnlimited(boolean isUnlimited) {
+        this.isUnlimited = isUnlimited;
+    }
+
     public String getData() {
-        return this.data;
+        return data;
     }
 
-    /**
-     * Obtiene el estado de la respuesta.
-     * @return String
-     */
+    public void setData(String data) {
+        this.data = data;
+    }
+
     public String getStatus() {
-        return this.status;
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
