@@ -2,18 +2,19 @@ package mx.com.sw.helpers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
 import mx.com.sw.services.Validate.responses.ValidateResponse;
 import mx.com.sw.services.acceptreject.responses.AcceptRejectResponse;
-import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.balance.responses.AccountBalanceActionResponse;
+import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoActionResponse;
 import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
-import mx.com.sw.services.csd.responses.CsdResponse;
 import mx.com.sw.services.csd.responses.CsdDataResponse;
 import mx.com.sw.services.csd.responses.CsdListDataResponse;
+import mx.com.sw.services.csd.responses.CsdResponse;
 import mx.com.sw.services.pdf.responses.PdfResponse;
 import mx.com.sw.services.pendings.response.PendingsResponse;
 import mx.com.sw.services.relations.response.RelationsResponse;
@@ -22,6 +23,7 @@ import mx.com.sw.services.stamp.responses.StampResponseV1;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.com.sw.services.stamp.responses.StampResponseV3;
 import mx.com.sw.services.stamp.responses.StampResponseV4;
+import mx.com.sw.services.stampretention.responses.StampRetentionResponseV3;
 import mx.com.sw.services.storage.StorageResponse;
 
 /**
@@ -224,6 +226,15 @@ public final class ResponseHelper {
      */
     public static StorageResponse toStorageResponse(Throwable ex) {
         return new StorageResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    }
+
+    /**
+     * Este método obtiene una respuesta de tipo StampRetentionResponseV3.
+     * @param ex Throwable a ser tratado
+     * @return {@link StampRetentionResponseV3}
+     */
+    public static StampRetentionResponseV3 toStampRetentionResponseV3(Throwable ex) {
+        return new StampRetentionResponseV3(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
     /**
