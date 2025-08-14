@@ -2987,6 +2987,106 @@ public class App {
 </details>
 
 ---
+### **Cancelación Retenciones** ###
+Servicio que permite cancelar facturas de retenciones e información de pagos con sus complementos a través de un Web Service.
+<details>
+  <summary>Cancelación retenciones por XML</summary>
+
+<br>
+
+## Cancelación retenciones por XML ##
+Este método recibe únicamente el XML sellado con el UUID a cancelar de retenciones e información de pagos.
+
+
+**Ejemplo de consumo de la librería para cancelar retenciones con XML**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.cancelationretention.CancelationRetention;
+import mx.com.sw.services.cancelationretention.responses.CancelationRetentionResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo CancelationRetention 
+            //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+            //Automaticamente despues de obtenerlo se procedera a Cancelar la retención
+            CancelationRetention cancelation = new CancelationRetention("https://services.test.sw.com.mx", "user",
+            "password", null, 0);
+            //Obtenemos el XML de cancelacion
+            String xmlCancelation = new String(Files.readAllBytes(Paths.get("cancelacion_retencion.xml")), "UTF-8");
+            CancelationRetentionResponse response = cancelation.cancelar(xmlCancelation);
+
+            if (response.getStatus().equalsIgnoreCase("success"))
+                {
+                    //Acuse de cancelación
+                    System.out.println(response.getData().getAcuse());
+                    //Estatus del UUID
+                    System.out.println(response.getData().getUUID());
+                }
+            else
+                {
+                    //Obtenemos el detalle del Error
+                    System.out.println("Error al cancelar");
+                    System.out.println(response.getMessage());
+                    System.out.println(response.getMessageDetail());
+                }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+
+**Ejemplo de consumo de la librería para cancelar retenciones con XML utilizando token**
+```java
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import mx.com.sw.services.cancelationretention.CancelationRetention;
+import mx.com.sw.services.cancelationretention.responses.CancelationRetentionResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo CancelationRetention 
+            //A esta le pasamos la Url y el token infinito
+            //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
+            CancelationRetention cancelation = new CancelationRetention("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+            //Obtenemos el XML de cancelacion
+            String xmlCancelation = new String(Files.readAllBytes(Paths.get("cancelacion_retencion.xml")), "UTF-8");
+            CancelationRetentionResponse response = cancelation.cancelar(xmlCancelation);
+
+            if (response.getStatus().equalsIgnoreCase("success"))
+                {
+                    //Acuse de cancelación
+                    System.out.println(response.getData().getAcuse());
+                    //Estatus del UUID
+                    System.out.println(response.getData().getUUID());
+                }
+            else
+                {
+                    //Obtenemos el detalle del Error
+                    System.out.println("Error al cancelar");
+                    System.out.println(response.getMessage());
+                    System.out.println(response.getMessageDetail());
+                }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
