@@ -7,8 +7,7 @@ import mx.com.sw.services.Services;
 import mx.com.sw.services.cancelationretention.responses.CancelationRetentionResponse;
 
 /**
- * CancelationRetentionService Servicio para implementación de cancelación de retenciones.
- * @since 2025-008-12
+ * Servicio para implementación de cancelación de retenciones.
  */
 public abstract class CancelationRetentionService extends Services {
 

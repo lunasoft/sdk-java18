@@ -10,9 +10,6 @@ import mx.com.sw.services.cancelationretention.responses.CancelationRetentionRes
 /**
  * CancelationRetentionTest
  * Clase para UT del servicio de CancelationRetention.
- * @author  Martin F
- * @version 0.0.0.1
- * @since   2025-01-27
  */
 public class CancelationRetentionTest {
     private final BuildSettings settings;

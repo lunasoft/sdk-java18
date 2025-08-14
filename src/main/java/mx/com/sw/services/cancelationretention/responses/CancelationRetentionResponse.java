@@ -3,10 +3,7 @@ package mx.com.sw.services.cancelationretention.responses;
 import mx.com.sw.entities.IResponse;
 
 /**
- * CancelationRetentionResponse Respuesta de cancelación de retención con la información de la misma.
- * @author Martin F
- * @version 0.0.0.1
- * @since 2025-01-27
+ * Respuesta de cancelación de retención con la información de la misma.
  */
 public class CancelationRetentionResponse extends IResponse {
     private CancelationRetentionData data;
@@ -24,7 +21,7 @@ public class CancelationRetentionResponse extends IResponse {
     }
 
     /**
-     * Obtiene los datos de la cancelación cuando está fue "success".
+     * Obtiene los datos de la cancelación cuando es "success".
      * @return CancelationRetentionData
      */
     public CancelationRetentionData getData() {

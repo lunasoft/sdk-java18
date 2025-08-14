@@ -4,11 +4,8 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralValidations;
 
 /**
- * CancelationRetentionValidation Clase para validaciones en el
+ * Clase para validaciones en el
  * servicio de cancelación de retenciones.
- * @author Martin F
- * @version 0.0.0.1
- * @since 2025-01-27
  */
 public class CancelationRetentionValidation extends GeneralValidations {
 

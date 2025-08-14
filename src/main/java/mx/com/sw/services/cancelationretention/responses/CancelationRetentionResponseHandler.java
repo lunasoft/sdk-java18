@@ -4,10 +4,7 @@ import mx.com.sw.helpers.ResponseHelper;
 import mx.com.sw.services.ResponseHandler;
 
 /**
- * CancelationRetentionResponseHandler Handler para servicio de Cancelación de Retenciones.
- * @author Martin F
- * @version 0.0.0.1
- * @since 2025-01-27
+ * Handler para servicio de Cancelación de Retenciones.
  */
 public class CancelationRetentionResponseHandler extends ResponseHandler<CancelationRetentionResponse> {
 

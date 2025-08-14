@@ -11,8 +11,7 @@ import mx.com.sw.services.cancelationretention.responses.CancelationRetentionRes
 import mx.com.sw.services.cancelationretention.responses.CancelationRetentionResponseHandler;
 
 /**
- * CancelationRetention Servicio para servicios de cancelación de retenciones.
- * @since 2025-008-12
+ * Servicios de cancelación de retenciones.
  */
 public class CancelationRetention extends CancelationRetentionService {
     private CancelationRetentionResponseHandler handler;

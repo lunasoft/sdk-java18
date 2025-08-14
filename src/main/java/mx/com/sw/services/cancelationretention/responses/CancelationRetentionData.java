@@ -3,10 +3,7 @@ package mx.com.sw.services.cancelationretention.responses;
 import java.util.Map;
 
 /**
- * CancelationRetentionData Clase con la informacion de la cancelación de retención.
- * @author Martin F
- * @version 0.0.0.1
- * @since 2025-01-27
+ * Clase con la informacion de la cancelación de retención.
  */
 public class CancelationRetentionData {
     private String acuse;
@@ -22,9 +19,6 @@ public class CancelationRetentionData {
 
     /**
      * Obtiene llave valor de los UUID y su estatus de cancelación.
-     * 201 - Cancelado con éxito.
-     * 202 - Previamente cancelado.
-     * @return Map String String
      */
     public Map<String, String> getUUID() {
         return this.uuid;
