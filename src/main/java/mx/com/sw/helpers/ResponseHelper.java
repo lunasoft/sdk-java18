@@ -12,6 +12,7 @@ import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
+import mx.com.sw.services.cancelationretention.responses.CancelationRetentionResponse;
 import mx.com.sw.services.csd.responses.CsdDataResponse;
 import mx.com.sw.services.csd.responses.CsdListDataResponse;
 import mx.com.sw.services.csd.responses.CsdResponse;
@@ -246,13 +247,22 @@ public final class ResponseHelper {
         return new ResendResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 
-    /**
-    * Este método obtiene una respuesta de tipo ValidateResponse.
-    * @param ex Throwable a ser tratado
-    * @return {@link PdfResponse}
-    */
+        /**
+     * Este método obtiene una respuesta de tipo ValidateResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link PdfResponse}
+     */
     public static ValidateResponse toValidateResponse(Throwable ex) {
         return new ValidateResponse(STATUS_ERROR, ex.getMessage(),
                 getStackError(ex), null, null, null, null, null, null);
+    }
+
+    /**
+     * Este método obtiene una respuesta de tipo CancelationRetentionResponse.
+     * @param ex Throwable a ser tratado
+     * @return {@link CancelationRetentionResponse}
+     */
+    public static CancelationRetentionResponse toCancelationRetentionResponse(Throwable ex) {
+        return new CancelationRetentionResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 }
