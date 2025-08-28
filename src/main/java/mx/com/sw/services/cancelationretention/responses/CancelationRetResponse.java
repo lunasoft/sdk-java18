@@ -5,7 +5,7 @@ import mx.com.sw.entities.IResponse;
 /**
  * Respuesta de cancelación de retención con la información de la misma.
  */
-public class CancelationRetentionResponse extends IResponse {
+public class CancelationRetResponse extends IResponse {
     private CancelationRetentionData data;
 
     /**
@@ -15,7 +15,7 @@ public class CancelationRetentionResponse extends IResponse {
      * @param messageDetail detalles mensaje de la API.
      * @param data objeto con los datos de respuesta.
      */
-    public CancelationRetentionResponse(String status, String message, String messageDetail, CancelationRetentionData data) {
+    public CancelationRetResponse(String status, String message, String messageDetail, CancelationRetentionData data) {
         super(status, message, messageDetail);
         this.data = data;
     }

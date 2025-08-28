@@ -44,4 +44,32 @@ public class CancelationRetentionValidation extends GeneralValidations {
             throw new ServicesException(errorDescription);
         }
     }
+
+    /**
+     * Validación para cancelacion mediante CSD.
+     * @param csd String base64 del certificado.
+     * @param key String base64 de llave privada.
+     * @param password password de llave privada.
+     * @param uuid uuid factura.
+     * @throws ServicesException exception en caso de error.
+     */
+    public void validateRequestCSD(String csd, String key, String password, String uuid) throws ServicesException {
+        validateString(uuid, "Faltan especificar el UUID a Cancelar", false, null);
+        validateString(csd, "Falta Capturar el Certificado", true, "Certificado");
+        validateString(key, "Falta Capturar Key del Certificado", true, "Key");
+        validateString(password, "Falta Capturar Contraseña del Certificado", false, null);
+    }
+
+    /**
+     * Validación para cancelacion mediante PFX.
+     * @param pfx String base64 del pfx.
+     * @param password password del pfx.
+     * @param uuid uuid factura.
+     * @throws ServicesException exception en caso de error.
+     */
+    public void validateRequestPFX(String pfx, String password, String uuid) throws ServicesException {
+        validateString(uuid, "Faltan especificar el UUID a Cancelar", false, null);
+        validateString(pfx, "Falta Capturar el Certificado PFX", true, "PFX");
+        validateString(password, "Falta Capturar Contraseña del Certificado", false, null);
+    }
 } 

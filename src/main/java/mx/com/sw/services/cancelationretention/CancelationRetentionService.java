@@ -2,9 +2,13 @@ package mx.com.sw.services.cancelationretention;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
-import mx.com.sw.services.cancelationretention.responses.CancelationRetentionResponse;
+import mx.com.sw.services.cancelationretention.requests.CancelationRetRequestCSD;
+import mx.com.sw.services.cancelationretention.requests.CancelationRetRequestPFX;
+import mx.com.sw.services.cancelationretention.responses.CancelationRetResponse;
 
 /**
  * Servicio para implementación de cancelación de retenciones.
@@ -38,11 +42,53 @@ public abstract class CancelationRetentionService extends Services {
     }
 
     /**
-     * Método abstracto para cancelar retención mediante XML.
-     * @param xmlCancelation String xml de cancelación.
-     * @return CancelationRetentionResponse
+     * Métodos abstractos para cancelar retención mediante XML, CSD y PFX.
+     * @return CancelationRetResponse
      */
-    abstract CancelationRetentionResponse cancelar(String xmlCancelation);
+    abstract CancelationRetResponse cancelar(String xmlCancelation);
+
+    abstract CancelationRetResponse cancelar(String cer, String key, String rfc, String password, String uuid,
+        String motivo, String folioSustitucion);
+
+    abstract CancelationRetResponse cancelar(String pfx, String rfc, String password, String uuid, String motivo,
+        String folioSustitucion);
+
+        /**
+     * Construye el json del request a partir de los datos.
+     * @param pfx String base64 del pfx.
+     * @param rfc rfc emisor.
+     * @param password password del pfx.
+     * @param uuid uuid factura.
+     * @param motivo motivo de cancelacion.
+     * @param folioSustitucion uuid factura que sustituye.
+     * @return String json
+     */
+    protected String requestCancelar(String pfx, String rfc, String password, String uuid, String motivo,
+        String folioSustitucion) {
+        CancelationRetRequestPFX objectRequest = new CancelationRetRequestPFX(uuid, password, rfc, pfx, motivo,
+            folioSustitucion);
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(objectRequest);
+    }
+
+    /**
+     * Construye el json del request a partir de los datos.
+     * @param csd String base64 del certificado.
+     * @param key String base64 de llave privada.
+     * @param rfc rfc emisor.
+     * @param password password de llave privada.
+     * @param uuid uuid factura.
+     * @param motivo motivo de cancelacion.
+     * @param folioSustitucion uuid factura que sustituye.
+     * @return String json
+     */
+    protected String requestCancelar(String csd, String key, String rfc, String password, String uuid,
+        String motivo, String folioSustitucion) {
+        CancelationRetRequestCSD objectRequest = new CancelationRetRequestCSD(uuid, password, rfc, csd, key, motivo,
+            folioSustitucion);
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(objectRequest);
+    }
 
     /**
      * Obtiene los headers necesarios para el consumo del servicio.

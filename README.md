@@ -3062,7 +3062,7 @@ public class App {
             CancelationRetention cancelation = new CancelationRetention("https://services.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
             //Obtenemos el XML de cancelacion
             String xmlCancelation = new String(Files.readAllBytes(Paths.get("cancelacion_retencion.xml")), "UTF-8");
-            CancelationRetentionResponse response = cancelation.cancelar(xmlCancelation);
+            CancelationRetResponse response = cancelation.cancelar(xmlCancelation);
 
             if (response.getStatus().equalsIgnoreCase("success"))
                 {
@@ -3085,6 +3085,123 @@ public class App {
         }  
     }
 }
+```
+</details>
+<details>
+<summary>
+Cancelacion por CSD
+</summary>
+
+## Cancelacion por CSD ##
+
+Como su nombre lo indica, este metodo recibe todos los elementos que componen el CSD los cuales son los siguientes:
+
+* Certificado (.cer) en **Base64**
+* Key (.key) en **Base64**
+* RFC emisor
+* Password del archivo key
+* UUID
+* Motivo
+* Folio Sustitución
+
+**Ejemplo de consumo de la libreria para cancelar con CSD con motivo de cancelación 01 con relación a documento**
+
+```java
+import mx.com.sw.services.cancelationretention.CancelationRetention;
+import mx.com.sw.services.cancelationretention.responses.CancelationRetResponse;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class App {
+
+    @Test
+    public void testCancellationCSD() {
+        try {
+            // Creamos una instancia de tipo CancelationRetention, pasándole la URL y el token
+            CancelationRetention cancelation = new CancelationRetention(settings.getUrlSW(), settings.getTokenSW(), null, 0);
+
+            // Obtenemos los datos del CSD desde la configuración
+            String csdBase64 = settings.getCSD();
+            String keyBase64 = settings.getKey();
+            String password = settings.getPasswordCSD();
+            String rfc = settings.getRFC();
+
+            // Definimos el UUID a cancelar
+            String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
+
+            // Realizamos la petición de cancelación al servicio
+            CancelationRetResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid, "02", null);
+
+            // Verificamos que la respuesta no sea nula y contenga un estado
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+
+            // Validamos que el estatus sea "success" o que indique intermitencia del SAT
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()) || response.getMessage().contains("Intermitencia del SAT"));
+        } catch (ServicesException ex) {
+            // Manejamos una posible excepción
+            Assertions.assertNotNull(ex);
+        }
+    }
+}
+
+```
+
+</details>
+<details>
+<summary>
+Cancelacion por PFX
+</summary>
+
+## Cancelacion por PFX ##
+
+Este método recibe los siguientes parametros:
+* Archivo PFX en **Base64**
+* RFC emisor
+* Password (CSD)
+* UUID
+* Motivo
+* Folio Sustitución
+
+**Ejemplo de consumo de la libreria para cancelar con PFX con motivo 01 con documento relacionado**
+
+```java
+import mx.com.sw.services.cancelationretention.responses.CancelationRetResponse;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class App {
+    
+    @Test
+    public void testCancellationPFX() {
+        try {
+            // Creamos una instancia de tipo CancelationRetention, pasando la URL, usuario y contraseña para obtener el token
+            CancelationRetention cancelation = new CancelationRetention(settings.getUrlSW(), settings.getUserSW(), settings.getPasswordSW(), null, 0);
+
+            // Obtenemos los datos del PFX desde la configuración
+            String pfxBase64 = settings.getPFX();
+            String password = settings.getPasswordPFX();
+            String rfc = settings.getRFC();
+            
+            // Definimos el UUID a cancelar
+            String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
+
+            // Realizamos la petición de cancelación al servicio
+            CancelationRetResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
+
+            // Verificamos que la respuesta no sea nula y contenga un estado
+            Assertions.assertNotNull(response);
+            Assertions.assertNotNull(response.getStatus());
+
+            // Validamos que el estatus sea "success" o que indique intermitencia del SAT
+            Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()) || response.getMessage().contains("Intermitencia del SAT"));
+        } catch (ServicesException ex) {
+            // Manejamos una posible excepción
+            Assertions.assertNotNull(ex);
+        }
+    }
+}
+
 ```
 </details>
 
