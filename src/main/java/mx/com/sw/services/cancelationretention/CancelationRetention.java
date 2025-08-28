@@ -7,14 +7,15 @@ import org.apache.http.client.config.RequestConfig;
 
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.GeneralHelpers;
-import mx.com.sw.services.cancelationretention.responses.CancelationRetResponse;
-import mx.com.sw.services.cancelationretention.responses.CancelationRetResponseHandler;
+import mx.com.sw.services.cancelation.CancelationValidation;
+import mx.com.sw.services.cancelation.responses.CancelationResponse;
+import mx.com.sw.services.cancelation.responses.CancelationResponseHandler;
 
 /**
  * Servicios de cancelación de retenciones.
  */
 public class CancelationRetention extends CancelationRetentionService {
-    private CancelationRetResponseHandler handler;
+    private CancelationResponseHandler handler;
 
     /**
     * Constructor de la clase.
@@ -28,7 +29,7 @@ public class CancelationRetention extends CancelationRetentionService {
     public CancelationRetention(String url, String user, String password, String proxy,
         int proxyPort) throws ServicesException {
         super(url, user, password, proxy, proxyPort);
-        handler = new CancelationRetResponseHandler();
+        handler = new CancelationResponseHandler();
     }
 
     /**
@@ -41,7 +42,7 @@ public class CancelationRetention extends CancelationRetentionService {
     */
     public CancelationRetention(String url, String token, String proxy, int proxyPort) throws ServicesException {
         super(url, token, proxy, proxyPort);
-        handler = new CancelationRetResponseHandler();
+        handler = new CancelationResponseHandler();
     }
 
     /**
@@ -51,9 +52,9 @@ public class CancelationRetention extends CancelationRetentionService {
      * @return CancelationRetResponse
      */
     @Override
-    public CancelationRetResponse cancelar(String xmlCancelation) {
+    public CancelationResponse cancelar(String xmlCancelation) {
         try {
-            new CancelationRetentionValidation(getUrl(), getUser(), getPassword(), getToken())
+            new CancelationValidation(getUrl(), getUser(), getPassword(), getToken())
                     .validateRequestXML(xmlCancelation);
             Map<String, String> headers = getHeaders();
             String boundary = UUID.randomUUID().toString();
@@ -64,7 +65,7 @@ public class CancelationRetention extends CancelationRetentionService {
             headers.put("Content-Type", "multipart/form-data; boundary=" + boundary);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
             return handler.postHTTPMultipart(getUrl(), "retencion/cancel/xml", headers, xml, config,
-                    CancelationRetResponse.class);
+                    CancelationResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }
@@ -82,17 +83,17 @@ public class CancelationRetention extends CancelationRetentionService {
      * @see CancelationRetResponse
      */
     @Override
-    public CancelationRetResponse cancelar(String cer, String key, String rfc, String password, String uuid,
+    public CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid,
         String motivo, String folioSustitucion) {
         try {
-            new CancelationRetentionValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestCSD(cer, key,
+            new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestCSD(cer, key,
                     password, uuid);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             String jsonBody = this.requestCancelar(cer, key, rfc, password, uuid, motivo, folioSustitucion);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.postHTTPJson(getUrl(), "cfdi33/cancel/csd", headers, jsonBody, config,
-                    CancelationRetResponse.class);
+            return handler.postHTTPJson(getUrl(), "retencion/cancel/csd", headers, jsonBody, config,
+                    CancelationResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }
@@ -110,17 +111,17 @@ public class CancelationRetention extends CancelationRetentionService {
      * @see CancelationRetResponse
      */
     @Override
-    public CancelationRetResponse cancelar(String pfx, String rfc, String password, String uuid,
+    public CancelationResponse cancelar(String pfx, String rfc, String password, String uuid,
         String motivo, String folioSustitucion) {
         try {
-            new CancelationRetentionValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestPFX(pfx, password,
+            new CancelationValidation(getUrl(), getUser(), getPassword(), getToken()).validateRequestPFX(pfx, password,
                     uuid);
             Map<String, String> headers = getHeaders();
             headers.put("Content-Type", "application/json");
             String jsonBody = this.requestCancelar(pfx, rfc, password, uuid, motivo, folioSustitucion);
             RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());
-            return handler.postHTTPJson(getUrl(), "cfdi33/cancel/pfx", headers, jsonBody, config,
-                    CancelationRetResponse.class);
+            return handler.postHTTPJson(getUrl(), "retencion/cancel/pfx", headers, jsonBody, config,
+                    CancelationResponse.class);
         } catch (ServicesException e) {
             return handler.handleException(e);
         }

@@ -6,9 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.Services;
-import mx.com.sw.services.cancelationretention.requests.CancelationRetRequestCSD;
-import mx.com.sw.services.cancelationretention.requests.CancelationRetRequestPFX;
-import mx.com.sw.services.cancelationretention.responses.CancelationRetResponse;
+import mx.com.sw.services.cancelation.requests.CancelationRequestCSD;
+import mx.com.sw.services.cancelation.requests.CancelationRequestPFX;
+import mx.com.sw.services.cancelation.responses.CancelationResponse;
 
 /**
  * Servicio para implementación de cancelación de retenciones.
@@ -45,12 +45,12 @@ public abstract class CancelationRetentionService extends Services {
      * Métodos abstractos para cancelar retención mediante XML, CSD y PFX.
      * @return CancelationRetResponse
      */
-    abstract CancelationRetResponse cancelar(String xmlCancelation);
+    abstract CancelationResponse cancelar(String xmlCancelation);
 
-    abstract CancelationRetResponse cancelar(String cer, String key, String rfc, String password, String uuid,
+    abstract CancelationResponse cancelar(String cer, String key, String rfc, String password, String uuid,
         String motivo, String folioSustitucion);
 
-    abstract CancelationRetResponse cancelar(String pfx, String rfc, String password, String uuid, String motivo,
+    abstract CancelationResponse cancelar(String pfx, String rfc, String password, String uuid, String motivo,
         String folioSustitucion);
 
         /**
@@ -65,7 +65,7 @@ public abstract class CancelationRetentionService extends Services {
      */
     protected String requestCancelar(String pfx, String rfc, String password, String uuid, String motivo,
         String folioSustitucion) {
-        CancelationRetRequestPFX objectRequest = new CancelationRetRequestPFX(uuid, password, rfc, pfx, motivo,
+        CancelationRequestPFX objectRequest = new CancelationRequestPFX(uuid, password, rfc, pfx, motivo,
             folioSustitucion);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);
@@ -84,7 +84,7 @@ public abstract class CancelationRetentionService extends Services {
      */
     protected String requestCancelar(String csd, String key, String rfc, String password, String uuid,
         String motivo, String folioSustitucion) {
-        CancelationRetRequestCSD objectRequest = new CancelationRetRequestCSD(uuid, password, rfc, csd, key, motivo,
+        CancelationRequestCSD objectRequest = new CancelationRequestCSD(uuid, password, rfc, csd, key, motivo,
             folioSustitucion);
         Gson gson = new GsonBuilder().create();
         return gson.toJson(objectRequest);

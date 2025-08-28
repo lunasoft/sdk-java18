@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
-import mx.com.sw.services.cancelationretention.responses.CancelationRetResponse;
+import mx.com.sw.services.cancelation.responses.CancelationResponse;
 
 /**
  * CancelationRetentionTest
@@ -30,7 +30,7 @@ public class CancelationRetentionTest {
             CancelationRetention cancelation = new CancelationRetention(settings.getUrlSW(), settings.getUserSW(),
                 settings.getPasswordSW(), null, 0);
             String xmlCancelation = settings.getXmlCancelationRetention();
-            CancelationRetResponse response = cancelation.cancelar(xmlCancelation);
+            CancelationResponse response = cancelation.cancelar(xmlCancelation);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus()));
@@ -50,7 +50,7 @@ public class CancelationRetentionTest {
             String password = settings.getPasswordCSD();
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationRetResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid, "02", null);
+            CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
@@ -71,7 +71,7 @@ public class CancelationRetentionTest {
             String password = settings.getPasswordPFX();
             String rfc = settings.getRFC();
             String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
-            CancelationRetResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
+            CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
             Assertions.assertTrue("success".equalsIgnoreCase(response.getStatus())
