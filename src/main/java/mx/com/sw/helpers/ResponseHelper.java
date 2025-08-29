@@ -12,7 +12,7 @@ import mx.com.sw.services.account.info.responses.AccountInfoResponse;
 import mx.com.sw.services.account.info.responses.AccountListDataResponse;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
 import mx.com.sw.services.cancelation.responses.CancelationResponse;
-import mx.com.sw.services.cancelationretention.responses.CancelationRetentionResponse;
+import mx.com.sw.services.cancelationretention.responses.CancelationRetResponse;
 import mx.com.sw.services.csd.responses.CsdDataResponse;
 import mx.com.sw.services.csd.responses.CsdListDataResponse;
 import mx.com.sw.services.csd.responses.CsdResponse;
@@ -262,7 +262,7 @@ public final class ResponseHelper {
      * @param ex Throwable a ser tratado
      * @return {@link CancelationRetentionResponse}
      */
-    public static CancelationRetentionResponse toCancelationRetentionResponse(Throwable ex) {
-        return new CancelationRetentionResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
+    public static CancelationRetResponse toCancelationRetResponse(Throwable ex) {
+        return new CancelationRetResponse(STATUS_ERROR, ex.getMessage(), getStackError(ex), null);
     }
 }
