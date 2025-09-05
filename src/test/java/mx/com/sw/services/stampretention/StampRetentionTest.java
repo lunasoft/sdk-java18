@@ -4,7 +4,6 @@ import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.stampretention.responses.StampRetentionResponseV3;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
