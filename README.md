@@ -265,7 +265,7 @@ Para mayor referencia de estas versiones de respuesta, favor de visitar el sigui
 Cancelacion por CSD
 </summary>
 
- ## Cancelacion de retenciones por CSD ##
+ ## Cancelacion por CSD ##
 Como su nombre lo indica, este metodo recibe todos los elementos que componen el CSD los cuales son los siguientes:
 
 * Certificado (.cer) en **Base64**
@@ -383,7 +383,7 @@ public class App {
 Cancelacion por PFX
 </summary>
 
-## Cancelacion de retenciones por PFX ##
+## Cancelacion por PFX ##
 
 Este método recibe los siguientes parametros:
 * Archivo PFX en **Base64**
