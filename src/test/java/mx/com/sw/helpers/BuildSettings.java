@@ -60,6 +60,7 @@ public class BuildSettings {
     private String rfc;
     private String noCertificado;
     private String acuse;
+    private String acuseRetencion;
     private String relationsXML;
     private String acceptRejectXML;
     private String templateId;
@@ -94,6 +95,7 @@ public class BuildSettings {
             rfc = "EKU9003173C9";
             noCertificado = "30001000000500003416";
             acuse = loadResourceAsString("resources/XmlCancelacion.xml");
+            acuseRetencion = loadResourceAsString("resources/XmlCancelacionRetencion.xml");
             relationsXML = loadResourceAsString("resources/RelationsXML.xml");
             acceptRejectXML = loadResourceAsString("resources/AcceptReject.xml");
             templateId = "cfdi40";
@@ -208,6 +210,12 @@ public class BuildSettings {
      */
     public String getXmlCancelation() {
         return this.acuse;
+    }
+    /**
+     * Regresa el valor descrito.
+     */
+    public String getXmlCancelationRetention() {
+        return this.acuseRetencion;
     }
 
     /**
