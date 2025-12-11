@@ -1115,8 +1115,74 @@ public class App {
             //A esta le pasamos la UrlApi y el token de la cuenta a consultar
 
             AccountBalance account = new AccountBalance("https://api.test.sw.com.mx", "token", null, 0);
-            AccountBalanceResponse res = account.getBalance();
             AccountBalanceResponse response = account.getBalance();
+            System.out.println("Estado: " + response.getStatus());
+            System.out.println("ID Usuario: " + response.getData().getIdUser());
+            System.out.println("ID Balance Usuario: " + response.getData().getIdUserBalance());
+            System.out.println("Stamps Asignados: " + response.getData().getStampsAssigned());
+            System.out.println("Stamps Usados: " + response.getData().getStampsUsed());
+            System.out.println("Saldo Stamps: " + response.getData().getStampsBalance());
+            System.out.println("Es Ilimitado: " + response.getData().isUnlimited());
+            System.out.println("Fecha Expiración: " + response.getData().getExpirationDate());
+            if (response.getData().getLastTransaction() != null) {
+                System.out.println("Folio: " + response.getData().getLastTransaction().getFolio());
+                System.out.println("ID Usuario: " + response.getData().getLastTransaction().getIdUser());
+                System.out
+                        .println("ID Usuario Receptor: " + response.getData().getLastTransaction().getIdUserReceiver());
+                System.out.println("Nombre Receptor: " + response.getData().getLastTransaction().getNameReceiver());
+                System.out.println("Stamps In: "
+                        + (response.getData().getLastTransaction().getStampsIn() != null
+                                ? response.getData().getLastTransaction().getStampsIn()
+                                : "null"));
+                System.out.println("Stamps Out: "
+                        + (response.getData().getLastTransaction().getStampsOut() != null
+                                ? response.getData().getLastTransaction().getStampsOut()
+                                : "null"));
+                System.out.println("Stamps Current: "
+                        + (response.getData().getLastTransaction().getStampsCurrent() != null
+                                ? response.getData().getLastTransaction().getStampsCurrent()
+                                : "null"));
+                System.out.println("Comentario: " + response.getData().getLastTransaction().getComment());
+                System.out.println("Fecha: " + response.getData().getLastTransaction().getDate());
+                System.out.println("Email Enviado: " +
+                        (response.getData().getLastTransaction().isEmailSent() ? "Sí" : "No"));
+
+            } else {
+                System.out.println("No hay transacción registrada.");
+            }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar saldo por Id de la subcuenta
+</summary>
+Este metodo permite revisar el detalle de los timbres disponibles en una subcuenta filtrando por ID.
+
+
+**Ejemplo de consumo de la libreria para consultar el saldo por Id mediante token**
+```java
+import mx.com.sw.services.account.balance.AccountBalance;
+import mx.com.sw.services.account.balance.responses.AccountBalanceResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo BalanceAccount 
+            //A esta le pasamos la UrlApi, el token de la cuenta administradora y el ID de la subcuenta a consultar
+
+            AccountBalance account = new AccountBalance("https://api.test.sw.com.mx", "token", null, 0);
+            AccountBalanceResponse response = account.getBalanceById(UUID.fromString("fafb2ac2-62ca-49f8-91de-14cea73b01eb"));
             System.out.println("Estado: " + response.getStatus());
             System.out.println("ID Usuario: " + response.getData().getIdUser());
             System.out.println("ID Balance Usuario: " + response.getData().getIdUserBalance());
