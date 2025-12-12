@@ -27,7 +27,7 @@ public class AccountBalanceTest {
     }
 
     /**
-     * Método de UT con usuario y password.
+     * Método de consulta saldo con usuario y password.
      */
     @Test
     public void testGetBalance() {
@@ -107,6 +107,76 @@ public class AccountBalanceTest {
             Assertions.assertNotNull(res);
             Assertions.assertNotNull(res.getMessage());
             Assertions.assertFalse("success".equals(res.getStatus()));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT consultar saldo por ID con usuario y password.
+     */
+    @Test
+    public void testGetBalanceById() {
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlSW(), settings.getUrlServicesSW(),
+                    settings.getUserSW(),
+                    settings.getPasswordSW(), null, 0);
+            AccountBalanceResponse res = account.getBalanceById(UUID.fromString("fafb2ac2-62ca-49f8-91de-14cea73b01eb"));
+            Assertions.assertNotNull(res);
+            Assertions.assertTrue("success".equals(res.getStatus()));
+            Assertions.assertNotNull(res.getData());
+            Assertions.assertNotNull(res.getData().getStampsBalance() > 0);
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT consultar saldo por ID con token.
+     */
+    @Test
+    public void testGetBalanceByIdToken() {
+        try {
+            AccountBalance account = new AccountBalance(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountBalanceResponse response = account.getBalanceById(UUID.fromString("fafb2ac2-62ca-49f8-91de-14cea73b01eb"));
+            Assertions.assertNotNull(response);
+            Assertions.assertTrue("success".equals(response.getStatus()));
+            Assertions.assertNotNull(response.getData());
+            System.out.println("Estado: " + response.getStatus());
+            System.out.println("ID Usuario: " + response.getData().getIdUser());
+            System.out.println("ID Balance Usuario: " + response.getData().getIdUserBalance());
+            System.out.println("Stamps Asignados: " + response.getData().getStampsAssigned());
+            System.out.println("Stamps Usados: " + response.getData().getStampsUsed());
+            System.out.println("Saldo Stamps: " + response.getData().getStampsBalance());
+            System.out.println("Es Ilimitado: " + response.getData().isUnlimited());
+            System.out.println("Fecha Expiración: " + response.getData().getExpirationDate());
+            if (response.getData().getLastTransaction() != null) {
+                System.out.println("Folio: " + response.getData().getLastTransaction().getFolio());
+                System.out.println("ID Usuario: " + response.getData().getLastTransaction().getIdUser());
+                System.out
+                        .println("ID Usuario Receptor: " + response.getData().getLastTransaction().getIdUserReceiver());
+                System.out.println("Nombre Receptor: " + response.getData().getLastTransaction().getNameReceiver());
+                System.out.println("Stamps In: "
+                        + (response.getData().getLastTransaction().getStampsIn() != null
+                                ? response.getData().getLastTransaction().getStampsIn()
+                                : "null"));
+                System.out.println("Stamps Out: "
+                        + (response.getData().getLastTransaction().getStampsOut() != null
+                                ? response.getData().getLastTransaction().getStampsOut()
+                                : "null"));
+                System.out.println("Stamps Current: "
+                        + (response.getData().getLastTransaction().getStampsCurrent() != null
+                                ? response.getData().getLastTransaction().getStampsCurrent()
+                                : "null"));
+                System.out.println("Comentario: " + response.getData().getLastTransaction().getComment());
+                System.out.println("Fecha: " + response.getData().getLastTransaction().getDate());
+                System.out.println("Email Enviado: " +
+                        (response.getData().getLastTransaction().isEmailSent() ? "Sí" : "No"));
+
+            } else {
+                System.out.println("No hay transacción registrada.");
+            }
+
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }

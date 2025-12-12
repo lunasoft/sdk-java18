@@ -19,6 +19,7 @@ public class AccountBalance extends AccountBalanceService {
     // Rutas de API para operaciones de saldo.
     private static final String MANAGEMENT_API_BALANCE_PATH = "management/v2/api/dealers/users/";
     private static final String SERVICE_BALANCE_PATH = "management/v2/api/users/balance";
+    private static final String SERVICE_BALANCE_ID_PATH = "management/v2/api/dealers/balance/users/";
 
     // Manejadores de respuesta para consultas y acciones.
     private final AccountBalanceResponseHandler handler;
@@ -96,7 +97,7 @@ public class AccountBalance extends AccountBalanceService {
     public AccountBalanceResponse getBalanceById(UUID idUser) throws ServicesException {
         Map<String, String> headers = getHeaders();  // Obtener encabezados.
         RequestConfig config = GeneralHelpers.setProxyAndTimeOut(getProxy(), getProxyPort());  // Configurar proxy.
-        String path = String.format(MANAGEMENT_API_BALANCE_PATH, idUser.toString());  // Ruta del usuario.
+        String path = SERVICE_BALANCE_ID_PATH + idUser.toString();
 
         // Consultar saldo.
         return handler.getHTTP(getUrlapi() == null ? getUrl() : getUrlapi(), path, headers, config, AccountBalanceResponse.class);
