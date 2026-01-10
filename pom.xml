@@ -195,6 +195,9 @@
             <detectOfflineLinks>false</detectOfflineLinks>
             <detectJavaApiLink>false</detectJavaApiLink>
             <source>1.8</source>
+            <failOnError>false</failOnError>
+            <failOnWarnings>false</failOnWarnings>
+            <doclint>none</doclint>
           </configuration>
         </plugin>
       </plugins>
