@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.com.sw</groupId>
   <artifactId>sdk-java18</artifactId>
-  <version>0.0.20.1</version>
+  <version>0.0.21.1</version>
   <packaging>jar</packaging>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -33,10 +33,10 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
     </repository>
   </distributionManagement>
-  <licenses>
+    <licenses>
     <license>
-      <name>GNU General Public License (GPL)</name>
-      <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
     </license>
   </licenses>
   <developers>
