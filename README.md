@@ -1660,10 +1660,78 @@ public class App {
     }
 }
 ```
+
 </details>
 
 
+# Recuperar XML por UUID #
 
+Método para recuperar la información de un XML enviando el UUID de la factura, así como el token de la cuenta en la cual fue timbrada.
+
+Este método recibe los siguientes parámetros:
+
+- Url Api SW
+- Url Servicios SW (Cuando se use usuario y contraseña)
+- Usuario y contraseña ò token
+- UUID
+
+<details>
+<summary>
+Ejemplo de consumo del método
+</summary>
+
+**Ejemplo de consumo de la libreria para la recuperación de XML mediante usuario y contraseña**
+```java
+import mx.com.sw.services.storage.Storage;
+import mx.com.sw.services.storage.StorageResponse;
+import mx.com.sw.services.storage.StorageData;
+
+public class App 
+{
+   public static void main(String[] args) throws Exception 
+   {
+        //Creamos una instancia de tipo Storage 
+        //A esta le pasamos la Url, urlAPi, Usuario y Contraseña para obtener el token
+        Authentication auth = new Storage("https://services.test.sw.com.mx", "https://api.test.sw.com.mx", 
+       "user","password", null, 0);
+        //Realizamos la petición para recuperar el XML
+        StorageResponse res = storage.getXml(UUID.fromString("876625f9-605a-4f52-9db8-0b724c03ba38"));
+        //Imprimimos los datos de la respuesta de la solicitud
+        System.out.println(res.getStatus());
+        System.out.println(res.getData());
+        //En caso de obtener un error, este puede obtenerse de los campos
+        System.out.println(res.getMessage());
+        System.out.println(res.getMessageDetail());
+   }
+}
+```
+
+**Ejemplo de consumo de la libreria para la recuperación de XML mediante token**
+```java
+import mx.com.sw.services.storage.Storage;
+import mx.com.sw.services.storage.StorageResponse;
+import mx.com.sw.services.storage.StorageData;
+
+public class App 
+{
+   public static void main(String[] args) throws Exception 
+   {
+        //Creamos una instancia de tipo Storage 
+        //A esta le pasamos la Url, urlAPi, Usuario y Contraseña para obtener el token
+        Authentication auth = new Storage("https://api.test.sw.com.mx", "T2lYQ0t4L0R...", null, 0);
+        //Realizamos la petición para recuperar el XML
+        StorageResponse res = storage.getXml(UUID.fromString("876625f9-605a-4f52-9db8-0b724c03ba38"));
+        //Imprimimos los datos de la respuesta de la solicitud
+        System.out.println(res.getStatus());
+        System.out.println(res.getData());
+        //En caso de obtener un error, este puede obtenerse de los campos
+        System.out.println(res.getMessage());
+        System.out.println(res.getMessageDetail());
+   }
+}
+```
+
+</details>
 
 ## PDF ##
 
