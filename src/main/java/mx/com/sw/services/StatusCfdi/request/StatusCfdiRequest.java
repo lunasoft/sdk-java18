@@ -2,10 +2,6 @@ package mx.com.sw.services.StatusCfdi.request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.MimeHeaders;
 import javax.xml.soap.SOAPBody;
@@ -21,7 +17,6 @@ import mx.com.sw.exceptions.GeneralException;
 import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.eclipse.jdt.internal.eval.IRequestor;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -41,16 +36,16 @@ public class StatusCfdiRequest {
      * @throws IOException                  Si ocurre un error de entrada o salida.
      * @throws SOAPException                Si ocurre un error de SOAP.
      */
-    public StatusCfdiResponse sendRequest(IRequestor request) throws GeneralException, ServicesException,
+    public StatusCfdiResponse sendRequest(StatusCfdiOptionsRequest request) throws GeneralException, ServicesException,
             GeneralException, UnsupportedEncodingException, ClientProtocolException, IOException, SOAPException {
         // Obtiene los parámetros de la solicitud
-        String soapEndpointUrl = ((StatusCfdiOptionsRequest) request).getURI();
-        String rfcEmisor = ((StatusCfdiOptionsRequest) request).getRfcEmisor();
-        String soapAction = ((StatusCfdiOptionsRequest) request).getAction();
-        String rfcReceptor = ((StatusCfdiOptionsRequest) request).getRfcReceptor();
-        String total = ((StatusCfdiOptionsRequest) request).getTotal();
-        String uuid = ((StatusCfdiOptionsRequest) request).getUuid();
-        String sello = ((StatusCfdiOptionsRequest) request).getSello();
+        String soapEndpointUrl = request.getURI();
+        String rfcEmisor = request.getRfcEmisor();
+        String soapAction = request.getAction();
+        String rfcReceptor = request.getRfcReceptor();
+        String total = request.getTotal();
+        String uuid = request.getUuid();
+        String sello = request.getSello();
 
         // Realiza la llamada al servicio web SOAP
         SOAPMessage response = callSoapWebService(soapEndpointUrl, soapAction, rfcEmisor,
@@ -135,25 +130,6 @@ public class StatusCfdiRequest {
     private SOAPMessage callSoapWebService(String soapEndpointUrl, String soapAction, String rfcEmisor,
             String rfcReceptor, String total, String uuid, String sello) {
         try {
-            // Configurar la confianza en la conexión SSL solo para URL de pruebas
-            if (soapEndpointUrl.equals("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc")) {
-                TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return null;
-                    }
-
-                    public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-
-                    public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-                } };
-
-                SSLContext sc = SSLContext.getInstance("SSL");
-                sc.init(null, trustAllCerts, new java.security.SecureRandom());
-                HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            }
-
             // Realiza la llamada al servicio web SOAP
             SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
             SOAPConnection soapConnection = soapConnectionFactory.createConnection();
