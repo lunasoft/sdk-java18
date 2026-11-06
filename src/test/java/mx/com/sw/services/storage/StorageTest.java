@@ -28,7 +28,7 @@ public class StorageTest {
     public void testGetXmlToken_Success() {
         try {
             Storage storage = new Storage(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            StorageResponse res = storage.getXml(UUID.fromString("9524cdf9-41f8-43b5-8460-58b164cef570"));
+            StorageResponse res = storage.getXml(UUID.fromString("0f9bde73-beeb-44fa-a402-ac48a02be765"));
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
             Assertions.assertNotNull(res.getData());
@@ -46,7 +46,7 @@ public class StorageTest {
         try {
             Storage storage = new Storage(settings.getUrlServicesSW(), settings.getUrlSW(), settings.getUserSW(),
                     settings.getPasswordSW(), null, 0);
-            StorageResponse res = storage.getXml(UUID.fromString("9524cdf9-41f8-43b5-8460-58b164cef570"));
+            StorageResponse res = storage.getXml(UUID.fromString("0f9bde73-beeb-44fa-a402-ac48a02be765"));
             Assertions.assertNotNull(res);
             Assertions.assertTrue("success".equals(res.getStatus()));
             Assertions.assertNotNull(res.getData());

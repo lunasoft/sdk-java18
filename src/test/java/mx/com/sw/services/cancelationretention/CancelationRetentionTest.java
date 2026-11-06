@@ -49,7 +49,7 @@ public class CancelationRetentionTest {
             String keyBase64 = settings.getKey();
             String password = settings.getPasswordCSD();
             String rfc = settings.getRFC();
-            String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
+            String uuid = "1fae5735-ca51-4be4-9180-827c44fdb227";
             CancelationResponse response = cancelation.cancelar(csdBase64, keyBase64, rfc, password, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
@@ -70,7 +70,7 @@ public class CancelationRetentionTest {
             String pfxBase64 = settings.getPFX();
             String password = settings.getPasswordPFX();
             String rfc = settings.getRFC();
-            String uuid = "8D93A20F-E9EF-42CA-A2B9-2986A352DCEC";
+            String uuid = "578052ce-710f-4d0b-9ffc-6ca73daf92a5";
             CancelationResponse response = cancelation.cancelar(pfxBase64, rfc, password, uuid, "02", null);
             Assertions.assertNotNull(response);
             Assertions.assertNotNull(response.getStatus());
