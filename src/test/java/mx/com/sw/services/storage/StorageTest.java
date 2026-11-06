@@ -5,8 +5,8 @@ import mx.com.sw.exceptions.ServicesException;
 import mx.com.sw.helpers.BuildSettings;
 import mx.com.sw.services.authentication.Authentication;
 import mx.com.sw.services.authentication.responses.AuthenticationResponse;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * StorageTest.
