@@ -48,8 +48,14 @@ public class StatusCfdiRequest {
         String sello = request.getSello();
 
         // Realiza la llamada al servicio web SOAP
-        SOAPMessage response = callSoapWebService(soapEndpointUrl, soapAction, rfcEmisor,
-                rfcReceptor, total, uuid, sello);
+        SOAPMessage response;
+        try {
+            response = callSoapWebService(soapEndpointUrl, soapAction, rfcEmisor,
+                    rfcReceptor, total, uuid, sello);
+        } catch (Exception e) {
+            return new StatusCfdiResponse(500, "error", "No fue posible consultar el estatus del CFDI",
+                    e.getMessage());
+        }
         SOAPBody body = response.getSOAPBody();
         SOAPFault error = body.getFault();
 
@@ -61,7 +67,11 @@ public class StatusCfdiRequest {
             String estado = null;
             String esCancelable = null;
             String estatusCancelacion = null;
-            NodeList consultaResult = body.getElementsByTagName("ConsultaResponse").item(0).getChildNodes();
+            Node consulta = body.getElementsByTagName("ConsultaResponse").item(0);
+            if (consulta == null) {
+                return new StatusCfdiResponse(500, "error", "Respuesta inesperada del servicio de estatus", null);
+            }
+            NodeList consultaResult = consulta.getChildNodes();
             for (int i = 0; i < consultaResult.getLength(); i++) {
                 NodeList datos = consultaResult.item(i).getChildNodes();
                 for (int d = 0; d < datos.getLength(); d++) {
@@ -79,6 +89,9 @@ public class StatusCfdiRequest {
                         estatusCancelacion = dato.getTextContent();
                     }
                 }
+            }
+            if (codigoEstatus == null) {
+                return new StatusCfdiResponse(500, "error", "Respuesta inesperada del servicio de estatus", null);
             }
             if (codigoEstatus.startsWith("N -")) {
                 return new StatusCfdiResponse(400, "error", codigoEstatus, estado, esCancelable,
@@ -126,21 +139,18 @@ public class StatusCfdiRequest {
      * @param uuid            El UUID del CFDI.
      * @param sello           El sello del CFDI.
      * @return                El mensaje SOAP de respuesta.
+     * @throws Exception     Si falla la conexión o la llamada SOAP.
      */
     private SOAPMessage callSoapWebService(String soapEndpointUrl, String soapAction, String rfcEmisor,
-            String rfcReceptor, String total, String uuid, String sello) {
+            String rfcReceptor, String total, String uuid, String sello) throws Exception {
+        SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
+        SOAPConnection soapConnection = soapConnectionFactory.createConnection();
         try {
-            // Realiza la llamada al servicio web SOAP
-            SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
-            SOAPConnection soapConnection = soapConnectionFactory.createConnection();
             SOAPMessage soapRequest = createSOAPRequest(soapAction, rfcEmisor, rfcReceptor, total, uuid, sello);
-            SOAPMessage soapResponse = soapConnection.call(soapRequest, soapEndpointUrl);
-            return soapResponse;
-        } catch (Exception e) {
-            System.err.println("\nError occurred while sending SOAP Request to Server!\n");
-            e.printStackTrace();
+            return soapConnection.call(soapRequest, soapEndpointUrl);
+        } finally {
+            soapConnection.close();
         }
-        return null;
     }
 
     /**
