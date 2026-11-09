@@ -8,6 +8,8 @@ import mx.com.sw.entities.IResponse;
  */
 public class AccountListDataResponse extends IResponse {
     private List<AccountInfoData> data;
+    private AccountListMeta meta;
+    private AccountListLinks links;
 
     /**
      * Constructor de la clase.
@@ -27,5 +29,21 @@ public class AccountListDataResponse extends IResponse {
      */
     public List<AccountInfoData> getData() {
         return this.data;
+    }
+
+    /**
+     * Obtiene los datos de paginación cuando la consulta fue "success".
+     * @return {@link AccountListMeta}
+     */
+    public AccountListMeta getMeta() {
+        return this.meta;
+    }
+
+    /**
+     * Obtiene las rutas de navegación entre páginas cuando la consulta fue "success".
+     * @return {@link AccountListLinks}
+     */
+    public AccountListLinks getLinks() {
+        return this.links;
     }
 }

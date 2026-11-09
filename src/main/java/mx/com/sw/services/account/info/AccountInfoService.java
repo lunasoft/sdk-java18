@@ -33,17 +33,43 @@ public abstract class AccountInfoService extends Services {
     // Consulta información de un usuario por ID
     public abstract AccountListDataResponse getUserById(String idUser) throws ServicesException;
 
+    // Consulta información de un usuario por ID, indicando la página
+    public abstract AccountListDataResponse getUserById(String idUser, int page, int perPage)
+            throws ServicesException;
+
     // Consulta información de un usuario por email
     public abstract AccountListDataResponse getUsersByEmail(String email) throws ServicesException;
+
+    // Consulta usuarios por email, indicando la página
+    public abstract AccountListDataResponse getUsersByEmail(String email, int page, int perPage)
+            throws ServicesException;
 
     // Consulta información de un usuario por RFC
     public abstract AccountListDataResponse getUsersByRfc(String rfc) throws ServicesException;
 
+    // Consulta usuarios por RFC, indicando la página
+    public abstract AccountListDataResponse getUsersByRfc(String rfc, int page, int perPage)
+            throws ServicesException;
+
     // Consulta usuarios activos o inactivos
     public abstract AccountListDataResponse getUsersActivate(boolean activate) throws ServicesException;
 
-    // Consulta todos los usuarios
+    // Consulta usuarios activos o inactivos, indicando la página
+    public abstract AccountListDataResponse getUsersActivate(boolean activate, int page, int perPage)
+            throws ServicesException;
+
+    // Consulta usuarios por nombre
+    public abstract AccountListDataResponse getUsersByName(String name) throws ServicesException;
+
+    // Consulta usuarios por nombre, indicando la página
+    public abstract AccountListDataResponse getUsersByName(String name, int page, int perPage)
+            throws ServicesException;
+
+    // Consulta todos los usuarios (primera página)
     public abstract AccountListDataResponse getAllUsers() throws ServicesException;
+
+    // Consulta todos los usuarios de la página indicada
+    public abstract AccountListDataResponse getAllUsers(int page, int perPage) throws ServicesException;
 
     // Crea un nuevo usuario con la información proporcionada
     public abstract AccountInfoResponse createUser(String email, String password, String name, String rfc, int stamps,
