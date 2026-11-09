@@ -392,4 +392,164 @@ public class AccountInfoTest {
             Assertions.assertNotNull(ex);
         }
     }
+
+    /**
+     * Método de UT Para consultar usuarios paginados: respeta perPage y regresa
+     * meta y links.
+     */
+    @Test
+    public void testGetAllUsersPaginated() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountListDataResponse res = account.getAllUsers(1, 5);
+            Assertions.assertEquals("success", res.getStatus());
+            Assertions.assertNotNull(res.getMeta());
+            Assertions.assertNotNull(res.getLinks());
+            Assertions.assertEquals(1, res.getMeta().getPage());
+            Assertions.assertEquals(5, res.getMeta().getPerPage());
+            Assertions.assertTrue(res.getData().size() <= 5);
+            Assertions.assertEquals(res.getData().size(), res.getMeta().getPageCount());
+            Assertions.assertTrue(res.getMeta().getTotalCount() >= res.getData().size());
+            Assertions.assertNotNull(res.getLinks().getSelf());
+            Assertions.assertNotNull(res.getLinks().getFirst());
+            Assertions.assertNotNull(res.getLinks().getEnd());
+            Assertions.assertNull(res.getLinks().getPrev());
+
+            if (res.getMeta().getTotalPages() > 1) {
+                Assertions.assertNotNull(res.getLinks().getNext());
+                AccountListDataResponse second = account.getAllUsers(2, 5);
+                Assertions.assertEquals("success", second.getStatus());
+                Assertions.assertEquals(2, second.getMeta().getPage());
+                Assertions.assertNotNull(second.getLinks().getPrev());
+                Assertions.assertNotEquals(res.getData().get(0).getIdUser(), second.getData().get(0).getIdUser());
+            }
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para consultar una página fuera de rango: regresa success con
+     * la lista vacía.
+     */
+    @Test
+    public void testGetAllUsersPageOutOfRange() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountListDataResponse res = account.getAllUsers(99999, 10);
+            Assertions.assertEquals("success", res.getStatus());
+            Assertions.assertTrue(res.getData().isEmpty());
+            Assertions.assertEquals(99999, res.getMeta().getPage());
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para consultar con perPage mayor al máximo (50): error estándar.
+     */
+    @Test
+    public void testGetAllUsersPerPageError() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountListDataResponse res = account.getAllUsers(1, 51);
+            Assertions.assertEquals("error", res.getStatus());
+            Assertions.assertNotNull(res.getMessage());
+            Assertions.assertNull(res.getData());
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para consultar por nombre (con espacios y acentos, que se
+     * codifican en la URL).
+     */
+    @Test
+    public void testGetInfoUserName() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountListDataResponse res = account.getUsersByName("Valentin Nuño");
+            Assertions.assertEquals("success", res.getStatus());
+            Assertions.assertFalse(res.getData().isEmpty());
+            for (AccountInfoData dato : res.getData()) {
+                Assertions.assertTrue(dato.getName().toLowerCase().contains("valentin"));
+            }
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para consultar usuarios activos paginados: respeta perPage y
+     * recorre las páginas sin repetir usuarios.
+     */
+    @Test
+    public void testGetUsersActivatePaginated() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountListDataResponse first = account.getUsersActivate(true, 1, 3);
+            Assertions.assertEquals("success", first.getStatus());
+            Assertions.assertEquals(3, first.getMeta().getPerPage());
+            Assertions.assertTrue(first.getData().size() <= 3);
+            for (AccountInfoData dato : first.getData()) {
+                Assertions.assertTrue(dato.isActive());
+            }
+            if (first.getMeta().getTotalPages() > 1) {
+                AccountListDataResponse second = account.getUsersActivate(true, 2, 3);
+                Assertions.assertEquals("success", second.getStatus());
+                Assertions.assertEquals(2, second.getMeta().getPage());
+                Assertions.assertNotEquals(first.getData().get(0).getIdUser(), second.getData().get(0).getIdUser());
+            }
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para consultar por RFC, nombre, correo e ID indicando la página.
+     */
+    @Test
+    public void testGetUsersByFiltersPaginated() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+
+            AccountListDataResponse byRfc = account.getUsersByRfc("EKU9003173C9", 1, 2);
+            Assertions.assertEquals("success", byRfc.getStatus());
+            Assertions.assertEquals(2, byRfc.getMeta().getPerPage());
+            Assertions.assertTrue(byRfc.getData().size() <= 2);
+
+            AccountListDataResponse byName = account.getUsersByName("Valentin Nuño", 1, 5);
+            Assertions.assertEquals("success", byName.getStatus());
+            Assertions.assertEquals(5, byName.getMeta().getPerPage());
+            Assertions.assertFalse(byName.getData().isEmpty());
+
+            AccountListDataResponse byEmail = account.getUsersByEmail(settings.getEmail(), 1, 5);
+            Assertions.assertEquals("success", byEmail.getStatus());
+            Assertions.assertEquals(5, byEmail.getMeta().getPerPage());
+
+            AccountListDataResponse byId = account.getUserById("32501cf2-dc62-4370-b47d-25024c44e131", 1, 5);
+            Assertions.assertEquals("success", byId.getStatus());
+            Assertions.assertEquals(1, byId.getData().size());
+            Assertions.assertEquals("32501cf2-dc62-4370-b47d-25024c44e131", byId.getData().get(0).getIdUser());
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para consultar con filtro y perPage mayor al máximo (50): error
+     * estándar.
+     */
+    @Test
+    public void testGetUsersByRfcPerPageError() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountListDataResponse res = account.getUsersByRfc("EKU9003173C9", 1, 51);
+            Assertions.assertEquals("error", res.getStatus());
+            Assertions.assertNotNull(res.getMessage());
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
 }
