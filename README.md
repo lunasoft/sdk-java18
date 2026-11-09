@@ -1477,6 +1477,106 @@ public class App {
 
 <details>
 <summary>
+Consultar cuentas hijas paginadas
+</summary>
+Este metodo regresa las cuentas hijas por páginas y necesita como parametros:
+
+- Página a consultar (inicia en 1)
+- Registros por página (de 1 a 50)
+
+Los métodos de consulta por Id, RFC, correo, nombre y estatus (activo/inactivo) reciben estos dos parametros al final, por ejemplo `getUsersByRfc("EKU9003173C9", 1, 10)`.
+
+**Ejemplo de consumo de la libreria para consultar las cuentas hijas paginadas mediante token**
+```java
+import mx.com.sw.services.account.info.AccountInfo;
+import mx.com.sw.services.account.info.responses.AccountInfoData;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            //A esta le pasamos la UrlApi y el token de la cuenta a consultar
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            //Consultamos la pagina 1 con 10 registros por pagina
+            AccountListDataResponse res = account.getAllUsers(1, 10);
+            //Tambien se puede paginar al consultar con filtros, por ejemplo por estatus activo
+            //AccountListDataResponse res = account.getUsersActivate(true, 1, 10);
+
+            //Para obtener los datos de paginacion
+            System.out.println(res.getMeta().getPage());
+            System.out.println(res.getMeta().getTotalPages());
+            System.out.println(res.getMeta().getTotalCount());
+            //Rutas de navegacion, getPrev() y getNext() son null cuando no hay pagina anterior o siguiente
+            System.out.println(res.getLinks().getNext());
+
+            //Para Obtener los datos de los usuarios
+            for (AccountInfoData dato : res.getData()) {
+                System.out.println("Email: " + dato.getEmail());
+                System.out.println("Nombre: " + dato.getName());
+                System.out.println("idUsuario: " + dato.getIdUser());
+            }
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+Consultar usuarios por nombre
+</summary>
+Este metodo solo necesita la autenticación a nuestros servicios y el nombre a consultar.
+
+**Ejemplo de consumo de la libreria para consultar usuarios por nombre**
+```java
+import mx.com.sw.services.account.info.AccountInfo;
+import mx.com.sw.services.account.info.responses.AccountInfoData;
+import mx.com.sw.services.account.info.responses.AccountListDataResponse;
+
+public class App {
+    
+    public static void main(String[] args)
+    {
+        try 
+        {
+            //Creamos una instancia de tipo AccountInfo 
+            AccountInfo account = new AccountInfo("https://api.test.sw.com.mx", settings.getTokenSW(), null, 0);
+            AccountListDataResponse res = account.getUsersByName("Valentin Nuño");
+            
+            //Para Obtener los datos del usuario
+            for (AccountInfoData dato : res.getData()) {
+                System.out.println("Email: " + dato.getEmail());
+                System.out.println("Nombre: " + dato.getName());
+                System.out.println("idUsuario: " + dato.getIdUser());
+            }
+
+            //En caso de error, se pueden visualizar los campos message y/o messageDetail
+            System.out.println(res.getMessage());
+            System.out.println(res.getMessageDetail());
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }  
+    }
+}
+```
+</details>
+
+<details>
+<summary>
 Consultar usuario por Id
 </summary>
 Este metodo solo necesita la autenticación a nuestros servicios y el ID del cliente a consultar
