@@ -20,11 +20,10 @@ public class AccountInfoData {
     private boolean isActive;
     private String registeredDate;
     private String accessToken;
+    private String notificationEmail;
     private String phone;
     private int stamps;
     private boolean isUnlimited;
-    private String data;
-    private String status;
 
     // Getters y Setters
 
@@ -148,19 +147,11 @@ public class AccountInfoData {
         this.isUnlimited = isUnlimited;
     }
 
-    public String getData() {
-        return data;
+    public String getNotificationEmail() {
+        return notificationEmail;
     }
 
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setNotificationEmail(String notificationEmail) {
+        this.notificationEmail = notificationEmail;
     }
 }
