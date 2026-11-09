@@ -318,7 +318,76 @@ public class AccountInfoTest {
             AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
             AccountInfoActionResponse res = account.deleteIdUser("cda85126-30a3-469c-8051-5fc21b37f9ab");
             Assertions.assertNotNull(res);
-            Assertions.assertTrue("error".equals(res.getStatus()));
+            Assertions.assertEquals("error", res.getStatus());
+            Assertions.assertEquals("El usuario no existe", res.getMessage());
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para crear un usuario con datos inválidos: el error debe venir
+     * con el formato estándar (status "error" y un solo mensaje de validación).
+     */
+    @Test
+    public void testCreateUserValidationError() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountInfoResponse res = account.createUser("correoPrueba@java18.com", "123abcABC..", "",
+                    "XAXX010101000", 0, false, "correo@notification.com", "3920000000");
+            Assertions.assertNotNull(res);
+            Assertions.assertEquals("error", res.getStatus());
+            Assertions.assertTrue(res.getMessage().contains("Nombre"));
+            Assertions.assertNull(res.getData());
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para actualizar un usuario con RFC inválido: el error debe venir
+     * con el formato estándar (status "error" y un solo mensaje de validación).
+     */
+    @Test
+    public void testUpdateUserValidationError() {
+        try {
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountInfoActionResponse res = account.updateUser(UUID.fromString("be2a859c-cd5f-42b5-b35d-f065b3a9aac4"),
+                    "PruebaAct Java 18", "XAXX010101000..", "nuevoEmail@notification.com",
+                    "9820000000", false);
+            Assertions.assertNotNull(res);
+            Assertions.assertEquals("error", res.getStatus());
+            Assertions.assertTrue(res.getMessage().contains("RFC"));
+        } catch (ServicesException ex) {
+            Assertions.assertNotNull(ex);
+        }
+    }
+
+    /**
+     * Método de UT Para crear un usuario sin timbres y eliminarlo. La eliminación
+     * exitosa responde 204 sin cuerpo y el SDK la regresa como "success"; si se
+     * elimina de nuevo, el servicio responde con el error estándar.
+     */
+    @Test
+    public void testCreateAndDeleteUser() {
+        try {
+            Random random = new Random();
+            String correoPrueba = "correoEliminar" + (random.nextInt(9000) + 1000) + "@java18.com";
+
+            AccountInfo account = new AccountInfo(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
+            AccountInfoResponse created = account.createUser(correoPrueba, "123abcABC..", "PruebaJava18",
+                    "XAXX010101000", 0, false, "correo@notification.com", "3920000000");
+            Assertions.assertEquals("success", created.getStatus());
+            Assertions.assertNotNull(created.getData());
+            String idUser = created.getData().getIdUser();
+            Assertions.assertNotNull(idUser);
+
+            AccountInfoActionResponse deleted = account.deleteIdUser(idUser);
+            Assertions.assertEquals("success", deleted.getStatus());
+
+            AccountInfoActionResponse deletedAgain = account.deleteIdUser(idUser);
+            Assertions.assertEquals("error", deletedAgain.getStatus());
+            Assertions.assertEquals("El usuario ya ha sido previamente removido", deletedAgain.getMessage());
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }
