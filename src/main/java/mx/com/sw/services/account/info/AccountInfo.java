@@ -1,7 +1,10 @@
 package mx.com.sw.services.account.info; // Paquete que contiene la clase AccountInfo
 
 // Importación de clases necesarias para manejo de solicitudes HTTP, UUID, y JSON
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import org.apache.http.client.config.RequestConfig;
@@ -112,10 +115,41 @@ public class AccountInfo extends AccountInfoService {
     // Métodos para obtener usuarios con diferentes filtros
 
     /**
-     * Obtiene todos los usuarios del sistema.
+     * Obtiene todos los usuarios del sistema (primera página, 10 registros).
      */
     public AccountListDataResponse getAllUsers() throws ServicesException {
         return getUserFiltersRequest(new HashMap<>());
+    }
+
+    /**
+     * Obtiene los usuarios de la página indicada.
+     *
+     * @param page    página a consultar (mínimo 1).
+     * @param perPage registros por página (de 1 a 50).
+     */
+    public AccountListDataResponse getAllUsers(int page, int perPage) throws ServicesException {
+        return getUserFiltersRequest(withPage(new LinkedHashMap<>(), page, perPage));
+    }
+
+    /**
+     * Obtiene usuarios por su nombre.
+     */
+    public AccountListDataResponse getUsersByName(String name) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new HashMap<>();
+        filters.put(EnumAccountFilters.NAME, name);
+        return getUserFiltersRequest(filters);
+    }
+
+    /**
+     * Obtiene usuarios por su nombre (con paginación).
+     *
+     * @param page    página a consultar (mínimo 1).
+     * @param perPage registros por página (de 1 a 50).
+     */
+    public AccountListDataResponse getUsersByName(String name, int page, int perPage) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new LinkedHashMap<>();
+        filters.put(EnumAccountFilters.NAME, name);
+        return getUserFiltersRequest(withPage(filters, page, perPage));
     }
 
     /**
@@ -128,12 +162,36 @@ public class AccountInfo extends AccountInfoService {
     }
 
     /**
+     * Obtiene un usuario por su ID (con paginación).
+     *
+     * @param page    página a consultar (mínimo 1).
+     * @param perPage registros por página (de 1 a 50).
+     */
+    public AccountListDataResponse getUserById(String idUser, int page, int perPage) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new LinkedHashMap<>();
+        filters.put(EnumAccountFilters.ID_USER, idUser);
+        return getUserFiltersRequest(withPage(filters, page, perPage));
+    }
+
+    /**
      * Obtiene usuarios por su correo electrónico.
      */
     public AccountListDataResponse getUsersByEmail(String email) throws ServicesException {
         Map<EnumAccountFilters, String> filters = new HashMap<>();
         filters.put(EnumAccountFilters.EMAIL, email);
         return getUserFiltersRequest(filters);
+    }
+
+    /**
+     * Obtiene usuarios por su correo electrónico (con paginación).
+     *
+     * @param page    página a consultar (mínimo 1).
+     * @param perPage registros por página (de 1 a 50).
+     */
+    public AccountListDataResponse getUsersByEmail(String email, int page, int perPage) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new LinkedHashMap<>();
+        filters.put(EnumAccountFilters.EMAIL, email);
+        return getUserFiltersRequest(withPage(filters, page, perPage));
     }
 
     /**
@@ -146,12 +204,36 @@ public class AccountInfo extends AccountInfoService {
     }
 
     /**
+     * Obtiene usuarios por su RFC (con paginación).
+     *
+     * @param page    página a consultar (mínimo 1).
+     * @param perPage registros por página (de 1 a 50).
+     */
+    public AccountListDataResponse getUsersByRfc(String rfc, int page, int perPage) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new LinkedHashMap<>();
+        filters.put(EnumAccountFilters.TAX_ID, rfc);
+        return getUserFiltersRequest(withPage(filters, page, perPage));
+    }
+
+    /**
      * Obtiene usuarios activos o inactivos según el parámetro.
      */
     public AccountListDataResponse getUsersActivate(boolean activate) throws ServicesException {
         Map<EnumAccountFilters, String> filters = new HashMap<>();
         filters.put(EnumAccountFilters.IS_ACTIVE, String.valueOf(activate));
         return getUserFiltersRequest(filters);
+    }
+
+    /**
+     * Obtiene usuarios activos o inactivos según el parámetro (con paginación).
+     *
+     * @param page    página a consultar (mínimo 1).
+     * @param perPage registros por página (de 1 a 50).
+     */
+    public AccountListDataResponse getUsersActivate(boolean activate, int page, int perPage) throws ServicesException {
+        Map<EnumAccountFilters, String> filters = new LinkedHashMap<>();
+        filters.put(EnumAccountFilters.IS_ACTIVE, String.valueOf(activate));
+        return getUserFiltersRequest(withPage(filters, page, perPage));
     }
 
     /**
@@ -188,10 +270,31 @@ public class AccountInfo extends AccountInfoService {
                 uriBuilder.append(hasQueryParams ? "&" : "?")
                         .append(filter.getKey().getQueryKey())
                         .append("=")
-                        .append(filter.getValue());
+                        .append(encode(filter.getValue()));
                 hasQueryParams = true;
             }
         }
         return uriBuilder.toString();
+    }
+
+    /**
+     * Agrega los filtros de paginación a un mapa de filtros.
+     */
+    private static Map<EnumAccountFilters, String> withPage(Map<EnumAccountFilters, String> filters, int page,
+            int perPage) {
+        filters.put(EnumAccountFilters.PAGE, String.valueOf(page));
+        filters.put(EnumAccountFilters.PER_PAGE, String.valueOf(perPage));
+        return filters;
+    }
+
+    /**
+     * Codifica un valor para usarlo en la cadena de consulta.
+     */
+    private static String encode(String value) {
+        try {
+            return URLEncoder.encode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }

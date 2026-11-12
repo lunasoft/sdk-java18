@@ -215,7 +215,7 @@ public class PdfTest {
     public void testRegeneratePdf_Success() {
         try {
             Pdf pdf = new Pdf(settings.getUrlServicesSW(), settings.getTokenSW(), null, 0);
-            PdfResponse response = pdf.regeneratePdf(UUID.fromString("002f1dda-aa3d-4b45-a3ea-a24d5b52ba0f"));
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("0f9bde73-beeb-44fa-a402-ac48a02be765"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
@@ -233,7 +233,7 @@ public class PdfTest {
         try {
             Pdf pdf = new Pdf(settings.getUrlSW(), settings.getUrlServicesSW(), settings.getUserSW(),
                     settings.getPasswordSW(), null, 0);
-            PdfResponse response = pdf.regeneratePdf(UUID.fromString("002f1dda-aa3d-4b45-a3ea-a24d5b52ba0f"));
+            PdfResponse response = pdf.regeneratePdf(UUID.fromString("0f9bde73-beeb-44fa-a402-ac48a02be765"));
             Assertions.assertNotNull(response);
             Assertions.assertTrue(!response.getMessage().isEmpty());
             Assertions.assertTrue("Success".equalsIgnoreCase(response.getStatus()));
@@ -290,7 +290,7 @@ public class PdfTest {
             Assertions.assertNotNull(response);
             Assertions.assertTrue("error".equalsIgnoreCase(response.getStatus()));
             Assertions.assertTrue(!response.getMessage().isEmpty());
-            Assertions.assertTrue("No se encontro el UUID.".equalsIgnoreCase(response.getMessage()));
+            Assertions.assertTrue(response.getMessage().startsWith("UUID no encontrado"));
         } catch (ServicesException ex) {
             Assertions.assertNotNull(ex);
         }

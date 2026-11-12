@@ -58,6 +58,9 @@ public class StatusCfdiResponse {
      * @param msgDetail      Los detalles del mensaje.
      */
     public StatusCfdiResponse(int httpStatusCode, String status, String msg, String msgDetail) {
-        super();
+        this.HttpStatusCode = String.valueOf(httpStatusCode);
+        this.Status = status;
+        this.codigoEstatus = msg;
+        this.estado = msgDetail;
     }
 }
