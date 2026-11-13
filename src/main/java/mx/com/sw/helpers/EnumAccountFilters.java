@@ -23,7 +23,22 @@ public enum EnumAccountFilters {
     /**
      * Filtro por estado activo/inactivo.
      */
-    IS_ACTIVE("IsActive");
+    IS_ACTIVE("IsActive"),
+
+    /**
+     * Filtro por nombre.
+     */
+    NAME("Name"),
+
+    /**
+     * Página a consultar (por defecto 1).
+     */
+    PAGE("Page"),
+
+    /**
+     * Registros por página (por defecto 10, máximo 50).
+     */
+    PER_PAGE("PerPage");
 
     // Campo privado que almacena la clave de consulta asociada al filtro
     private final String queryKey;

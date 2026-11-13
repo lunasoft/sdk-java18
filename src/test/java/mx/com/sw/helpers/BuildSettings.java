@@ -1,7 +1,6 @@
 package mx.com.sw.helpers;
 
 import com.google.gson.Gson;
-import com.ibm.icu.util.Calendar;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
@@ -13,6 +12,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -103,7 +103,7 @@ public class BuildSettings {
             observaciones = new HashMap<String, String>();
             observaciones.put("Observaciones", "Entregar de 9am a 6pm");
             xmlTimbrado = new String(Files.readAllBytes(Paths.get("resources/file_pdf.xml")), "UTF-8");
-            uuid = UUID.fromString("9524cdf9-41f8-43b5-8460-58b164cef570");
+            uuid = UUID.fromString("0f9bde73-beeb-44fa-a402-ac48a02be765");
             correo = Arrays.asList("correo@test.com.mx");
             correos = Arrays.asList("correo@test.com.mx", "correo@test2.com.mx", "correo@test3.com.mx",
                     "correo@test4.com.mx", "correo@test5.com.mx", "correo@tes6t.com.mx");

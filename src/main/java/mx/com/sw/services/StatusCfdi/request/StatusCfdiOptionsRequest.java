@@ -1,14 +1,9 @@
 package mx.com.sw.services.StatusCfdi.request;
 
-import org.eclipse.jdt.core.compiler.CategorizedProblem;
-import org.eclipse.jdt.internal.compiler.ClassFile;
-import org.eclipse.jdt.internal.eval.IRequestor;
-
 /**
  * Clase que genera una solicitud para concer el estatus de CFDI mediante los servicios del SAT.
- * Implementa la interfaz IRequestor.
  */
-public class StatusCfdiOptionsRequest implements IRequestor {
+public class StatusCfdiOptionsRequest {
     private String URI;
     private String rfcEmisor;
     private String rfcReceptor;
@@ -94,29 +89,5 @@ public class StatusCfdiOptionsRequest implements IRequestor {
      */
     public String getAction() {
         return action;
-    }
-
-    /**
-     * Método sobreescrito de la interfaz IRequestor.
-     * @param arg0                              Los archivos de clase.
-     * @param arg1                              Los caracteres.
-     * @return                                  Si se aceptan los archivos de clase.
-     * @throws UnsupportedOperationException    Si se llama a este método.
-     */
-    @Override
-    public boolean acceptClassFiles(ClassFile[] arg0, char[] arg1) {
-        throw new UnsupportedOperationException("Unimplemented method 'acceptClassFiles'");
-    }
-
-    /**
-     * Método sobreescrito de la interfaz IRequestor.
-     * @param arg0                              El problema categorizado.
-     * @param arg1                              Los caracteres.
-     * @param arg2                              El número.
-     * @throws UnsupportedOperationException    Si se llama a este método.
-     */
-    @Override
-    public void acceptProblem(CategorizedProblem arg0, char[] arg1, int arg2) {
-        throw new UnsupportedOperationException("Unimplemented method 'acceptProblem'");
     }
 }

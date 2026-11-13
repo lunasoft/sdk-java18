@@ -10,13 +10,23 @@ import mx.com.sw.services.StatusCfdi.responses.StatusCfdiResponse;
  * La clase StatusCfdi proporciona métodos para obtener el estado del CFDI.
  */
 public class StatusCfdi {
+    private static final String URL_SAT = "https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc";
     private StatusCfdiService Service;
 
     /**
-     * Crea una nueva instancia de la clase StatusCfdi que recibe el Endpoint a usar.
+     * Crea una instancia que consulta el estatus en el servicio de producción del SAT.
      */
     public StatusCfdi() {
-        Service = new StatusCfdiService(null);
+        this(URL_SAT);
+    }
+
+    /**
+     * Crea una instancia que consulta el estatus en el endpoint indicado.
+     *
+     * @param url URL del servicio ConsultaCFDIService.
+     */
+    public StatusCfdi(String url) {
+        Service = new StatusCfdiService(url);
     }
 
     /**
